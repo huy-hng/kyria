@@ -1,45 +1,114 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/backlight.h>
+
+// underglow &rgb_ug
+#include <dt-bindings/zmk/rgb.h>
+
 /* #include <dt-bindings/zmk/bt.h> */
 /* #include <dt-bindings/zmk/outputs.h> */
 
-#define DEFAULT 0
-#define LOWER   1
-#define RAISE   2
+#define MAIN 0
+#define NUM  1
+#define SYM  2
+#define COLEMAK  3
+#define MENU 4
+
+#define SHFT LSHIFT
+#define CTRL LCTRL
+
+
+// Macro to apply momentary-layer-on-hold/toggle-layer-on-tap to a specific layer
+#define MO_TOG(layer) &mo_tog layer layer
 
 / {
+	behaviors {
+        mo_tog: behavior_mo_tog {
+            compatible = "zmk,behavior-hold-tap";
+            label = "mo_tog";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&tog>;
+        };
+	};
+
 	keymap {
 		compatible = "zmk,keymap";
 
 		default_layer {
-			/* bindings = < */
-			/* 	&bl BL_TOG  &bl  BL_INC  &bl BL_DEC  &bl  BL_CYCLE  &kp R  &kp T                         &kp Y &kp U  &kp I  &kp O  &kp P &kp BSLH */
-			/* 	&bl BL_TOG  &bl  BL_INC  &bl BL_DEC  &bl  BL_CYCLE  &kp F  &kp G                         &kp H &kp J  &kp K  &kp L  &kp SEMI &kp SQT */
-			/* 	&bl BL_TOG  &bl  BL_INC  &bl BL_DEC  &bl  BL_CYCLE  &kp V  &kp B &kp LSHFT &kp LSHFT     &kp LSHFT &kp LSHFT &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH &kp RCTRL */
-			/* 	&bl BL_TOG  &bl  BL_INC  &bl BL_DEC  &bl  BL_CYCLE  &kp ESC                           &kp RET  &kp BSPC &kp TAB  &kp BSPC  &kp BSPC */
-			/* >; */
 			bindings = <
-				// ---------------------------------------------------------------------------------------------------------------------------------
-				// |  TAB  |  Q  |  W  |  E  |  R  |  T  |                                          |  Y  |  U  |  I  |  O  |  P  |  \  |
-				&kp   TAB &kp Q &kp W &kp E &kp R &kp T                                            &kp Y &kp U &kp I &kp O  &kp P &kp BSLH
-				// ---------------------------------------------------------------------------------------------------------------------------------
-				// |  ESC  |  A  |  S  |  D   |  F   |  G   |                                          |  H   |  J    |  K    |  L   |   ;   |   '  |
-				&kp   ESC   &kp A &kp S &kp D &kp F &kp G                                                &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-				// ---------------------------------------------------------------------------------------------------------------------------------
-				// | SHIFT |  Z  |  X  |  C   |  V   |  B   | L SHIFT | L SHIFT |  | L SHIFT | L SHIFT |  N   |  M    |  ,    |  .   |   /   | CTRL |
-				&kp LSHFT &kp Z &kp X &kp C  &kp V  &kp B &kp LSHFT &kp LSHFT     &kp LSHFT &kp LSHFT &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH &kp RCTRL
-				// ---------------------------------------------------------------------------------------------------------------------------------
-				//                     | GUI  | DEL  | RET  |  SPACE  |   ESC   |  |   RET   |  BSPC  | TAB  | BSPC  | USB |
-										&kp LGUI &kp DEL &kp RET &kp SPACE &kp ESC     &kp RET  &kp BSPC &kp TAB &kp BSPC  &kp BSPC
-				// ---------------------------------------------------------------------------------------------------------------------------------
+				&mo_tog 2 1     // &mo 2 on hold, &tog 1 on tap
+				MO_TOG(3)       // &mo 3 on hold, &tog 3 on tap
+			>;
+		};
+
+		main {
+			bindings = <
+				&kp TAB       &kp Q    &kp W   &kp E      &kp R    &kp T                                              &kp Y   &kp U     &kp I       &kp O    &kp P    &kp BSLH
+				&mt SHFT ESC  &kp A    &kp S   &kp D      &kp F    &kp G                                              &kp H   &kp J     &kp K       &kp L    &kp SEMI &kp SQT
+				&kp CTRL      &kp Z    &kp X   &kp C      &kp V    &kp B  &kp SHFT &kp SHFT   &kp SHFT &kp SHFT &kp N   &kp M     &kp COMMA   &kp DOT  &kp FSLH &kp RCTRL
+									              &kp LGUI   &kp LGUI &kp LALT &kp SPACE &kp SHFT  &kp BSPC  &kp RET   &kp TAB &kp BSPC  &to MENU
 			>;
 
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
 		};
-	};
-	behaviors {
 
+		numpad {
+			bindings = <
+                // ----------------------------------------------------------------|-----------------------------------------------------------------
+                &trans  &trans  &trans  &trans  &trans  &trans                   /*|*/                 &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS &trans
+                // ----------------------------------------------------------------|-----------------------------------------------------------------
+				&trans  &trans  &trans  &trans  &trans  &trans                   /*|*/                 &kp KP_EQUAL     &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_PLUS  &trans
+                // ----------------------------------------------------------------|-----------------------------------------------------------------
+				&trans  &trans  &trans  &trans  &trans  &trans   &trans   &trans /*|*/ &trans  &trans  &trans           &kp KP_N1  &kp KP_N3  &kp KP_N3  &kp KP_SLASH &trans
+                // ----------------------------------------------------------------|-----------------------------------------------------------------
+							            &trans  &trans  &trans   &trans   &trans /*|*/ &trans  &trans  &trans  &trans  &trans
+                //                     --------------------------------------------------------------------------------------
+			>;
+		};
 
+		navigation {
+			bindings = <
+				&kp TAB          &kp Q    &kp W      &kp E      &kp R    &kp T                                              &kp Y   &kp U     &kp I       &kp O    &kp P    &kp BSLH
+				&mt SHFT ESC   &kp A    &kp S      &kp D      &kp F    &kp G                                              &kp H   &kp J     &kp K       &kp L    &kp SEMI &kp SQT
+				&kp CTRL        &kp Z    &kp X      &kp C      &kp V    &kp B    &kp SHFT &kp SHFT   &kp SHFT &kp SHFT &kp N   &kp M     &kp COMMA   &kp DOT  &kp FSLH &kp RCTRL
+									                 &kp LGUI   &kp LGUI &kp LALT &kp SPACE &kp SHFT  &kp BSPC  &kp RET   &kp TAB &kp BSPC  &kp BSPC
+			>;
+		};
+
+		symbols {
+			bindings = <
+				&kp TAB      &kp Q    &kp W      &kp E      &kp R    &kp T                                              &kp Y   &kp U     &kp I       &kp O    &kp P    &kp BSLH
+				&mt SHFT ESC &kp A    &kp S      &kp D      &kp F    &kp G                                              &kp H   &kp J     &kp K       &kp L    &kp SEMI &kp SQT
+				&kp CTRL     &kp Z    &kp X      &kp C      &kp V    &kp B    &kp SHFT &kp SHFT   &kp SHFT &kp SHFT &kp N   &kp M     &kp COMMA   &kp DOT  &kp FSLH &kp RCTRL
+									                 &kp LGUI   &kp LGUI &kp LALT &kp SPACE &kp SHFT  &kp BSPC  &kp RET   &kp TAB &kp BSPC  &kp BSPC
+			>;
+		};
+		colemak {
+			bindings = <
+				&kp TAB          &kp Q   &kp W   &kp F    &kp P    &kp B                                              &kp J   &kp L   &kp U       &kp Y    &kp SQT    &kp BSLH
+				&mt SHFT ESC   &kp A   &kp R   &kp S    &kp T    &kp G                                              &kp M   &kp N   &kp E       &kp I    &kp O      &kp SEMI
+				&kp CTRL        &kp Z   &kp X   &kp C    &kp D    &kp V    &kp SHFT &kp SHFT   &kp SHFT &kp SHFT &kp K   &kp H   &kp COMMA   &kp DOT  &kp FSLH &kp RCTRL
+                                                 &trans   &trans   &trans   &trans    &trans      &trans    &trans    &trans  &trans  &to MENU
+			>;
+		};
+		menu {
+			bindings = <
+                &to MAIN        &trans  &trans  &trans  &trans  &trans                    /**/                   &trans  &trans  &trans  &trans  &trans  &trans
+				&to COLEMAK     &trans  &trans  &trans  &trans  &trans                    /**/                   &trans  &trans  &trans  &trans  &trans  &trans
+				&trans  &trans  &trans  &trans  &trans  &trans  &trans   &trans    &trans /**/ &trans   &trans   &trans  &trans  &trans  &trans  &trans  &trans
+							            &trans  &trans  &trans  &trans   &trans    &trans /**/ &trans   &trans   &trans  &to MENU
+
+			>;
+		};
+		trans {
+			bindings = <
+				&trans  &trans  &trans  &trans  &trans  &trans                 /**/                 &trans   &trans  &trans  &trans  &trans  &trans
+				&trans  &trans  &trans  &trans  &trans  &trans                 /**/                 &trans   &trans  &trans  &trans  &trans  &trans
+				&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans /**/ &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans
+							            &trans  &trans  &trans  &trans  &trans /**/ &trans  &trans  &trans   &trans  &trans
+			>;
+		};
 	};
 };

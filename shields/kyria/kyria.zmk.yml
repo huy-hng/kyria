@@ -1,6 +1,6 @@
 file_format: "1"
-id: kyria_rev3
-name: Kyria Rev3
+id: kyria
+name: Kyria
 type: shield
 url: https://splitkb.com/products/kyria-pcb-kit
 requires: [pro_micro]
@@ -12,5 +12,5 @@ features:
   - underglow
   - backlight
 siblings:
-  - kyria_rev3_left
-  - kyria_rev3_right
+  - kyria_left
+  - kyria_right
