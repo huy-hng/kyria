@@ -19,7 +19,7 @@
 
 
 // Macro to apply momentary-layer-on-hold/toggle-layer-on-tap to a specific layer
-#define MO_TOG(layer) &mo_tog layer layer
+/* #define MO_TOG(layer) &mo_tog layer layer */
 
 / {
 	behaviors {
@@ -36,12 +36,12 @@
 	keymap {
 		compatible = "zmk,keymap";
 
-		default_layer {
-			bindings = <
-				&mo_tog 2 1     // &mo 2 on hold, &tog 1 on tap
-				MO_TOG(3)       // &mo 3 on hold, &tog 3 on tap
-			>;
-		};
+		/* default_layer { */
+		/* 	bindings = < */
+		/* 		&mo_tog 2 1     // &mo 2 on hold, &tog 1 on tap */
+		/* 		MO_TOG(3)       // &mo 3 on hold, &tog 3 on tap */
+		/* 	>; */
+		/* }; */
 
 		main {
 			bindings = <
