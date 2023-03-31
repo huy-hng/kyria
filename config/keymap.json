@@ -1,0 +1,21 @@
+{
+  "keyboard": "unknown",
+  "keymap": "unknown",
+  "layout": "unknown",
+  "layer_names": [
+    "default",
+    "Layer #1"
+  ],
+  "layers": [
+    [
+        "&none",  "&none",  "&none",  "&none",  "&none",  "&none",                                          "&none",  "&none",  "&none",  "&none",  "&none",  "&none",
+        "&none",  "&none",  "&none",  "&none",  "&none",  "&none",                                          "&none",  "&none",  "&none",  "&none",  "&none",  "&none",
+        "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",  "&none",
+                                      "&none",  "&none",  "&none",  "&none",    "&bl",  "&none",  "&none",  "&none",  "&none",  "&none"
+    ], [
+       "&trans", "&trans", "&trans", "&trans", "&trans", "&trans",                                         "&trans", "&trans", "&trans", "&trans", "&trans", "&trans",
+       "&trans", "&trans", "&trans", "&trans", "&trans", "&trans",                                         "&trans", "&trans", "&trans", "&trans", "&trans", "&trans",
+       "&trans", "&trans", "&trans", "&trans", "&trans"
+    ]
+  ]
+}
