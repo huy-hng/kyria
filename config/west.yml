@@ -2,10 +2,18 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: stephen
+      url-base: https://github.com/stephen
+    - name: petejohanson
+      url-base: https://github.com/petejohanson
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
+      # remote: stephen
+      # revision: stephen/spit-encoder
+      # remote: petejohanson
+      # revision: shields/kyria-rev3
       import: app/west.yml
   self:
     path: config
