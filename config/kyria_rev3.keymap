@@ -44,20 +44,21 @@
 
         main {
             bindings = <
-       &kp TAB  &kp Q  &kp W  &kp E  &kp R     &kp T                                              &kp LSHIFT    &kp BSPC   &kp RET   &kp TAB   &kp BSPC      &to 5
-         &kp Y  &kp U  &kp I  &kp O  &kp P  &kp BSLH                                                &kp FSLH   &kp RCTRL  &kp LGUI  &kp LGUI   &kp LALT  &kp SPACE
-&mt LSHIFT ESC  &kp A  &kp S  &kp D  &kp F     &kp G    &kp H      &kp J  &kp LSHIFT  &kp LSHIFT  &kp LSHIFT  &kp LSHIFT     &kp N     &kp M  &kp COMMA    &kp DOT
-                              &kp K  &kp L  &kp SEMI  &kp SQT  &kp LCTRL       &kp Z       &kp X       &kp C       &kp V     &kp B
+                &kp TAB       &kp Q    &kp W   &kp E      &kp R    &kp T                                              &kp Y   &kp U     &kp I       &kp O    &kp P    &kp BSLH
+                &mt SHFT ESC  &kp A    &kp S   &kp D      &kp F    &kp G                                              &kp H   &kp J     &kp K       &kp L    &kp SEMI &kp SQT
+                &kp CTRL      &kp Z    &kp X   &kp C      &kp V    &kp B  &kp SHFT &kp SHFT         &kp SHFT &kp SHFT &kp N   &kp M     &kp COMMA   &kp DOT  &kp FSLH &kp RCTRL
+                                               &kp LGUI   &kp LGUI &kp LALT &kp SPACE &kp SHFT      &kp BSPC  &kp RET   &kp TAB &kp BSPC  &to MENU
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+                sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
+
 
         numpad {
             bindings = <
-      &kp GRAVE  &kp EXCLAMATION    &kp DQT    &kp SQT      &kp LBKT     &kp RBKT                                                 &trans    &trans    &trans     &trans     &trans     &trans
-&kp KP_MULTIPLY        &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS       &trans                                           &kp KP_SLASH    &trans    &trans     &trans     &trans     &trans
-         &trans           &trans  &kp MINUS  &kp UNDER      &kp LPAR     &kp RPAR  &kp KP_EQUAL  &kp KP_N4  &trans  &trans        &trans    &trans    &trans  &kp KP_N1  &kp KP_N3  &kp KP_N3
+                &kp GRAVE  &kp EXCLAMATION    &kp DQT    &kp SQT      &kp LBKT     &kp RBKT                                                 &trans    &trans    &trans     &trans     &trans     &trans
+                &kp KP_MULTIPLY        &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS       &trans                                           &kp KP_SLASH    &trans    &trans     &trans     &trans     &trans
+                &trans           &trans  &kp MINUS  &kp UNDER      &kp LPAR     &kp RPAR  &kp KP_EQUAL  &kp KP_N4  &trans  &trans        &trans    &trans    &trans  &kp KP_N1  &kp KP_N3  &kp KP_N3
                                              &kp KP_N5     &kp KP_N6  &kp KP_PLUS        &trans     &trans  &trans  &trans       &kp DQT  &kp LBRC  &kp RBRC
             >;
         };
