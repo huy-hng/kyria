@@ -55,21 +55,28 @@
 
 
         numpad {
-            bindings = <
-                &kp GRAVE  &kp EXCLAMATION    &kp DQT    &kp SQT      &kp LBKT     &kp RBKT                                                 &trans    &trans    &trans     &trans     &trans     &trans
-                &kp KP_MULTIPLY        &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS       &trans                                           &kp KP_SLASH    &trans    &trans     &trans     &trans     &trans
-                &trans           &trans  &kp MINUS  &kp UNDER      &kp LPAR     &kp RPAR  &kp KP_EQUAL  &kp KP_N4  &trans  &trans        &trans    &trans    &trans  &kp KP_N1  &kp KP_N3  &kp KP_N3
-                                             &kp KP_N5     &kp KP_N6  &kp KP_PLUS        &trans     &trans  &trans  &trans       &kp DQT  &kp LBRC  &kp RBRC
-            >;
+                        bindings = <
+                            // ----------------------------------------------------------------|-----------------------------------------------------------------
+                            &trans  &trans  &trans  &trans  &trans  &trans                   /*|*/                 &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS &trans
+                                // ----------------------------------------------------------------|-----------------------------------------------------------------
+                                &trans  &trans  &trans  &trans  &trans  &trans                   /*|*/                 &kp KP_EQUAL     &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_PLUS  &trans
+                                // ----------------------------------------------------------------|-----------------------------------------------------------------
+                                &trans  &trans  &trans  &trans  &trans  &trans   &trans   &trans /*|*/ &trans  &trans  &trans           &kp KP_N1  &kp KP_N3  &kp KP_N3  &kp KP_SLASH &trans
+                                // ----------------------------------------------------------------|-----------------------------------------------------------------
+                                                        &trans  &trans  &trans   &trans   &trans /*|*/ &trans  &trans  &trans  &trans  &trans
+                                //                     --------------------------------------------------------------------------------------
+                            >;
+
         };
 
         colemak {
-            bindings = <
-&trans  &kp Q  &kp W  &kp F    &kp P   &kp B                                      &trans  &trans  &trans  &trans     &trans   &trans
- &kp J  &kp L  &kp U  &kp Y  &kp SQT  &trans                                    &kp FSLH  &trans  &trans  &trans     &trans   &trans
-&trans  &kp A  &kp R  &kp S    &kp T   &kp G     &kp M   &kp N  &trans  &trans    &trans  &trans   &kp K   &kp H  &kp COMMA  &kp DOT
-                      &kp E    &kp I   &kp O  &kp SEMI  &trans   &kp Z   &kp X     &kp C   &kp D   &kp V
-            >;
+                        bindings = <
+                            &kp TAB          &kp Q   &kp W   &kp F    &kp P    &kp B                                              &kp J   &kp L   &kp U       &kp Y    &kp SQT    &kp BSLH
+                                &mt SHFT ESC   &kp A   &kp R   &kp S    &kp T    &kp G                                              &kp M   &kp N   &kp E       &kp I    &kp O      &kp SEMI
+                                &kp CTRL        &kp Z   &kp X   &kp C    &kp D    &kp V    &kp SHFT &kp SHFT   &kp SHFT &kp SHFT &kp K   &kp H   &kp COMMA   &kp DOT  &kp FSLH &kp RCTRL
+                                                                 &trans   &trans   &trans   &trans    &trans      &trans    &trans    &trans  &trans  &to MENU
+                            >;
+
         };
 
         menu {
