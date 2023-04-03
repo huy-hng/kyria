@@ -41,7 +41,7 @@
         };
 
         combo_nav {
-            bindings = <&trans>;
+            bindings = <&mo 5>;
             key-positions = <30 43 13>;
             slow-release;
         };
@@ -122,10 +122,10 @@
 
         navigation {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                                  &kp K_REDO  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                                      &trans    &kp LEFT   &kp DOWN      &kp UP    &kp RIGHT  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans    &kp HOME  &kp PG_DN   &kp PG_UP      &kp END  &trans
-                        &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans      &trans     &trans
+&none  &none  &none  &none  &none  &none                              &kp K_REDO  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &none
+&none  &none  &none  &none  &none  &none                                   &none    &kp LEFT   &kp DOWN      &kp UP    &kp RIGHT  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none       &none    &kp HOME  &kp PG_DN   &kp PG_UP      &kp END  &none
+                     &none  &none  &none  &none  &none  &none  &none       &none       &none      &none
             >;
 
             /* bindings = < */
