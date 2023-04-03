@@ -59,12 +59,6 @@
             bindings = <&trans>;
             key-positions = <31 44>;
         };
-
-        combo_nav {
-            bindings = <&mo 5>;
-            key-positions = <30 43 13>;
-            slow-release;
-        };
     };
 
     macros {
@@ -105,10 +99,10 @@
 
         layers {
             bindings = <
-&trans       &trans       &trans       &trans       &trans   &to 9                                  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &mo_tog 6 6  &mo_tog 5 5  &mo_tog 4 4  &mo_tog 1 1   &to 0                                  &trans  &trans  &trans  &trans  &trans  &trans
-&trans       &trans       &trans       &trans       &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                                       &trans       &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans   &to 9                                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans   &mo 6   &mo 5   &mo 4   &mo 1   &to 0                                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
