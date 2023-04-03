@@ -74,6 +74,17 @@
                 <&macro_release>,
                 <&kp LCTRL &kp LEFT_ALT>;
         };
+        new_macro: hyper {
+            compatible = "zmk,behavior-macro";
+            label = "new_macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LCTRL &kp LSHIFT &kp LGUI &kp LEFT_ALT>,
+                <&macro_pause_for_release>,
+                <&macro_release>,
+                <&kp LCTRL &kp LEFT_SHIFT &kp LEFT_GUI &kp LEFT_ALT>;
+        };
     };
 
     keymap {
