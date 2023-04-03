@@ -48,6 +48,7 @@
         combo_lthumb1 {
             bindings = <&hyper>;
             key-positions = <43 30>;
+            timeout-ms = <10>;
         };
 
         combo_right_thumb {
@@ -84,6 +85,8 @@
                 <&macro_pause_for_release>,
                 <&macro_release>,
                 <&kp LCTRL &kp LEFT_SHIFT &kp LEFT_GUI &kp LEFT_ALT>;
+
+            wait-ms = <0>;
         };
     };
 
