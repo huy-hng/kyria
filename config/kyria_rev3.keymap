@@ -22,6 +22,31 @@
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+
+        l_thumb1 {
+            bindings = <&kp A>;
+            key-positions = <43 30>;
+            layers = <0>;
+        };
+    };
+
+    macros {
+        win_left: win_left {
+            compatible = "zmk,behavior-macro";
+            label = "WIN_LEFT";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LCTRL &kp LEFT_ALT>,
+                <&macro_tap>,
+                <&kp KP_NUMBER_4>,
+                <&macro_release>,
+                <&kp LCTRL &kp LEFT_ALT>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -111,6 +136,15 @@
 &trans  &kp A  &kp R   &kp S   &kp T   &kp G                                   &kp M   &kp N      &kp E    &kp I     &kp O  &kp SEMI
 &trans  &kp Z  &kp X   &kp C   &kp D   &kp V  &trans  &trans  &trans  &trans   &kp K   &kp L  &kp COMMA  &kp DOT  &kp FSLH    &trans
                       &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans
+            >;
+        };
+
+        window_manager {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans                                  &trans     &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                  &trans  &win_left  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans
             >;
         };
     };
