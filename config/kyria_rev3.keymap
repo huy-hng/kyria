@@ -48,7 +48,7 @@
             #binding-cells = <0>;
             bindings =
                 <&mo 3>,
-                <&to 3>;
+                <&tog 3>;
         };
     };
 
@@ -69,6 +69,11 @@
         combo_lthumb2 {
             bindings = <&trans>;
             key-positions = <31 44>;
+        };
+
+        combo_double_thumb {
+            bindings = <&to 0>;
+            key-positions = <30 43 33 46>;
         };
     };
 
@@ -120,37 +125,19 @@
 
         colemak {
             bindings = <
-//                        ┌────────────────────┬─────────┬──────────────┬──────────┬─────────────┬───────────┐   ┌─────────┬───────────┬───────────┬────────┬───────────┬──────────────────┐                       
-//                        │      &kp TAB       │  &kp Q  │    &kp W     │  &kp F   │    &kp P    │   &kp B   │   │  &kp J  │   &kp H   │   &kp U   │ &kp Y  │  &kp SQT  │ &underscore_dash │                       
-//                        ├────────────────────┼─────────┼──────────────┼──────────┼─────────────┼───────────┤   ├─────────┼───────────┼───────────┼────────┼───────────┼──────────────────┤                       
-//                        │ &mt LEFT_SHIFT ESC │  &kp A  │    &kp R     │  &kp S   │    &kp T    │   &kp G   │   │  &kp M  │   &kp N   │   &kp E   │ &kp I  │   &kp O   │     &kp SEMI     │                       
-//    ┌───────────┬───────┼────────────────────┼─────────┼──────────────┼──────────┼─────────────┼───────────┤   ├─────────┼───────────┼───────────┼────────┼───────────┼──────────────────┼──────────┬───────────┐
-//    │ &kp LCTRL │ &kp Z │       &kp X        │  &kp C  │    &kp D     │  &kp V   │ &nav_toggle │  &trans   │   │ &trans  │  &trans   │   &kp K   │ &kp L  │ &kp COMMA │     &kp DOT      │ &kp FSLH │ &kp RCTRL │
-//    └───────────┴───────┴────────────────────┼─────────┼──────────────┼──────────┼─────────────┼───────────┤   ├─────────┼───────────┼───────────┼────────┼───────────┼──────────────────┴──────────┴───────────┘
-//                                             │ &kp DEL │ &kp LEFT_GUI │ &kp LALT │  &kp SPACE  │ &kp LSHFT │   │ &kp RET │ &bspc_del │ &kp RCTRL │ &hyper │   &mo 9   │                                          
-//                                             └─────────┴──────────────┴──────────┴─────────────┴───────────┘   └─────────┴───────────┴───────────┴────────┴───────────┘                                          
-                      &kp TAB              &kp Q     &kp W          &kp F      &kp P         &kp B           &kp J     &kp H       &kp U       &kp Y    &kp SQT     &underscore_dash                       
-                      &mt LEFT_SHIFT ESC   &kp A     &kp R          &kp S      &kp T         &kp G           &kp M     &kp N       &kp E       &kp I    &kp O       &kp SEMI                               
-  &kp LCTRL   &kp Z   &kp X                &kp C     &kp D          &kp V      &nav_toggle   &trans          &trans    &trans      &kp K       &kp L    &kp COMMA   &kp DOT            &kp FSLH   &kp RCTRL
-                                           &kp DEL   &kp LEFT_GUI   &kp LALT   &kp SPACE     &kp LSHFT       &kp RET   &bspc_del   &kp RCTRL   &hyper   &mo 9                                              
+           &kp TAB  &kp Q  &kp W    &kp F         &kp P     &kp B                                                  &kp J   &kp H      &kp U    &kp Y   &kp SQT  &underscore_dash
+&mt LEFT_SHIFT ESC  &kp A  &kp R    &kp S         &kp T     &kp G                                                  &kp M   &kp N      &kp E    &kp I     &kp O          &kp SEMI
+         &kp LCTRL  &kp Z  &kp X    &kp C         &kp D     &kp V  &nav_toggle     &trans   &trans     &trans      &kp K   &kp L  &kp COMMA  &kp DOT  &kp FSLH         &kp RCTRL
+                                  &kp DEL  &kp LEFT_GUI  &kp LALT    &kp SPACE  &kp LSHFT  &kp RET  &bspc_del  &kp RCTRL  &hyper      &mo 9
             >;
         };
 
         qwerty {
             bindings = <
-//                        ┌────────────────┬─────────┬──────────┬──────────┬─────────────┬────────────────┐   ┌────────────┬────────────┬───────────┬────────┬───────────┬──────────────────┐                       
-//                        │    &kp TAB     │  &kp Q  │  &kp W   │  &kp E   │    &kp R    │     &kp T      │   │   &kp Y    │   &kp U    │   &kp I   │ &kp O  │   &kp P   │ &underscore_dash │                       
-//                        ├────────────────┼─────────┼──────────┼──────────┼─────────────┼────────────────┤   ├────────────┼────────────┼───────────┼────────┼───────────┼──────────────────┤                       
-//                        │ &mt LSHIFT ESC │  &kp A  │  &kp S   │  &kp D   │    &kp F    │     &kp G      │   │   &kp H    │   &kp J    │   &kp K   │ &kp L  │ &kp SEMI  │     &kp SQT      │                       
-//    ┌───────────┬───────┼────────────────┼─────────┼──────────┼──────────┼─────────────┼────────────────┤   ├────────────┼────────────┼───────────┼────────┼───────────┼──────────────────┼──────────┬───────────┐
-//    │ &kp LCTRL │ &kp Z │     &kp X      │  &kp C  │  &kp V   │  &kp B   │ &nav_toggle │   &kp LSHIFT   │   │ &kp LSHIFT │ &kp LSHIFT │   &kp N   │ &kp M  │ &kp COMMA │     &kp DOT      │ &kp FSLH │ &kp RCTRL │
-//    └───────────┴───────┴────────────────┼─────────┼──────────┼──────────┼─────────────┼────────────────┤   ├────────────┼────────────┼───────────┼────────┼───────────┼──────────────────┴──────────┴───────────┘
-//                                         │ &kp DEL │ &kp LGUI │ &kp LALT │  &kp SPACE  │ &kp LEFT_SHIFT │   │ &kp ENTER  │ &bspc_del  │ &kp RCTRL │ &hyper │   &mo 9   │                                          
-//                                         └─────────┴──────────┴──────────┴─────────────┴────────────────┘   └────────────┴────────────┴───────────┴────────┴───────────┘                                          
-                      &kp TAB          &kp Q     &kp W      &kp E      &kp R         &kp T                &kp Y        &kp U        &kp I       &kp O    &kp P       &underscore_dash                       
-                      &mt LSHIFT ESC   &kp A     &kp S      &kp D      &kp F         &kp G                &kp H        &kp J        &kp K       &kp L    &kp SEMI    &kp SQT                                
-  &kp LCTRL   &kp Z   &kp X            &kp C     &kp V      &kp B      &nav_toggle   &kp LSHIFT           &kp LSHIFT   &kp LSHIFT   &kp N       &kp M    &kp COMMA   &kp DOT            &kp FSLH   &kp RCTRL
-                                       &kp DEL   &kp LGUI   &kp LALT   &kp SPACE     &kp LEFT_SHIFT       &kp ENTER    &bspc_del    &kp RCTRL   &hyper   &mo 9                                              
+       &kp TAB  &kp Q  &kp W    &kp E     &kp R     &kp T                                                           &kp Y   &kp U      &kp I    &kp O     &kp P  &underscore_dash
+&mt LSHIFT ESC  &kp A  &kp S    &kp D     &kp F     &kp G                                                           &kp H   &kp J      &kp K    &kp L  &kp SEMI           &kp SQT
+     &kp LCTRL  &kp Z  &kp X    &kp C     &kp V     &kp B  &nav_toggle      &kp LSHIFT  &kp LSHIFT  &kp LSHIFT      &kp N   &kp M  &kp COMMA  &kp DOT  &kp FSLH         &kp RCTRL
+                              &kp DEL  &kp LGUI  &kp LALT    &kp SPACE  &kp LEFT_SHIFT   &kp ENTER   &bspc_del  &kp RCTRL  &hyper      &mo 9
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -158,19 +145,10 @@
 
         layers {
             bindings = <
-//                      ┌────────┬────────┬────────┬────────┬────────┬────────┐   ┌────────┬────────┬────────┬────────┬────────┬────────┐                  
-//                      │ &trans │ &trans │ &trans │ &trans │ &trans │ &tog 1 │   │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │                  
-//                      ├────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┼────────┤                  
-//                      │ &trans │ &mo 6  │ &mo 5  │ &mo 4  │ &mo 3  │ &to 0  │   │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │                  
-//    ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐
-//    │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │
-//    └────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
-//                               │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │ &trans │ &trans │ &trans │ &trans │                           
-//                               └────────┴────────┴────────┴────────┴────────┘   └────────┴────────┴────────┴────────┴────────┘                           
-                            &trans   &trans   &trans   &trans   &trans   &tog 1       &trans   &trans   &trans   &trans   &trans   &trans                  
-                            &trans   &mo 6    &mo 5    &mo 4    &mo 3    &to 0        &trans   &trans   &trans   &trans   &trans   &trans                  
-          &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
-                                     &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans                           
+&trans  &trans  &trans  &trans  &trans   &to 1                                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans   &mo 6   &mo 5   &mo 4   &mo 3   &to 0                                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
 
             label = "layers";
@@ -178,37 +156,19 @@
 
         numpad {
             bindings = <
-//                    ┌───────┬───────┬──────────┬──────────┬───────────┬───────┐   ┌─────────────────┬───────────┬─────────────────┬───────────┬──────────────┬───────────┐                       
-//                    │ &none │ &none │  &none   │  &kp UP  │   &none   │ &none │   │ &kp KP_MULTIPLY │ &kp KP_N7 │    &kp KP_N8    │ &kp KP_N9 │ &kp KP_MINUS │   &none   │                       
-//                    ├───────┼───────┼──────────┼──────────┼───────────┼───────┤   ├─────────────────┼───────────┼─────────────────┼───────────┼──────────────┼───────────┤                       
-//                    │ &none │ &none │ &kp LEFT │ &kp DOWN │ &kp RIGHT │ &none │   │  &kp KP_EQUAL   │ &kp KP_N4 │    &kp KP_N5    │ &kp KP_N6 │ &kp KP_PLUS  │   &none   │                       
-//    ┌───────┬───────┼───────┼───────┼──────────┼──────────┼───────────┼───────┤   ├─────────────────┼───────────┼─────────────────┼───────────┼──────────────┼───────────┼──────────────┬───────┐
-//    │ &none │ &none │ &none │ &none │  &none   │  &none   │   &none   │ &none │   │      &none      │   &none   │      &none      │ &kp KP_N1 │  &kp KP_N2   │ &kp KP_N3 │ &kp KP_SLASH │ &none │
-//    └───────┴───────┴───────┼───────┼──────────┼──────────┼───────────┼───────┤   ├─────────────────┼───────────┼─────────────────┼───────────┼──────────────┼───────────┴──────────────┴───────┘
-//                            │ &none │  &none   │  &none   │   &none   │ &none │   │      &none      │   &none   │ &kp KP_NUMBER_0 │   &none   │    &none     │                                   
-//                            └───────┴──────────┴──────────┴───────────┴───────┘   └─────────────────┴───────────┴─────────────────┴───────────┴──────────────┘                                   
-                          &none   &none   &none      &kp UP     &none       &none       &kp KP_MULTIPLY   &kp KP_N7   &kp KP_N8         &kp KP_N9   &kp KP_MINUS   &none                           
-                          &none   &none   &kp LEFT   &kp DOWN   &kp RIGHT   &none       &kp KP_EQUAL      &kp KP_N4   &kp KP_N5         &kp KP_N6   &kp KP_PLUS    &none                           
-          &none   &none   &none   &none   &none      &none      &none       &none       &none             &none       &none             &kp KP_N1   &kp KP_N2      &kp KP_N3   &kp KP_SLASH   &none
-                                  &none   &none      &none      &none       &none       &none             &none       &kp KP_NUMBER_0   &none       &none                                          
+&none  &none     &none    &kp UP      &none  &none                              &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &none
+&none  &none  &kp LEFT  &kp DOWN  &kp RIGHT  &none                                 &kp KP_EQUAL  &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &none
+&none  &none     &none     &none      &none  &none  &none  &none  &none  &none            &none  &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_SLASH  &none
+                           &none      &none  &none  &none  &none  &none  &none  &kp KP_NUMBER_0      &none      &none
             >;
         };
 
         sym {
             bindings = <
-//                      ┌───────────┬───────────────┬──────────────┬───────────────┬──────────────┬───────────────┐   ┌───────────┬───────────────┬───────────┬──────────┬──────────┬──────────────┐                   
-//                      │ &kp GRAVE │ &kp LS(EXCL)  │  &kp LS(AT)  │ &kp LS(POUND) │ &kp LS(DLLR) │ &kp LS(PRCNT) │   │ &kp LSHFT │   &kp LPAR    │ &kp RPAR  │  &kp N0  │  &kp N0  │   &kp BSLH   │                   
-//                      ├───────────┼───────────────┼──────────────┼───────────────┼──────────────┼───────────────┤   ├───────────┼───────────────┼───────────┼──────────┼──────────┼──────────────┤                   
-//                      │ &kp TILDE │ &kp LS(CARET) │ &kp LS(AMPS) │ &kp LS(STAR)  │ &kp LS(LPAR) │ &kp LS(RPAR)  │   │ &kp MINUS │ &kp LS(UNDER) │ &kp MINUS │ &kp DOT  │ &kp LBRC │ &kp LS(RBRC) │                   
-//    ┌────────┬────────┼───────────┼───────────────┼──────────────┼───────────────┼──────────────┼───────────────┤   ├───────────┼───────────────┼───────────┼──────────┼──────────┼──────────────┼─────────┬────────┐
-//    │ &trans │ &trans │  &trans   │   &kp PLUS    │  &kp EQUAL   │   &kp MINUS   │    &trans    │    &trans     │   │  &trans   │    &trans     │  &kp DOT  │ &kp LBKT │ &kp RBKT │   &kp DOT    │ &kp DOT │ &trans │
-//    └────────┴────────┴───────────┼───────────────┼──────────────┼───────────────┼──────────────┼───────────────┤   ├───────────┼───────────────┼───────────┼──────────┼──────────┼──────────────┴─────────┴────────┘
-//                                  │    &trans     │    &trans    │    &trans     │    &trans    │    &trans     │   │  &trans   │    &trans     │  &trans   │  &trans  │  &trans  │                                  
-//                                  └───────────────┴──────────────┴───────────────┴──────────────┴───────────────┘   └───────────┴───────────────┴───────────┴──────────┴──────────┘                                  
-                            &kp GRAVE   &kp LS(EXCL)    &kp LS(AT)     &kp LS(POUND)   &kp LS(DLLR)   &kp LS(PRCNT)       &kp LSHFT   &kp LPAR        &kp RPAR    &kp N0     &kp N0     &kp BSLH                       
-                            &kp TILDE   &kp LS(CARET)   &kp LS(AMPS)   &kp LS(STAR)    &kp LS(LPAR)   &kp LS(RPAR)        &kp MINUS   &kp LS(UNDER)   &kp MINUS   &kp DOT    &kp LBRC   &kp LS(RBRC)                   
-          &trans   &trans   &trans      &kp PLUS        &kp EQUAL      &kp MINUS       &trans         &trans              &trans      &trans          &kp DOT     &kp LBKT   &kp RBKT   &kp DOT        &kp DOT   &trans
-                                        &trans          &trans         &trans          &trans         &trans              &trans      &trans          &trans      &trans     &trans                                    
+&kp GRAVE   &kp LS(EXCL)    &kp LS(AT)  &kp LS(POUND)  &kp LS(DLLR)  &kp LS(PRCNT)                                  &kp LSHFT       &kp LPAR   &kp RPAR   &kp N0    &kp N0      &kp BSLH
+&kp TILDE  &kp LS(CARET)  &kp LS(AMPS)   &kp LS(STAR)  &kp LS(LPAR)   &kp LS(RPAR)                                  &kp MINUS  &kp LS(UNDER)  &kp MINUS  &kp DOT  &kp LBRC  &kp LS(RBRC)
+   &trans         &trans        &trans       &kp PLUS     &kp EQUAL      &kp MINUS  &trans  &trans  &trans  &trans    &kp DOT       &kp LBKT   &kp RBKT  &kp DOT   &kp DOT        &trans
+                                               &trans        &trans         &trans  &trans  &trans  &trans  &trans     &trans         &trans     &trans
             >;
 
             label = "symbols";
@@ -217,37 +177,19 @@
         navigation {
             label = "navigation";
             bindings = <
-//                    ┌───────┬───────┬──────────┬──────────┬───────────┬───────┐   ┌────────────┬────────────┬───────────┬────────────┬─────────────┬───────────┐                  
-//                    │ &none │ &none │  &none   │  &kp UP  │   &none   │ &none │   │ &kp K_REDO │ &kp K_UNDO │ &kp K_CUT │ &kp K_COPY │ &kp K_PASTE │   &none   │                  
-//                    ├───────┼───────┼──────────┼──────────┼───────────┼───────┤   ├────────────┼────────────┼───────────┼────────────┼─────────────┼───────────┤                  
-//                    │ &none │ &none │ &kp LEFT │ &kp DOWN │ &kp RIGHT │ &none │   │   &none    │  &kp LEFT  │ &kp DOWN  │   &kp UP   │  &kp RIGHT  │   &none   │                  
-//    ┌───────┬───────┼───────┼───────┼──────────┼──────────┼───────────┼───────┤   ├────────────┼────────────┼───────────┼────────────┼─────────────┼───────────┼─────────┬───────┐
-//    │ &none │ &none │ &none │ &none │  &none   │  &none   │   &none   │ &none │   │   &none    │   &none    │   &none   │  &kp HOME  │  &kp PG_DN  │ &kp PG_UP │ &kp END │ &none │
-//    └───────┴───────┴───────┼───────┼──────────┼──────────┼───────────┼───────┤   ├────────────┼────────────┼───────────┼────────────┼─────────────┼───────────┴─────────┴───────┘
-//                            │ &none │  &none   │  &none   │   &none   │ &none │   │   &none    │   &none    │   &none   │   &none    │    &none    │                              
-//                            └───────┴──────────┴──────────┴───────────┴───────┘   └────────────┴────────────┴───────────┴────────────┴─────────────┘                              
-                          &none   &none   &none      &kp UP     &none       &none       &kp K_REDO   &kp K_UNDO   &kp K_CUT   &kp K_COPY   &kp K_PASTE   &none                      
-                          &none   &none   &kp LEFT   &kp DOWN   &kp RIGHT   &none       &none        &kp LEFT     &kp DOWN    &kp UP       &kp RIGHT     &none                      
-          &none   &none   &none   &none   &none      &none      &none       &none       &none        &none        &none       &kp HOME     &kp PG_DN     &kp PG_UP   &kp END   &none
-                                  &none   &none      &none      &none       &none       &none        &none        &none       &none        &none                                    
+&none  &none     &none    &kp UP      &none  &none                              &kp K_REDO  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &none
+&none  &none  &kp LEFT  &kp DOWN  &kp RIGHT  &none                                   &none    &kp LEFT   &kp DOWN      &kp UP    &kp RIGHT  &none
+&none  &none     &none     &none      &none  &none  &none  &none  &none  &none       &none    &kp HOME  &kp PG_DN   &kp PG_UP      &kp END  &none
+                           &none      &none  &none  &none  &none  &none  &none       &none       &none      &none
             >;
         };
 
         functions {
             bindings = <
-//                      ┌────────┬────────┬────────┬────────┬────────┬────────┐   ┌────────┬────────┬────────┬────────┬─────────┬─────────┐                    
-//                      │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │ &kp F7 │ &kp F8 │ &kp F9 │ &kp F10 │ &kp F13 │                    
-//                      ├────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼─────────┼─────────┤                    
-//                      │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │ &kp F4 │ &kp F5 │ &kp F6 │ &kp F11 │ &kp F14 │                    
-//    ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼─────────┼─────────┼─────────┬─────────┐
-//    │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │ &trans │ &trans │ &kp F1 │ &kp F2  │ &kp F3  │ &kp F12 │ &kp F15 │
-//    └────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼─────────┼─────────┴─────────┴─────────┘
-//                               │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │ &trans │ &trans │ &trans │ &trans  │                              
-//                               └────────┴────────┴────────┴────────┴────────┘   └────────┴────────┴────────┴────────┴─────────┘                              
-                    &trans   &trans   &trans   &trans   &trans   &trans       &trans   &kp F7   &kp F8   &kp F9   &kp F10   &kp F13                    
-                    &trans   &trans   &trans   &trans   &trans   &trans       &trans   &kp F4   &kp F5   &kp F6   &kp F11   &kp F14                    
-  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &kp F1   &kp F2    &kp F3    &kp F12   &kp F15
-                             &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans                               
+&trans  &trans  &trans  &trans  &trans  &trans                                  &trans  &kp F7  &kp F8  &kp F9  &kp F10  &kp F13
+&trans  &trans  &trans  &trans  &trans  &trans                                  &trans  &kp F4  &kp F5  &kp F6  &kp F11  &kp F14
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &kp F1  &kp F2  &kp F3  &kp F12  &kp F15
+                        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
 
             /* bindings = < */
@@ -260,55 +202,28 @@
 
         window_manager {
             bindings = <
-//                      ┌────────┬────────┬────────┬────────┬────────┬────────┐   ┌────────┬───────────┬────────┬────────┬────────┬────────┐                  
-//                      │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │  &trans   │ &trans │ &trans │ &trans │ &trans │                  
-//                      ├────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼───────────┼────────┼────────┼────────┼────────┤                  
-//                      │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │ &win_left │ &trans │ &trans │ &trans │ &trans │                  
-//    ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼───────────┼────────┼────────┼────────┼────────┼────────┬────────┐
-//    │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │  &trans   │ &trans │ &trans │ &trans │ &trans │ &trans │ &trans │
-//    └────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼───────────┼────────┼────────┼────────┼────────┴────────┴────────┘
-//                               │ &trans │ &trans │ &trans │ &trans │ &trans │   │ &trans │  &trans   │ &trans │ &trans │ &trans │                           
-//                               └────────┴────────┴────────┴────────┴────────┘   └────────┴───────────┴────────┴────────┴────────┘                           
-                    &trans   &trans   &trans   &trans   &trans   &trans       &trans   &trans      &trans   &trans   &trans   &trans                  
-                    &trans   &trans   &trans   &trans   &trans   &trans       &trans   &win_left   &trans   &trans   &trans   &trans                  
-  &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans       &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
-                             &trans   &trans   &trans   &trans   &trans       &trans   &trans      &trans   &trans   &trans                           
+&trans  &trans  &trans  &trans  &trans  &trans                                  &trans     &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                  &trans  &win_left  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans
             >;
         };
 
         media {
             bindings = <
-//                    ┌───────┬───────┬───────┬───────┬───────┬───────┐   ┌────────────┬──────────────────┬──────────────┬──────────────┬────────────┬───────┐                
-//                    │ &none │ &none │ &none │ &none │ &none │ &none │   │   &none    │      &none       │    &none     │    &none     │   &none    │ &none │                
-//                    ├───────┼───────┼───────┼───────┼───────┼───────┤   ├────────────┼──────────────────┼──────────────┼──────────────┼────────────┼───────┤                
-//                    │ &none │ &none │ &none │ &none │ &none │ &none │   │   &none    │    &kp C_PREV    │ &kp C_VOL_DN │ &kp C_VOL_UP │ &kp K_NEXT │ &none │                
-//    ┌───────┬───────┼───────┼───────┼───────┼───────┼───────┼───────┤   ├────────────┼──────────────────┼──────────────┼──────────────┼────────────┼───────┼───────┬───────┐
-//    │ &none │ &none │ &none │ &none │ &none │ &none │ &none │ &none │   │   &none    │      &none       │    &none     │    &none     │   &none    │ &none │ &none │ &none │
-//    └───────┴───────┴───────┼───────┼───────┼───────┼───────┼───────┤   ├────────────┼──────────────────┼──────────────┼──────────────┼────────────┼───────┴───────┴───────┘
-//                            │ &none │ &none │ &none │ &none │ &none │   │ &kp K_STOP │ &kp C_PLAY_PAUSE │  &kp K_MUTE  │    &none     │   &none    │                        
-//                            └───────┴───────┴───────┴───────┴───────┘   └────────────┴──────────────────┴──────────────┴──────────────┴────────────┘                        
-                          &none   &none   &none   &none   &none   &none       &none        &none              &none          &none          &none        &none                
-                          &none   &none   &none   &none   &none   &none       &none        &kp C_PREV         &kp C_VOL_DN   &kp C_VOL_UP   &kp K_NEXT   &none                
-          &none   &none   &none   &none   &none   &none   &none   &none       &none        &none              &none          &none          &none        &none   &none   &none
-                                  &none   &none   &none   &none   &none       &kp K_STOP   &kp C_PLAY_PAUSE   &kp K_MUTE     &none          &none                             
+&none  &none  &none  &none  &none  &none                                                   &none       &none         &none         &none       &none  &none
+&none  &none  &none  &none  &none  &none                                                   &none  &kp C_PREV  &kp C_VOL_DN  &kp C_VOL_UP  &kp K_NEXT  &none
+&none  &none  &none  &none  &none  &none  &none  &none       &none             &none       &none       &none         &none         &none       &none  &none
+                     &none  &none  &none  &none  &none  &kp K_STOP  &kp C_PLAY_PAUSE  &kp K_MUTE       &none         &none
             >;
         };
 
         settings {
             bindings = <
-//                          ┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐   ┌─────────────────┬─────────────────┬─────────────────┬─────────────────┬─────────────────┬─────────────────┐                           
-//                          │ &bootloader  │ &bt BT_SEL 0 │ &bt BT_SEL 1 │ &bt BT_SEL 2 │ &bt BT_SEL 3 │ &bt BT_SEL 4 │   │ &rgb_ug RGB_TOG │     &trans      │     &trans      │     &trans      │     &trans      │   &bootloader   │                           
-//                          ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├─────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┤                           
-//                          │ &out OUT_USB │ &out OUT_BLE │    &trans    │    &trans    │    &to 0     │    &to 1     │   │ &rgb_ug RGB_EFF │ &rgb_ug RGB_BRI │ &rgb_ug RGB_SPI │ &rgb_ug RGB_SAI │ &rgb_ug RGB_HUI │     &trans      │                           
-//    ┌────────────┬────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├─────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┬────────┐
-//    │ &bt BT_CLR │ &trans │    &trans    │    &trans    │    &trans    │    &trans    │    &trans    │    &trans    │   │     &trans      │     &trans      │ &rgb_ug RGB_EFR │ &rgb_ug RGB_BRD │ &rgb_ug RGB_SPD │ &rgb_ug RGB_SAD │ &rgb_ug RGB_HUD │ &trans │
-//    └────────────┴────────┴──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├─────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┴─────────────────┴────────┘
-//                                         │    &trans    │    &trans    │    &trans    │    &trans    │    &trans    │   │     &trans      │     &trans      │     &trans      │     &trans      │     &trans      │                                             
-//                                         └──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘   └─────────────────┴─────────────────┴─────────────────┴─────────────────┴─────────────────┘                                             
-                                &bootloader    &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4       &rgb_ug RGB_TOG   &trans            &trans            &trans            &trans            &bootloader                               
-                                &out OUT_USB   &out OUT_BLE   &trans         &trans         &to 0          &to 1              &rgb_ug RGB_EFF   &rgb_ug RGB_BRI   &rgb_ug RGB_SPI   &rgb_ug RGB_SAI   &rgb_ug RGB_HUI   &trans                                    
-          &bt BT_CLR   &trans   &trans         &trans         &trans         &trans         &trans         &trans             &trans            &trans            &rgb_ug RGB_EFR   &rgb_ug RGB_BRD   &rgb_ug RGB_SPD   &rgb_ug RGB_SAD   &rgb_ug RGB_HUD   &trans
-                                               &trans         &trans         &trans         &trans         &trans             &trans            &trans            &trans            &trans            &trans                                                      
+ &bootloader  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                                  &rgb_ug RGB_TOG           &trans           &trans           &trans           &trans  &bootloader
+&out OUT_USB  &out OUT_BLE        &trans        &trans         &to 0         &to 1                                  &rgb_ug RGB_EFF  &rgb_ug RGB_BRI  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI       &trans
+  &bt BT_CLR        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans  &trans  &rgb_ug RGB_EFR  &rgb_ug RGB_BRD  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD       &trans
+                                                &trans        &trans        &trans  &trans  &trans  &trans  &trans           &trans           &trans           &trans
             >;
         };
     };
