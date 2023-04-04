@@ -154,7 +154,7 @@
             label = "layers";
         };
 
-        numpad {
+        navipad {
             bindings = <
 &trans  &trans    &trans    &kp UP     &trans  &trans                                  &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &trans
 &trans  &trans  &kp LEFT  &kp DOWN  &kp RIGHT  &trans                                     &kp KP_EQUAL  &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &trans
@@ -165,10 +165,10 @@
 
         sym {
             bindings = <
-&kp GRAVE   &kp LS(EXCL)    &kp LS(AT)  &kp LS(POUND)  &kp LS(DLLR)  &kp LS(PRCNT)                                  &kp LSHFT       &kp LPAR   &kp RPAR   &kp N0    &kp N0      &kp BSLH
-&kp TILDE  &kp LS(CARET)  &kp LS(AMPS)   &kp LS(STAR)  &kp LS(LPAR)   &kp LS(RPAR)                                  &kp MINUS  &kp LS(UNDER)  &kp MINUS  &kp DOT  &kp LBRC  &kp LS(RBRC)
-   &trans         &trans        &trans       &kp PLUS     &kp EQUAL      &kp MINUS  &trans  &trans  &trans  &trans    &kp DOT       &kp LBKT   &kp RBKT  &kp DOT   &kp DOT        &trans
-                                               &trans        &trans         &trans  &trans  &trans  &trans  &trans     &trans         &trans     &trans
+&kp GRAVE  &kp EXCL  &kp AT  &kp POUND  &kp DLLR  &kp PRCNT                                  &kp CARET   &kp AMPS   &kp STAR  &kp LPAR  &kp RPAR    &trans
+&kp TILDE    &trans  &trans     &trans    &trans     &trans                                  &kp MINUS  &kp UNDER  &kp EQUAL  &kp PLUS  &kp LBRC  &kp RBRC
+   &trans    &trans  &trans     &trans    &trans     &trans  &trans  &trans  &trans  &trans     &trans   &kp LBKT   &kp RBKT  &kp BSLH  &kp PIPE    &trans
+                                &trans    &trans     &trans  &trans  &trans  &trans  &trans     &trans     &trans     &trans
             >;
 
             label = "symbols";
