@@ -146,7 +146,7 @@
             >;
         };
 
-        SYMBOLS {
+        symbols {
             bindings = <
 &kp GRAVE   &kp LS(EXCL)    &kp LS(AT)  &kp LS(POUND)  &kp LS(DLLR)  &kp LS(PRCNT)                                  &kp LSHFT       &kp LPAR   &kp RPAR   &kp N0    &kp N0      &kp BSLH
 &kp TILDE  &kp LS(CARET)  &kp LS(AMPS)   &kp LS(STAR)  &kp LS(LPAR)   &kp LS(RPAR)                                  &kp MINUS  &kp LS(UNDER)  &kp MINUS  &kp DOT  &kp LBRC  &kp LS(RBRC)
