@@ -151,9 +151,9 @@
 
         qwerty {
             bindings = <
-       &kp TAB  &kp Q  &kp W    &kp E     &kp R     &kp T                                                           &kp Y   &kp U      &kp I    &kp O     &kp P  &underscore_dash
-&mt LSHIFT ESC  &kp A  &kp S    &kp D     &kp F     &kp G                                                           &kp H   &kp J      &kp K    &kp L  &kp SEMI           &kp SQT
-     &kp LCTRL  &kp Z  &kp X    &kp C     &kp V     &kp B  &nav_toggle      &kp LSHIFT  &kp LSHIFT  &kp LSHIFT      &kp N   &kp M  &kp COMMA  &kp DOT  &kp FSLH         &kp RCTRL
+       &kp TAB  &kp Q  &kp W    &kp E     &kp R     &kp T                                                           &kp Y   &kp U      &kp I    &kp O        &kp P  &dash_swap
+&mt LSHIFT ESC  &kp A  &kp S    &kp D     &kp F     &kp G                                                           &kp H   &kp J      &kp K    &kp L  &colon_swap      &trans
+     &kp LCTRL  &kp Z  &kp X    &kp C     &kp V     &kp B  &nav_toggle      &kp LSHIFT  &kp LSHIFT  &kp LSHIFT      &kp N   &kp M  &kp COMMA  &kp DOT     &kp FSLH   &kp RCTRL
                               &kp DEL  &kp LGUI  &kp LALT    &kp SPACE  &kp LEFT_SHIFT   &kp ENTER   &bspc_del  &kp RCTRL  &hyper      &mo 9
             >;
 
