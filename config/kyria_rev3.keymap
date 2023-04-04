@@ -22,9 +22,9 @@
                 <&mo>,
                 <&tog>;
         };
-        underscore_dash: underscore_dash {
+        dash_swap: dash_swap {
             compatible = "zmk,behavior-mod-morph";
-            label = "UNDERSCORE_DASH";
+            label = "DASH_SWAP";
             bindings =
                 <&kp UNDERSCORE>,
                 <&kp KP_MINUS>;
@@ -49,6 +49,16 @@
             bindings =
                 <&mo 3>,
                 <&tog 3>;
+        };
+        colon_swap: colon_swap {
+            compatible = "zmk,behavior-mod-morph";
+            label = "COLON_SWAP";
+            bindings =
+                <&kp COLON>,
+                <&kp SEMI>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
         };
     };
 
@@ -132,9 +142,9 @@
 
         colemak {
             bindings = <
-           &kp TAB  &kp Q  &kp W    &kp F         &kp P     &kp B                                                  &kp J   &kp H      &kp U    &kp Y   &kp SQT  &underscore_dash
-&mt LEFT_SHIFT ESC  &kp A  &kp R    &kp S         &kp T     &kp G                                                  &kp M   &kp N      &kp E    &kp I     &kp O          &kp SEMI
-         &kp LCTRL  &kp Z  &kp X    &kp C         &kp D     &kp V  &nav_toggle     &trans   &trans     &trans      &kp K   &kp L  &kp COMMA  &kp DOT  &kp FSLH         &kp RCTRL
+           &kp TAB  &kp Q  &kp W    &kp F         &kp P     &kp B                                                  &kp J   &kp H      &kp U    &kp Y   &kp SQT   &dash_swap
+&mt LEFT_SHIFT ESC  &kp A  &kp R    &kp S         &kp T     &kp G                                                  &kp M   &kp N      &kp E    &kp I     &kp O  &colon_swap
+         &kp LCTRL  &kp Z  &kp X    &kp C         &kp D     &kp V  &nav_toggle     &trans   &trans     &trans      &kp K   &kp L  &kp COMMA  &kp DOT  &kp FSLH    &kp RCTRL
                                   &kp DEL  &kp LEFT_GUI  &kp LALT    &kp SPACE  &kp LSHFT  &kp RET  &bspc_del  &kp RCTRL  &hyper      &mo 9
             >;
         };
