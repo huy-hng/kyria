@@ -62,7 +62,7 @@
         };
 
         combo_right_thumb {
-            bindings = <&mo 2>;
+            bindings = <&kp ENTER>;
             key-positions = <46 33>;
         };
 
@@ -74,6 +74,11 @@
         combo_double_thumb {
             bindings = <&to 0>;
             key-positions = <30 43 33 46>;
+        };
+
+        hhgf {
+            bindings = <&trans>;
+            key-positions = <4>;
         };
     };
 
@@ -156,10 +161,10 @@
 
         navipad {
             bindings = <
-&trans  &trans    &trans    &kp UP     &trans  &trans                                  &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &trans
-&trans  &trans  &kp LEFT  &kp DOWN  &kp RIGHT  &trans                                     &kp KP_EQUAL  &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &trans
-&trans  &trans    &trans    &trans     &trans  &trans   &to 0  &trans  &trans  &trans           &trans  &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_SLASH  &trans
-                            &trans     &trans  &trans  &trans  &trans  &trans  &trans  &kp KP_NUMBER_0     &trans     &trans
+    &trans  &kp C_AC_CUT  &kp K_COPY      &kp UP  &kp K_PASTE  &trans                                  &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &trans
+    &trans        &trans    &kp LEFT    &kp DOWN    &kp RIGHT  &trans                                     &kp KP_EQUAL  &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &trans
+&kp K_REDO    &kp K_UNDO   &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans   &to 0  &trans  &trans  &trans           &trans  &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_SLASH  &trans
+                                          &trans       &trans  &trans  &trans  &trans  &trans  &trans  &kp KP_NUMBER_0     &trans     &trans
             >;
         };
 
