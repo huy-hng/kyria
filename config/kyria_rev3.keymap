@@ -55,23 +55,23 @@
     combos {
         compatible = "zmk,combos";
 
-        combo_lthumb1 {
+        lthumb1 {
             bindings = <&hyper>;
             key-positions = <43 30>;
             timeout-ms = <10>;
         };
 
-        combo_right_thumb {
+        rthumb {
             bindings = <&kp ENTER>;
             key-positions = <46 33>;
         };
 
-        combo_lthumb2 {
+        lthumb2 {
             bindings = <&trans>;
             key-positions = <31 44>;
         };
 
-        combo_double_thumb {
+        double_thumb {
             bindings = <&to 0>;
             key-positions = <30 43 33 46>;
         };
