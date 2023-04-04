@@ -135,6 +135,8 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                         &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
+
+            label = "layers";
         };
 
         numpad {
@@ -146,7 +148,7 @@
             >;
         };
 
-        symbols {
+        sym {
             bindings = <
 &kp GRAVE   &kp LS(EXCL)    &kp LS(AT)  &kp LS(POUND)  &kp LS(DLLR)  &kp LS(PRCNT)                                  &kp LSHFT       &kp LPAR   &kp RPAR   &kp N0    &kp N0      &kp BSLH
 &kp TILDE  &kp LS(CARET)  &kp LS(AMPS)   &kp LS(STAR)  &kp LS(LPAR)   &kp LS(RPAR)                                  &kp MINUS  &kp LS(UNDER)  &kp MINUS  &kp DOT  &kp LBRC  &kp LS(RBRC)
@@ -158,7 +160,7 @@
         };
 
         navigation {
-            label = "symbols";
+            label = "navigation";
             bindings = <
 &none  &none  &none  &none  &none  &none                              &kp K_REDO  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &none
 &none  &none  &none  &none  &none  &none                                   &none    &kp LEFT   &kp DOWN      &kp UP    &kp RIGHT  &none
