@@ -113,22 +113,22 @@
             key-positions = <33 46 43>;
         };
 
-        new_combo {
+        new_combo2 {
             bindings = <&trans>;
             key-positions = <30 43 46>;
         };
 
-        new_combo {
+        new_combo3 {
             bindings = <&trans>;
             key-positions = <30 43 45>;
         };
 
-        new_combo {
+        new_combo4 {
             bindings = <&trans>;
             key-positions = <33 46 44>;
         };
 
-        new_combo {
+        new_combo5 {
             bindings = <&trans>;
             key-positions = <31 44 33 46>;
         };
