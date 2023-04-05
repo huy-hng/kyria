@@ -225,10 +225,10 @@
 
         navipad {
             bindings = <
-    &trans  &kp C_AC_CUT  &kp K_COPY      &kp UP  &kp K_PASTE  &trans                                      &kp STAR  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &trans
-     &mo 4         &mo 3    &kp LEFT    &kp DOWN    &kp RIGHT  &trans                                  &kp KP_EQUAL  &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &trans
-&kp K_REDO    &kp K_UNDO   &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans   &to 0  &trans  &trans  &trans        &trans  &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_SLASH  &trans
-                                          &trans       &trans  &trans  &trans  &trans  &trans  &trans     &kp KP_N0     &trans     &trans
+       &trans   &kp C_AC_CUT  &kp K_COPY      &kp UP  &kp K_PASTE  &trans                                      &kp STAR  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &trans
+        &mo 4          &mo 3    &kp LEFT    &kp DOWN    &kp RIGHT  &trans                                  &kp KP_EQUAL  &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS  &trans
+&kp C_AC_REDO  &kp C_AC_UNDO   &kp K_CUT  &kp K_COPY  &kp K_PASTE  &trans   &to 0  &trans  &trans  &trans        &trans  &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_SLASH  &trans
+                                              &trans       &trans  &trans  &trans  &trans  &trans  &trans     &kp KP_N0     &trans     &trans
             >;
         };
 
