@@ -132,6 +132,11 @@
             bindings = <&trans>;
             key-positions = <31 44 33 46>;
         };
+
+        side_thumbs {
+            bindings = <&trans>;
+            key-positions = <44 45>;
+        };
     };
 
     macros {
