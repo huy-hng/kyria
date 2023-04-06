@@ -14,10 +14,11 @@
 #define SYMBOLS  1
 #define NAVIPAD  2
 #define F_KEYS   3
-#define WIN_MAN  4
-#define LAYERS   5
-#define SETTINGS 6
-#define QWERTY   7
+#define MEDIA    4
+#define WIN_MAN  5
+#define LAYERS   6
+#define SETTINGS 7
+#define QWERTY   8
 
 // main
 //   symbols
@@ -99,7 +100,7 @@
         };
 
         double_thumb {
-            bindings = <&to 0>;
+            bindings = <&to MAIN>;
             key-positions = <30 43 33 46>;
         };
 
@@ -205,24 +206,28 @@
     keymap {
         compatible = "zmk,keymap";
 
+        // 0
         main {
             bindings = <
-                //    ┌───────────┬────┬────┬──────┬───────┬───────┐                                          ┌───────┬──────┬──────┬────┬────┬───────┐
-                //    │    TAB    │  Q │  W │   F  │   P   │   /   │                                          │  : ;  │   H  │   U  │  Y │  J │  _ -  │
-                //    ├───────────┼────┼────┼──────┼───────┼───────┤                                          ├───────┼──────┼──────┼────┼────┼───────┤
-                //    │  CTRL ESC │  A │  R │   S  │   T   │   G   │                                          │   M   │   N  │   E  │  I │  O │  ' "  │
-                //    ├───────────┼────┼────┼──────┼───────┼───────┼─────────┬────────┐   ┌────────┬──────────┼───────┼──────┼──────┼────┼────┼───────┤
-                //    │    CTRL   │  Z │  X │   C  │   D   │  , <  │ navipad │ ______ │   │ ______ │  ______  │  . >  │   L  │   K  │  B │  V │  CTRL │
-                //    └───────────┴────┴────┼──────┼───────┼───────┼─────────┼────────┤   ├────────┼──────────┼───────┼──────┼──────┼────┴────┴───────┘
-                //                          │  DEL │  META │  LALT │  SPACE  │  SHIFT │   │   RET  │ bspc/del │  CTRL │ hype │ mo 6 │                  
-                //                          └──────┴───────┴───────┴─────────┴────────┘   └────────┴──────────┴───────┴──────┴──────┘                  
-                &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp FSLH                                                        &colon_swap   &kp H    &kp U   &kp Y   &kp J   &dash_swap      
-                &mt LCTRL ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                           &kp M         &kp N    &kp E   &kp I   &kp O   &kp SINGLE_QUOTE
-                &kp LCTRL       &kp Z   &kp X   &kp C     &kp D       &kp COMMA   &nav_toggle   &trans          &trans    &trans      &kp DOT       &kp L    &kp K   &kp B   &kp V   &kp RCTRL       
-                &kp DEL   &kp LMETA   &kp LALT    &kp SPACE     &kp LSHFT       &kp RET   &bspc_del   &kp RCTRL     &hyper   &mo 6                                   
+                //    ┌───────────┬────┬────┬──────┬───────┬───────┐                                          ┌───────┬──────┬─────────────┬────┬────┬───────┐
+                //    │    TAB    │  Q │  W │   F  │   P   │   /   │                                          │  : ;  │   H  │      U      │  Y │  J │  _ -  │
+                //    ├───────────┼────┼────┼──────┼───────┼───────┤                                          ├───────┼──────┼─────────────┼────┼────┼───────┤
+                //    │  CTRL ESC │  A │  R │   S  │   T   │   G   │                                          │   M   │   N  │      E      │  I │  O │  ' "  │
+                //    ├───────────┼────┼────┼──────┼───────┼───────┼─────────┬────────┐   ┌────────┬──────────┼───────┼──────┼─────────────┼────┼────┼───────┤
+                //    │    CTRL   │  Z │  X │   C  │   D   │  , <  │ navipad │ ______ │   │ ______ │  ______  │  . >  │   L  │      K      │  B │  V │  CTRL │
+                //    └───────────┴────┴────┼──────┼───────┼───────┼─────────┼────────┤   ├────────┼──────────┼───────┼──────┼─────────────┼────┴────┴───────┘
+                //                          │  DEL │  META │  LALT │  SPACE  │  SHIFT │   │   RET  │ bspc/del │  CTRL │ hype │ mo SETTINGS │                  
+                //                          └──────┴───────┴───────┴─────────┴────────┘   └────────┴──────────┴───────┴──────┴─────────────┘                  
+                &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp FSLH                                                        &colon_swap   &kp H    &kp U          &kp Y   &kp J   &dash_swap      
+                &mt LCTRL ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                           &kp M         &kp N    &kp E          &kp I   &kp O   &kp SINGLE_QUOTE
+                &kp LCTRL       &kp Z   &kp X   &kp C     &kp D       &kp COMMA   &nav_toggle   &mo F_KEYS          &trans    &trans      &kp DOT       &kp L    &kp K          &kp B   &kp V   &kp RCTRL       
+                                                &kp DEL   &kp LMETA   &kp LALT    &kp SPACE     &kp LSHFT       &kp RET   &bspc_del   &kp RCTRL     &hyper   &mo SETTINGS                                   
             >;
+            label = "Colemak";
+            sensor-bindings = <&inc_dec_kp DOWN UP>;
         };
 
+        // 1
         symbols {
             bindings = <
                 //    ┌────────┬─────┬─────┬────────┬────────┬────────┐                                       ┌────────┬────────┬────────┬─────┬─────┬────────┐
@@ -239,26 +244,31 @@
                 &kp LCTRL   &kp UNDER   &kp MINUS   &kp PLUS    &kp EQUAL   &trans      &trans   &trans       &trans   &trans   &trans      &kp LBKT   &kp RBKT   &kp LBRC   &kp RBRC   &trans  
                 &trans      &trans      &trans      &trans   &trans       &trans   &trans   &trans      &trans     &trans                                   
             >;
+            label = "Symbols";
         };
 
+        // 2
         navipad {
             bindings = <
-                //    ┌────────────┬────────────┬─────────┬─────────┬──────────┬────────┐                                       ┌────────┬────────┬────────┬────┬────┬────────┐
-                //    │   ______   │  C_AC_CUT  │  K_COPY │    UP   │  K_PASTE │ ______ │                                       │    *   │    7   │    8   │  9 │  - │ ______ │
-                //    ├────────────┼────────────┼─────────┼─────────┼──────────┼────────┤                                       ├────────┼────────┼────────┼────┼────┼────────┤
-                //    │    mo 4    │    mo 3    │   LEFT  │   DOWN  │   RIGHT  │ ______ │                                       │    =   │    4   │    5   │  6 │  + │ ______ │
-                //    ├────────────┼────────────┼─────────┼─────────┼──────────┼────────┼────────┬────────┐   ┌────────┬────────┼────────┼────────┼────────┼────┼────┼────────┤
-                //    │  C_AC_REDO │  C_AC_UNDO │  K_CUT  │  K_COPY │  K_PASTE │ ______ │  to 0  │ ______ │   │ ______ │ ______ │ ______ │    1   │    2   │  3 │  / │ ______ │
-                //    └────────────┴────────────┴─────────┼─────────┼──────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┼────┴────┴────────┘
-                //                                        │ ______  │  ______  │ ______ │ ______ │ ______ │   │ ______ │ ______ │    0   │ ______ │ ______ │                   
-                //                                        └─────────┴──────────┴────────┴────────┴────────┘   └────────┴────────┴────────┴────────┴────────┘                   
-                &trans          &kp C_AC_CUT    &kp K_COPY   &kp UP       &kp K_PASTE   &trans                                           &kp STAR       &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_MINUS   &trans
-                &mo 4           &mo 3           &kp LEFT     &kp DOWN     &kp RIGHT     &trans                                           &kp KP_EQUAL   &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_PLUS    &trans
-                &kp C_AC_REDO   &kp C_AC_UNDO   &kp K_CUT    &kp K_COPY   &kp K_PASTE   &trans   &to 0    &trans       &trans   &trans   &trans         &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_SLASH   &trans
-                &trans       &trans        &trans   &trans   &trans       &trans   &trans   &kp KP_N0      &trans      &trans                                       
+                //    ┌────────────┬────────────┬─────────┬─────────┬──────────┬────────┐                                        ┌────────┬────────┬────────┬────┬────┬────────┐
+                //    │   ______   │  C_AC_CUT  │  K_COPY │    UP   │  K_PASTE │ ______ │                                        │    *   │    7   │    8   │  9 │  - │ ______ │
+                //    ├────────────┼────────────┼─────────┼─────────┼──────────┼────────┤                                        ├────────┼────────┼────────┼────┼────┼────────┤
+                //    │ mo WIN_MAN │  mo MEDIA  │   LEFT  │   DOWN  │   RIGHT  │ ______ │                                        │    =   │    4   │    5   │  6 │  + │ ______ │
+                //    ├────────────┼────────────┼─────────┼─────────┼──────────┼────────┼─────────┬────────┐   ┌────────┬────────┼────────┼────────┼────────┼────┼────┼────────┤
+                //    │  C_AC_REDO │  C_AC_UNDO │  K_CUT  │  K_COPY │  K_PASTE │ ______ │ to MAIN │ ______ │   │ ______ │ ______ │ ______ │    1   │    2   │  3 │  / │ ______ │
+                //    └────────────┴────────────┴─────────┼─────────┼──────────┼────────┼─────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┼────┴────┴────────┘
+                //                                        │ ______  │  ______  │ ______ │ ______  │ ______ │   │ ______ │ ______ │    0   │ ______ │ ______ │                   
+                //                                        └─────────┴──────────┴────────┴─────────┴────────┘   └────────┴────────┴────────┴────────┴────────┘                   
+                &trans          &kp C_AC_CUT    &kp K_COPY   &kp UP       &kp K_PASTE   &trans                                             &kp STAR       &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_MINUS   &trans
+                &mo WIN_MAN     &mo MEDIA       &kp LEFT     &kp DOWN     &kp RIGHT     &trans                                             &kp KP_EQUAL   &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_PLUS    &trans
+                &kp C_AC_REDO   &kp C_AC_UNDO   &kp K_CUT    &kp K_COPY   &kp K_PASTE   &trans   &to MAIN   &trans       &trans   &trans   &trans         &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_SLASH   &trans
+                &trans       &trans        &trans   &trans     &trans       &trans   &trans   &kp KP_N0      &trans      &trans                                       
             >;
+            label = "Navipad";
+            sensor-bindings = <&inc_dec_kp DOWN UP>;
         };
 
+        // 3
         f_keys {
             bindings = <
                 //    ┌────────┬────────┬─────────┬───────────┬───────────────┬─────────────────────┐                                       ┌────────┬────────┬────────┬─────┬──────┬──────┐
@@ -275,8 +285,10 @@
                 &trans   &trans     &trans       &kp K_MUTE     &kp C_BRI_DN       &kp C_BRI_UP             &trans   &trans       &trans   &trans   &trans   &kp F1   &kp F2   &kp F3   &kp F12   &kp F15
                 &trans         &trans             &trans                   &trans   &trans       &trans   &trans   &trans   &trans   &trans                             
             >;
+            label = "Function Keys";
         };
 
+        // 4
         media {
             bindings = <
                 //    ┌────────┬────────┬─────────┬───────────┬───────────────┬─────────────────────┐                                       ┌────────┬────────┬────────┬─────┬──────┬──────┐
@@ -293,8 +305,11 @@
                 &trans   &trans     &trans       &kp K_MUTE     &kp C_BRI_DN       &kp C_BRI_UP             &trans   &trans       &trans   &trans   &trans   &kp F1   &kp F2   &kp F3   &kp F12   &kp F15
                 &trans         &trans             &trans                   &trans   &trans       &trans   &trans   &trans   &trans   &trans                             
             >;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+            label = "Media";
         };
 
+        // 5
         win_manager {
             bindings = <
                 //    ┌────────┬────────┬────────┬────────┬────────┬────────┐                                       ┌────────┬──────────┬────────────┬───────────┬────────┬────────┐
@@ -311,8 +326,10 @@
                 &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans      &trans        &trans       &trans   &trans
                 &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans      &trans                                    
             >;
+            label = "Win Manager";
         };
 
+        //  6
         layers {
             bindings = <
                 //    ┌────────┬────────┬────────┬────────┬────────┬────────┐                                       ┌────────┬────────┬────────┬────────┬────────┬────────┐
@@ -329,44 +346,31 @@
                 &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
                 &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans                           
             >;
+            label = "Layers";
         };
 
+        // 7 
         settings {
             bindings = <
                 //    ┌─────────────┬─────────────┬───────────┬───────────┬───────────┬───────────┐                                       ┌──────────┬──────────┬──────────┬──────────┬──────────┬────────────┐
                 //    │ bootloader  │   BT_SEL 0  │  BT_SEL 1 │  BT_SEL 2 │  BT_SEL 3 │  BT_SEL 4 │                                       │  RGB_TOG │  ______  │  ______  │  ______  │  ______  │ bootloader │
                 //    ├─────────────┼─────────────┼───────────┼───────────┼───────────┼───────────┤                                       ├──────────┼──────────┼──────────┼──────────┼──────────┼────────────┤
-                //    │ out OUT_USB │ out OUT_BLE │  ______   │  ______   │   to 0    │   to 7    │                                       │  RGB_EFF │  RGB_BRI │  RGB_SPI │  RGB_SAI │  RGB_HUI │   ______   │
+                //    │ out OUT_USB │ out OUT_BLE │  ______   │  ______   │  to MAIN  │ to QWERTY │                                       │  RGB_EFF │  RGB_BRI │  RGB_SPI │  RGB_SAI │  RGB_HUI │   ______   │
                 //    ├─────────────┼─────────────┼───────────┼───────────┼───────────┼───────────┼────────┬────────┐   ┌────────┬────────┼──────────┼──────────┼──────────┼──────────┼──────────┼────────────┤
                 //    │    BT_CLR   │   ______    │  ______   │  ______   │  ______   │  ______   │ ______ │ ______ │   │ ______ │ ______ │  RGB_EFR │  RGB_BRD │  RGB_SPD │  RGB_SAD │  RGB_HUD │   ______   │
                 //    └─────────────┴─────────────┴───────────┼───────────┼───────────┼───────────┼────────┼────────┤   ├────────┼────────┼──────────┼──────────┼──────────┼──────────┴──────────┴────────────┘
                 //                                            │  ______   │  ______   │  ______   │ ______ │ ______ │   │ ______ │ ______ │  ______  │  ______  │  ______  │                                   
                 //                                            └───────────┴───────────┴───────────┴────────┴────────┘   └────────┴────────┴──────────┴──────────┴──────────┘                                   
                 &bootloader    &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4                                           &rgb_ug RGB_TOG   &trans            &trans            &trans            &trans            &bootloader
-                &out OUT_USB   &out OUT_BLE   &trans         &trans         &to 0          &to 7                                                  &rgb_ug RGB_EFF   &rgb_ug RGB_BRI   &rgb_ug RGB_SPI   &rgb_ug RGB_SAI   &rgb_ug RGB_HUI   &trans     
+                &out OUT_USB   &out OUT_BLE   &trans         &trans         &to MAIN       &to QWERTY                                             &rgb_ug RGB_EFF   &rgb_ug RGB_BRI   &rgb_ug RGB_SPI   &rgb_ug RGB_SAI   &rgb_ug RGB_HUI   &trans     
                 &bt BT_CLR     &trans         &trans         &trans         &trans         &trans         &trans   &trans       &trans   &trans   &rgb_ug RGB_EFR   &rgb_ug RGB_BRD   &rgb_ug RGB_SPD   &rgb_ug RGB_SAD   &rgb_ug RGB_HUD   &trans     
                 &trans         &trans         &trans         &trans   &trans       &trans   &trans   &trans            &trans            &trans                                                           
             >;
+
+            label = "Settings";
         };
 
-        colemak_og {
-            bindings = <
-                //    ┌───────────┬────┬────┬──────┬───────┬───────┐                                          ┌───────┬──────┬──────┬──────┬──────┬───────┐
-                //    │    TAB    │  Q │  W │   F  │   P   │   B   │                                          │   J   │   L  │   U  │   Y  │  SQT │  _ -  │
-                //    ├───────────┼────┼────┼──────┼───────┼───────┤                                          ├───────┼──────┼──────┼──────┼──────┼───────┤
-                //    │  CTRL ESC │  A │  R │   S  │   T   │   G   │                                          │   M   │   N  │   E  │   I  │   O  │  : ;  │
-                //    ├───────────┼────┼────┼──────┼───────┼───────┼─────────┬────────┐   ┌────────┬──────────┼───────┼──────┼──────┼──────┼──────┼───────┤
-                //    │    CTRL   │  Z │  X │   C  │   D   │   V   │ navipad │ ______ │   │ ______ │  ______  │   K   │   H  │  , < │  . > │   /  │  CTRL │
-                //    └───────────┴────┴────┼──────┼───────┼───────┼─────────┼────────┤   ├────────┼──────────┼───────┼──────┼──────┼──────┴──────┴───────┘
-                //                          │  DEL │  META │  LALT │  SPACE  │  SHIFT │   │   RET  │ bspc/del │  CTRL │ hype │ mo 6 │                      
-                //                          └──────┴───────┴───────┴─────────┴────────┘   └────────┴──────────┴───────┴──────┴──────┘                      
-                &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp B                                                          &kp J       &kp L    &kp U       &kp Y     &kp SQT    &dash_swap 
-                &mt LCTRL ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                          &kp M       &kp N    &kp E       &kp I     &kp O      &colon_swap
-                &kp LCTRL       &kp Z   &kp X   &kp C     &kp D       &kp V      &nav_toggle   &trans          &trans    &trans      &kp K       &kp H    &kp COMMA   &kp DOT   &kp FSLH   &kp RCTRL  
-                &kp DEL   &kp LMETA   &kp LALT   &kp SPACE     &kp LSHFT       &kp RET   &bspc_del   &kp RCTRL   &hyper   &mo 6                                       
-            >;
-        };
-
+        // 8 
         qwerty {
             bindings = <
                 //    ┌───────────┬────┬────┬──────┬───────┬───────┐                                          ┌───────┬──────┬──────┬──────┬─────┬────────┐
@@ -383,8 +387,27 @@
                 &kp LCTRL       &kp Z   &kp X   &kp C     &kp V       &kp B      &nav_toggle   &kp LSHFT       &kp LSHFT   &kp LSHFT   &kp N       &kp M    &kp COMMA   &kp DOT   &kp FSLH      &kp RCTRL 
                 &kp DEL   &kp LMETA   &kp LALT   &kp SPACE     &kp LSHFT       &kp ENTER   &bspc_del   &kp RCTRL   &hyper   &mo 6                                         
             >;
-
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            label = "qwerty";
+        };
+
+        // 9 
+        colemak_og {
+            bindings = <
+                //    ┌───────────┬────┬────┬──────┬───────┬───────┐                                          ┌───────┬──────┬──────┬──────┬──────┬───────┐
+                //    │    TAB    │  Q │  W │   F  │   P   │   B   │                                          │   J   │   L  │   U  │   Y  │  SQT │  _ -  │
+                //    ├───────────┼────┼────┼──────┼───────┼───────┤                                          ├───────┼──────┼──────┼──────┼──────┼───────┤
+                //    │  CTRL ESC │  A │  R │   S  │   T   │   G   │                                          │   M   │   N  │   E  │   I  │   O  │  : ;  │
+                //    ├───────────┼────┼────┼──────┼───────┼───────┼─────────┬────────┐   ┌────────┬──────────┼───────┼──────┼──────┼──────┼──────┼───────┤
+                //    │    CTRL   │  Z │  X │   C  │   D   │   V   │ navipad │ ______ │   │ ______ │  ______  │   K   │   H  │  , < │  . > │   /  │  CTRL │
+                //    └───────────┴────┴────┼──────┼───────┼───────┼─────────┼────────┤   ├────────┼──────────┼───────┼──────┼──────┼──────┴──────┴───────┘
+                //                          │  DEL │  META │  LALT │  SPACE  │  SHIFT │   │   RET  │ bspc/del │  CTRL │ hype │ mo 6 │                      
+                //                          └──────┴───────┴───────┴─────────┴────────┘   └────────┴──────────┴───────┴──────┴──────┘                      
+                &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp B                                                          &kp J       &kp L    &kp U       &kp Y     &kp SQT    &dash_swap 
+                &mt LCTRL ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                          &kp M       &kp N    &kp E       &kp I     &kp O      &colon_swap
+                &kp LCTRL       &kp Z   &kp X   &kp C     &kp D       &kp V      &nav_toggle   &trans          &trans    &trans      &kp K       &kp H    &kp COMMA   &kp DOT   &kp FSLH   &kp RCTRL  
+                &kp DEL   &kp LMETA   &kp LALT   &kp SPACE     &kp LSHFT       &kp RET   &bspc_del   &kp RCTRL   &hyper   &mo 6                                       
+            >;
         };
     };
 };
