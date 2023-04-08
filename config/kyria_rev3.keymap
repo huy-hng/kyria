@@ -245,11 +245,22 @@
             sensor-bindings = <&inc_dec_kp DOWN UP>;
         };
 
+
         encoder_layer1 {
-            bindings = trans_layer;
+            bindings = < &trans   &trans   &trans   &trans   &trans   &trans                                           &trans   &trans   &trans   &trans   &trans   &trans \
+&trans   &trans   &trans   &trans   &trans   &trans                                           &trans   &trans   &trans   &trans   &trans   &trans \
+&trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans \
+                           &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans >;
+
             sensor-bindings = <&inc_dec_kp RIGHT LEFT>;
             label = "Encoder1";
         };
+
+        // encoder_layer1 {
+        //     bindings = trans_layer;
+        //     sensor-bindings = <&inc_dec_kp RIGHT LEFT>;
+        //     label = "Encoder1";
+        // };
 
 
         qwerty {
