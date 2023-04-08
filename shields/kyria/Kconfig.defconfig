@@ -1,6 +1,6 @@
 if SHIELD_KYRIA_LEFT || SHIELD_KYRIA_REV2_LEFT || SHIELD_KYRIA_REV3_LEFT
-	config ZMK_KEYBOARD_NAME
-		default "Kyria"
+	# config ZMK_KEYBOARD_NAME
+	# 	default "Kyria"
 	config ZMK_SPLIT_ROLE_CENTRAL
 		default y
 endif
@@ -8,6 +8,8 @@ endif
 if SHIELD_KYRIA
 	config ZMK_SPLIT
 		default y
+	config ZMK_KEYBOARD_NAME
+		default "Kyria"
 
 	if ZMK_DISPLAY
 		config I2C
