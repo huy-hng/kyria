@@ -1,8 +1,5 @@
 cd /home/huy/repositories/zmk/app
 
-
-
-
 left() {
 	# west build -p -d build/left -b nice_nano_v2 -- -DSHIELD=kyria_rev3_left -DZMK_CONFIG="/home/huy/repositories/zmk-config/config"
 	west build -d build/left
@@ -16,7 +13,6 @@ right() {
 	# cp ./build/right/zephyr/zmk.uf2  /run/media/huy/NICENANO$1/zmk.uf2
 	cp ./build/right/zephyr/zmk.uf2  /mnt/chromeos/removable/NICENANO$1/zmk.uf2
 }
-
 
 if [ $# -eq 0 ]; then
 	left &
