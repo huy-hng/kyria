@@ -1,0 +1,22 @@
+/ {
+	keymap {
+		colemak_og {
+			bindings = <
+//    ┌───────────┬────┬────┬──────┬───────┬───────┐                                          ┌───────┬──────┬─────────────┬──────┬──────┬───────┐
+//    │    TAB    │  Q │  W │   F  │   P   │   B   │                                          │   J   │   L  │      U      │   Y  │  SQT │  _ -  │
+//    ├───────────┼────┼────┼──────┼───────┼───────┤                                          ├───────┼──────┼─────────────┼──────┼──────┼───────┤
+//    │  CTRL ESC │  A │  R │   S  │   T   │   G   │                                          │   M   │   N  │      E      │   I  │   O  │  : ;  │
+//    ├───────────┼────┼────┼──────┼───────┼───────┼─────────┬────────┐   ┌────────┬──────────┼───────┼──────┼─────────────┼──────┼──────┼───────┤
+//    │    CTRL   │  Z │  X │   C  │   D   │   V   │ navipad │ ______ │   │ ______ │  ______  │   K   │   H  │     , <     │  . > │   /  │  CTRL │
+//    └───────────┴────┴────┼──────┼───────┼───────┼─────────┼────────┤   ├────────┼──────────┼───────┼──────┼─────────────┼──────┴──────┴───────┘
+//                          │  DEL │  META │  LALT │  SPACE  │  SHIFT │   │   RET  │ bspc/del │  CTRL │ hype │ mo SETTINGS │                      
+//                          └──────┴───────┴───────┴─────────┴────────┘   └────────┴──────────┴───────┴──────┴─────────────┘                      
+  &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp B                                                          &kp J       &kp L    &kp U          &kp Y     &kp SQT    &dash_swap 
+  &mt LCTRL ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                          &kp M       &kp N    &kp E          &kp I     &kp O      &colon_swap
+  &kp LCTRL       &kp Z   &kp X   &kp C     &kp D       &kp V      &nav_toggle   &trans          &trans    &trans      &kp K       &kp H    &kp COMMA      &kp DOT   &kp FSLH   &kp RCTRL  
+                                  &kp DEL   &kp LMETA   &kp LALT   &kp SPACE     &kp LSHFT       &kp RET   &bspc_del   &kp RCTRL   &hyper   &mo SETTINGS                                   
+				>;
+		};
+
+		};
+};

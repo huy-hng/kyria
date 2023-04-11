@@ -1,0 +1,44 @@
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/outputs.h>
+
+
+// main
+//   symbols
+//   navipad
+//     win_manager
+//     fn_keys
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+    };
+};
+
+#define COLEMAK  0
+#define CHROME   1
+#define QWERTY   2
+#define BASE_ENC 3
+
+#define SYMBOLS  4
+#define NAVIPAD  5
+#define F_KEYS   6
+#define MEDIA    7
+#define WIN_MAN  8
+#define SETTINGS 9
+#define STICKY   10
+
+#include "base_colemak.keymap"
+#include "base_chromebook.keymap"
+#include "base_qwerty.keymap"
+#include "base_encoder.keymap"
+
+#include "symbols.keymap"
+#include "navipad.keymap"
+#include "fn_keys.keymap"
+#include "media.keymap"
+#include "window_manager.keymap"
+#include "settings.keymap"
+#include "sticky_layers.keymap"
+#include "other_keymaps.keymap"

@@ -1,0 +1,15 @@
+// Macro to apply momentary-layer-on-hold/toggle-layer-on-tap to a specific layer
+#define MO_TOG(layer) &mo_tog layer layer
+
+#define ENCODER_LAYER(encoder)\
+&trans &trans &trans &trans &trans &trans                                &trans &trans &trans &trans &trans &trans \
+&trans &trans &trans &trans &trans &trans                                &trans &trans &trans &trans &trans &trans \
+&trans &trans &trans &trans &trans &trans &trans &trans  &tog encoder &trans &trans &trans &trans &trans &trans &trans \
+&trans &trans &trans &trans &trans   &trans  &trans &trans &trans &trans
+
+#define trans_layer < \
+&trans &trans &trans &trans &trans &trans                               &trans &trans &trans &trans &trans &trans \
+&trans &trans &trans &trans &trans &trans                               &trans &trans &trans &trans &trans &trans \
+&trans &trans &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans &trans &trans \
+&trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans >
+

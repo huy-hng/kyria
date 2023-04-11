@@ -1,0 +1,54 @@
+#include <behaviors.dtsi>
+
+/ {
+	behaviors {
+		mo_tog: behavior_mo_tog {
+			compatible = "zmk,behavior-hold-tap";
+			label = "mo_tog";
+			#binding-cells = <2>;
+			flavor = "hold-preferred";
+			tapping-term-ms = <200>;
+			bindings =
+				<&mo>,
+				<&tog>;
+		};
+		dash_swap: dash_swap {
+			compatible = "zmk,behavior-mod-morph";
+			label = "DASH_SWAP";
+			bindings =
+				<&kp UNDERSCORE>,
+				<&kp KP_MINUS>;
+
+			#binding-cells = <0>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+		colon_swap: colon_swap {
+			compatible = "zmk,behavior-mod-morph";
+			label = "COLON_SWAP";
+			bindings =
+				<&kp COLON>,
+				<&kp SEMI>;
+
+			#binding-cells = <0>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+		bspc_del: bspc_del {
+			compatible = "zmk,behavior-mod-morph";
+			label = "BSPC_DEL";
+			bindings =
+				<&kp BACKSPACE>,
+				<&kp DELETE>;
+
+			#binding-cells = <0>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+		nav_toggle: nav_toggle {
+			compatible = "zmk,behavior-tap-dance";
+			label = "NAV_TOGGLE";
+			#binding-cells = <0>;
+			bindings =
+				<&mo NAVIPAD>,
+				<&tog NAVIPAD>;
+		};
+	};
+};
