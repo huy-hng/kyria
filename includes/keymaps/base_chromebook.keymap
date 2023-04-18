@@ -2,7 +2,6 @@
     keymap {
         chromebook {
             label = "Chrome";
-            sensor-bindings = <&inc_dec_kp DOWN UP>;
             bindings = <
 //    ┌────────────┬────────┬────────┬────────┬────────┬────────┐                                       ┌────────┬────────┬────────┬────────┬────────┬────────┐
 //    │   ______   │ ______ │ ______ │ ______ │ ______ │ ______ │                                       │ ______ │ ______ │ ______ │ ______ │ ______ │ ______ │
@@ -17,7 +16,7 @@
   &mt LCTRL CAPS   &trans   &trans   &trans   &trans   &trans                                           &trans   &trans   &trans   &trans   &trans   &trans
   &trans           &trans   &trans   &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans   &trans   &trans   &trans
                                      &trans   &trans   &trans   &trans   &trans       &trans   &trans   &trans   &trans   &trans                           
-                                     >;
+>;
         };
 	};
 };

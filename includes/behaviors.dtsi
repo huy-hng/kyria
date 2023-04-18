@@ -42,13 +42,5 @@
 			#binding-cells = <0>;
 			mods = <(MOD_LSFT|MOD_RSFT)>;
 		};
-		nav_toggle: nav_toggle {
-			compatible = "zmk,behavior-tap-dance";
-			label = "NAV_TOGGLE";
-			#binding-cells = <0>;
-			bindings =
-				<&mo NAVIPAD>,
-				<&tog NAVIPAD>;
-		};
 	};
 };

@@ -1,65 +1,29 @@
 / {
 	macros {
-win_left: win_left {
-			  compatible = "zmk,behavior-macro";
-			  label = "WIN_LEFT";
-#binding-cells = <0>;
-			  bindings =
-				  <&macro_press>,
-				  <&kp LCTRL &kp LEFT_ALT>,
-				  <&macro_tap>,
-				  <&kp KP_NUMBER_4>,
-				  <&macro_release>,
-				  <&kp LCTRL &kp LEFT_ALT>;
-		  };
-win_center: win_center {
-				compatible = "zmk,behavior-macro";
-				label = "WIN_CENTER";
-#binding-cells = <0>;
-				bindings =
-					<&macro_press>,
-					<&kp LCTRL &kp LEFT_ALT>,
-					<&macro_tap>,
-					<&kp KP_NUMBER_5>,
-					<&macro_release>,
-					<&kp LCTRL &kp LEFT_ALT>;
-			};
-win_right: win_right {
-			   compatible = "zmk,behavior-macro";
-			   label = "WIN_RIGHT";
-#binding-cells = <0>;
-			   bindings =
-				   <&macro_press>,
-				   <&kp LCTRL &kp LEFT_ALT>,
-				   <&macro_tap>,
-				   <&kp KP_NUMBER_6>,
-				   <&macro_release>,
-				   <&kp LCTRL &kp LEFT_ALT>;
-		   };
-hyper: hyper {
-		   compatible = "zmk,behavior-macro";
-		   label = "new_macro";
-#binding-cells = <0>;
-		   bindings =
-			   <&macro_press>,
-			   <&kp LCTRL &kp LSHFT &kp LMETA &kp LEFT_ALT>,
-			   <&macro_pause_for_release>,
-			   <&macro_release>,
-			   <&kp LCTRL &kp LSHFT &kp LMETA &kp LEFT_ALT>;
+		hyper: hyper {
+			compatible = "zmk,behavior-macro";
+			label = "new_macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_press>,
+				<&kp LCTRL &kp LSHFT &kp LMETA &kp LEFT_ALT>,
+				<&macro_pause_for_release>,
+				<&macro_release>,
+				<&kp LCTRL &kp LSHFT &kp LMETA &kp LEFT_ALT>;
 
-		   wait-ms = <0>;
-	   };
-layer_menu: layer_menu {
-				compatible = "zmk,behavior-macro";
-				label = "LAYER_MENU";
-#binding-cells = <0>;
-				bindings =
-					<&macro_press>,
-					<&mo STICKY>,
-					<&macro_pause_for_release>,
-					<&macro_release>,
-					<&mo STICKY>;
-			};
+			wait-ms = <0>;
+		};
+		layer_menu: layer_menu {
+			compatible = "zmk,behavior-macro";
+			label = "LAYER_MENU";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_press>,
+				<&mo STICKY>,
+				<&macro_pause_for_release>,
+				<&macro_release>,
+				<&mo STICKY>;
+		};
 	};
 
 

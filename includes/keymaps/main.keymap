@@ -3,18 +3,19 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/outputs.h>
 
-
-// main
-//   symbols
-//   navipad
-//     win_manager
-//     fn_keys
-
 / {
     keymap {
         compatible = "zmk,keymap";
     };
 };
+
+
+// base: colemak | chrome | qwerty
+//   base_encoder
+//   symbols
+//   navipad
+//     win_manager
+//     fn_keys
 
 #define COLEMAK  0
 #define CHROME   1
@@ -35,6 +36,7 @@
 #include "base_encoder.keymap"
 
 #include "symbols.keymap"
+
 #include "navipad.keymap"
 #include "fn_keys.keymap"
 #include "media.keymap"

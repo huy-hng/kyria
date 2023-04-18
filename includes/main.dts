@@ -1,6 +1,9 @@
-#include "keymaps/main.keymap"
+#define XXX &none
+#define ___ &trans
 
+#include "functions.dtsi"
+
+#include "keymaps/main.keymap"
 #include "behaviors.dtsi"
 #include "combos.dtsi"
 #include "macros.dtsi"
-#include "functions.dtsi"

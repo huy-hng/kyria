@@ -1,0 +1,24 @@
+/ {
+    keymap {
+        navipad {
+			label = "Navipad";
+			sensor-bindings = <&inc_dec_kp RIGHT LEFT>;
+			bindings = <
+//    ┌────────────┬────────────┬─────────┬─────────┬──────────┬─────────┐                                           ┌───────┬───────┬──────┬────────┬──────┬─────────┐
+//    │  _______   │  C_AC_CUT  │  K_COPY │    UP   │  K_PASTE │ _______ │                                           │   /   │   7   │   8  │    9   │   *  │ _______ │
+//    ├────────────┼────────────┼─────────┼─────────┼──────────┼─────────┤                                           ├───────┼───────┼──────┼────────┼──────┼─────────┤
+//    │  _______   │  mo MEDIA  │   LEFT  │   DOWN  │   RIGHT  │ _______ │                                           │  LEFT │  DOWN │  UP  │  RIGHT │   +  │ _______ │
+//    ├────────────┼────────────┼─────────┼─────────┼──────────┼─────────┼─────────┬─────────┐   ┌─────────┬─────────┼───────┼───────┼──────┼────────┼──────┼─────────┤
+//    │  C_AC_REDO │  C_AC_UNDO │  K_CUT  │  K_COPY │  K_PASTE │ _______ │ _______ │ _______ │   │ _______ │ _______ │   %   │   1   │   2  │    3   │   -  │ _______ │
+//    └────────────┴────────────┴─────────┼─────────┼──────────┼─────────┼─────────┼─────────┤   ├─────────┼─────────┼───────┼───────┼──────┼────────┴──────┴─────────┘
+//                                        │ _______ │ _______  │ _______ │ _______ │ _______ │   │ _______ │ _______ │   0   │   .   │   ,  │                          
+//                                        └─────────┴──────────┴─────────┴─────────┴─────────┘   └─────────┴─────────┴───────┴───────┴──────┘                          
+  &trans          &kp C_AC_CUT    &kp K_COPY   &kp UP       &kp K_PASTE   &trans                                           &kp KP_SLASH   &kp KP_N7    &kp KP_N8      &kp KP_N9   &kp STAR       &trans
+  &trans          &mo MEDIA       &kp LEFT     &kp DOWN     &kp RIGHT     &trans                                           &kp LEFT       &kp DOWN     &kp UP         &kp RIGHT   &kp KP_PLUS    &trans
+  &kp C_AC_REDO   &kp C_AC_UNDO   &kp K_CUT    &kp K_COPY   &kp K_PASTE   &trans   &trans   &trans       &trans   &trans   &kp PRCNT      &kp KP_N1    &kp KP_N2      &kp KP_N3   &kp KP_MINUS   &trans
+                                               &trans       &trans        &trans   &trans   &trans       &trans   &trans   &kp KP_N0      &kp KP_DOT   &kp KP_COMMA                                    
+				>;
+		};
+
+    };
+};

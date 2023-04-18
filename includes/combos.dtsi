@@ -3,7 +3,7 @@
 		compatible = "zmk,combos";
 
 		left_home_thumbs{
-			bindings = <&hyper>;
+			bindings = <&mo STICKY>;
 			key-positions = <43 30>;
 			timeout-ms = <10>;
 		};

@@ -1,23 +1,39 @@
 / {
+    behaviors {
+        td0: tap_dance_0 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_0";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp N1>, <&kp N2>, <&kp N3>;
+        };
+        nav_toggle: nav_toggle {
+            // tap - sticky / hold - momentary / double tap - toggle
+			compatible = "zmk,behavior-tap-dance";
+			label = "NAV_TOGGLE";
+			#binding-cells = <0>;
+			bindings = <&sl NAVIPAD>, <&tog NAVIPAD>;
+		};
+    };
     keymap {
         colemak {
             label = "Colemak";
             sensor-bindings = <&inc_dec_kp DOWN UP>;
             bindings = <
-//    ┌───────────┬────┬────┬──────┬───────┬───────────┐                                                               ┌───────┬──────┬─────────────┬────┬────┬───────┐
-//    │    TAB    │  Q │  W │   F  │   P   │     /     │                                                               │  : ;  │   H  │      U      │  Y │  J │  _ -  │
-//    ├───────────┼────┼────┼──────┼───────┼───────────┤                                                               ├───────┼──────┼─────────────┼────┼────┼───────┤
-//    │  CTRL ESC │  A │  R │   S  │   T   │     G     │                                                               │   M   │   N  │      E      │  I │  O │  ' "  │
-//    ├───────────┼────┼────┼──────┼───────┼───────────┼─────────┬───────────┐   ┌──────────────────────────┬──────────┼───────┼──────┼─────────────┼────┼────┼───────┤
-//    │    LALT   │  Z │  X │   C  │   D   │    , <    │ navipad │ mo F_KEYS │   │ mo_tog BASE_ENC BASE_ENC │  ______  │  . >  │   L  │      K      │  B │  V │  CTRL │
-//    └───────────┴────┴────┼──────┼───────┼───────────┼─────────┼───────────┤   ├──────────────────────────┼──────────┼───────┼──────┼─────────────┼────┴────┴───────┘
-//                          │  DEL │  META │ to CHROME │  SPACE  │   SHIFT   │   │            RET           │ bspc/del │  CTRL │ hype │ mo SETTINGS │                  
-//                          └──────┴───────┴───────────┴─────────┴───────────┘   └──────────────────────────┴──────────┴───────┴──────┴─────────────┘                  
-  &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp FSLH                                                                            &colon_swap   &kp H    &kp U          &kp Y   &kp J   &dash_swap      
-  &mt LCTRL ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                                               &kp M         &kp N    &kp E          &kp I   &kp O   &kp SINGLE_QUOTE
-  &kp LALT        &kp Z   &kp X   &kp C     &kp D       &kp COMMA    &nav_toggle   &mo F_KEYS       &mo_tog BASE_ENC BASE_ENC   &trans      &kp DOT       &kp L    &kp K          &kp B   &kp V   &kp RCTRL       
-                                  &kp DEL   &mo STICKY   &to LMETA   &kp SPACE     &kp LSHFT        &kp RET                     &bspc_del   &kp RCTRL     &hyper   &mo SETTINGS                                   
-                >;
+//    ┌───────────┬────┬────┬───────────┬──────┬───────┐                                                  ┌───────┬──────┬───────────┬────┬────┬───────┐
+//    │    TAB    │  Q │  W │     F     │   P  │   /   │                                                  │  : ;  │   H  │     U     │  Y │  J │  _ -  │
+//    ├───────────┼────┼────┼───────────┼──────┼───────┤                                                  ├───────┼──────┼───────────┼────┼────┼───────┤
+//    │  CTRL ESC │  A │  R │     S     │   T  │   G   │                                                  │   M   │   N  │     E     │  I │  O │  ' "  │
+//    ├───────────┼────┼────┼───────────┼──────┼───────┼────────┬───────────┐   ┌──────────────┬──────────┼───────┼──────┼───────────┼────┼────┼───────┤
+//    │    ALT    │  Z │  X │     C     │   D  │   ,   │  SHIFT │ mo F_KEYS │   │ tog BASE_ENC │   enter  │   .   │   L  │     K     │  B │  V │  CTRL │
+//    └───────────┴────┴────┼───────────┼──────┼───────┼────────┼───────────┤   ├──────────────┼──────────┼───────┼──────┼───────────┼────┴────┴───────┘
+//                          │ mo STICKY │  DEL │  META │  SPACE │  navipad  │   │     enter    │ bspc/del │  CTRL │ hype │ mo STICKY │                  
+//                          └───────────┴──────┴───────┴────────┴───────────┘   └──────────────┴──────────┴───────┴──────┴───────────┘                  
+  &kp TAB         &kp Q   &kp W   &kp F        &kp P     &kp FSLH                                                              &colon_swap   &kp H    &kp U        &kp Y   &kp J   &dash_swap      
+  &mt LCTRL ESC   &kp A   &kp R   &kp S        &kp T     &kp G                                                                 &kp M         &kp N    &kp E        &kp I   &kp O   &kp SINGLE_QUOTE
+  &kp LALT        &kp Z   &kp X   &kp C        &kp D     &kp COMMA   &kp LSHFT   &mo F_KEYS        &tog BASE_ENC   &kp RET     &kp DOT       &kp L    &kp K        &kp B   &kp V   &kp RCTRL       
+                                  &mo STICKY   &kp DEL   &kp LMETA   &kp SPACE   &nav_toggle       &kp RET         &bspc_del   &kp RCTRL     &hyper   &mo STICKY                                   
+            >;
         };
 	};
 };
