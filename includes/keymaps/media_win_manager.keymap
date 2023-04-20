@@ -1,0 +1,43 @@
+#define _win_bl &kp LC(LA(KP_N1))
+#define _win_bc &kp LC(LA(KP_N2))
+#define _win_br &kp LC(LA(KP_N3))
+#define _win_l  &kp LC(LA(KP_N4))
+#define _win_c  &kp LC(LA(KP_N5))
+#define _win_r  &kp LC(LA(KP_N6))
+#define _win_tl &kp LC(LA(KP_N7))
+#define _win_tc &kp LC(LA(KP_N8))
+#define _win_tr &kp LC(LA(KP_N9))
+
+#define _chrome_desktop_left &kp LG(LBKT)
+#define _chrome_desktop_right &kp LG(RBKT)
+
+// maybe this needs to be curly bracket instead of shift square bracket
+#define _chrome_win_desktop_left &kp LG(LS(LBKT))
+#define _chrome_win_desktop_right &kp LG(LS(RBKT))
+
+#define _chrome_win_switch_monitor &kp LG(LA(M))
+
+/ {
+	keymap {
+		media_win_manager {
+			label = "Media";
+			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+			bindings = <
+//    ┌──────┬───────┬─────────┬───────────┬───────────────┬─────────────────────┐                               ┌──────┬─────────┬─────────┬─────────┬──────┬──────┐
+//    │ ____ │  C_RW │  C_STOP │  C_VOL_UP │  C_PLAY_PAUSE │         C_FF        │                               │ _oo_ │ _win_tl │ _win_tc │ _win_tr │ _oo_ │ ____ │
+//    ├──────┼───────┼─────────┼───────────┼───────────────┼─────────────────────┤                               ├──────┼─────────┼─────────┼─────────┼──────┼──────┤
+//    │ ____ │ ____  │  C_PREV │  C_VOL_DN │     C_NEXT    │  C_BACKLIGHT_TOGGLE │                               │ _oo_ │ _win_l  │ _win_c  │ _win_r  │ _oo_ │ ____ │
+//    ├──────┼───────┼─────────┼───────────┼───────────────┼─────────────────────┼──────┬──────┐   ┌──────┬──────┼──────┼─────────┼─────────┼─────────┼──────┼──────┤
+//    │ ____ │ ____  │  ____   │   K_MUTE  │    C_BRI_DN   │       C_BRI_UP      │ ____ │ ____ │   │ ____ │ ____ │ _oo_ │ _win_bl │ _win_bc │ _win_br │ _oo_ │ ____ │
+//    └──────┴───────┴─────────┼───────────┼───────────────┼─────────────────────┼──────┼──────┤   ├──────┼──────┼──────┼─────────┼─────────┼─────────┴──────┴──────┘
+//                             │   ____    │     ____      │        ____         │ ____ │ ____ │   │ ____ │ ____ │ ____ │  ____   │  ____   │                        
+//                             └───────────┴───────────────┴─────────────────────┴──────┴──────┘   └──────┴──────┴──────┴─────────┴─────────┘                        
+  ____   &kp C_RW   &kp C_STOP   &kp C_VOL_UP   &kp C_PLAY_PAUSE   &kp C_FF                                                 _oo_   _win_tl   _win_tc   _win_tr   _oo_   ____
+  ____   ____       &kp C_PREV   &kp C_VOL_DN   &kp C_NEXT         &kp C_BACKLIGHT_TOGGLE                                   _oo_   _win_l    _win_c    _win_r    _oo_   ____
+  ____   ____       ____         &kp K_MUTE     &kp C_BRI_DN       &kp C_BRI_UP             ____   ____       ____   ____   _oo_   _win_bl   _win_bc   _win_br   _oo_   ____
+                                 ____           ____               ____                     ____   ____       ____   ____   ____   ____      ____                           
+			>;
+		};
+	};
+};
+

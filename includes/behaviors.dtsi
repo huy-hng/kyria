@@ -8,9 +8,7 @@
 			#binding-cells = <2>;
 			flavor = "hold-preferred";
 			tapping-term-ms = <200>;
-			bindings =
-				<&mo>,
-				<&tog>;
+			bindings = <&mo>, <&tog>;
 		};
 		dash_swap: dash_swap {
 			compatible = "zmk,behavior-mod-morph";
@@ -28,16 +26,6 @@
 			bindings =
 				<&kp COLON>,
 				<&kp SEMI>;
-
-			#binding-cells = <0>;
-			mods = <(MOD_LSFT|MOD_RSFT)>;
-		};
-		bspc_del: bspc_del {
-			compatible = "zmk,behavior-mod-morph";
-			label = "BSPC_DEL";
-			bindings =
-				<&kp BACKSPACE>,
-				<&kp DELETE>;
 
 			#binding-cells = <0>;
 			mods = <(MOD_LSFT|MOD_RSFT)>;
