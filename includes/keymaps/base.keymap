@@ -1,0 +1,80 @@
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+        colemak {
+            label = "Colemak";
+            sensor-bindings = <&inc_dec_kp DOWN UP>;
+            // sensor-bindings = <&inc_dec_kp &rgb_inc &rgb_dec>;
+            bindings = <
+//                ┌────────────────┬────┬────┬──────┬───────┬──────────┐                                                       ┌────────────┬──────┬───────────┬────┬────┬──────┐
+//                │       TAB      │  Q │  W │   F  │   P   │     ,    │                                                       │      .     │   H  │     U     │  Y │  J │ _ =  │
+//                ├────────────────┼────┼────┼──────┼───────┼──────────┤                                                       ├────────────┼──────┼───────────┼────┼────┼──────┤
+//                │ ctrl_esc_macro │  A │  R │   S  │   T   │     G    │                                                       │      M     │   N  │     E     │  I │  O │  ' " │
+//                ├────────────────┼────┼────┼──────┼───────┼──────────┼────────────┬─────────────┐   ┌────────────┬───────────┼────────────┼──────┼───────────┼────┼────┼──────┤
+//                │       ALT      │  Z │  X │   C  │   D   │     /    │ navipad_sl │ media_fn_mo │   │ tog ENC_LR │ enc_lr_mo │    : ;     │   L  │     K     │  B │  V │ - +  │
+//                └────────────────┴────┴────┼──────┼───────┼──────────┼────────────┼─────────────┤   ├────────────┼───────────┼────────────┼──────┼───────────┼────┴────┴──────┘
+//                                           │  DEL │  META │ capsword │    SPACE   │  lt_os_esc  │   │    enter   │ bspc/del  │ symbols_sl │ _oo_ │ sticky_mo │                 
+//                                           └──────┴───────┴──────────┴────────────┴─────────────┘   └────────────┴───────────┴────────────┴──────┴───────────┘                 
+              &kp TAB           &kp Q   &kp W   &kp F     &kp P       &kp COMMA                                                               &kp DOT       &kp H   &kp U        &kp Y   &kp J   &under_equal    
+              &ctrl_esc_macro   &kp A   &kp R   &kp S     &kp T       &kp G                                                                   &kp M         &kp N   &kp E        &kp I   &kp O   &kp SINGLE_QUOTE
+              &kp LALT          &kp Z   &kp X   &kp C     &kp D       &kp FSLH    &navipad_sl   &media_fn_mo       &tog ENC_LR   &enc_lr_mo   &colon_semi   &kp L   &kp K        &kp B   &kp V   &minus_plus     
+                                                &kp DEL   &kp LMETA   &capsword   &kp SPACE     &lt_os_esc         &kp RET       &bspc_del    &symbols_sl   _oo_    &sticky_mo                                   
+            >;
+        };
+	};
+    behaviors {
+        capsword: capsword {
+            // tap - sticky / hold - momentary / double tap - toggle
+			compatible = "zmk,behavior-tap-dance";
+			label = "capsword";
+			#binding-cells = <0>;
+            tapping-term-ms = <150>;
+			bindings = <&shift_color>, <&caps_word>;
+		};
+        navipad: navipad {
+            // tap - sticky / hold - momentary / double tap - toggle
+			compatible = "zmk,behavior-tap-dance";
+			label = "navipad";
+			#binding-cells = <0>;
+			bindings = <&sl NAVIPAD>, <&tog NAVIPAD>;
+		};
+        mo_tog: behavior_mo_tog {
+			compatible = "zmk,behavior-hold-tap";
+			label = "mo_tog";
+			#binding-cells = <2>;
+			flavor = "hold-preferred";
+			tapping-term-ms = <200>;
+			bindings = <&mo>, <&tog>;
+		};
+		under_equal: under_equal {
+			compatible = "zmk,behavior-mod-morph";
+			label = "under_equal";
+			bindings = <&kp UNDERSCORE>, <&kp EQUAL>;
+			#binding-cells = <0>;
+			mods = <(MOD_LSFT | MOD_RSFT)>;
+		};
+		minus_plus: minus_plus {
+			compatible = "zmk,behavior-mod-morph";
+			label = "minus_plus";
+			bindings = <&kp MINUS>, <&kp PLUS>;
+			#binding-cells = <0>;
+			mods = <(MOD_LSFT | MOD_RSFT)>;
+		};
+        colon_semi: colon_semi {
+			compatible = "zmk,behavior-mod-morph";
+			label = "colon_semi";
+			bindings = <&kp COLON>, <&kp SEMI>;
+			#binding-cells = <0>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+        bspc_del: bspc_del {
+			compatible = "zmk,behavior-mod-morph";
+			label = "BSPC_DEL";
+			bindings =
+				<&kp BACKSPACE>,
+				<&kp DELETE>;
+			#binding-cells = <0>;
+			mods = <(MOD_LALT|MOD_RALT)>;
+		};
+    };
+};

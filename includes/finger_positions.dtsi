@@ -1,0 +1,65 @@
+// thumb cluster
+#define lt_t  30
+#define lt_to 31
+#define rt_to 32
+#define rt_t  33
+
+#define l_ti3 40
+#define l_ti2 41
+#define l_ti  42
+#define l_t   43
+#define l_to  44
+
+#define r_to  45
+#define r_t   46
+#define r_ti  47
+#define r_ti2 48
+#define r_ti3 49
+
+// row 0 left
+#define lt_po  0
+#define lt_p   1
+#define lt_r   2
+#define lt_m   3
+#define lt_i   4
+#define lt_io  5
+
+// row 1 left
+#define l_po 12
+#define l_p  13
+#define l_r  14
+#define l_m  15
+#define l_i  16
+#define l_io 17
+
+// row 2 left
+#define lb_po 24
+#define lb_p  25
+#define lb_r  26
+#define lb_m  27
+#define lb_i  28
+#define lb_io 29
+
+// row 0 right
+#define rt_io  6
+#define rt_i   7
+#define rt_m   8
+#define rt_r   9
+#define rt_p  10
+#define rt_po 11
+
+// row 1 right
+#define r_io  18
+#define r_i   19
+#define r_m   20
+#define r_r   21
+#define r_p   22
+#define r_po  23
+
+// row 2 right
+#define rb_io 34
+#define rb_i  35
+#define rb_m  36
+#define rb_r  37
+#define rb_p  38
+#define rb_po 39

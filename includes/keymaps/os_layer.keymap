@@ -1,39 +1,56 @@
-#define _desk_1 &kp LG(H)
-#define _desk_2 &kp LG(J)
-#define _desk_3 &kp LG(K)
-#define _desk_4 &kp LG(L)
-#define _desk_5 &kp LG(SEMI)
+#define desk_1 kp LG(H)
+#define desk_2 kp LG(J)
+#define desk_3 kp LG(K)
+#define desk_4 kp LG(L)
+#define desk_5 kp LG(SEMI)
 
-#define _desk_l &kp LG(LBKT)
-#define _desk_r &kp LG(RBKT)
+#define desk_l kp LG(LBKT)
+#define desk_r kp LG(RBKT)
+
+#define win_bl kp LC(LA(KP_N1))
+#define win_bc kp LC(LA(KP_N2))
+#define win_br kp LC(LA(KP_N3))
+#define win_l  kp LC(LA(KP_N4))
+#define win_c  kp LC(LA(KP_N5))
+#define win_r  kp LC(LA(KP_N6))
+#define win_tl kp LC(LA(KP_N7))
+#define win_tc kp LC(LA(KP_N8))
+#define win_tr kp LC(LA(KP_N9))
+
+
+// maybe this needs to be curly bracket instead of shift square bracket
+#define chrome_win_desktop_left kp LG(LS(LBKT))
+#define chrome_win_desktop_right kp LG(LS(RBKT))
+
+#define chrome_win_switch_monitor kp LG(LA(M))
+
 
 / {
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer {
-            if-layers = <OS F_KEYS>;
-            then-layer = <MEDIA_WIN>;
+            if-layers = <OS MEDIA_FN>;
+            then-layer = <FN_KEYS>;
         };
     };
 	keymap {
 		os_layer {
 			label = "OS";
 			bindings = <
-//    ┌──────┬──────┬─────────┬──────┬─────────┬──────┐                               ┌─────────┬─────────┬─────────┬─────────┬─────────┬──────┐
-//    │ ____ │ _oo_ │  _oo_   │ _oo_ │  _oo_   │ _oo_ │                               │  _oo_   │ _desk_l │ _desk_r │  _oo_   │  _oo_   │ _oo_ │
-//    ├──────┼──────┼─────────┼──────┼─────────┼──────┤                               ├─────────┼─────────┼─────────┼─────────┼─────────┼──────┤
-//    │ ____ │ _oo_ │ _desk_l │ _oo_ │ _desk_r │ _oo_ │                               │ _desk_1 │ _desk_2 │ _desk_3 │ _desk_4 │ _desk_5 │ _oo_ │
-//    ├──────┼──────┼─────────┼──────┼─────────┼──────┼──────┬──────┐   ┌──────┬──────┼─────────┼─────────┼─────────┼─────────┼─────────┼──────┤
-//    │ ____ │ _oo_ │  _oo_   │ _oo_ │  _oo_   │ _oo_ │ ____ │ ____ │   │ ____ │ ____ │  _oo_   │  _oo_   │  _oo_   │  _oo_   │  _oo_   │ _oo_ │
-//    └──────┴──────┴─────────┼──────┼─────────┼──────┼──────┼──────┤   ├──────┼──────┼─────────┼─────────┼─────────┼─────────┴─────────┴──────┘
-//                            │ ____ │  ____   │ ____ │ ____ │ ____ │   │ ____ │ ____ │  ____   │  ____   │  ____   │                           
-//                            └──────┴─────────┴──────┴──────┴──────┘   └──────┴──────┴─────────┴─────────┴─────────┘                           
-  ____   _oo_   _oo_      _oo_   _oo_      _oo_                                   _oo_      _desk_l   _desk_r   _oo_      _oo_      _oo_
-  ____   _oo_   _desk_l   _oo_   _desk_r   _oo_                                   _desk_1   _desk_2   _desk_3   _desk_4   _desk_5   _oo_
-  ____   _oo_   _oo_      _oo_   _oo_      _oo_   ____   ____       ____   ____   _oo_      _oo_      _oo_      _oo_      _oo_      _oo_
-                          ____   ____      ____   ____   ____       ____   ____   ____      ____      ____                              
+//                ┌──────┬──────┬────────┬────────┬────────┬──────┐                               ┌────────┬────────┬────────┬────────┬────────┬──────┐
+//                │ ____ │ _oo_ │ win_tl │ win_tc │ win_tr │ _oo_ │                               │  _oo_  │ desk_l │ desk_r │  _oo_  │  _oo_  │ _oo_ │
+//                ├──────┼──────┼────────┼────────┼────────┼──────┤                               ├────────┼────────┼────────┼────────┼────────┼──────┤
+//                │ ____ │ _oo_ │ win_l  │ win_c  │ win_r  │ _oo_ │                               │ desk_1 │ desk_2 │ desk_3 │ desk_4 │ desk_5 │ _oo_ │
+//                ├──────┼──────┼────────┼────────┼────────┼──────┼──────┬──────┐   ┌──────┬──────┼────────┼────────┼────────┼────────┼────────┼──────┤
+//                │ ____ │ _oo_ │ win_bl │ win_bc │ win_br │ _oo_ │ ____ │ ____ │   │ ____ │ ____ │  _oo_  │  _oo_  │  _oo_  │  _oo_  │  _oo_  │ _oo_ │
+//                └──────┴──────┴────────┼────────┼────────┼──────┼──────┼──────┤   ├──────┼──────┼────────┼────────┼────────┼────────┴────────┴──────┘
+//                                       │  ____  │  ____  │ ____ │ ____ │ ____ │   │ ____ │ ____ │  ____  │  ____  │  ____  │                         
+//                                       └────────┴────────┴──────┴──────┴──────┘   └──────┴──────┴────────┴────────┴────────┘                         
+              ____   _oo_   &win_tl   &win_tc   &win_tr   _oo_                                   _oo_      &desk_l   &desk_r   _oo_      _oo_      _oo_
+              ____   _oo_   &win_l    &win_c    &win_r    _oo_                                   &desk_1   &desk_2   &desk_3   &desk_4   &desk_5   _oo_
+              ____   _oo_   &win_bl   &win_bc   &win_br   _oo_   ____   ____       ____   ____   _oo_      _oo_      _oo_      _oo_      _oo_      _oo_
+                                      ____      ____      ____   ____   ____       ____   ____   ____      ____      ____                              
 			>;
 		};
 	};
 };
-

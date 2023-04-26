@@ -1,64 +1,43 @@
+#include "finger_positions.dtsi"
+
 / {
 	combos {
 		compatible = "zmk,combos";
 
-		left_home_thumbs{
-			bindings = <&mo STICKY>;
-			key-positions = <43 30>;
+		left_thumbs {
+			bindings = <&tog NAVIPAD>;
+			key-positions = <l_t lt_t>;
 			timeout-ms = <10>;
 		};
 
-		left_outer_thumb {
-			bindings = <&trans>;
-			key-positions = <31 44>;
+		right_thumbs {
+			bindings = <____>;
+			key-positions = <r_t rt_t>;
 			timeout-ms = <10>;
 		};
 
-		right_home_thumb {
-			bindings = <&kp ENTER>;
-			key-positions = <46 33>;
+		home_thumbs {
+			bindings = <____>;
+			key-positions = <l_t r_t>;
 			timeout-ms = <10>;
 		};
 
-		both_home_thumbs {
-			bindings = <&to COLEMAK>;
-			key-positions = <30 43 33 46>;
+		inner_thumbs {
+			bindings = <____>;
+			key-positions = <l_ti r_ti>;
+			timeout-ms = <10>;
 		};
 
-		both_home_thumb {
-			bindings = <&mo SYMBOLS>;
-			key-positions = <43 46>;
+		outer_thumbs {
+			bindings = <____>;
+			key-positions = <l_to r_to>;
+			timeout-ms = <10>;
 		};
 
-		new_combo {
-			bindings = <&trans>;
-			key-positions = <33 46 43>;
+		right_pinky_row {
+			bindings = <&ext_power EP_TOG>;
+			key-positions = <rt_po r_po rb_po>;
+			timeout-ms = <10>;
 		};
-
-		new_combo2 {
-			bindings = <&trans>;
-			key-positions = <30 43 46>;
-		};
-
-		new_combo3 {
-			bindings = <&trans>;
-			key-positions = <30 43 45>;
-		};
-
-		new_combo4 {
-			bindings = <&trans>;
-			key-positions = <33 46 44>;
-		};
-
-		new_combo5 {
-			bindings = <&trans>;
-			key-positions = <31 44 33 46>;
-		};
-
-		side_thumbs {
-			bindings = <&trans>;
-			key-positions = <44 45>;
-		};
-
 	};
 };
