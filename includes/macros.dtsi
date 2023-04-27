@@ -47,6 +47,7 @@ ZMK_MACRO(name, bindings =                   \
         HOLD_COLOR(media_fn_mo, &mo MEDIA_FN,  SET_HUE(GREEN) RGB_SOLID, RGB_SWIRL)
         HOLD_COLOR(enc_lr_mo,   &mo ENC_LR,  SET_HUE(ORANGE) RGB_SOLID, RGB_SWIRL)
         HOLD_COLOR(symbols_sl,  &sl SYMBOLS, SET_HUE(CYAN) RGB_SOLID, RGB_SWIRL)
+        HOLD_COLOR(symbols_mo,  &mo SYMBOLS, SET_HUE(CYAN) RGB_SOLID, RGB_SWIRL)
         HOLD_COLOR(navipad_sl,  &sl NAVIPAD, SET_HUE(INDIGO) RGB_SOLID, &mo NUMPAD RGB_SWIRL)
     };
 };
