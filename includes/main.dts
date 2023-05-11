@@ -1,29 +1,24 @@
-#include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/rgb.h>
-#include <dt-bindings/zmk/outputs.h>
-#include <dt-bindings/zmk/ext_power.h>
-
+#include "includes.dtsi"
 #include "defines.dtsi"
-
 
 #define BASE      0
 #define CHROME    1
 #define QWERTY    2
 
-#define SYMBOLS   3
-#define NAVIPAD   4
-#define NUMPAD    5
-#define OS        6
-#define MEDIA_FN  7
-#define FN_KEYS   8
+#define NAVIPAD   3
+#define NUMPAD    4
 
-#define SETTINGS  9
-#define STICKY   10
+#define VIM       5
+#define SYMBOLS   6
+#define OS        7
+#define MEDIA_FN  8
+#define FN_KEYS   9
 
-#define ENC_LR   11
-#define ENC_TAB  12
+#define SETTINGS 10
+#define STICKY   11
+
+#define ENC_LR   12
+#define ENC_TAB  13
 
 
 #include "keymaps/base.keymap"
@@ -31,8 +26,9 @@
 #include "keymaps/base_chromebook.keymap"
 #include "keymaps/base_qwerty.keymap"
 
-#include "keymaps/symbols.keymap"
 #include "keymaps/navipad.keymap"
+#include "keymaps/vim.keymap"
+#include "keymaps/symbols.keymap"
 #include "keymaps/os_layer.keymap"
 #include "keymaps/media.keymap"
 #include "keymaps/fn_keys.keymap"
@@ -50,5 +46,7 @@
 };
 
 &lt {
-    tapping-term-ms = <100>;
+    tapping-term-ms = <200>;
+    flavor = "hold-preferred";
+    quick-tap-ms = <200>;
 };

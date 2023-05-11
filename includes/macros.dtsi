@@ -24,11 +24,11 @@
 
 
 #define HOLD_COLOR(name, behavior, before, after) \
-ZMK_MACRO(name, bindings =                   \
+ZMK_MACRO(name, bindings =                  \
     <&macro_press behavior >                \
-    ,<&macro_tap before >                    \
-    ,<&macro_pause_for_release>              \
-    ,<&macro_tap after RESET_COLOR >               \
+    ,<&macro_tap before >                   \
+    ,<&macro_pause_for_release>             \
+    ,<&macro_tap after RESET_COLOR >        \
     ,<&macro_release behavior >             \
 ;)
 
@@ -42,12 +42,12 @@ ZMK_MACRO(name, bindings =                   \
         HOLD_COLOR(ctrl_esc_macro, &mt LCTRL ESC, SET_SAT(80), )
 
         // layers
-        HOLD_COLOR(sticky_mo,   &mo STICKY, SET_SB( 0, 20), )
-        HOLD_COLOR(lt_os_esc,   &lt OS ESC,  SET_HB(BLUE, 20) RGB_SOLID, RGB_SWIRL)
-        HOLD_COLOR(media_fn_mo, &mo MEDIA_FN,  SET_HUE(GREEN) RGB_SOLID, RGB_SWIRL)
-        HOLD_COLOR(enc_lr_mo,   &mo ENC_LR,  SET_HUE(ORANGE) RGB_SOLID, RGB_SWIRL)
-        HOLD_COLOR(symbols_sl,  &sl SYMBOLS, SET_HUE(CYAN) RGB_SOLID, RGB_SWIRL)
-        HOLD_COLOR(symbols_mo,  &mo SYMBOLS, SET_HUE(CYAN) RGB_SOLID, RGB_SWIRL)
-        HOLD_COLOR(navipad_sl,  &sl NAVIPAD, SET_HUE(INDIGO) RGB_SOLID, &mo NUMPAD RGB_SWIRL)
+        HOLD_COLOR(sticky_mo,   &mo STICKY,   SET_SB(0, 20), )
+        HOLD_COLOR(lt_os_esc,   &lt OS ESC,   SET_HB(BLUE, 20) RGB_SOLID, RGB_SWIRL)
+        HOLD_COLOR(media_fn_mo, &mo MEDIA_FN, SET_HUE(GREEN)   RGB_SOLID, RGB_SWIRL)
+        HOLD_COLOR(enc_lr_mo,   &mo ENC_LR,   SET_HUE(ORANGE)  RGB_SOLID, RGB_SWIRL)
+        HOLD_COLOR(symbols_sl,  &sl SYMBOLS,  SET_HUE(CYAN)    RGB_SOLID, RGB_SWIRL)
+        HOLD_COLOR(symbols_mo,  &mo SYMBOLS,  SET_HUE(CYAN)    RGB_SOLID, RGB_SWIRL)
+        HOLD_COLOR(navipad_sl,  &sl NAVIPAD,  SET_HUE(INDIGO)  RGB_SOLID, &mo NUMPAD RGB_SWIRL)
     };
 };
