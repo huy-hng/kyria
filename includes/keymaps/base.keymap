@@ -6,22 +6,32 @@
             sensor-bindings = <&inc_dec_kp DOWN UP>;
             // sensor-bindings = <&inc_dec_kp &rgb_inc &rgb_dec>;
             bindings = <
-//                ┌────────────────┬────┬────┬──────┬───────┬──────────┐                                                                     ┌────────────┬──────┬───────────┬────┬────┬──────┐
-//                │       TAB      │  Q │  W │   F  │   P   │     ,    │                                                                     │      .     │   H  │     U     │  Y │  J │ _ =  │
-//                ├────────────────┼────┼────┼──────┼───────┼──────────┤                                                                     ├────────────┼──────┼───────────┼────┼────┼──────┤
-//                │ ctrl_esc_macro │  A │  R │   S  │   T   │     G    │                                                                     │      M     │   N  │     E     │  I │  O │  ' " │
-//                ├────────────────┼────┼────┼──────┼───────┼──────────┼────────────┬─────────────┐   ┌────────────┬─────────────────────────┼────────────┼──────┼───────────┼────┼────┼──────┤
-//                │       ALT      │  Z │  X │   C  │   D   │     /    │ navipad_sl │ media_fn_mo │   │ tog ENC_LR │        enc_lr_mo        │    : ;     │   L  │     K     │  B │  V │ - +  │
-//                └────────────────┴────┴────┼──────┼───────┼──────────┼────────────┼─────────────┤   ├────────────┼─────────────────────────┼────────────┼──────┼───────────┼────┴────┴──────┘
-//                                           │  DEL │  META │ capsword │    SPACE   │  lt_os_esc  │   │    enter   │ lt symbols_mo BACKSPACE │ symbols_sl │ _oo_ │ sticky_mo │                 
-//                                           └──────┴───────┴──────────┴────────────┴─────────────┘   └────────────┴─────────────────────────┴────────────┴──────┴───────────┘                 
-              &kp TAB           &kp Q   &kp W   &kp F     &kp P       &kp COMMA                                                                             &kp DOT       &kp H   &kp U        &kp Y   &kp J   &under_equal    
-              &ctrl_esc_macro   &kp A   &kp R   &kp S     &kp T       &kp G                                                                                 &kp M         &kp N   &kp E        &kp I   &kp O   &kp SINGLE_QUOTE
-              &kp LALT          &kp Z   &kp X   &kp C     &kp D       &kp FSLH    &navipad_sl   &media_fn_mo       &tog ENC_LR   &enc_lr_mo                 &colon_semi   &kp L   &kp K        &kp B   &kp V   &minus_plus     
-                                                &kp DEL   &kp LMETA   &capsword   &kp SPACE     &lt_os_esc         &kp RET       &lt SYMBOLS BACKSPACE   &symbols_sl   _oo_    &sticky_mo                                   
+//                ┌───────────┬────┬────┬──────┬───────┬──────────┐                                                                ┌────────────┬──────┬───────────┬────┬────┬───────────┐
+//                │    TAB    │  Q │  W │   F  │   P   │     \    │                                                                │      :     │   H  │     U     │  Y │  J │   _oo_    │
+//                ├───────────┼────┼────┼──────┼───────┼──────────┤                                                                ├────────────┼──────┼───────────┼────┼────┼───────────┤
+//                │  CTRL ESC │  A │  R │   S  │   T   │     G    │                                                                │      M     │   N  │     E     │  I │  O │  CTRL ' " │
+//                ├───────────┼────┼────┼──────┼───────┼──────────┼────────────┬───────────┐   ┌────────────┬──────────────────────┼────────────┼──────┼───────────┼────┼────┼───────────┤
+//                │    ALT    │  Z │  X │   C  │   D   │  LA( | ) │ navipad_sl │  mo VIM   │   │ tog ENC_LR │      enc_lr_mo       │      .     │   L  │     K     │  B │  V │   _oo_    │
+//                └───────────┴────┴────┼──────┼───────┼──────────┼────────────┼───────────┤   ├────────────┼──────────────────────┼────────────┼──────┼───────────┼────┴────┴───────────┘
+//                                      │  DEL │  META │ capsword │    SPACE   │ lt_os_esc │   │    enter   │ lt SYMBOLS BACKSPACE │ symbols_sl │ _oo_ │ sticky_mo │                      
+//                                      └──────┴───────┴──────────┴────────────┴───────────┘   └────────────┴──────────────────────┴────────────┴──────┴───────────┘                      
+              &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp BSLH                                                                            &kp COLON     &kp H   &kp U        &kp Y   &kp J   _oo_                  
+              &mt LCTRL ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                                               &kp M         &kp N   &kp E        &kp I   &kp O   &mt LCTRL SINGLE_QUOTE
+              &kp LALT        &kp Z   &kp X   &kp C     &kp D       &kp LA(PIPE)   &navipad_sl   &mo VIM          &tog ENC_LR   &enc_lr_mo              &kp DOT       &kp L   &kp K        &kp B   &kp V   _oo_                  
+                                              &kp DEL   &kp LMETA   &capsword      &kp SPACE     &lt_os_esc       &kp RET       &lt SYMBOLS BACKSPACE   &symbols_sl   _oo_    &sticky_mo                                         
             >;
         };
 	};
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        tri_layer {
+            // &media_fn_mo
+            if-layers = <OS VIM>;
+            then-layer = <MEDIA_FN>;
+            // if-layers = <OS MEDIA_FN>;
+            // then-layer = <FN_KEYS>;
+        };
+    };
     behaviors {
         capsword: capsword {
             // tap - sticky / hold - momentary / double tap - toggle

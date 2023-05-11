@@ -26,13 +26,6 @@
 
 
 / {
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-        tri_layer {
-            if-layers = <OS MEDIA_FN>;
-            then-layer = <FN_KEYS>;
-        };
-    };
 	keymap {
 		os_layer {
 			label = "OS";
