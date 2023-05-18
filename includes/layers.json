@@ -1,0 +1,18 @@
+{
+  "base": "BASE",
+
+  "base_caps": "BASE_CAPS",
+  "base_qwerty": "QWERTY",
+
+  "navipad": ["NAVIPAD", "NUMPAD"],
+  "vim": "VIM",
+  "symbols": "SYMBOLS",
+  "os_layer": "OS",
+  "media": "MEDIA_FN",
+  "fn_keys": "FN_KEYS",
+
+  "settings": "SETTINGS",
+  "sticky_layers": "STICKY",
+
+  "encoder_layers": ["ENC_LR", "ENC_TAB"]
+}

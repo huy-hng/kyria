@@ -1,0 +1,14 @@
+#define BASE 0
+#define BASE_CAPS 1
+#define QWERTY 2
+#define NAVIPAD 3
+#define NUMPAD 4
+#define VIM 5
+#define SYMBOLS 6
+#define OS 7
+#define MEDIA_FN 8
+#define FN_KEYS 9
+#define SETTINGS 10
+#define STICKY 11
+#define ENC_LR 12
+#define ENC_TAB 13

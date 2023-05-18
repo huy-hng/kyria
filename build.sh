@@ -1,5 +1,6 @@
-cd /home/huy/repositories/zmk/app
+python ./generate_includes.py
 
+cd /home/huy/repositories/zmk/app
 
 left() {
 	# cp ./build/left/zephyr/zmk.uf2  /home/huy/repositories/zmk-config/last_build/left.uf2
