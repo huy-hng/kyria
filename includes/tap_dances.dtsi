@@ -1,0 +1,27 @@
+/ {
+	behaviors {
+		capsword: capsword {
+            // tap - sticky / hold - momentary / double tap - toggle
+			compatible = "zmk,behavior-tap-dance";
+			label = "capsword";
+			#binding-cells = <0>;
+            tapping-term-ms = <150>;
+			bindings = <&shift_color>, <&caps_word>;
+		};
+        navipad: navipad {
+            // tap - sticky / hold - momentary / double tap - toggle
+			compatible = "zmk,behavior-tap-dance";
+			label = "navipad";
+			#binding-cells = <0>;
+			bindings = <&sl NAVIPAD>, <&tog NAVIPAD>;
+		};
+        mo_tog: behavior_mo_tog {
+			compatible = "zmk,behavior-hold-tap";
+			label = "mo_tog";
+			#binding-cells = <2>;
+			flavor = "hold-preferred";
+			tapping-term-ms = <200>;
+			bindings = <&mo>, <&tog>;
+		};
+	};
+};

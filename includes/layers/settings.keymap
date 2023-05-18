@@ -10,6 +10,7 @@
 	keymap {
 		settings {
 			label = "Settings";
+			sensor-bindings = <&rgb_encoder>;
 			bindings = <
 //                ┌───────────────┬──────┬──────┬──────┬──────┬──────┐                               ┌───────────────┬─────────────┬────────────────┬──────────┬──────────┬─────────────┐
 //                │  bootloader   │ bt0  │ bt1  │ bt2  │ bt3  │ bt4  │                               │  Toggle light │    ____     │      ____      │   ____   │   ____   │ visual_boot │
@@ -38,6 +39,14 @@
                 <&ext_power EP_OFF>,
                 <&macro_pause_for_release>,
                 <&bootloader>;
+        };
+    };
+	behaviors {
+        rgb_encoder: rgb_encoder {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "RGB_ENCODER";
+            #sensor-binding-cells = <0>;
+            bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
         };
     };
 };
