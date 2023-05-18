@@ -1,6 +1,6 @@
 import json
 
-layers_directory = 'keymaps/'
+layers_directory = 'layers/'
 layers_extension = '.keymap'
 
 path_to_json = './includes/layers.json'
