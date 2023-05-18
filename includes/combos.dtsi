@@ -5,7 +5,8 @@
 		compatible = "zmk,combos";
 
 		left_thumbs {
-			bindings = <&tog NAVIPAD>;
+			// bindings = <&tog NAVIPAD>;
+			bindings = <&to BASE>;
 			key-positions = <l_t lt_t>;
 			timeout-ms = <10>;
 		};

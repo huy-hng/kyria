@@ -1,3 +1,6 @@
+// lt_ti: left top _ thumb inner
+// rb_po: right bottom _ pinky outer
+
 // thumb cluster
 #define lt_t  30
 #define lt_to 31

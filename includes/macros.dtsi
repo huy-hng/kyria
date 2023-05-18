@@ -24,12 +24,12 @@
 
 
 #define HOLD_COLOR(name, behavior, before, after) \
-ZMK_MACRO(name, bindings =                  \
-    <&macro_press behavior >                \
-    ,<&macro_tap before >                   \
-    ,<&macro_pause_for_release>             \
-    ,<&macro_tap after RESET_COLOR >        \
-    ,<&macro_release behavior >             \
+ZMK_MACRO(name, bindings =                        \
+    <&macro_press behavior >                      \
+    ,<&macro_tap before >                         \
+    ,<&macro_pause_for_release>                   \
+    ,<&macro_tap after RESET_COLOR >              \
+    ,<&macro_release behavior >                   \
 ;)
 
 / {
