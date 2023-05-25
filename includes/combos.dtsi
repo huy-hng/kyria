@@ -6,13 +6,20 @@
 
 		left_thumbs {
 			// bindings = <&tog NAVIPAD>;
-			bindings = <&to_BASE>;
+			bindings = <&mo_VIM>;
 			key-positions = <l_t lt_t>;
+			timeout-ms = <20>;
+		};
+
+		left_inner_thumbs {
+			// bindings = <&tog NAVIPAD>;
+			bindings = <&to_BASE>;
+			key-positions = <l_ti lb_io>;
 			timeout-ms = <10>;
 		};
 
 		right_thumbs {
-			bindings = <____>;
+			bindings = <&kp DEL>;
 			key-positions = <r_t rt_t>;
 			timeout-ms = <10>;
 		};

@@ -9,6 +9,7 @@
 		settings {
 			label = "Settings";
 			sensor-bindings = <&enc_rgb_bri>;
+			// sensor-bindings = <&enc_rgb_var RGB_BRI RGB_BRD>;
 			bindings = <
 //                ┌───────────────┬──────┬──────┬──────┬──────┬──────┐                                           ┌──────────────┬────────────┬───────────────┬─────────┬─────────┬─────────────┐
 //                │  bootloader   │ bt0  │ bt1  │ bt2  │ bt3  │ bt4  │                                           │ Toggle light │    ____    │     ____      │  ____   │  ____   │ visual_boot │
@@ -64,9 +65,9 @@
             #sensor-binding-cells = <0>;
             bindings = <&rgb_ug RGB_SAI>, <&rgb_ug RGB_SAD>;
         };
-		enc_rgb: enc_rgb {
+		enc_rgb_var: enc_rgb_var {
 			compatible = "zmk,behavior-sensor-rotate-var";
-			label = "ENC_RGB";
+			label = "ENC_RGB_var";
 			#sensor-binding-cells = <2>;
 			bindings = <&rgb_ug>, <&rgb_ug>;
 		};
