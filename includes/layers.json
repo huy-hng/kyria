@@ -11,7 +11,7 @@
   "media": "MEDIA_FN",
   "fn_keys": "FN_KEYS",
 
-  "settings": "SETTINGS",
+  "settings": ["SETTINGS", "SETTINGS_HUE", "SETTINGS_SAT"],
   "sticky_layers": "STICKY",
 
   "encoder_layers": ["ENC_LR", "ENC_TAB"]

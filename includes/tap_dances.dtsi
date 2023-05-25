@@ -1,27 +1,41 @@
+#define TAP_DANCE(name, key1, key2)        \
+name: name {                               \
+	compatible = "zmk,behavior-tap-dance"; \
+	label = #name;                         \
+	#binding-cells = <0>;                  \
+	bindings = <key1>, <key2>;             \
+}
+
+#define HOLD_TAP(name, key1, key2)        \
+name: name {                              \
+	compatible = "zmk,behavior-hold-tap"; \
+	label = #name;                        \
+	#binding-cells = <2>;                 \
+    tapping-term-ms = <200>;              \
+	flavor = "hold-preferred";            \
+	bindings = <key1>, <key2>;            \
+}
+
+#define MO_TOG(layer) &mo_tog layer layer
+
 / {
 	behaviors {
-		capsword: capsword {
-            // tap - sticky / hold - momentary / double tap - toggle
-			compatible = "zmk,behavior-tap-dance";
-			label = "capsword";
-			#binding-cells = <0>;
-            tapping-term-ms = <150>;
-			bindings = <&shift_color>, <&caps_word>;
-		};
-        navipad: navipad {
-            // tap - sticky / hold - momentary / double tap - toggle
-			compatible = "zmk,behavior-tap-dance";
-			label = "navipad";
-			#binding-cells = <0>;
-			bindings = <&sl NAVIPAD>, <&tog NAVIPAD>;
-		};
-        mo_tog: behavior_mo_tog {
-			compatible = "zmk,behavior-hold-tap";
-			label = "mo_tog";
-			#binding-cells = <2>;
-			flavor = "hold-preferred";
-			tapping-term-ms = <200>;
-			bindings = <&mo>, <&tog>;
-		};
+        TAP_DANCE(capsword, &shift_color, &caps_word);
+        TAP_DANCE(navipad, &sl_NAVIPAD, &tog_NAVIPAD);
+        TAP_DANCE(tap_settings, &settings, &tog SETTINGS);
+
+        HOLD_TAP(mo_tog, &mo, &tog);
+        HOLD_TAP(lt_SYMBOLS, &mo_SYMBOLS, &kp);
+        HOLD_TAP(mt_CTRL, &ctrl_color, &kp);
+
+		// skq: skq {
+		// 	compatible = "zmk,behavior-sticky-key";
+		// 	label = "skq";
+		// 	#binding-cells = <2>;
+		// 	bindings = <&kp>;
+		// 	release-after-ms = <1000>;
+		// 	quick-release;
+		// 	ignore-modifiers;
+		// };
 	};
 };

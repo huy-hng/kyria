@@ -6,7 +6,7 @@
 
 		left_thumbs {
 			// bindings = <&tog NAVIPAD>;
-			bindings = <&to BASE>;
+			bindings = <&to_BASE>;
 			key-positions = <l_t lt_t>;
 			timeout-ms = <10>;
 		};

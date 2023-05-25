@@ -1,5 +1,3 @@
-#define rgb rgb_ug
-// #define boot bootloader
 #define bt0 bt BT_SEL 0
 #define bt1 bt BT_SEL 1
 #define bt2 bt BT_SEL 2
@@ -10,24 +8,69 @@
 	keymap {
 		settings {
 			label = "Settings";
-			sensor-bindings = <&rgb_encoder>;
+			sensor-bindings = <&enc_rgb_bri>;
 			bindings = <
-//                ┌───────────────┬──────┬──────┬──────┬──────┬──────┐                               ┌───────────────┬─────────────┬────────────────┬──────────┬──────────┬─────────────┐
-//                │  bootloader   │ bt0  │ bt1  │ bt2  │ bt3  │ bt4  │                               │  Toggle light │    ____     │      ____      │   ____   │   ____   │ visual_boot │
-//                ├───────────────┼──────┼──────┼──────┼──────┼──────┤                               ├───────────────┼─────────────┼────────────────┼──────────┼──────────┼─────────────┤
-//                │ Toggle Output │ ____ │ ____ │ ____ │ ____ │ ____ │                               │  Next Effect  │  Inc Bright │  Inc Ani Speed │  Inc Sat │  Inc Hue │    ____     │
-//                ├───────────────┼──────┼──────┼──────┼──────┼──────┼──────┬──────┐   ┌──────┬──────┼───────────────┼─────────────┼────────────────┼──────────┼──────────┼─────────────┤
-//                │  bt Clear BT  │ ____ │ ____ │ ____ │ ____ │ ____ │ ____ │ ____ │   │ ____ │ ____ │  Prev Effect  │  Dec Bright │  Dec Ani Speed │  Dec Sat │  Dec Hue │    ____     │
-//                └───────────────┴──────┴──────┼──────┼──────┼──────┼──────┼──────┤   ├──────┼──────┼───────────────┼─────────────┼────────────────┼──────────┴──────────┴─────────────┘
-//                                              │ ____ │ ____ │ ____ │ ____ │ ____ │   │ ____ │ ____ │     ____      │    ____     │  tog SETTINGS  │                                    
-//                                              └──────┴──────┴──────┴──────┴──────┘   └──────┴──────┴───────────────┴─────────────┴────────────────┘                                    
-              &bootloader    &bt0   &bt1   &bt2   &bt3   &bt4                                   &rgb RGB_TOG   ____           ____            ____           ____           &visual_boot
-              &out OUT_TOG   ____   ____   ____   ____   ____                                   &rgb RGB_EFF   &rgb RGB_BRI   &rgb RGB_SPI    &rgb RGB_SAI   &rgb RGB_HUI   ____        
-              &bt BT_CLR     ____   ____   ____   ____   ____   ____   ____       ____   ____   &rgb RGB_EFR   &rgb RGB_BRD   &rgb RGB_SPD    &rgb RGB_SAD   &rgb RGB_HUD   ____        
-                                           ____   ____   ____   ____   ____       ____   ____   ____           ____           &tog SETTINGS                                             
+//                ┌───────────────┬──────┬──────┬──────┬──────┬──────┐                                           ┌──────────────┬────────────┬───────────────┬─────────┬─────────┬─────────────┐
+//                │  bootloader   │ bt0  │ bt1  │ bt2  │ bt3  │ bt4  │                                           │ Toggle light │    ____    │     ____      │  ____   │  ____   │ visual_boot │
+//                ├───────────────┼──────┼──────┼──────┼──────┼──────┤                                           ├──────────────┼────────────┼───────────────┼─────────┼─────────┼─────────────┤
+//                │ Toggle Output │ ____ │ ____ │ ____ │ ____ │ ____ │                                           │ Next Effect  │ Inc Bright │ Inc Ani Speed │ Inc Sat │ Inc Hue │    ____     │
+//                ├───────────────┼──────┼──────┼──────┼──────┼──────┼──────┬──────┐   ┌──────┬──────────────────┼──────────────┼────────────┼───────────────┼─────────┼─────────┼─────────────┤
+//                │  bt Clear BT  │ ____ │ ____ │ ____ │ ____ │ ____ │ ____ │ ____ │   │ ____ │ tog SETTINGS_HUE │ Prev Effect  │ Dec Bright │ Dec Ani Speed │ Dec Sat │ Dec Hue │    ____     │
+//                └───────────────┴──────┴──────┼──────┼──────┼──────┼──────┼──────┤   ├──────┼──────────────────┼──────────────┼────────────┼───────────────┼─────────┴─────────┴─────────────┘
+//                                              │ ____ │ ____ │ ____ │ ____ │ ____ │   │ ____ │       ____       │     ____     │    ____    │    to BASE    │                                  
+//                                              └──────┴──────┴──────┴──────┴──────┘   └──────┴──────────────────┴──────────────┴────────────┴───────────────┘                                  
+              &bootloader    &bt0   &bt1   &bt2   &bt3   &bt4                                                &rgb_ug RGB_TOG   ____              ____              ____              ____              &visual_boot
+              &out OUT_TOG   ____   ____   ____   ____   ____                                                &rgb_ug RGB_EFF   &rgb_ug RGB_BRI   &rgb_ug RGB_SPI   &rgb_ug RGB_SAI   &rgb_ug RGB_HUI   ____        
+              &bt BT_CLR     ____   ____   ____   ____   ____   ____   ____       ____   &tog SETTINGS_HUE   &rgb_ug RGB_EFR   &rgb_ug RGB_BRD   &rgb_ug RGB_SPD   &rgb_ug RGB_SAD   &rgb_ug RGB_HUD   ____        
+                                           ____   ____   ____   ____   ____       ____   ____                ____              ____              &to BASE                                                          
 			>;
 		};
+		settings_enc_hue {
+            label = "Hue";
+            sensor-bindings = <&enc_rgb_hue>;
+			bindings = ENCODER_SIDE_BUTTON(&tog SETTINGS_SAT);
+        };
+		settings_enc_sat {
+            label = "Sat";
+            sensor-bindings = <&enc_rgb_sat>;
+			bindings = ENCODER_SIDE_BUTTON(&to SETTINGS);
+        };
 	};
+	macros {
+		ZMK_MACRO(settings, bindings =
+			<&macro_press &mo SETTINGS >
+			,<&macro_pause_for_release>
+			,<&macro_tap &mo SETTINGS_HUE &mo SETTINGS_SAT >
+			,<&macro_release &mo SETTINGS >
+		;)
+	};
+	behaviors {
+        enc_rgb_bri: enc_rgb_bri {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "enc_rgb_bri";
+            #sensor-binding-cells = <0>;
+            bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
+        };
+
+        enc_rgb_hue: enc_rgb_hue {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "enc_rgb_hue";
+            #sensor-binding-cells = <0>;
+            bindings = <&rgb_ug RGB_HUI>, <&rgb_ug RGB_HUD>;
+        };
+        enc_rgb_sat: enc_rgb_sat {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "enc_rgb_sat";
+            #sensor-binding-cells = <0>;
+            bindings = <&rgb_ug RGB_SAI>, <&rgb_ug RGB_SAD>;
+        };
+		enc_rgb: enc_rgb {
+			compatible = "zmk,behavior-sensor-rotate-var";
+			label = "ENC_RGB";
+			#sensor-binding-cells = <2>;
+			bindings = <&rgb_ug>, <&rgb_ug>;
+		};
+    };
 	macros {
 		visual_boot: visual_boot {
             compatible = "zmk,behavior-macro";
@@ -39,14 +82,6 @@
                 <&ext_power EP_OFF>,
                 <&macro_pause_for_release>,
                 <&bootloader>;
-        };
-    };
-	behaviors {
-        rgb_encoder: rgb_encoder {
-            compatible = "zmk,behavior-sensor-rotate";
-            label = "RGB_ENCODER";
-            #sensor-binding-cells = <0>;
-            bindings = <&rgb_ug RGB_BRI>, <&rgb_ug RGB_BRD>;
         };
     };
 };

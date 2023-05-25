@@ -9,6 +9,8 @@
 #define MEDIA_FN 8
 #define FN_KEYS 9
 #define SETTINGS 10
-#define STICKY 11
-#define ENC_LR 12
-#define ENC_TAB 13
+#define SETTINGS_HUE 11
+#define SETTINGS_SAT 12
+#define STICKY 13
+#define ENC_LR 14
+#define ENC_TAB 15

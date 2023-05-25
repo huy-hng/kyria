@@ -9,13 +9,13 @@
 //                ├──────┼─────────┼────────┼─────────┼──────────┼────────┤                                        ├──────┼──────┼──────┼──────┼──────┼───────┤
 //                │ ____ │  K_UNDO │  LEFT  │   DOWN  │   RIGHT  │  PG_DN │                                        │   =  │   4  │   5  │   6  │   +  │  META │
 //                ├──────┼─────────┼────────┼─────────┼──────────┼────────┼─────────┬──────┐   ┌──────┬────────────┼──────┼──────┼──────┼──────┼──────┼───────┤
-//                │ ____ │  K_REDO │  K_CUT │  K_COPY │  K_PASTE │    ,   │ to BASE │ ____ │   │ ____ │ tog NUMPAD │   .  │   1  │   2  │   3  │   -  │ _oo_  │
+//                │ ____ │  K_REDO │  K_CUT │  K_COPY │  K_PASTE │    ,   │ to_BASE │ ____ │   │ ____ │ tog NUMPAD │   .  │   1  │   2  │   3  │   -  │ _oo_  │
 //                └──────┴─────────┴────────┼─────────┼──────────┼────────┼─────────┼──────┤   ├──────┼────────────┼──────┼──────┼──────┼──────┴──────┴───────┘
 //                                          │  ____   │   ____   │  ____  │  ____   │ ____ │   │ ____ │    ____    │   0  │ ____ │ ____ │                      
 //                                          └─────────┴──────────┴────────┴─────────┴──────┘   └──────┴────────────┴──────┴──────┴──────┘                      
               ____   _oo_         &kp HOME    &kp UP       &kp END       &kp PG_UP                                              &kp FSLH    &kp N7   &kp N8   &kp N9   &kp STAR    &kp PRCNT
               ____   &kp K_UNDO   &kp LEFT    &kp DOWN     &kp RIGHT     &kp PG_DN                                              &kp EQUAL   &kp N4   &kp N5   &kp N6   &kp PLUS    &kp LMETA
-              ____   &kp K_REDO   &kp K_CUT   &kp K_COPY   &kp K_PASTE   &kp COMMA   &to BASE   ____       ____   &tog NUMPAD   &kp DOT     &kp N1   &kp N2   &kp N3   &kp MINUS   _oo_     
+              ____   &kp K_REDO   &kp K_CUT   &kp K_COPY   &kp K_PASTE   &kp COMMA   &to_BASE   ____       ____   &tog NUMPAD   &kp DOT     &kp N1   &kp N2   &kp N3   &kp MINUS   _oo_     
                                               ____         ____          ____        ____       ____       ____   ____          &kp N0      ____     ____                                   
             >;
         };

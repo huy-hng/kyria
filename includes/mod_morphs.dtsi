@@ -1,31 +1,26 @@
 / {
 	behaviors {
+		bspc_del: bspc_del {
+			compatible = "zmk,behavior-mod-morph";
+			label = "BSPC_DEL";
+			bindings = <&kp BACKSPACE>, <&kp DELETE>;
+			#binding-cells = <0>;
+			mods = <(MOD_LALT|MOD_RALT)>;
+		};
+
 		ctrl_up: ctrl_up {
 			compatible = "zmk,behavior-mod-morph";
 			label = "CTRL_UP";
-			bindings =
-				<&kp UP>,
-				<&kp PG_UP>;
+			bindings = <&kp UP>, <&kp PG_UP>;
 			#binding-cells = <0>;
 			mods = <(MOD_LCTL|MOD_RCTL)>;
 		};
         ctrl_down: ctrl_down {
 			compatible = "zmk,behavior-mod-morph";
 			label = "CTRL_DOWN";
-			bindings =
-				<&kp DOWN>,
-				<&kp PG_DN>;
+			bindings = <&kp DOWN>, <&kp PG_DN>;
 			#binding-cells = <0>;
 			mods = <(MOD_LCTL|MOD_RCTL)>;
-		};
-		bspc_del: bspc_del {
-			compatible = "zmk,behavior-mod-morph";
-			label = "BSPC_DEL";
-			bindings =
-				<&kp BACKSPACE>,
-				<&kp DELETE>;
-			#binding-cells = <0>;
-			mods = <(MOD_LALT|MOD_RALT)>;
 		};
 	};
 };
