@@ -1,21 +1,23 @@
 python ./generate_includes.py
 
 cd /home/huy/repositories/zmk/app
+config_folder="/home/huy/repositories/zmk-config/config"
+board_info="nice_nano_v2 -- -DSHIELD=kyria_rev3_left -DZMK_CONFIG=$config_folder"
+
+side() {
+	# west build -p -d build/$1 -b $board_info
+	west build -d build/$1 -b $board_info
+
+	cp ./build/$1/zephyr/zmk.uf2  /run/media/huy/NICENANO$2/zmk.uf2
+	# cp ./build/$1/zephyr/zmk.uf2  /mnt/chromeos/removable/NICENANO$1/zmk.uf2
+}
 
 left() {
-	# cp ./build/left/zephyr/zmk.uf2  /home/huy/repositories/zmk-config/last_build/left.uf2
-	# west build -p -d build/left -b nice_nano_v2 -- -DSHIELD=kyria_rev3_left -DZMK_CONFIG="/home/huy/repositories/zmk-config/config"
-	west build -d build/left
-	cp ./build/left/zephyr/zmk.uf2  /run/media/huy/NICENANO$1/zmk.uf2
-	# cp ./build/left/zephyr/zmk.uf2  /mnt/chromeos/removable/NICENANO$1/zmk.uf2
+	side left $@
 }
 
 right() {
-	# cp ./build/right/zephyr/zmk.uf2  /home/huy/repositories/zmk-config/last_build/right.uf2
-	# west build -p -d build/right -b nice_nano_v2 -- -DSHIELD=kyria_rev3_right -DZMK_CONFIG="/home/huy/repositories/zmk-config/config"
-	west build -d build/right
-	cp ./build/right/zephyr/zmk.uf2  /run/media/huy/NICENANO$1/zmk.uf2
-	# cp ./build/right/zephyr/zmk.uf2  /mnt/chromeos/removable/NICENANO$1/zmk.uf2
+	side right $@
 }
 
 if [ $# -eq 0 ]; then
@@ -23,7 +25,6 @@ if [ $# -eq 0 ]; then
 	right 1 &
 	exit 0
 elif declare -f "$1" > /dev/null; then
-	# call arguments verbatim
 	"$@"
 	exit 0
 else
@@ -31,4 +32,3 @@ else
 	echo "'$1' is not a known function name" >&2
 	exit 1
 fi
-
