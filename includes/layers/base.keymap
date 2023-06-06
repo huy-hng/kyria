@@ -4,21 +4,20 @@
         colemak {
             label = "Colemak";
             sensor-bindings = <&enc_up_down>;
-            // sensor-bindings = <&inc_dec_kp &rgb_inc &rgb_dec>;
             bindings = <
-//                ┌─────────────┬────┬────┬──────┬───────┬──────────┐                                                               ┌──────┬───────────┬──────────────┬────┬────┬─────────────┐
-//                │     TAB     │  Q │  W │   F  │   P   │  LA( | ) │                                                               │   :  │     H     │       U      │  Y │  J │    _oo_     │
-//                ├─────────────┼────┼────┼──────┼───────┼──────────┤                                                               ├──────┼───────────┼──────────────┼────┼────┼─────────────┤
-//                │ _CTRL A ESC │  A │  R │   S  │   T   │     G    │                                                               │   M  │     N     │       E      │  I │  O │ _CTRL A ' " │
-//                ├─────────────┼────┼────┼──────┼───────┼──────────┼─────────┬───────────┐   ┌────────────┬────────────────────────┼──────┼───────────┼──────────────┼────┼────┼─────────────┤
-//                │  alt_color  │  Z │  X │   C  │   D   │  LA( | ) │ navipad │  mo VIM   │   │ tog ENC_LR │       enc_lr_mo        │   .  │     L     │       K      │  B │  V │    _oo_     │
-//                └─────────────┴────┴────┼──────┼───────┼──────────┼─────────┼───────────┤   ├────────────┼────────────────────────┼──────┼───────────┼──────────────┼────┴────┴─────────────┘
-//                                        │  DEL │  META │ capsword │  SPACE  │ lt_OS_ESC │   │    enter   │ lt_SYMBOLS A BACKSPACE │ _oo_ │ mo_STICKY │ tap_settings │                        
-//                                        └──────┴───────┴──────────┴─────────┴───────────┘   └────────────┴────────────────────────┴──────┴───────────┴──────────────┘                        
-              &kp TAB          &kp Q   &kp W   &kp F     &kp P       &kp LA(PIPE)                                                                        &kp COLON   &kp H        &kp U           &kp Y   &kp J   _oo_                   
-              &mt_CTRL A ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                                               &kp M       &kp N        &kp E           &kp I   &kp O   &mt_CTRL A SINGLE_QUOTE
-              &alt_color       &kp Z   &kp X   &kp C     &kp D       &kp LA(PIPE)   &navipad    &mo VIM          &tog ENC_LR   &enc_lr_mo                &kp DOT     &kp L        &kp K           &kp B   &kp V   _oo_                   
-                                               &kp DEL   &kp LMETA   &capsword      &kp SPACE   &lt_OS_ESC       &kp RET       &lt_SYMBOLS A BACKSPACE   _oo_        &mo_STICKY   &tap_settings                                          
+//                ┌─────────────┬────┬────┬──────┬───────┬──────────┐                                                                ┌────────────┬───────────┬──────────────┬────┬────┬─────────────┐
+//                │     TAB     │  Q │  W │   F  │   P   │  LA( | ) │                                                                │      :     │     H     │       U      │  Y │  J │    _oo_     │
+//                ├─────────────┼────┼────┼──────┼───────┼──────────┤                                                                ├────────────┼───────────┼──────────────┼────┼────┼─────────────┤
+//                │ _CTRL A ESC │  A │  R │   S  │   T   │     G    │                                                                │      M     │     N     │       E      │  I │  O │ _CTRL A ' " │
+//                ├─────────────┼────┼────┼──────┼───────┼──────────┼─────────┬───────────┐   ┌─────────────┬────────────────────────┼────────────┼───────────┼──────────────┼────┼────┼─────────────┤
+//                │  alt_color  │  Z │  X │   C  │   D   │  LA( | ) │ navipad │  mo_VIM   │   │ tog ENC_LR  │       enc_lr_mo        │      .     │     L     │       K      │  B │  V │  alt_color  │
+//                └─────────────┴────┴────┼──────┼───────┼──────────┼─────────┼───────────┤   ├─────────────┼────────────────────────┼────────────┼───────────┼──────────────┼────┴────┴─────────────┘
+//                                        │  DEL │  META │ capsword │  SPACE  │ lt_OS_ESC │   │ lt_OS_enter │ lt_SYMBOLS A BACKSPACE │ key_repeat │ mo_STICKY │ tap_settings │                        
+//                                        └──────┴───────┴──────────┴─────────┴───────────┘   └─────────────┴────────────────────────┴────────────┴───────────┴──────────────┘                        
+              &kp TAB          &kp Q   &kp W   &kp F     &kp P       &kp LA(PIPE)                                                                        &kp COLON     &kp H        &kp U           &kp Y   &kp J   _oo_                   
+              &mt_CTRL A ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                                               &kp M         &kp N        &kp E           &kp I   &kp O   &mt_CTRL A SINGLE_QUOTE
+              &alt_color       &kp Z   &kp X   &kp C     &kp D       &kp LA(PIPE)   &navipad    &mo_VIM          &tog ENC_LR   &mo_ENC_LR                &kp DOT       &kp L        &kp K           &kp B   &kp V   &alt_color             
+                                               &kp DEL   &kp LMETA   &capsword      &kp SPACE   &lt_OS_ESC       &lt_OS_RET    &lt_SYMBOLS A BACKSPACE   &key_repeat   &mo_STICKY   &tap_settings                                          
             >;
         };
 	};
@@ -33,13 +32,7 @@
         };
     };
     behaviors {
-        rgb_solid: rgb_solid {
-            compatible = "zmk,behavior-rgb-underglow";
-            label = "RGB_SOLID";
-            #binding-cells = <2>;
-            // bindings = <&rgb_ug RGB_EFS_CMD 0>;
-        };
-        rot_kp: behavior_sensor_rotate_kp {
+        enc_kp: enc_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             label = "ENC_KP";
             #sensor-binding-cells = <2>;

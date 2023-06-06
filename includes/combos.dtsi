@@ -4,6 +4,8 @@
 	combos {
 		compatible = "zmk,combos";
 
+		//------------------------------------------thumbs------------------------------------------
+
 		left_thumbs {
 			// bindings = <&tog NAVIPAD>;
 			bindings = <&mo_VIM>;
@@ -11,18 +13,26 @@
 			timeout-ms = <20>;
 		};
 
-		left_inner_thumbs {
-			// bindings = <&tog NAVIPAD>;
-			bindings = <&to_BASE>;
-			key-positions = <l_ti lb_io>;
-			timeout-ms = <10>;
-		};
-
 		right_thumbs {
 			bindings = <&kp DEL>;
 			key-positions = <r_t rt_t>;
 			timeout-ms = <10>;
 		};
+
+
+		left_inner_thumbs {
+			bindings = <&to_BASE>;
+			key-positions = <l_ti lb_io>;
+			timeout-ms = <10>;
+		};
+
+		right_inner_thumbs {
+			bindings = <____>;
+			key-positions = <r_ti rb_io>;
+			timeout-ms = <10>;
+		};
+
+		//----------------------------------------both sides----------------------------------------
 
 		home_thumbs {
 			bindings = <____>;
@@ -42,6 +52,7 @@
 			timeout-ms = <10>;
 		};
 
+		//-------------------------------------------misc-------------------------------------------
 		right_pinky_row {
 			bindings = <&ext_power EP_TOG>;
 			key-positions = <rt_po r_po rb_po>;
