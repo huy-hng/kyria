@@ -12,11 +12,13 @@ name: name {                              \
 	label = #name;                        \
 	#binding-cells = <2>;                 \
     tapping-term-ms = <200>;              \
+	quick-tap-ms = <200>;                 \
 	flavor = "hold-preferred";            \
 	bindings = <key1>, <key2>;            \
 }
 
 #define MO_TOG(layer) &mo_tog layer layer
+#define MOD_TAP(name, kp) name A KP
 
 / {
 	behaviors {
@@ -27,6 +29,7 @@ name: name {                              \
         HOLD_TAP(mo_tog, &mo, &tog);
         HOLD_TAP(lt_SYMBOLS, &mo_SYMBOLS, &kp);
         HOLD_TAP(mt_CTRL, &ctrl_color, &kp);
+		HOLD_TAP(mt_ALT, &alt_color, &kp);
 
 		// skq: skq {
 		// 	compatible = "zmk,behavior-sticky-key";

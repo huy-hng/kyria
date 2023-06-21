@@ -51,10 +51,9 @@ ZMK_MACRO(name, bindings =         \
 
         // layers
         HOLD_COLOR(lt_OS_RET,   &lt OS RET,    SET_SAT(80), )
-        HOLD_COLOR(mo_STICKY,   &mo STICKY,    SET_SB(0, 20), )
         HOLD_COLOR(lt_OS_ESC,   &lt OS ESC,    SET_HB(BLUE, 20) RGB_SOLID, RGB_SWIRL)
-        HOLD_COLOR(media_fn_mo, &mo MEDIA_FN,  SET_HUE(GREEN)   RGB_SOLID, RGB_SWIRL)
-        HOLD_COLOR(symbols_sl,  &sl SYMBOLS,   SET_HUE(CYAN)    RGB_SOLID, RGB_SWIRL)
+
+        HOLD_COLOR(mo_LAYERS,   &mo LAYERS,    SET_SB(0, 20), )
         HOLD_COLOR(mo_SYMBOLS,  &mo SYMBOLS,   SET_HUE(CYAN)    RGB_SOLID, RGB_SWIRL)
         HOLD_COLOR(mo_VIM,      &mo VIM,       SET_HUE(INDIGO)  RGB_SOLID, RGB_SWIRL)
         HOLD_COLOR(sl_NAVIPAD,  &sl NAVIPAD,   SET_HUE(INDIGO)  RGB_SOLID, &mo NUMPAD RGB_SWIRL)

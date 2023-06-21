@@ -5,26 +5,25 @@
             label = "Colemak";
             sensor-bindings = <&enc_up_down>;
             bindings = <
-//                ┌─────────────┬────┬────┬──────┬───────┬──────────┐                                                                ┌────────────┬───────────┬──────────────┬────┬────┬─────────────┐
-//                │     TAB     │  Q │  W │   F  │   P   │  LA( | ) │                                                                │      :     │     H     │       U      │  Y │  J │    _oo_     │
-//                ├─────────────┼────┼────┼──────┼───────┼──────────┤                                                                ├────────────┼───────────┼──────────────┼────┼────┼─────────────┤
-//                │ _CTRL A ESC │  A │  R │   S  │   T   │     G    │                                                                │      M     │     N     │       E      │  I │  O │ _CTRL A ' " │
-//                ├─────────────┼────┼────┼──────┼───────┼──────────┼─────────┬───────────┐   ┌─────────────┬────────────────────────┼────────────┼───────────┼──────────────┼────┼────┼─────────────┤
-//                │  alt_color  │  Z │  X │   C  │   D   │  LA( | ) │ navipad │  mo_VIM   │   │ tog ENC_LR  │       enc_lr_mo        │      .     │     L     │       K      │  B │  V │  alt_color  │
-//                └─────────────┴────┴────┼──────┼───────┼──────────┼─────────┼───────────┤   ├─────────────┼────────────────────────┼────────────┼───────────┼──────────────┼────┴────┴─────────────┘
-//                                        │  DEL │  META │ capsword │  SPACE  │ lt_OS_ESC │   │ lt_OS_enter │ lt_SYMBOLS A BACKSPACE │ key_repeat │ mo_STICKY │ tap_settings │                        
-//                                        └──────┴───────┴──────────┴─────────┴───────────┘   └─────────────┴────────────────────────┴────────────┴───────────┴──────────────┘                        
-              &kp TAB          &kp Q   &kp W   &kp F     &kp P       &kp LA(PIPE)                                                                        &kp COLON     &kp H        &kp U           &kp Y   &kp J   _oo_                   
-              &mt_CTRL A ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                                               &kp M         &kp N        &kp E           &kp I   &kp O   &mt_CTRL A SINGLE_QUOTE
-              &alt_color       &kp Z   &kp X   &kp C     &kp D       &kp LA(PIPE)   &navipad    &mo_VIM          &tog ENC_LR   &mo_ENC_LR                &kp DOT       &kp L        &kp K           &kp B   &kp V   &alt_color             
-                                               &kp DEL   &kp LMETA   &capsword      &kp SPACE   &lt_OS_ESC       &lt_OS_RET    &lt_SYMBOLS A BACKSPACE   &key_repeat   &mo_STICKY   &tap_settings                                          
+//                ┌──────────────┬────┬────┬──────┬───────┬──────────┐                                                           ┌────────────┬───────────┬──────────────┬────┬────┬─────────────┐
+//                │      TAB     │  Q │  W │   F  │   P   │  LA( | ) │                                                           │    BSPC    │     H     │       U      │  Y │  J │    _oo_     │
+//                ├──────────────┼────┼────┼──────┼───────┼──────────┤                                                           ├────────────┼───────────┼──────────────┼────┼────┼─────────────┤
+//                │ _CTRL A ESC  │  A │  R │   S  │   T   │     G    │                                                           │      M     │     N     │       E      │  I │  O │ _CTRL A ' " │
+//                ├──────────────┼────┼────┼──────┼───────┼──────────┼─────────┬───────────┐   ┌─────────────┬───────────────────┼────────────┼───────────┼──────────────┼────┼────┼─────────────┤
+//                │ _ALT A enter │  Z │  X │   C  │   D   │     .    │ navipad │  mo_VIM   │   │ tog ENC_LR  │     mo_ENC_LR     │    BSPC    │     L     │       K      │  B │  V │  alt_color  │
+//                └──────────────┴────┴────┼──────┼───────┼──────────┼─────────┼───────────┤   ├─────────────┼───────────────────┼────────────┼───────────┼──────────────┼────┴────┴─────────────┘
+//                                         │  DEL │  META │ capsword │  SPACE  │ lt_OS_ESC │   │ lt_OS_enter │ lt_SYMBOLS A BSPC │ key_repeat │ mo_LAYERS │ tap_settings │                        
+//                                         └──────┴───────┴──────────┴─────────┴───────────┘   └─────────────┴───────────────────┴────────────┴───────────┴──────────────┘                        
+              &kp TAB          &kp Q   &kp W   &kp F     &kp P       &kp LA(PIPE)                                                                   &kp BSPC      &kp H        &kp U           &kp Y   &kp J   _oo_                   
+              &mt_CTRL A ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                                          &kp M         &kp N        &kp E           &kp I   &kp O   &mt_CTRL A SINGLE_QUOTE
+              &mt_ALT A RET    &kp Z   &kp X   &kp C     &kp D       &kp DOT        &navipad    &mo_VIM          &tog ENC_LR   &mo ENC_LR           &kp BSPC      &kp L        &kp K           &kp B   &kp V   &alt_color             
+                                               &kp DEL   &kp LMETA   &capsword      &kp SPACE   &lt_OS_ESC       &lt_OS_RET    &lt_SYMBOLS A BSPC   &key_repeat   &mo_LAYERS   &tap_settings                                          
             >;
         };
 	};
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer {
-            // &media_fn_mo
             if-layers = <OS VIM>;
             then-layer = <MEDIA_FN>;
             // if-layers = <OS MEDIA_FN>;

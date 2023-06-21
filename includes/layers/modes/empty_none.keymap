@@ -1,0 +1,13 @@
+/ {
+    keymap {
+        RENAME_ME {
+			label = "NAME";
+			bindings = <
+                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
+                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
+                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
+                                     _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_   _oo_   _oo_
+            >;
+        };
+    };
+};

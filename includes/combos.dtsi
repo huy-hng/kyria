@@ -8,7 +8,7 @@
 
 		left_thumbs {
 			// bindings = <&tog NAVIPAD>;
-			bindings = <&mo_VIM>;
+			bindings = <&mo_LAYERS>;
 			key-positions = <l_t lt_t>;
 			timeout-ms = <20>;
 		};

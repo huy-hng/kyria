@@ -1,8 +1,13 @@
 {
   "base": "BASE",
 
-  "base_caps": "BASE_CAPS",
-  "base_qwerty": "QWERTY",
+  "modes/caps": "BASE_CAPS",
+  "modes/experimental": "EXPERIMENTAL",
+  "modes/qwerty": "QWERTY",
+
+  "modes/gaming": "GAMING",
+  "modes/sudoku": "SUDOKU",
+  "modes/no_hold": "NO_HOLD",
 
   "navipad": ["NAVIPAD", "NUMPAD"],
   "vim": "VIM",
@@ -12,7 +17,7 @@
   "fn_keys": "FN_KEYS",
 
   "settings": ["SETTINGS", "SETTINGS_HUE", "SETTINGS_SAT"],
-  "sticky_layers": "STICKY",
+  "mode_switcher": "LAYERS",
 
   "encoder_layers": ["ENC_LR", "ENC_TAB"]
 }

@@ -3,7 +3,7 @@ import json
 layers_directory = 'layers/'
 layers_extension = '.keymap'
 
-path_to_json = './includes/layers.json'
+path_to_json = './layers.json'
 path_to_defines = './includes/layer_defines.dtsi'
 path_to_includes = './includes/layer_includes.dtsi'
 
