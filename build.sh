@@ -6,11 +6,27 @@ config_folder="/home/huy/repositories/zmk-config"
 side() {
 	board_info="nice_nano_v2 -- -DSHIELD=kyria_rev3_$1 -DZMK_CONFIG=$config_folder/config"
 	west build -d build/$1 -b $board_info
+	if [ $? -eq 1 ]; then
+		notify-send 'Build failed.'
+		exit 1
+	fi
+
 	# west build -d build/$1 -b nice_nano_v2 -- -DSHIELD=kyria_rev3_$1 -DZMK_CONFIG=$config_folder
+	cp ./build/$1/zephyr/zmk.uf2  "$config_folder/backups/$1.uf2"
+
+	notify-send 'Build Completed.'
+	echo 'Build Completed.'
+	echo 'Waiting for board...'
+
+	until [ -e /run/media/huy/NICENANO$2 ]; do
+		sleep 1
+	done
+
+	echo 'Board found. Copying...'
 
 	cp ./build/$1/zephyr/zmk.uf2  /run/media/huy/NICENANO$2/zmk.uf2
-	cp ./build/$1/zephyr/zmk.uf2  "$config_folder/backups/$1.uf2"
 	# cp ./build/$1/zephyr/zmk.uf2  /mnt/chromeos/removable/NICENANO$1/zmk.uf2
+	echo 'Done.'
 }
 
 left() {
