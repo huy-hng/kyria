@@ -6,7 +6,7 @@ name: name {                               \
 	bindings = <key1>, <key2>;             \
 }
 
-#define HOLD_TAP(name, key1, key2)        \
+#define HOLD(name, key1, key2, ...)   \
 name: name {                              \
 	compatible = "zmk,behavior-hold-tap"; \
 	label = #name;                        \
@@ -15,21 +15,66 @@ name: name {                              \
 	quick-tap-ms = <200>;                 \
 	flavor = "hold-preferred";            \
 	bindings = <key1>, <key2>;            \
+	__VA_ARGS__                           \
 }
 
-#define MO_TOG(layer) &mo_tog layer layer
-#define MOD_TAP(name, kp) name A KP
+#define INTERRUPT(name, key1, key2, ...)   \
+name: name {                              \
+	compatible = "zmk,behavior-hold-tap"; \
+	label = #name;                        \
+	#binding-cells = <2>;                 \
+    tapping-term-ms = <300>;              \
+	quick-tap-ms = <100>;                 \
+	global-quick-tap;                     \
+	flavor = "tap-unless-interrupted";    \
+	bindings = <key1>, <key2>;            \
+	__VA_ARGS__                           \
+}
+
+#define TAP(name, key1, key2, ...)   \
+name: name {                              \
+	compatible = "zmk,behavior-hold-tap"; \
+	label = #name;                        \
+	#binding-cells = <2>;                 \
+    tapping-term-ms = <120>;              \
+	quick-tap-ms = <150>;                 \
+	global-quick-tap;                     \
+	flavor = "tap-preferred";             \
+	bindings = <key1>, <key2>;            \
+	__VA_ARGS__                           \
+}
 
 / {
 	behaviors {
-        TAP_DANCE(capsword, &shift_color, &caps_word);
-        TAP_DANCE(navipad, &sl_NAVIPAD, &tog_NAVIPAD);
+        TAP_DANCE(capsword, &kp_sat LSHIFT, &caps_word);
+        TAP_DANCE(td_navipad, &sl_NAVIPAD, &tog_NAVIPAD);
         TAP_DANCE(tap_settings, &settings, &tog SETTINGS);
 
-        HOLD_TAP(mo_tog, &mo, &tog);
-        HOLD_TAP(lt_SYMBOLS, &mo_SYMBOLS, &kp);
-        HOLD_TAP(mt_CTRL, &ctrl_color, &kp);
-		HOLD_TAP(mt_ALT, &alt_color, &kp);
+		// mtp: mod tap preferred
+		// TODO: rename mtp to just mt for mod tap and mt to mh for mod hold (ommit the preferred)
+		TAP(mtp_sat,     &kp_sat,   &kp);
+		TAP(mtpr_sat,    &kp_sat,   &kp, retro-tap;);
+		TAP(mtp_white,   &kp_white, &kp);
+		HOLD(mt_sat,     &kp_sat,   &kp);
+		HOLD(lt_cyan,    &mo_cyan,  &kp);
+		HOLD(lt_blue,    &mo_blue,  &kp);
+		HOLD(ltp_bspc,   &mo_cyan,  &bspc_del);
+		INTERRUPT(mti_sat,   &kp_sat,   &kp);
+		INTERRUPT(mti_white, &kp_white, &kp);
+		INTERRUPT(lti_cyan,  &mo_cyan,  &kp);
+		INTERRUPT(lti_blue,  &mo_blue,  &kp);
+		INTERRUPT(lti_bspc,  &mo_cyan,  &bspc_del);
+
+		sym_bsp: sym_bsp {
+			compatible = "zmk,behavior-hold-tap";
+			label = "sym_bsp";
+			#binding-cells = <2>;
+			tapping-term-ms = <500>;
+			quick-tap-ms = <100>;
+			global-quick-tap;
+			flavor = "tap-unless-interrupted";
+			bindings = <&mo>, <&kp>;
+		};
 
 		// skq: skq {
 		// 	compatible = "zmk,behavior-sticky-key";
