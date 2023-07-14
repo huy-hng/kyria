@@ -18,3 +18,6 @@
 #define LAYERS 17
 #define ENC_LR 18
 #define ENC_TAB 19
+#define ENC_SEL 20
+#define ENC_LR_SEL 21
+#define ENC_TAB_SEL 22

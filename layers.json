@@ -19,5 +19,5 @@
   "settings": ["SETTINGS", "SETTINGS_HUE", "SETTINGS_SAT"],
   "mode_switcher": "LAYERS",
 
-  "encoder_layers": ["ENC_LR", "ENC_TAB"]
+  "encoder_layers": ["ENC_LR", "ENC_TAB", "ENC_SEL", "ENC_LR_SEL", "ENC_TAB_SEL"]
 }
