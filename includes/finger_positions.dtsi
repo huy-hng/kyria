@@ -1,68 +1,167 @@
-// lt_ti: left top _ thumb inner
-// rb_po: right bottom _ pinky outer
-
-// thumb cluster
-#define lt_t  30
-#define lt_to 31
-#define rt_to 32
-#define rt_t  33
-
-#define l_ti3 40
-#define l_ti2 41
-#define l_ti  42
-#define l_t   43
-#define l_to  44
-
-#define r_to  45
-#define r_t   46
-#define r_ti  47
-#define r_ti2 48
-#define r_ti3 49
+// ╭─────┬────┬────┬─────┬─────┬─────╮                       ╭─────┬─────┬─────┬────┬────┬─────╮
+// │p_lto│p_lt│r_lt│m_lt │i_lt │i_lto│                       │i_rto│i_rt │m_rt │r_rt│p_rt│p_rto│
+// ├─────┼────┼────┼─────┼─────┼─────┤                       ├─────┼─────┼─────┼────┼────┼─────┤
+// │p_lo │p_l │r_l │m_l  │i_l  │i_lo │                       │i_ro │i_r  │m_r  │r_r │p_r │p_ro │
+// ├─────┼────┼────┼─────┼─────┼─────┼────┬─────╮ ╭─────┬────┼─────┼─────┼─────┼────┼────┼─────┤
+// │p_lbo│p_lb│r_lb│m_lb │i_lb │i_lbo│t_lt│t_lto│ │t_rto│t_rt│i_rbo│i_rb │m_rb │r_rb│p_rb│p_rbo│
+// ╰─────┴────┴────┼─────┼─────┼─────┼────┼─────┤ ├─────┼────┼─────┼─────┼─────┼────┴────┴─────╯
+//                 │t_li3│t_li2│t_li │t_l │t_lo │ │t_ro │t_r │t_ri │t_ri2│t_ri3│                
+//                 ╰─────┴─────┴─────┴────┴─────╯ ╰─────┴────┴─────┴─────┴─────╯                
 
 // row 0 left
-#define lt_po  0
-#define lt_p   1
-#define lt_r   2
-#define lt_m   3
-#define lt_i   4
-#define lt_io  5
-
-// row 1 left
-#define l_po 12
-#define l_p  13
-#define l_r  14
-#define l_m  15
-#define l_i  16
-#define l_io 17
-
-// row 2 left
-#define lb_po 24
-#define lb_p  25
-#define lb_r  26
-#define lb_m  27
-#define lb_i  28
-#define lb_io 29
+#define p_lto 0
+#define p_lt  1
+#define r_lt  2
+#define m_lt  3
+#define i_lt  4
+#define i_lto 5
 
 // row 0 right
-#define rt_io  6
-#define rt_i   7
-#define rt_m   8
-#define rt_r   9
-#define rt_p  10
-#define rt_po 11
+#define i_rto  6
+#define i_rt   7
+#define m_rt   8
+#define r_rt   9
+#define p_rt  10
+#define p_rto 11
+
+// row 1 left
+#define p_lo 12
+#define p_l  13
+#define r_l  14
+#define m_l  15
+#define i_l  16
+#define i_lo 17
 
 // row 1 right
-#define r_io  18
-#define r_i   19
-#define r_m   20
-#define r_r   21
-#define r_p   22
-#define r_po  23
+#define i_ro 18
+#define i_r  19
+#define m_r  20
+#define r_r  21
+#define p_r  22
+#define p_ro 23
+
+// row 2 left
+#define p_lbo 24
+#define p_lb  25
+#define r_lb  26
+#define m_lb  27
+#define i_lb  28
+#define i_lbo 29
+
+// thumb cluster
+#define t_lt  30
+#define t_lto 31
+#define t_rto 32
+#define t_rt  33
 
 // row 2 right
-#define rb_io 34
-#define rb_i  35
-#define rb_m  36
-#define rb_r  37
-#define rb_p  38
-#define rb_po 39
+#define i_rbo 34
+#define i_rb  35
+#define m_rb  36
+#define r_rb  37
+#define p_rb  38
+#define p_rbo 39
+
+#define t_li3 40
+#define t_li2 41
+#define t_li  42
+#define t_l   43
+#define t_lo  44
+
+#define t_ro  45
+#define t_r   46
+#define t_ri  47
+#define t_ri2 48
+#define t_ri3 49
+
+//--------------------------------------------long forms--------------------------------------------
+
+// row 0 left
+#define pinky_lto 0
+#define pinky_lt  1
+#define ring_lt  2
+#define middle_lt  3
+#define index_lt  4
+#define index_lto 5
+
+// row 0 right
+#define index_rto  6
+#define index_rt   7
+#define middle_rt   8
+#define ring_rt   9
+#define pinky_rt  10
+#define pinky_rto 11
+
+// row 1 left
+#define pinky_lo 12
+#define pinky_l  13
+#define ring_l  14
+#define middle_l  15
+#define index_l  16
+#define index_lo 17
+
+// row 1 right
+#define index_ro 18
+#define index_r  19
+#define middle_r  20
+#define ring_r  21
+#define pinky_r  22
+#define pinky_ro 23
+
+// row 2 left
+#define pinky_lbo 24
+#define pinky_lb  25
+#define ring_lb  26
+#define middle_lb  27
+#define index_lb  28
+#define index_lbo 29
+
+// thumb cluster
+#define thumb_lt  30
+#define thumb_lto 31
+#define thumb_rto 32
+#define thumb_rt  33
+
+// row 2 right
+#define index_rbo 34
+#define index_rb  35
+#define middle_rb  36
+#define ring_rb  37
+#define pinky_rb  38
+#define pinky_rbo 39
+
+#define thumb_li3 40
+#define thumb_li2 41
+#define thumb_li  42
+#define thumb_l   43
+#define thumb_lo  44
+
+#define thumb_ro  45
+#define thumb_r   46
+#define thumb_ri  47
+#define thumb_ri2 48
+#define thumb_ri3 49
+
+
+// / {
+// keymap {
+// 	compatible = "zmk,keymap";
+// 	finger_positions {
+// 		label = "Finger";
+// 		bindings = <
+// //                ╭───────┬──────┬──────┬───────┬───────┬───────╮                                 ╭───────┬───────┬───────┬──────┬──────┬───────╮
+// //                │ p_lto │ p_lt │ r_lt │ m_lt  │ i_lt  │ i_lto │                                 │ i_rto │ i_rt  │ m_rt  │ r_rt │ p_rt │ p_rto │
+// //                ├───────┼──────┼──────┼───────┼───────┼───────┤                                 ├───────┼───────┼───────┼──────┼──────┼───────┤
+// //                │ p_lo  │ p_l  │ r_l  │ m_l   │ i_l   │ i_lo  │                                 │ i_ro  │  i_r  │  m_r  │ r_r  │ p_r  │ p_ro  │
+// //                ├───────┼──────┼──────┼───────┼───────┼───────┼──────┬───────╮   ╭───────┬──────┼───────┼───────┼───────┼──────┼──────┼───────┤
+// //                │ p_lbo │ p_lb │ r_lb │ m_lb  │ i_lb  │ i_lbo │ t_lt │ t_lto │   │ t_rto │ t_rt │ i_rbo │ i_rb  │ m_rb  │ r_rb │ p_rb │ p_rbo │
+// //                ╰───────┴──────┴──────┼───────┼───────┼───────┼──────┼───────┤   ├───────┼──────┼───────┼───────┼───────┼──────┴──────┴───────╯
+// //                                      │ t_li3 │ t_li2 │ t_li  │ t_l  │ t_lo  │   │ t_ro  │ t_r  │ t_ri  │ t_ri2 │ t_ri3 │                      
+// //                                      ╰───────┴───────┴───────┴──────┴───────╯   ╰───────┴──────┴───────┴───────┴───────╯                      
+//               &p_lto   &p_lt   &r_lt   &m_lt    &i_lt    &i_lto                                         &i_rto   &i_rt    &m_rt    &r_rt   &p_rt   &p_rto
+//               &p_lo    &p_l    &r_l    &m_l     &i_l     &i_lo                                          &i_ro    &i_r     &m_r     &r_r    &p_r    &p_ro 
+//               &p_lbo   &p_lb   &r_lb   &m_lb    &i_lb    &i_lbo   &t_lt   &t_lto       &t_rto   &t_rt   &i_rbo   &i_rb    &m_rb    &r_rb   &p_rb   &p_rbo
+//                                        &t_li3   &t_li2   &t_li    &t_l    &t_lo        &t_ro    &t_r    &t_ri    &t_ri2   &t_ri3                         
+// 		>;
+// 	};
+// };

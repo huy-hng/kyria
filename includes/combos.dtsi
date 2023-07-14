@@ -1,34 +1,74 @@
 #include "finger_positions.dtsi"
 
+// NOTE: layer specific combos should live in their layer file
+// maybe exept for base layer combos?
+
 / {
 	combos {
 		compatible = "zmk,combos";
+		//--------------------------------------typing combos---------------------------------------
+
+		//  {
+		// 	bindings = <____>;
+		// 	key-positions = <>;
+		// 	timeout-ms = <10>;
+		// };
+
+		left_index {
+			bindings = <____>;
+			key-positions = <i_l i_lb>;
+			timeout-ms = <10>;
+		};
+		
+
+		right_index {
+			bindings = <&kp DOT>;
+			key-positions = <i_r i_rb>;
+			timeout-ms = <10>;
+		};
+
+		right_middle {
+			bindings = <&kp UNDER>;
+			key-positions = <m_r m_rb>;
+			timeout-ms = <10>;
+		};
+
+		right_ring {
+			bindings = <&kp COLON>;
+			key-positions = <ring_r ring_rb>;
+			timeout-ms = <10>;
+		};
+
+		right_pinky {
+			bindings = <&kp FSLH>;
+			key-positions = <pinky_r pinky_rb>;
+			timeout-ms = <10>;
+		};
+		
 
 		//------------------------------------------thumbs------------------------------------------
 
 		left_thumbs {
-			// bindings = <&tog NAVIPAD>;
-			bindings = <&mo_LAYERS>;
-			key-positions = <l_t lt_t>;
+			bindings = <&mo_white LAYERS>;
+			key-positions = <t_l t_lt>;
 			timeout-ms = <20>;
 		};
 
 		right_thumbs {
 			bindings = <&kp DEL>;
-			key-positions = <r_t rt_t>;
+			key-positions = <t_r t_rt>;
 			timeout-ms = <10>;
 		};
 
-
 		left_inner_thumbs {
 			bindings = <&to_BASE>;
-			key-positions = <l_ti lb_io>;
+			key-positions = <t_li i_lbo>;
 			timeout-ms = <10>;
 		};
 
 		right_inner_thumbs {
 			bindings = <____>;
-			key-positions = <r_ti rb_io>;
+			key-positions = <t_ri i_rbo>;
 			timeout-ms = <10>;
 		};
 
@@ -36,26 +76,26 @@
 
 		home_thumbs {
 			bindings = <____>;
-			key-positions = <l_t r_t>;
+			key-positions = <t_l t_r>;
 			timeout-ms = <10>;
 		};
 
 		inner_thumbs {
 			bindings = <____>;
-			key-positions = <l_ti r_ti>;
+			key-positions = <t_li t_ri>;
 			timeout-ms = <10>;
 		};
 
 		outer_thumbs {
 			bindings = <____>;
-			key-positions = <l_to r_to>;
+			key-positions = <t_lo t_ro>;
 			timeout-ms = <10>;
 		};
 
 		//-------------------------------------------misc-------------------------------------------
 		right_pinky_row {
 			bindings = <&ext_power EP_TOG>;
-			key-positions = <rt_po r_po rb_po>;
+			key-positions = <p_rto p_ro p_rbo>;
 			timeout-ms = <10>;
 		};
 	};
