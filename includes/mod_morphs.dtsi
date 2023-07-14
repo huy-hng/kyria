@@ -3,7 +3,7 @@
 		bspc_del: bspc_del {
 			compatible = "zmk,behavior-mod-morph";
 			label = "BSPC_DEL";
-			bindings = <&kp BACKSPACE>, <&kp DELETE>;
+			bindings = <&kp BSPC>, <&kp DEL>;
 			#binding-cells = <0>;
 			mods = <(MOD_LALT|MOD_RALT)>;
 		};
