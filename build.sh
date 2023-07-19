@@ -1,7 +1,7 @@
 python ./generate_includes.py
 
 cd /home/huy/repositories/zmk/app
-config_folder="/home/huy/repositories/zmk-config"
+config_folder="/home/huy/repositories/kyria"
 
 side() {
 	board_info="nice_nano_v2 -- -DSHIELD=kyria_rev3_$1 -DZMK_CONFIG=$config_folder/config"
@@ -11,8 +11,7 @@ side() {
 		exit 1
 	fi
 
-	# west build -d build/$1 -b nice_nano_v2 -- -DSHIELD=kyria_rev3_$1 -DZMK_CONFIG=$config_folder
-	cp ./build/$1/zephyr/zmk.uf2  "$config_folder/backups/$1.uf2"
+	cp ./build/$1/zephyr/zmk.uf2  "$config_folder/backups/$1_$(date +%s).uf2"
 
 	notify-send 'Build Completed.'
 	echo 'Build Completed.'
