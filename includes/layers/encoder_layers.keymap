@@ -12,27 +12,27 @@ name: name {                                                      \
         encoder_lr {
             label = "Enc LR";
             sensor-bindings = <&enc_kp RIGHT LEFT>;
-            bindings = ENCODER_BUTTON(&enc_selection_mode ENC_LR_SEL);
+            bindings = ENCODER_BUTTON(&enc_selector ENC_LR_SEL BASE);
         };
         encoder_tab {
             label = "Enc Tab";
             // &enc_kp doesnt work here for some reason
             sensor-bindings = <&inc_dec_kp LC(TAB) LC(LS(TAB))>;
-            bindings = ENCODER_BUTTON(&enc_selection_mode ENC_TAB_SEL);
+            bindings = ENCODER_BUTTON(&enc_selector ENC_TAB_SEL BASE);
         };
 
         encoder_base_sel {
-            label = "Enc Base";
+            label = ">Colemak";
             sensor-bindings = <&enc_base>;
             bindings = TRANS_LAYER;
         };
         encoder_lr_sel {
-            label = "Enc LR";
+            label = ">Enc LR";
             sensor-bindings = <&enc_lr>;
             bindings = TRANS_LAYER;
         };
         encoder_tab_sel {
-            label = "Enc Tab";
+            label = ">Enc Tab";
             sensor-bindings = <&enc_tab>;
             bindings = TRANS_LAYER;
         };
@@ -42,6 +42,13 @@ name: name {                                                      \
         ENC_ROT(enc_lr,  ENC_TAB, ENC_TAB_SEL, BASE, ENC_SEL);
         ENC_ROT(enc_tab, BASE, ENC_SEL, ENC_LR, ENC_LR_SEL);
 
+        enc_selector: enc_selector {
+			compatible = "zmk,behavior-hold-tap";
+			label = "enc_selector";
+			#binding-cells = <2>;
+			tapping-term-ms = <100>;
+			bindings = <&enc_selection_mode>, <&to>;
+		};
         // enc_base: enc_base {
         //     compatible = "zmk,behavior-sensor-rotate";
         //     label = "enc_base";
