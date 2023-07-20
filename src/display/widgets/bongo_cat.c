@@ -11,13 +11,12 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 // #error "Bongo cat only works with the system work queue currently"
 // #endif
 
-#define ANIMATION_DEBOUNCE 2
-#define IDLE_DELAY 500
+#define IDLE_DELAY 1000
+#define IDLE_TAP_DELAY 10
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
 enum anim_state {
-    anim_state_none,
     anim_state_idle,
     anim_state_paws_up,
     anim_state_tapping,
@@ -34,20 +33,14 @@ LV_IMG_DECLARE(paws_up_img);
 LV_IMG_DECLARE(right_paw_img);
 LV_IMG_DECLARE(left_paw_img);
 
-
 const void **images;
-uint8_t images_len;
 uint32_t last_keycode;
-uint32_t last_key_press;
-uint32_t last_key_release;
-bool is_some_key_pressed;
 
-const lv_timer_t *idle_timer;
-const lv_timer_t *tapping_timer;
-const lv_timer_t *paws_up_timer;
+lv_timer_t *idle_timer;
+lv_timer_t *tapping_timer;
+lv_timer_t *paws_up_timer;
 
-const lv_img_dsc_t *next_paw_frame = &right_paw_img;
-const int idle_tap_delay = 20;
+const lv_img_dsc_t *next_paw_frame;
 struct zmk_widget_bongo_cat *cat;
 
 const void *idle_images[] = {
@@ -127,38 +120,35 @@ void switch_paws() {
 
 void hit_table() {
     LOG_INF("----------------Hitting Table----------------");
-
-    // if (current_anim_state == anim_state_idle) {
-    //     // set_img(&paws_up_img);
-    //     lift_paws();
-    //     set_timer(set_timed_img, idle_tap_delay, (void *)next_paw_frame);
-    // } else {
-    // }
-    // set_img_async(next_paw_frame);
-    current_anim_state = anim_state_tapping;
     set_img(next_paw_frame);
+    current_anim_state = anim_state_tapping;
 }
 
-void update_handler(const struct zmk_keycode_state_changed *ev) {
+void set_bongo_cat_img(const struct zmk_keycode_state_changed *ev) {
     lv_anim_del(cat->obj, set_img_src);
     lv_timer_pause(idle_timer);
-    lv_timer_set_repeat_count(paws_up_timer, 0);
+    // lv_timer_set_repeat_count(paws_up_timer, 0);
 
-    LOG_INF("period %d", paws_up_timer->period);
-    LOG_INF("repeat_count %d", paws_up_timer->repeat_count);
-    LOG_INF("last_run %d", paws_up_timer->last_run);
-    LOG_INF("user_data %s", paws_up_timer->user_data);
+    // if (strcmp(paws_up_timer->user_data, "paws up")) {
+    //     char text[20];
+    //     snprintf(text, sizeof(text), "%s", paws_up_timer->user_data);
+    //     lv_label_set_text(cat->debug, text);
+    // }
 
     if (ev->state) {
-
         if (ev->keycode != last_keycode)
             switch_paws();
-        else if (current_anim_state == anim_state_tapping)
-            lift_paws();
+        // else if (current_anim_state == anim_state_tapping)
+        //     lift_paws();
 
-        // run_timer_now(paws_up_timer);
-        // lv_async_call(hit_table, NULL);
-        tapping_timer = set_timer(hit_table, 5,  "tap");
+        int delay = 5;
+
+        if (current_anim_state == anim_state_idle) {
+            lift_paws();
+            delay = IDLE_TAP_DELAY;
+        }
+
+        tapping_timer = set_timer(hit_table, delay, "tap");
         last_keycode = ev->keycode;
 
     } else {
@@ -173,29 +163,27 @@ void update_handler(const struct zmk_keycode_state_changed *ev) {
 
 //------------------------------------------ZMK Functions-------------------------------------------
 
-int bongo_cat_listener(const zmk_event_t *eh) {
+int bongo_cat_update_cb(const zmk_event_t *eh) {
     const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
 
-    // LOG_DBG("----key pressed %d----", ev->state);
-    // LOG_DBG("----key code %d----", ev->keycode);
-    // LOG_DBG("----usage page %d----", ev->usage_page);
-    // LOG_DBG("----implicit %d----", ev->implicit_modifiers);
-    // LOG_DBG("----explicit %d----", ev->explicit_modifiers);
-    // LOG_DBG("----timestamp %d----", ev->timestamp);
-
-    lv_async_call((void (*)(void *))update_handler, (void *)ev);
-    // update_handler(ev);
+    lv_async_call((void (*)(void *))set_bongo_cat_img, (void *)ev);
+    // set_bongo_cat_img(ev);
     return ZMK_EV_EVENT_BUBBLE;
 }
 
 int zmk_widget_bongo_cat_init(struct zmk_widget_bongo_cat *widget, lv_obj_t *parent) {
     widget->obj = lv_img_create(parent);
+
+    // widget->debug = lv_label_create(parent);
+    // lv_obj_align(widget->debug, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+
+    // char text[20];
+    // snprintf(text, sizeof(text), "%i", "rr");
+    // lv_label_set_text(cat->debug, "A");
+
     cat = widget;
 
     lv_img_cache_set_size(8);
-    // idle_timer = lv_timer_create_basic();
-    // lv_timer_set_cb(idle_timer, play_idle_animation);
-    // lv_timer_set_period(idle_timer, IDLE_DELAY);
 
     idle_timer = set_timer(play_idle_animation, IDLE_DELAY, "idle");
     lv_timer_set_repeat_count(idle_timer, -1);
@@ -207,5 +195,5 @@ int zmk_widget_bongo_cat_init(struct zmk_widget_bongo_cat *widget, lv_obj_t *par
 
 lv_obj_t *zmk_widget_bongo_cat_obj(struct zmk_widget_bongo_cat *widget) { return widget->obj; }
 
-ZMK_LISTENER(zmk_widget_bongo_cat, bongo_cat_listener)
+ZMK_LISTENER(zmk_widget_bongo_cat, bongo_cat_update_cb)
 ZMK_SUBSCRIPTION(zmk_widget_bongo_cat, zmk_keycode_state_changed);
