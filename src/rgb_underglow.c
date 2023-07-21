@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+#include "zephyr/sys/util.h"
 #include <zephyr/device.h>
 #include <zephyr/init.h>
 #include <zephyr/kernel.h>
@@ -47,7 +48,8 @@ enum rgb_underglow_effect {
     UNDERGLOW_EFFECT_SOLID,
     UNDERGLOW_EFFECT_BREATHE,
     UNDERGLOW_EFFECT_SPECTRUM,
-    UNDERGLOW_EFFECT_SWIRL,
+    // UNDERGLOW_EFFECT_SWIRL,
+    UNDERGLOW_EFFECT_SPARKLE,
     UNDERGLOW_EFFECT_NUMBER // Used to track number of underglow effects
 };
 
@@ -174,6 +176,20 @@ static void zmk_rgb_underglow_effect_swirl() {
     state.animation_step = state.animation_step % HUE_MAX;
 }
 
+static void zmk_rgb_underglow_effect_sparkle() {
+    for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
+        struct zmk_led_hsb hsb = state.color;
+
+        int hue_offset = i * 69691;
+        hsb.h = (hue_offset + state.animation_step) % HUE_MAX;
+
+        pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
+    }
+
+    state.animation_step += state.animation_speed;
+    state.animation_step = state.animation_step % HUE_MAX;
+}
+
 static void zmk_rgb_underglow_tick(struct k_work *work) {
     switch (state.current_effect) {
     case UNDERGLOW_EFFECT_SOLID:
@@ -185,8 +201,11 @@ static void zmk_rgb_underglow_tick(struct k_work *work) {
     case UNDERGLOW_EFFECT_SPECTRUM:
         zmk_rgb_underglow_effect_spectrum();
         break;
-    case UNDERGLOW_EFFECT_SWIRL:
-        zmk_rgb_underglow_effect_swirl();
+    // case UNDERGLOW_EFFECT_SWIRL:
+    //     zmk_rgb_underglow_effect_swirl();
+    //     break;
+    case UNDERGLOW_EFFECT_SPARKLE:
+        zmk_rgb_underglow_effect_sparkle();
         break;
     }
 
@@ -360,7 +379,7 @@ int zmk_rgb_underglow_select_effect(int effect) {
     }
 
     state.current_effect = effect;
-    state.animation_step = 0;
+    // state.animation_step = 0;
 
     return zmk_rgb_underglow_save_state();
 }
@@ -457,6 +476,45 @@ int zmk_rgb_underglow_change_spd(int direction) {
     }
 
     return zmk_rgb_underglow_save_state();
+}
+
+int zmk_rgb_underglow_set_hue(int value) {
+    if (!led_strip)
+        return -ENODEV;
+
+    state.color.h = value % HUE_MAX;
+
+    return zmk_rgb_underglow_save_state();
+}
+
+int zmk_rgb_underglow_set_sat(int value) {
+    if (!led_strip) 
+        return -ENODEV;
+
+    state.color.s = CLAMP(value, 0, SAT_MAX);
+
+    return zmk_rgb_underglow_save_state();
+}
+
+int zmk_rgb_underglow_set_brt(int value) {
+    if (!led_strip)
+        return -ENODEV;
+
+    state.color.b = CLAMP(value, 0, BRT_MAX);
+
+    return zmk_rgb_underglow_save_state();
+}
+
+int zmk_rgb_underglow_set_spd(int value) {
+    if (!led_strip)
+        return -ENODEV;
+
+    state.animation_speed = CLAMP(value, 1, 5);
+    return zmk_rgb_underglow_save_state();
+}
+
+struct rgb_underglow_state *zmk_rgb_underglow_return_state() {
+    return &state;
 }
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE) ||                                          \
