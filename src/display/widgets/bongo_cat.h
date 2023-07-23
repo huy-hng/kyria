@@ -9,6 +9,8 @@ struct zmk_widget_bongo_cat {
     lv_obj_t *obj;
     lv_obj_t *debug;
     lv_anim_t anim;
+    // lv_obj_t *paws_up;
+    lv_obj_t *tapping;
 };
 
 int zmk_widget_bongo_cat_init(struct zmk_widget_bongo_cat *widget, lv_obj_t *parent);
