@@ -35,6 +35,11 @@ LV_IMG_DECLARE(left_paw_img);
 
 K_SEM_DEFINE(sem, 1, 1);
 
+K_TIMER_DEFINE(idle_timer, start_idle_animation, NULL);
+// K_TIMER_DEFINE(state_paws_up_timer, change_state_paws_up, change_state_paws_up);
+K_TIMER_DEFINE(paws_up_timer, lift_paws, NULL);
+K_TIMER_DEFINE(tapping_timer, hit_table, NULL);
+
 const void **images;
 uint32_t last_keycode;
 int counter = 0;
@@ -58,12 +63,9 @@ void set_img_src(void *var, int val) {
     lv_obj_t *img = (lv_obj_t *)var;
     lv_img_set_src(img, images[val]);
 }
-void _set_img(const lv_img_dsc_t *img) { lv_img_set_src(cat->obj, img); }
-void set_img(const lv_img_dsc_t *img) { lv_async_call((void (*)(void *))_set_img, (void *)img); }
+void set_img(const lv_img_dsc_t *img) { lv_img_set_src(cat->obj, img); }
 void _set_paw_img(const lv_img_dsc_t *img) { lv_img_set_src(cat->tapping, img); }
-void set_paw_img(const lv_img_dsc_t *img) {
-    lv_async_call((void (*)(void *))_set_paw_img, (void *)img);
-}
+void set_paw_img(const lv_img_dsc_t *img) { lv_async_call((void (*)())_set_paw_img, (void *)img); }
 
 void set_timer(struct k_timer *timer, int delay, void *args) {
     k_timer_start(timer, K_MSEC(delay), K_FOREVER);
@@ -81,12 +83,12 @@ void show_widget(int show) {
     k_sem_give(&sem);
 }
 
-void play_idle_animation() {
+void start_idle_animation() {
     if (current_anim_state == anim_state_idle)
         return;
 
-    current_anim_state = anim_state_idle;
     LOG_DBG("----------------Idle Animation----------------");
+    current_anim_state = anim_state_idle;
     images = idle_images;
     lv_anim_init(&cat->anim);
     lv_anim_set_var(&cat->anim, cat->obj);
@@ -98,13 +100,7 @@ void play_idle_animation() {
     lv_anim_start(&cat->anim);
 }
 
-K_TIMER_DEFINE(idle_timer, play_idle_animation, NULL);
-
-void change_state_paws_up(){
-    current_anim_state = anim_state_paws_up;
-}
-
-K_TIMER_DEFINE(state_paws_up_timer, change_state_paws_up, change_state_paws_up);
+void change_state_paws_up() { current_anim_state = anim_state_paws_up; }
 
 void lift_paws() {
     LOG_DBG("----------------Lifting Paws----------------");
@@ -116,11 +112,6 @@ void lift_paws() {
     // set_timer(&state_paws_up_timer, DOUBLE_TAP_DELAY, NULL);
 }
 
-void switch_paws() {
-    next_paw_frame = next_paw_frame == &left_paw_img ? &right_paw_img : &left_paw_img;
-    set_paw_img(next_paw_frame);
-}
-
 void hit_table() {
     LOG_DBG("----------------Hitting Table----------------");
     if (current_anim_state != anim_state_tapping)
@@ -128,8 +119,34 @@ void hit_table() {
     current_anim_state = anim_state_tapping;
 }
 
-K_TIMER_DEFINE(tapping_timer, hit_table, NULL);
-K_TIMER_DEFINE(paws_up_timer, lift_paws, NULL);
+void switch_paws() {
+    next_paw_frame = next_paw_frame == &left_paw_img ? &right_paw_img : &left_paw_img;
+    set_paw_img(next_paw_frame);
+}
+
+void key_release() {
+    set_timer(&paws_up_timer, PAWS_UP_DELAY, NULL);
+    set_timer(&idle_timer, IDLE_DELAY, NULL);
+}
+
+void key_press(uint32_t keycode) {
+    int delay = 0;
+
+    if (keycode != last_keycode)
+        switch_paws();
+
+    if (current_anim_state == anim_state_idle)
+        delay = IDLE_TAP_DELAY;
+    else if (current_anim_state == anim_state_tapping && keycode == last_keycode) {
+        lift_paws();
+        delay = DOUBLE_TAP_DELAY;
+    }
+
+    if (delay > 0)
+        set_timer(&tapping_timer, delay, NULL);
+    else
+        hit_table();
+}
 
 void set_bongo_cat_img(const struct zmk_keycode_state_changed *ev) {
     lv_anim_del(cat->obj, set_img_src);
@@ -138,33 +155,12 @@ void set_bongo_cat_img(const struct zmk_keycode_state_changed *ev) {
     // k_timer_stop(&tapping_timer);
 
     if (current_anim_state == anim_state_idle)
-        _set_img(&paws_up_img);
+        set_img(&paws_up_img);
 
-    if (!ev->state) {
-        set_timer(&paws_up_timer, PAWS_UP_DELAY, NULL);
-        set_timer(&idle_timer, IDLE_DELAY, NULL);
-        last_keycode = ev->keycode;
-        return;
-    }
-
-    int delay = 0;
-
-    if (current_anim_state == anim_state_idle)
-        delay = IDLE_TAP_DELAY;
-
-    if (ev->keycode != last_keycode)
-        switch_paws();
-
-    if (current_anim_state == anim_state_tapping && ev->keycode == last_keycode) {
-        lift_paws();
-        delay = DOUBLE_TAP_DELAY;
-    }
-
-    // print(delay);
-    if (delay > 0)
-        set_timer(&tapping_timer, delay, NULL);
+    if (ev->state)
+        key_press(ev->keycode);
     else
-        hit_table();
+        key_release();
 
     last_keycode = ev->keycode;
 }
@@ -186,7 +182,7 @@ int zmk_widget_bongo_cat_init(struct zmk_widget_bongo_cat *widget, lv_obj_t *par
     widget->obj = lv_img_create(parent);
 
     current_anim_state = anim_state_tapping;
-    play_idle_animation();
+    start_idle_animation();
 
     widget->tapping = lv_img_create(parent);
     show_widget(0);
