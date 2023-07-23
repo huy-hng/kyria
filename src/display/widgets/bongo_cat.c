@@ -204,7 +204,3 @@ lv_obj_t *zmk_widget_bongo_cat_obj(struct zmk_widget_bongo_cat *widget) { return
 
 ZMK_LISTENER(zmk_widget_bongo_cat, bongo_cat_update_cb)
 ZMK_SUBSCRIPTION(zmk_widget_bongo_cat, zmk_keycode_state_changed);
-
-#include <zephyr/init.h>
-
-// SYS_INIT(zmk_widget_bongo_cat_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
