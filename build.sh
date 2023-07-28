@@ -1,3 +1,4 @@
+cd /home/huy/repositories/kyria/
 python ./generate_includes.py
 
 cd /home/huy/repositories/zmk/app
