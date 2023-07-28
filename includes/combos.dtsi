@@ -24,34 +24,34 @@
 		right_index {
 			bindings = <&kp DOT>;
 			key-positions = <i_r i_rb>;
-			timeout-ms = <10>;
+			timeout-ms = <20>;
 		};
 
 		right_middle {
 			bindings = <&kp UNDER>;
 			key-positions = <m_r m_rb>;
-			timeout-ms = <10>;
+			timeout-ms = <20>;
 		};
 
 		right_ring {
 			bindings = <&kp COLON>;
 			key-positions = <ring_r ring_rb>;
-			timeout-ms = <10>;
+			timeout-ms = <20>;
 		};
 
 		right_pinky {
 			bindings = <&kp FSLH>;
 			key-positions = <pinky_r pinky_rb>;
-			timeout-ms = <10>;
+			timeout-ms = <20>;
 		};
 		
 
 		//------------------------------------------thumbs------------------------------------------
 
 		left_thumbs {
-			bindings = <&mo_white LAYERS>;
+			bindings = <____>;
 			key-positions = <t_l t_lt>;
-			timeout-ms = <20>;
+			timeout-ms = <00>;
 		};
 
 		right_thumbs {

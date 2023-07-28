@@ -31,7 +31,7 @@ ZMK_MACRO(name, bindings =                        \
     <&macro_press behavior >                      \
     ,<&macro_tap before >                         \
     ,<&macro_pause_for_release>                   \
-    ,<&macro_tap after RESET_COLOR >              \
+    ,<&macro_tap after >                          \
     ,<&macro_release behavior >                   \
 ;)
 
@@ -66,9 +66,13 @@ ZMK_MACRO2(name, bindings =                   \
     ,<&macro_tap after >                      \
 ;)
 
-#define KP_COLOR(name, before, after) PARAM1(name, &kp, before, after)
-#define MO_COLOR(name, before, after) PARAM1(name, &mo, before, after)
-#define LT_COLOR(name, before, after) PARAM2(name, &lt, before, after)
+// #define KP_COLOR(name, before, after) PARAM1(name, &kp, before, after)
+// #define MO_COLOR(name, before, after) PARAM1(name, &mo, before, after)
+// #define LT_COLOR(name, before, after) PARAM2(name, &lt, before, after)
+
+#define KP_COLOR(name, before, after) PARAM1(name, &kp, , )
+#define MO_COLOR(name, before, after) PARAM1(name, &mo, , )
+#define LT_COLOR(name, before, after) PARAM2(name, &lt, , )
 #define TOGL_COLOR(name, behavior) ZMK_MACRO(name, bindings = <&macro_tap behavior > ;)
 
 #define TOG_COLOR(name, color) \
@@ -89,7 +93,8 @@ ZMK_MACRO(name, bindings =     \
         MO_COLOR(mo_white,  SET_SB(0, DIMMED),   RESET_COLOR)
         KP_COLOR(kp_white,  SET_SB(0, DIMMED),   RESET_COLOR)
 
-        HOLD_COLOR(sl_NAVIPAD,  &sl NAVIPAD,   SET_HUE(INDIGO)  RGB_SOLID, &mo NUMPAD RGB_SWIRL)
+        // HOLD_COLOR(sl_NAVIPAD,  &sl NAVIPAD,   SET_HUE(INDIGO)  RGB_SOLID, &mo NUMPAD RGB_SWIRL, RESET_COLOR)
+        HOLD_COLOR(sl_NAVIPAD,  &sl NAVIPAD, , &mo NUMPAD)
 
         TOGL_COLOR(tog_indigo, SET_HUE(INDIGO)  RGB_SOLID)
 
