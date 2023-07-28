@@ -53,13 +53,13 @@ enum rgb_underglow_effect {
     UNDERGLOW_EFFECT_NUMBER // Used to track number of underglow effects
 };
 
-// struct rgb_underglow_state {
-//     struct zmk_led_hsb color;
-//     uint8_t animation_speed;
-//     uint8_t current_effect;
-//     uint16_t animation_step;
-//     bool on;
-// };
+struct rgb_underglow_state {
+    struct zmk_led_hsb color;
+    uint8_t animation_speed;
+    uint8_t current_effect;
+    uint16_t animation_step;
+    bool on;
+};
 
 static const struct device *led_strip;
 
@@ -490,7 +490,7 @@ int zmk_rgb_underglow_set_hue(int value) {
 int zmk_rgb_underglow_set_sat(int value) {
     if (!led_strip) 
         return -ENODEV;
-	LOG_DBG("set sat %d", value);
+
     state.color.s = CLAMP(value, 0, SAT_MAX);
 
     return zmk_rgb_underglow_save_state();
@@ -513,8 +513,8 @@ int zmk_rgb_underglow_set_spd(int value) {
     return zmk_rgb_underglow_save_state();
 }
 
-struct rgb_underglow_state zmk_rgb_underglow_return_state() {
-    return state;
+struct rgb_underglow_state *zmk_rgb_underglow_return_state() {
+    return &state;
 }
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE) ||                                          \
