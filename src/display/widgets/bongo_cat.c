@@ -53,12 +53,6 @@ const void *idle_images[] = {
 
 //-----------------------------------------Helper Functions-----------------------------------------
 
-void print(int val) {
-    char text[20];
-    snprintf(text, sizeof(text), "%d", val);
-    lv_label_set_text(cat->debug, text);
-}
-
 void set_img_src(void *var, int val) {
     lv_obj_t *img = (lv_obj_t *)var;
     lv_img_set_src(img, images[val]);
@@ -71,6 +65,12 @@ void set_timer(struct k_timer *timer, int delay, void *args) {
     k_timer_start(timer, K_MSEC(delay), K_FOREVER);
     if (args != NULL)
         k_timer_user_data_set(timer, args);
+}
+
+void print(int val) {
+    char text[20];
+    snprintf(text, sizeof(text), "%d", val);
+    lv_label_set_text(cat->debug, text);
 }
 
 //---------------------------------------Animation Functions----------------------------------------
