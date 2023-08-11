@@ -2,6 +2,7 @@
 
 python ./generate_includes.py
 config_folder="/home/huy/repositories/kyria"
+zmk_path="/home/huy/repositories/zmk_fork/app"
 
 SILENT=0
 BUILD=0
@@ -51,8 +52,8 @@ wait_copy() {
 	notify_short 'Done' 'Keyboard should boot any moment.'
 }
 
-side() {
-	cd /home/huy/repositories/zmk/app
+build() {
+	cd $zmk_path
 
 	board_info="nice_nano_v2 -- -DSHIELD=kyria_rev3_$1 -DZMK_CONFIG=$config_folder/config"
 	west build -d build/$1 -b $board_info
@@ -71,11 +72,11 @@ side() {
 }
 
 left() {
-	side left $@
+	build left $@
 }
 
 right() {
-	side right $@
+	build right $@
 }
 
 restore() {

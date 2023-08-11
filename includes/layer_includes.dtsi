@@ -2,6 +2,7 @@
 #include "layers/modes/caps.keymap"
 #include "layers/modes/experimental.keymap"
 #include "layers/modes/qwerty.keymap"
+#include "layers/modes/fidget.keymap"
 #include "layers/modes/gaming.keymap"
 #include "layers/modes/sudoku.keymap"
 #include "layers/modes/no_hold.keymap"

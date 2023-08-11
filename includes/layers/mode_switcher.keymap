@@ -25,7 +25,7 @@
 //                └──────┴──────┴──────┼────────────┼──────┼──────┼─────────────┼─────────┤   ├────────────┼─────────────┼─────────────────┼───────────────┼──────────────┼──────┴──────┴──────┘
 //                                     │    _oo_    │ _oo_ │ _oo_ │    _oo_     │ tog OS  │   │    _oo_    │ tog SYMBOLS │      _oo_       │     _oo_      │ tog SETTINGS │                     
 //                                     └────────────┴──────┴──────┴─────────────┴─────────┘   └────────────┴─────────────┴─────────────────┴───────────────┴──────────────┘                     
-              _oo_   _oo_   _oo_   _oo_          _oo_   _oo_                                                              _oo_               &tog BASE_CAPS   _oo_            _oo_   _oo_   _oo_
+              _oo_   _oo_   _oo_   _oo_          _oo_   _oo_                                                              &to FIDGET               &tog BASE_CAPS   _oo_            _oo_   _oo_   _oo_
               _oo_   _oo_   _oo_   &tog SUDOKU   _oo_   _oo_                                                              &to BASE           &tog QWERTY      &tog NO_HOLD    _oo_   _oo_   _oo_
               _oo_   _oo_   _oo_   _oo_          _oo_   _oo_   &tog NAVIPAD   &tog VIM       &tog ENC_LR   _oo_           &to EXPERIMENTAL   &tog GAMING      _oo_            _oo_   _oo_   _oo_
                                    _oo_          _oo_   _oo_   _oo_           &tog OS        _oo_          &tog SYMBOLS   _oo_               _oo_             &tog SETTINGS                     

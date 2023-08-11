@@ -1,0 +1,13 @@
+/ {
+    keymap {
+        fidget {
+			label = "Fidget";
+			bindings = <
+                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
+                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
+                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
+                                     _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_   _oo_   _oo_
+            >;
+        };
+    };
+};

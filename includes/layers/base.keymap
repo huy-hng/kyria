@@ -5,29 +5,29 @@
             label = "Colemak";
             sensor-bindings = <&enc_up_down>;
             bindings = <
-//                ╭─────────┬─────┬─────┬─────┬─────┬─────╮                                                                   ╭──────┬──────────┬──────────┬─────┬─────┬─────────╮
-//                │    ⭾    │  Q  │  W  │  F  │  P  │    │                                                                   │  ⌫   │    H     │    U     │  Y  │  J  │   ---   │
-//                ├─────────┼─────┼─────┼─────┼─────┼─────┤                                                                   ├──────┼──────────┼──────────┼─────┼─────┼─────────┤
-//                │  ⌃ │ ⎋  │  A  │  R  │  S  │  T  │  G  │                                                                   │  M   │    N     │    E     │  I  │  O  │  ⌃ │ '  │
-//                ├─────────┼─────┼─────┼─────┼─────┼─────┼─────────┬────────╮   ╭──────────────────────────────┬─────────────┼──────┼──────────┼──────────┼─────┼─────┼─────────┤
-//                │  ⎇ │ ⏎  │  Z  │  X  │  C  │  D  │  .  │ navipad │  VIM  │   │ &enc_selector ENC_SEL ENC_LR │   ENC_LR   │  ⌃   │    L     │    K     │  B  │  V  │    ⎇    │
-//                ╰─────────┴─────┴─────┼─────┼─────┼─────┼─────────┼────────┤   ├──────────────────────────────┼─────────────┼──────┼──────────┼──────────┼─────┴─────┴─────────╯
-//                                      │  ⌦  │  ◆  │ --- │  ⇧ │ ␣  │ OS│ ⎋  │   │          &lt OS  ⏎           │ SYMBOLS│ ⌫  │  OS │  LAYERS │ settings │                      
-//                                      ╰─────┴─────┴─────┴─────────┴────────╯   ╰──────────────────────────────┴─────────────┴──────┴──────────┴──────────╯                      
-              &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp LA(PIPE)                                                                                                          &kp BSPC    &kp H        &kp U           &kp Y   &kp J   _oo_         
+//                ╭─────────┬─────┬─────┬─────┬─────┬────────────╮                                                                   ╭──────┬──────────┬──────────┬─────┬─────┬───────────────╮
+//                │    ⭾    │  Q  │  W  │  F  │  P  │           │                                                                   │ ---  │    H     │    U     │  Y  │  J  │ Toggle Output │
+//                ├─────────┼─────┼─────┼─────┼─────┼────────────┤                                                                   ├──────┼──────────┼──────────┼─────┼─────┼───────────────┤
+//                │  ⌃ │ ⎋  │  A  │  R  │  S  │  T  │     G      │                                                                   │  M   │    N     │    E     │  I  │  O  │     ⌃ │ '     │
+//                ├─────────┼─────┼─────┼─────┼─────┼────────────┼─────────┬────────╮   ╭──────────────────────────────┬─────────────┼──────┼──────────┼──────────┼─────┼─────┼───────────────┤
+//                │  ⎇ │ ⏎  │  Z  │  X  │  C  │  D  │     .      │ navipad │  VIM  │   │ &enc_selector ENC_SEL ENC_LR │   ENC_LR   │  ⌃   │    L     │    K     │  B  │  V  │       ⎇       │
+//                ╰─────────┴─────┴─────┼─────┼─────┼────────────┼─────────┼────────┤   ├──────────────────────────────┼─────────────┼──────┼──────────┼──────────┼─────┴─────┴───────────────╯
+//                                      │  ⌦  │  ◆  │  MEDIA_FN │  ⇧ │ ␣  │ OS│ ⎋  │   │          &lt OS  ⏎           │ SYMBOLS│ ⌫  │  OS │  LAYERS │ settings │                            
+//                                      ╰─────┴─────┴────────────┴─────────┴────────╯   ╰──────────────────────────────┴─────────────┴──────┴──────────┴──────────╯                            
+              &kp TAB         &kp Q   &kp W   &kp F     &kp P       &kp LA(PIPE)                                                                                                          _oo_        &kp H        &kp U           &kp Y   &kp J   &out OUT_TOG 
               &mt LCTRL ESC   &kp A   &kp R   &kp S     &kp T       &kp G                                                                                                                 &kp M       &kp N        &kp E           &kp I   &kp O   &mt LCTRL SQT
               &mt LALT RET    &kp Z   &kp X   &kp C     &kp D       &kp DOT        &td_navipad              &mo_indigo VIM        &enc_selector ENC_SEL ENC_LR   &mo ENC_LR               &kp LCTRL   &kp L        &kp K           &kp B   &kp V   &kp LALT     
-                                              &kp DEL   &kp LMETA   _oo_           &mtpr_sat LSHIFT SPACE   &lt_blue OS ESC       &lt OS RET                     &ltp_bspc SYMBOLS BSPC   &mo OS      &mo LAYERS   &tap_settings                                
+                                              &kp DEL   &kp LMETA   &mo MEDIA_FN   &mtpr_sat LSHIFT SPACE   &lt_blue OS ESC       &lt OS RET                     &ltp_bspc SYMBOLS BSPC   &mo OS      &mo LAYERS   &tap_settings                                
             >;
         };
 	};
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-        tri_layer {
-            if-layers = <OS VIM>;
-            then-layer = <MEDIA_FN>;
-        };
-    };
+    // conditional_layers {
+    //     compatible = "zmk,conditional-layers";
+    //     tri_layer {
+    //         if-layers = <OS VIM>;
+    //         then-layer = <MEDIA_FN>;
+    //     };
+    // };
     behaviors {
         enc_kp: enc_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
