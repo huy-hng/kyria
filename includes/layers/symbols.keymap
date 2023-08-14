@@ -1,22 +1,65 @@
 / {
-    keymap {
-        symbols {
-            label = "Symbols";
-            bindings = <
-//                ╭─────┬─────┬─────┬─────┬─────┬────────────╮                           ╭─────┬─────┬─────┬─────┬─────┬─────╮
-//                │  !  │  @  │  #  │  $  │  %  │     ^      │                           │  &  │  *  │  -  │  +  │  |  │  ~  │
-//                ├─────┼─────┼─────┼─────┼─────┼────────────┤                           ├─────┼─────┼─────┼─────┼─────┼─────┤
-//                │     │  <  │  {  │  [  │  (  │    ---     │                           │  ?  │  .  │  _  │  :  │  /  │  `  │
-//                ├─────┼─────┼─────┼─────┼─────┼────────────┼─────┬─────╮   ╭─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-//                │  ⎇  │  >  │  }  │  ]  │  )  │ &caps_word │     │     │   │     │     │  ¨  │  ,  │  =  │  ;  │  \  │  ?  │
-//                ╰─────┴─────┴─────┼─────┼─────┼────────────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────╯
-//                                  │     │     │            │     │     │   │     │     │     │     │     │                  
-//                                  ╰─────┴─────┴────────────┴─────┴─────╯   ╰─────┴─────┴─────┴─────┴─────╯                  
+	keymap {
+		symbols {
+			label = "Symbols";
+			bindings = <
               &kp EXCL   &kp AT   &kp POUND   &kp DLLR   &kp PRCNT   &kp CARET                                    &kp AMPS                   &kp STAR    &kp MINUS   &kp PLUS    &kp PIPE   &kp TILDE
               ____       &kp LT   &kp LBRC    &kp LBKT   &kp LPAR    _oo_                                         &kp QMARK                  &kp DOT     &kp UNDER   &kp COLON   &kp FSLH   &kp GRAVE
               &kp RALT   &kp GT   &kp RBRC    &kp RBKT   &kp RPAR    &caps_word   ____   ____       ____   ____   &kp RA(LS(SINGLE_QUOTE))   &kp COMMA   &kp EQUAL   &kp SEMI    &kp BSLH   &kp QMARK
                                               ____       ____        ____         ____   ____       ____   ____   ____                       ____        ____                                        
-            >;
-        };
-    };
+			>;
+		};
+
+	};
+	// combos {
+	// 	//---------------Row 0 Left---------------
+	// 	SYMBOL_COMBO(EXCL, p_lto);
+	// 	SYMBOL_COMBO(AT, p_lt);
+	// 	SYMBOL_COMBO(POUND, r_lt);
+	// 	SYMBOL_COMBO(DLLR, m_lt);
+	// 	SYMBOL_COMBO(PRCNT, i_lt);
+	// 	SYMBOL_COMBO(CARET, i_lto);
+
+	// 	//--------------Row 0 Right---------------
+	// 	SYMBOL_COMBO(AMPS, i_rto);
+	// 	SYMBOL_COMBO(STAR, i_rt);
+	// 	SYMBOL_COMBO(MINUS, m_rt);
+	// 	SYMBOL_COMBO(PLUS, r_rt);
+	// 	SYMBOL_COMBO(PIPE, p_rt);
+	// 	SYMBOL_COMBO(TILDE, p_rto);
+
+
+	// 	//---------------Row 1 Left---------------
+	// 	// SYMBOL_COMBO(, p_lo);
+	// 	SYMBOL_COMBO(LT, p_l);
+	// 	SYMBOL_COMBO(LBRC, r_l);
+	// 	SYMBOL_COMBO(LBKT, m_l);
+	// 	SYMBOL_COMBO(LPAR, i_l);
+	// 	// SYMBOL_COMBO(, i_lo);
+
+	// 	//--------------Row 1 Right---------------
+	// 	SYMBOL_COMBO(QMARK, i_ro);
+	// 	SYMBOL_COMBO(DOT,   i_r);
+	// 	SYMBOL_COMBO(UNDER, m_r);
+	// 	SYMBOL_COMBO(COLON, r_r);
+	// 	SYMBOL_COMBO(FSLH,  p_r);
+	// 	SYMBOL_COMBO(GRAVE, p_ro);
+
+
+	// 	//---------------Row 2 Left---------------
+	// 	SYMBOL_COMBO(RALT, p_lbo);
+	// 	SYMBOL_COMBO(GT, p_lb);
+	// 	SYMBOL_COMBO(RBRC, r_lb);
+	// 	SYMBOL_COMBO(RBKT, m_lb);
+	// 	SYMBOL_COMBO(RPAR, i_lb);
+	// 	// SYMBOL_COMBO(, i_lbo);
+
+	// 	//--------------Row 2 Right---------------
+	// 	SYMBOL_COMBO(RA(LS(SINGLE_QUOTE)),	i_rbo);
+	// 	SYMBOL_COMBO(COMMA, i_rb);
+	// 	SYMBOL_COMBO(EQUAL, m_rb);
+	// 	SYMBOL_COMBO(SEMI, r_rb);
+	// 	SYMBOL_COMBO(BSLH, p_rb);
+	// 	// SYMBOL_COMBO(, p_rbo);
+	// };
 };

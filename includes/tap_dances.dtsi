@@ -18,7 +18,7 @@ name: name {                              \
 	__VA_ARGS__                           \
 }
 
-#define INTERRUPT(name, key1, key2, ...)   \
+#define INTERRUPT(name, key1, key2, ...)  \
 name: name {                              \
 	compatible = "zmk,behavior-hold-tap"; \
 	label = #name;                        \
@@ -46,9 +46,9 @@ name: name {                              \
 
 / {
 	behaviors {
-        TAP_DANCE(capsword, &kp_sat LSHIFT, &caps_word);
-        TAP_DANCE(td_navipad, &sl_NAVIPAD, &tog_NAVIPAD);
-        TAP_DANCE(tap_settings, &settings, &tog SETTINGS);
+		TAP_DANCE(capsword, &kp_sat LSHIFT, &caps_word);
+		TAP_DANCE(td_navipad, &sl_NAVIPAD, &tog_NAVIPAD);
+		TAP_DANCE(tap_settings, &settings, &tog SETTINGS);
 
 		// mtp: mod tap preferred
 		// TODO: rename mtp to just mt for mod tap and mt to mh for mod hold (ommit the preferred)
@@ -58,7 +58,8 @@ name: name {                              \
 		HOLD(mt_sat,     &kp_sat,   &kp);
 		HOLD(lt_cyan,    &mo_cyan,  &kp);
 		HOLD(lt_blue,    &mo_blue,  &kp);
-		HOLD(ltp_bspc,   &mo_cyan,  &bspc_del);
+		// HOLD(ltp_bspc,   &mo_cyan,  &bspc_del);
+		TAP(ltp_bspc,   &mo_cyan,  &bspc_del);
 		INTERRUPT(mti_sat,   &kp_sat,   &kp);
 		INTERRUPT(mti_white, &kp_white, &kp);
 		INTERRUPT(lti_cyan,  &mo_cyan,  &kp);

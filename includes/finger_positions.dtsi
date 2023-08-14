@@ -48,7 +48,7 @@
 #define i_lb  28
 #define i_lbo 29
 
-// thumb cluster
+// in between thumb cluster
 #define t_lt  30
 #define t_lto 31
 #define t_rto 32
@@ -62,6 +62,7 @@
 #define p_rb  38
 #define p_rbo 39
 
+// row 3 thumb cluster
 #define t_li3 40
 #define t_li2 41
 #define t_li  42
