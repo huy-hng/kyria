@@ -26,8 +26,8 @@ def main():
         if type(names) == str:
             names = [names]
 
-        for n in names:
-            defines += f'#define {n} {layer_index}\n'
+        for name in names:
+            defines += f'#define {name} {layer_index}\n'
             layer_index += 1
 
     path_to_includes.write_text(includes)

@@ -30,7 +30,6 @@ combo_files = [
         match_bindings=['&kp', '&mt'],
         bindings_prefix='&combo_modifier LSHIFT ',
         key_position='t_l',
-
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT
     ),
