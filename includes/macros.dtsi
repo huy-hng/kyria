@@ -100,5 +100,35 @@ ZMK_MACRO(name, bindings =     \
 
         TOGL_COLOR(tog_NAVIPAD, &tog NAVIPAD   SET_HUE(INDIGO)  RGB_SOLID)
         TOGL_COLOR(to_BASE,     &to BASE       RGB_SWIRL RESET_COLOR)
+
+
+        //--------------Combo Macros--------------
+
+
+        ZMK_MACRO2(combo_modifier, bindings =
+            <&macro_param_1to1>
+            ,<&macro_press &kp 0>
+
+            ,<&macro_param_2to1>
+            ,<&macro_tap &kp 0>
+
+            ,<&macro_pause_for_release>
+
+            ,<&macro_param_1to1>
+            ,<&macro_release &kp 0>
+        ;)
+
+        ZMK_MACRO2(combo_layer, bindings =
+            <&macro_param_1to1>
+            ,<&macro_press &mo 0>
+
+            ,<&macro_param_2to1>
+            ,<&macro_tap &kp 0>
+
+            ,<&macro_pause_for_release>
+
+            ,<&macro_param_1to1>
+            ,<&macro_release &mo 0>
+        ;)
     };
 };

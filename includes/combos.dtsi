@@ -1,5 +1,25 @@
 #include "finger_positions.dtsi"
 
+#define SAME_HAND_TIMEOUT 40
+#define OTHE_HAND_TIMEOUT 45
+
+#define COMBO_MACRO(name, binding, key1, key2, time) \
+combo##name##key1##key2 {                            \
+	bindings = <binding>;                            \
+	key-positions = <key1 key2>;			         \
+	timeout-ms = <time>;					         \
+	slow-release;                                    \
+}
+
+#define SAME_HAND_CAPITALIZE(capital, key) \
+	COMBO_MACRO(COMBO_CAPITAL_LEFT, &combo_modifier LSHIFT capital, t_l, key, SAME_HAND_TIMEOUT)
+#define OTHE_HAND_CAPITALIZE(capital, key) \
+	COMBO_MACRO(COMBO_CAPITAL_RIGHT, &combo_modifier LSHIFT capital, t_l, key, OTHE_HAND_TIMEOUT)
+
+#define SYMBOL_COMBO(symbol, key) \
+	COMBO_MACRO(COMBO_SYMBOL, &combo_layer SYMBOLS symbol, t_r, key, OTHE_HAND_TIMEOUT)
+
+
 // NOTE: layer specific combos should live in their layer file
 // maybe exept for base layer combos?
 
