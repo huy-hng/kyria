@@ -6,15 +6,15 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 #include "defines.dtsi"
-#include "define_layers.dtsi"
+#include "generated/define_layers.dtsi"
 
 #include "macros.dtsi"
 #include "combos.dtsi"
 #include "mod_morphs.dtsi"
 #include "tap_dances.dtsi"
 
-#include "include_layers.dtsi"
-#include "include_combos.dtsi"
+#include "generated/include_layers.dtsi"
+#include "generated/include_combos.dtsi"
 
 
 &sl {

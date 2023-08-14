@@ -3,8 +3,11 @@ from typing import NamedTuple
 from pathlib import Path
 
 
-BASE_PATH = Path('/home/huy/repositories/kyria/includes')
+BASE_PATH = Path('/home/huy/repositories/kyria/config/includes')
 LAYERS_PATH = BASE_PATH / 'layers'
+path_to_combo_includes = BASE_PATH / 'generated' / 'include_combos.dtsi'
+combos_directory = '../combos/'
+
 
 SAME_HAND_TIMEOUT = 40
 OPPOSITE_HAND_TIMEOUT = 45
@@ -174,13 +177,13 @@ def main():
 
         file = combo_file.path.with_suffix('.combo').name
 
-        path = BASE_PATH / 'generated' / file
+        path = BASE_PATH / 'combos' / file
         path.write_text('\n'.join(lines))
 
-        rel_path = 'combos/' + file
+        rel_path = combos_directory + file
         combo_includes += f'#include "{rel_path}"\n'
 
-    # write('generated/' + 'include_combos.dtsi', combo_includes)
+    path_to_combo_includes.write_text(combo_includes)
 
 
 if __name__ == '__main__':
