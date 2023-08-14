@@ -4,7 +4,7 @@ from pathlib import Path
 BASE_PATH = Path('/home/huy/repositories/kyria')
 INCLUDES_PATH = BASE_PATH / 'includes'
 
-path_to_json = BASE_PATH / 'layers.json'
+path_to_json = BASE_PATH / 'scripts' / 'layers.json'
 path_to_defines = INCLUDES_PATH / 'generated' / 'define_layers.dtsi'
 path_to_includes = INCLUDES_PATH / 'generated' / 'include_layers.dtsi'
 
