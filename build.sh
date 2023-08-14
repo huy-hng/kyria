@@ -1,6 +1,7 @@
 #!/bin/bash
 
-python ./generate_includes.py
+python ./scripts/generate_includes.py
+python ./scripts/create_combos.py
 config_folder="/home/huy/repositories/kyria"
 zmk_path="/home/huy/repositories/zmk_fork/app"
 
