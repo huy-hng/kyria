@@ -31,25 +31,6 @@ combo##name##key1##key2 {                            \
 		// 	key-positions = <>;
 		// 	timeout-ms = <10>;
 		// };
-
-		combo_shift_ctrl {
-			bindings = <&kp LS(LCTRL)>;
-			key-positions = <thumb_l pinky_lo>;
-			timeout-ms = <40>;
-		};
-
-		combo_shift_alt {
-			bindings = <&kp LS(LALT)>;
-			key-positions = <thumb_l pinky_lbo>;
-			timeout-ms = <40>;
-		};
-
-		combo_shift_quote {
-			bindings = <&combo_modifier LSHIFT SQT>;
-			key-positions = <thumb_l pinky_ro>;
-			timeout-ms = <45>;
-			slow-release;
-		};
 		
 		left_index {
 			bindings = <____>;

@@ -1,0 +1,256 @@
+/ {
+	combos {
+		combo_TAB_12_0 {
+			bindings = <&combo_modifier LCTRL TAB>;
+			key-positions = <12 0>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_Q_12_1 {
+			bindings = <&combo_modifier LCTRL Q>;
+			key-positions = <12 1>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_W_12_2 {
+			bindings = <&combo_modifier LCTRL W>;
+			key-positions = <12 2>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_F_12_3 {
+			bindings = <&combo_modifier LCTRL F>;
+			key-positions = <12 3>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_P_12_4 {
+			bindings = <&combo_modifier LCTRL P>;
+			key-positions = <12 4>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo__12_5 {
+			bindings = <&combo_modifier LCTRL LA(PIPE)>;
+			key-positions = <12 5>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_H_12_7 {
+			bindings = <&combo_modifier LCTRL H>;
+			key-positions = <12 7>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_U_12_8 {
+			bindings = <&combo_modifier LCTRL U>;
+			key-positions = <12 8>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_Y_12_9 {
+			bindings = <&combo_modifier LCTRL Y>;
+			key-positions = <12 9>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_J_12_10 {
+			bindings = <&combo_modifier LCTRL J>;
+			key-positions = <12 10>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_A_12_13 {
+			bindings = <&combo_modifier LCTRL A>;
+			key-positions = <12 13>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_R_12_14 {
+			bindings = <&combo_modifier LCTRL R>;
+			key-positions = <12 14>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_S_12_15 {
+			bindings = <&combo_modifier LCTRL S>;
+			key-positions = <12 15>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_T_12_16 {
+			bindings = <&combo_modifier LCTRL T>;
+			key-positions = <12 16>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_G_12_17 {
+			bindings = <&combo_modifier LCTRL G>;
+			key-positions = <12 17>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_M_12_18 {
+			bindings = <&combo_modifier LCTRL M>;
+			key-positions = <12 18>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_N_12_19 {
+			bindings = <&combo_modifier LCTRL N>;
+			key-positions = <12 19>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_E_12_20 {
+			bindings = <&combo_modifier LCTRL E>;
+			key-positions = <12 20>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_I_12_21 {
+			bindings = <&combo_modifier LCTRL I>;
+			key-positions = <12 21>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_O_12_22 {
+			bindings = <&combo_modifier LCTRL O>;
+			key-positions = <12 22>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_LCTRLSQT_12_23 {
+			bindings = <&mt_macro LC(LCTRL) LC(SQT)>;
+			key-positions = <12 23>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_LALTRET_12_24 {
+			bindings = <&mt_macro LC(LALT) LC(RET)>;
+			key-positions = <12 24>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_Z_12_25 {
+			bindings = <&combo_modifier LCTRL Z>;
+			key-positions = <12 25>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_X_12_26 {
+			bindings = <&combo_modifier LCTRL X>;
+			key-positions = <12 26>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_C_12_27 {
+			bindings = <&combo_modifier LCTRL C>;
+			key-positions = <12 27>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_D_12_28 {
+			bindings = <&combo_modifier LCTRL D>;
+			key-positions = <12 28>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_LCTRL_12_34 {
+			bindings = <&combo_modifier LCTRL LCTRL>;
+			key-positions = <12 34>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_L_12_35 {
+			bindings = <&combo_modifier LCTRL L>;
+			key-positions = <12 35>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_K_12_36 {
+			bindings = <&combo_modifier LCTRL K>;
+			key-positions = <12 36>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_B_12_37 {
+			bindings = <&combo_modifier LCTRL B>;
+			key-positions = <12 37>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_V_12_38 {
+			bindings = <&combo_modifier LCTRL V>;
+			key-positions = <12 38>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_LALT_12_39 {
+			bindings = <&combo_modifier LCTRL LALT>;
+			key-positions = <12 39>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+		combo_DEL_12_40 {
+			bindings = <&combo_modifier LCTRL DEL>;
+			key-positions = <12 40>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_LMETA_12_41 {
+			bindings = <&combo_modifier LCTRL LMETA>;
+			key-positions = <12 41>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_SPACE_12_43 {
+			bindings = <&combo_modifier LCTRL SPACE>;
+			key-positions = <12 43>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
+		combo_BSPC_12_46 {
+			bindings = <&combo_modifier LCTRL BSPC>;
+			key-positions = <12 46>;
+			timeout-ms = <35>;
+			slow-release;
+		};
+
+	};
+};
