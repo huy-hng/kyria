@@ -2,8 +2,10 @@
 
 python ./scripts/generate_includes.py
 python ./scripts/create_combos.py
+
 config_folder="/home/huy/repositories/kyria"
 zmk_path="/home/huy/repositories/zmk_fork/app"
+last_builds_path="/home/huy/repositories/zmk_fork/app"
 
 SILENT=0
 BUILD=0
@@ -67,7 +69,7 @@ build() {
 	notify_short 'Completed' 'Build has completed.'
 
 	if [[ $BUILD -eq 0 ]]; then
-		cp ./build/$1/zephyr/zmk.uf2  "$config_folder/backups/$1_$(date +%s).uf2"
+		cp ./build/$1/zephyr/zmk.uf2  "$config_folder/backups/last_builds/$1_$(date +'%FT%X').uf2"
 		wait_copy ./build/$1/zephyr/zmk.uf2 $2
 	fi
 }
@@ -81,9 +83,9 @@ right() {
 }
 
 restore() {
-	path_to_file="./backups/right_restore.uf2"
+	path_to_file="./backups/restore/right_restore"
 	if [ -n "$1" ]; then
-		path_to_file="./backups/$1.uf2"
+		path_to_file="./backups/restore/$1.uf2"
 	fi
 	wait_copy $path_to_file
 }
