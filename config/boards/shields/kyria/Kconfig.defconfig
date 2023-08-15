@@ -18,21 +18,32 @@ if SHIELD_KYRIA
 			default y
 	endif # ZMK_DISPLAY
 
-	menuconfig CUSTOM_WIDGET_BATTERY_STATUS
+	
+	config ZMK_DISPLAY
+		select LV_USE_CONT
+		# select LV_FONT_MONTSERRAT_26
+		# select LV_FONT_MONTSERRAT_16
+		# select LV_OBJ_LABEL
+		select LV_USE_LABEL
+		select LV_USE_IMG
+		select LV_USE_ANIMATION
+		select LV_USE_THEME_MONO
+
+	menuconfig WIDGET_BATTERY_STATUS
 		bool "custom battery status widget"
 
-	menuconfig CUSTOM_WIDGET_OUTPUT_STATUS
+	menuconfig WIDGET_OUTPUT_STATUS
 		bool "custom output status widget"
 
-	menuconfig CUSTOM_WIDGET_LAYER_STATUS
+	menuconfig WIDGET_LAYER_STATUS
 		bool "custom layer status widget"
 
-	menuconfig CUSTOM_WIDGET_PERIPHERAL_STATUS
+	menuconfig WIDGET_PERIPHERAL_STATUS
 		bool "custom peripheral status widget"
 
-	menuconfig CUSTOM_WIDGET_BONGO_CAT
-		bool "custom peripheral status widget"
-
+	config WIDGET_BONGO_CAT
+		bool "Widget for displaying bongo cat that reacts to typing"
+		depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
 
 	if LVGL
 		config LV_Z_VDB_SIZE
