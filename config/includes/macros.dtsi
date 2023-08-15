@@ -1,69 +1,69 @@
 #define RGB_SOLID &rgb_ug RGB_EFS_CMD 0
 #define RGB_SWIRL &rgb_ug RGB_EFS_CMD 3
 
-#define ORANGE   8
+#define ORANGE 8
 #define GREEN  118
 #define CYAN   128
 #define BLUE   192
 #define INDIGO 256
 #define PINK   300
 
-#define DIMMED        9
-#define BRIGHTNESS   15
+#define DIMMED		  9
+#define BRIGHTNESS	 15
 #define LOW_SAT_BRI  12
-#define SATURATION  100
+#define SATURATION	100
 #define DEFAULT_HUE INDIGO
 
 #define SET_HSB(hue, sat, bri) &rgb_ug RGB_COLOR_HSB(hue, sat, bri)
 
-#define SET_HB(hue, bri) SET_HSB(hue,         100, bri)
+#define SET_HB(hue, bri) SET_HSB(hue,		  100, bri)
 #define SET_SB(sat, bri) SET_HSB(DEFAULT_HUE, sat, bri)
 
-#define SET_HUE(hue)     SET_HSB(hue,         100, BRIGHTNESS)
-#define SET_SAT(sat)     SET_HSB(DEFAULT_HUE, sat, LOW_SAT_BRI)
-#define SET_BRI(bri)     SET_HSB(DEFAULT_HUE, 100, bri)
+#define SET_HUE(hue)	 SET_HSB(hue,		  100, BRIGHTNESS)
+#define SET_SAT(sat)	 SET_HSB(DEFAULT_HUE, sat, LOW_SAT_BRI)
+#define SET_BRI(bri)	 SET_HSB(DEFAULT_HUE, 100, bri)
 
 #define RESET_COLOR SET_HSB(DEFAULT_HUE, SATURATION, BRIGHTNESS)
 
 
 #define HOLD_COLOR(name, behavior, before, after) \
-ZMK_MACRO(name, bindings =                        \
-    <&macro_press behavior >                      \
-    ,<&macro_tap before >                         \
-    ,<&macro_pause_for_release>                   \
-    ,<&macro_tap after >                          \
-    ,<&macro_release behavior >                   \
+ZMK_MACRO(name, bindings =						  \
+	<&macro_press behavior >					  \
+	,<&macro_tap before >						  \
+	,<&macro_pause_for_release>					  \
+	,<&macro_tap after >						  \
+	,<&macro_release behavior >					  \
 ;)
 
-#define MACRO_PARAM(name,...)                    \
-name: name {                                     \
-    label = #name;                               \
-    compatible = "zmk,behavior-macro-one-param"; \
-    #binding-cells = <1>;                        \
-    __VA_ARGS__                                  \
+#define MACRO_PARAM(name,...)					 \
+name: name {									 \
+	label = #name;								 \
+	compatible = "zmk,behavior-macro-one-param"; \
+	#binding-cells = <1>;						 \
+	__VA_ARGS__									 \
 };
 
 #define PARAM1(name, behavior, before, after) \
-ZMK_MACRO1(name, bindings =           \
-     <&macro_param_1to1>              \
-    ,<&macro_press behavior 0 >       \
-    ,<&macro_tap before >             \
-    ,<&macro_pause_for_release>       \
-    ,<&macro_param_1to1>              \
-    ,<&macro_release behavior 0 >     \
-    ,<&macro_tap after >              \
+ZMK_MACRO1(name, bindings =			  \
+	 <&macro_param_1to1>			  \
+	,<&macro_press behavior 0 >		  \
+	,<&macro_tap before >			  \
+	,<&macro_pause_for_release>		  \
+	,<&macro_param_1to1>			  \
+	,<&macro_release behavior 0 >	  \
+	,<&macro_tap after >			  \
 ;)
 
 #define PARAM2(name, behavior, before, after) \
-ZMK_MACRO2(name, bindings =                   \
-     <&macro_param_1to1 &macro_param_2to2>    \
-    ,<&macro_press behavior 0 0 >             \
-    ,<&macro_tap before >                     \
-    ,<&macro_pause_for_release>               \
-    ,<&macro_param_1to1>                      \
-    ,<&macro_param_2to2>                      \
-    ,<&macro_release behavior 0 0 >           \
-    ,<&macro_tap after >                      \
+ZMK_MACRO2(name, bindings =					  \
+	 <&macro_param_1to1 &macro_param_2to2>	  \
+	,<&macro_press behavior 0 0 >			  \
+	,<&macro_tap before >					  \
+	,<&macro_pause_for_release>				  \
+	,<&macro_param_1to1>					  \
+	,<&macro_param_2to2>					  \
+	,<&macro_release behavior 0 0 >			  \
+	,<&macro_tap after >					  \
 ;)
 
 // #define KP_COLOR(name, before, after) PARAM1(name, &kp, before, after)
@@ -76,59 +76,59 @@ ZMK_MACRO2(name, bindings =                   \
 #define TOGL_COLOR(name, behavior) ZMK_MACRO(name, bindings = <&macro_tap behavior > ;)
 
 #define TOG_COLOR(name, color) \
-ZMK_MACRO(name, bindings =     \
-    <&macro_tap behavior >     \
-    ,<&macro_param_1to1>       \
-    ,<&macro_tap &tog 0 >      \
+ZMK_MACRO(name, bindings =	   \
+	<&macro_tap behavior >	   \
+	,<&macro_param_1to1>	   \
+	,<&macro_tap &tog 0 >	   \
 ;)
 
 / {
-    macros {
-        // parameterized
-        KP_COLOR(kp_sat,    SET_SAT(67),     RESET_COLOR)
-        MO_COLOR(mo_cyan,   SET_HUE(CYAN)    RGB_SOLID, RGB_SWIRL RESET_COLOR)
-        MO_COLOR(mo_indigo, SET_HUE(INDIGO)  RGB_SOLID, RGB_SWIRL RESET_COLOR)
-        MO_COLOR(mo_orange, SET_HB(ORANGE, DIMMED) RGB_SOLID, RGB_SWIRL RESET_COLOR)
-        MO_COLOR(mo_blue,   SET_HB(BLUE, DIMMED) RGB_SOLID, RGB_SWIRL RESET_COLOR)
-        MO_COLOR(mo_white,  SET_SB(0, DIMMED),   RESET_COLOR)
-        KP_COLOR(kp_white,  SET_SB(0, DIMMED),   RESET_COLOR)
+	macros {
+		// parameterized
+		KP_COLOR(kp_sat,	SET_SAT(67),	 RESET_COLOR)
+		MO_COLOR(mo_cyan,	SET_HUE(CYAN)	 RGB_SOLID, RGB_SWIRL RESET_COLOR)
+		MO_COLOR(mo_indigo, SET_HUE(INDIGO)  RGB_SOLID, RGB_SWIRL RESET_COLOR)
+		MO_COLOR(mo_orange, SET_HB(ORANGE, DIMMED) RGB_SOLID, RGB_SWIRL RESET_COLOR)
+		MO_COLOR(mo_blue,	SET_HB(BLUE, DIMMED) RGB_SOLID, RGB_SWIRL RESET_COLOR)
+		MO_COLOR(mo_white,	SET_SB(0, DIMMED),	 RESET_COLOR)
+		KP_COLOR(kp_white,	SET_SB(0, DIMMED),	 RESET_COLOR)
 
-        // HOLD_COLOR(sl_NAVIPAD,  &sl NAVIPAD,   SET_HUE(INDIGO)  RGB_SOLID, &mo NUMPAD RGB_SWIRL, RESET_COLOR)
-        HOLD_COLOR(sl_NAVIPAD,  &sl NAVIPAD, , &mo NUMPAD)
+		// HOLD_COLOR(sl_NAVIPAD,  &sl NAVIPAD,   SET_HUE(INDIGO)  RGB_SOLID, &mo NUMPAD RGB_SWIRL, RESET_COLOR)
+		HOLD_COLOR(sl_NAVIPAD,	&sl NAVIPAD, , &mo NUMPAD)
 
-        TOGL_COLOR(tog_indigo, SET_HUE(INDIGO)  RGB_SOLID)
+		TOGL_COLOR(tog_indigo, SET_HUE(INDIGO)	RGB_SOLID)
 
-        TOGL_COLOR(tog_NAVIPAD, &tog NAVIPAD   SET_HUE(INDIGO)  RGB_SOLID)
-        TOGL_COLOR(to_BASE,     &to BASE       RGB_SWIRL RESET_COLOR)
-
-
-        //--------------Combo Macros--------------
+		TOGL_COLOR(tog_NAVIPAD, &tog NAVIPAD   SET_HUE(INDIGO)	RGB_SOLID)
+		TOGL_COLOR(to_BASE,		&to BASE	   RGB_SWIRL RESET_COLOR)
 
 
-        ZMK_MACRO2(combo_modifier, bindings =
-            <&macro_param_1to1>
-            ,<&macro_press &kp 0>
+		//--------------Combo Macros--------------
 
-            ,<&macro_param_2to1>
-            ,<&macro_tap &kp 0>
 
-            ,<&macro_pause_for_release>
+		ZMK_MACRO2(combo_modifier, bindings =
+			<&macro_param_1to1>
+			,<&macro_press &kp 0>
 
-            ,<&macro_param_1to1>
-            ,<&macro_release &kp 0>
-        ;)
+			,<&macro_param_2to1>
+			,<&macro_tap &kp 0>
 
-        ZMK_MACRO2(combo_layer, bindings =
-            <&macro_param_1to1>
-            ,<&macro_press &mo 0>
+			,<&macro_pause_for_release>
 
-            ,<&macro_param_2to1>
-            ,<&macro_tap &kp 0>
+			,<&macro_param_1to1>
+			,<&macro_release &kp 0>
+		;)
 
-            ,<&macro_pause_for_release>
+		ZMK_MACRO2(combo_layer, bindings =
+			<&macro_param_1to1>
+			,<&macro_press &mo 0>
 
-            ,<&macro_param_1to1>
-            ,<&macro_release &mo 0>
-        ;)
-    };
+			,<&macro_param_2to1>
+			,<&macro_tap &kp 0>
+
+			,<&macro_pause_for_release>
+
+			,<&macro_param_1to1>
+			,<&macro_release &mo 0>
+		;)
+	};
 };
