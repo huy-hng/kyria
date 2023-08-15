@@ -24,14 +24,15 @@ class ComboFile(NamedTuple):
     timeout_right: int
 
 
+# TODO: LCTRL + other keys
 combo_files = [
     ComboFile(
         path=LAYERS_PATH / 'base.keymap',
-        match_bindings=['&kp', '&mt'],
+        match_bindings=['&kp'],
         bindings_prefix='&combo_modifier LSHIFT ',
         key_position='t_l',
         timeout_left=SAME_HAND_TIMEOUT,
-        timeout_right=OPPOSITE_HAND_TIMEOUT
+        timeout_right=OPPOSITE_HAND_TIMEOUT,
     ),
     ComboFile(
         path=LAYERS_PATH / 'symbols.keymap',
@@ -177,7 +178,7 @@ def main():
         file = combo_file.path.with_suffix('.combo').name
 
         path = BASE_PATH / 'combos' / file
-        path.write_text('\n'.join(lines))
+        path.write_text(''.join(lines))
 
         rel_path = combos_directory + file
         combo_includes += f'#include "{rel_path}"\n'
