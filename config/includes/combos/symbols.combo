@@ -3,231 +3,231 @@
 		combo_EXCL_t_r_0 {
 			bindings = <&combo_layer SYMBOLS EXCL>;
 			key-positions = <t_r 0>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_AT_t_r_1 {
 			bindings = <&combo_layer SYMBOLS AT>;
 			key-positions = <t_r 1>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_POUND_t_r_2 {
 			bindings = <&combo_layer SYMBOLS POUND>;
 			key-positions = <t_r 2>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_DLLR_t_r_3 {
 			bindings = <&combo_layer SYMBOLS DLLR>;
 			key-positions = <t_r 3>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_PRCNT_t_r_4 {
 			bindings = <&combo_layer SYMBOLS PRCNT>;
 			key-positions = <t_r 4>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_CARET_t_r_5 {
 			bindings = <&combo_layer SYMBOLS CARET>;
 			key-positions = <t_r 5>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_AMPS_t_r_6 {
 			bindings = <&combo_layer SYMBOLS AMPS>;
 			key-positions = <t_r 6>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_STAR_t_r_7 {
 			bindings = <&combo_layer SYMBOLS STAR>;
 			key-positions = <t_r 7>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_MINUS_t_r_8 {
 			bindings = <&combo_layer SYMBOLS MINUS>;
 			key-positions = <t_r 8>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_PLUS_t_r_9 {
 			bindings = <&combo_layer SYMBOLS PLUS>;
 			key-positions = <t_r 9>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_PIPE_t_r_10 {
 			bindings = <&combo_layer SYMBOLS PIPE>;
 			key-positions = <t_r 10>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_TILDE_t_r_11 {
 			bindings = <&combo_layer SYMBOLS TILDE>;
 			key-positions = <t_r 11>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_LT_t_r_13 {
 			bindings = <&combo_layer SYMBOLS LT>;
 			key-positions = <t_r 13>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_LBRC_t_r_14 {
 			bindings = <&combo_layer SYMBOLS LBRC>;
 			key-positions = <t_r 14>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_LBKT_t_r_15 {
 			bindings = <&combo_layer SYMBOLS LBKT>;
 			key-positions = <t_r 15>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_LPAR_t_r_16 {
 			bindings = <&combo_layer SYMBOLS LPAR>;
 			key-positions = <t_r 16>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_QMARK_t_r_18 {
 			bindings = <&combo_layer SYMBOLS QMARK>;
 			key-positions = <t_r 18>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_DOT_t_r_19 {
 			bindings = <&combo_layer SYMBOLS DOT>;
 			key-positions = <t_r 19>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_UNDER_t_r_20 {
 			bindings = <&combo_layer SYMBOLS UNDER>;
 			key-positions = <t_r 20>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_COLON_t_r_21 {
 			bindings = <&combo_layer SYMBOLS COLON>;
 			key-positions = <t_r 21>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_FSLH_t_r_22 {
 			bindings = <&combo_layer SYMBOLS FSLH>;
 			key-positions = <t_r 22>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_GRAVE_t_r_23 {
 			bindings = <&combo_layer SYMBOLS GRAVE>;
 			key-positions = <t_r 23>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_RALT_t_r_24 {
 			bindings = <&combo_layer SYMBOLS RALT>;
 			key-positions = <t_r 24>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_GT_t_r_25 {
 			bindings = <&combo_layer SYMBOLS GT>;
 			key-positions = <t_r 25>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_RBRC_t_r_26 {
 			bindings = <&combo_layer SYMBOLS RBRC>;
 			key-positions = <t_r 26>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_RBKT_t_r_27 {
 			bindings = <&combo_layer SYMBOLS RBKT>;
 			key-positions = <t_r 27>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
 		combo_RPAR_t_r_28 {
 			bindings = <&combo_layer SYMBOLS RPAR>;
 			key-positions = <t_r 28>;
-			timeout-ms = <45>;
+			timeout-ms = <35>;
 			slow-release;
 		};
 
-		combo_RALSSINGLEQUOTE_t_r_34 {
+		combo__t_r_34 {
 			bindings = <&combo_layer SYMBOLS RA(LS(SINGLE_QUOTE))>;
 			key-positions = <t_r 34>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_COMMA_t_r_35 {
 			bindings = <&combo_layer SYMBOLS COMMA>;
 			key-positions = <t_r 35>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_EQUAL_t_r_36 {
 			bindings = <&combo_layer SYMBOLS EQUAL>;
 			key-positions = <t_r 36>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_SEMI_t_r_37 {
 			bindings = <&combo_layer SYMBOLS SEMI>;
 			key-positions = <t_r 37>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_BSLH_t_r_38 {
 			bindings = <&combo_layer SYMBOLS BSLH>;
 			key-positions = <t_r 38>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
 		combo_QMARK_t_r_39 {
 			bindings = <&combo_layer SYMBOLS QMARK>;
 			key-positions = <t_r 39>;
-			timeout-ms = <40>;
+			timeout-ms = <30>;
 			slow-release;
 		};
 
