@@ -32,12 +32,31 @@ combo##name##key1##key2 {                            \
 		// 	timeout-ms = <10>;
 		// };
 		
+		// combo_shift_ctrl {
+		// 	bindings = <&kp LS(LCTRL)>;
+		// 	key-positions = <thumb_l pinky_lo>;
+		// 	timeout-ms = <40>;
+		// };
+
+		// combo_shift_alt {
+		// 	bindings = <&kp LS(LALT)>;
+		// 	key-positions = <thumb_l pinky_lbo>;
+		// 	timeout-ms = <40>;
+		// };
+
+		// combo_shift_quote {
+		// 	bindings = <&combo_modifier LSHIFT SQT>;
+		// 	key-positions = <thumb_l pinky_ro>;
+		// 	timeout-ms = <45>;
+		// 	slow-release;
+		// };
+		// 
+
 		left_index {
 			bindings = <____>;
 			key-positions = <i_l i_lb>;
 			timeout-ms = <10>;
 		};
-		
 
 		right_index {
 			bindings = <&kp DOT>;

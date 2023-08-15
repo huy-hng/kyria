@@ -21,6 +21,7 @@ class ComboFile(NamedTuple):
 	timeout_left: int
 	timeout_right: int
 	skip_keys: list[int] = []
+	key_exception: dict[int, str] = {}
 
 combo_files = {
 	'base_ctrl': ComboFile(
@@ -41,6 +42,10 @@ combo_files = {
 			'&mt': '&mt_macro LS({}) LS({})',
 		},
 		key_position=43,
+		key_exception={
+			12: '&kp LS(LCTRL)',
+			23: '&combo_modifier LSHIFT SQT',
+		},
 		timeout_left=SAME_HAND_TIMEOUT,
 		timeout_right=OPPOSITE_HAND_TIMEOUT,
 	),
@@ -92,18 +97,19 @@ def create_combo_text(combo_file: ComboFile, bindings: list[str]):
 		bind, *param = binding.split(' ')
 		combo_behavior = combo_file.bindings.get(bind)
 
-
 		if combo_behavior:
-		# if check_if_correct_binding(bind, combo_file.match_bindings):
 			name = filter_alpha_numeric(param)
-			param = combo_file.bindings[bind].format(*param)
+
+			combo_param = combo_file.bindings[bind].format(*param)
+			if i in combo_file.key_exception:
+				combo_param = combo_file.key_exception[i]
 
 			timeout = combo_file.timeout_right
 			if i in LEFT_SIDE_CODES:
 				timeout = combo_file.timeout_left
 
 			combo = create_combo(
-				name, param, combo_file.key_position, i, timeout)
+				name, combo_param, combo_file.key_position, i, timeout)
 			combos.append(combo)
 	return combos
 

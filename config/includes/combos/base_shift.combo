@@ -71,7 +71,7 @@
 		};
 
 		combo_LCTRLESC_43_12 {
-			bindings = <&mt_macro LS(LCTRL) LS(ESC)>;
+			bindings = <&kp LS(LCTRL)>;
 			key-positions = <43 12>;
 			timeout-ms = <30>;
 			slow-release;
@@ -148,7 +148,7 @@
 		};
 
 		combo_LCTRLSQT_43_23 {
-			bindings = <&mt_macro LS(LCTRL) LS(SQT)>;
+			bindings = <&combo_modifier LSHIFT SQT>;
 			key-positions = <43 23>;
 			timeout-ms = <35>;
 			slow-release;
