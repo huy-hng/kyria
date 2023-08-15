@@ -80,40 +80,40 @@
 // row 0 left
 #define pinky_lto 0
 #define pinky_lt  1
-#define ring_lt  2
-#define middle_lt  3
+#define ring_lt   2
+#define middle_lt 3
 #define index_lt  4
 #define index_lto 5
 
 // row 0 right
 #define index_rto  6
 #define index_rt   7
-#define middle_rt   8
-#define ring_rt   9
+#define middle_rt  8
+#define ring_rt    9
 #define pinky_rt  10
 #define pinky_rto 11
 
 // row 1 left
 #define pinky_lo 12
 #define pinky_l  13
-#define ring_l  14
-#define middle_l  15
+#define ring_l   14
+#define middle_l 15
 #define index_l  16
 #define index_lo 17
 
 // row 1 right
 #define index_ro 18
 #define index_r  19
-#define middle_r  20
-#define ring_r  21
+#define middle_r 20
+#define ring_r   21
 #define pinky_r  22
 #define pinky_ro 23
 
 // row 2 left
 #define pinky_lbo 24
 #define pinky_lb  25
-#define ring_lb  26
-#define middle_lb  27
+#define ring_lb   26
+#define middle_lb 27
 #define index_lb  28
 #define index_lbo 29
 
@@ -126,8 +126,8 @@
 // row 2 right
 #define index_rbo 34
 #define index_rb  35
-#define middle_rb  36
-#define ring_rb  37
+#define middle_rb 36
+#define ring_rb   37
 #define pinky_rb  38
 #define pinky_rbo 39
 
