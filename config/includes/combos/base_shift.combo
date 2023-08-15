@@ -245,6 +245,13 @@
 			slow-release;
 		};
 
+		combo_SPACE_43_43 {
+			bindings = <&combo_modifier LSHIFT SPACE>;
+			key-positions = <43 43>;
+			timeout-ms = <30>;
+			slow-release;
+		};
+
 		combo_BSPC_43_46 {
 			bindings = <&combo_modifier LSHIFT BSPC>;
 			key-positions = <43 46>;

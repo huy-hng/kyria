@@ -238,13 +238,6 @@
 			slow-release;
 		};
 
-		combo_SPACE_12_43 {
-			bindings = <&combo_modifier LCTRL SPACE>;
-			key-positions = <12 43>;
-			timeout-ms = <30>;
-			slow-release;
-		};
-
 		combo_BSPC_12_46 {
 			bindings = <&combo_modifier LCTRL BSPC>;
 			key-positions = <12 46>;

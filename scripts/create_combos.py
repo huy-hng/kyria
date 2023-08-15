@@ -5,9 +5,8 @@ from pathlib import Path
 
 BASE_PATH = Path('/home/huy/repositories/kyria/config/includes')
 LAYERS_PATH = BASE_PATH / 'layers'
-path_to_combo_includes = BASE_PATH / 'generated' / 'include_combos.dtsi'
-combos_directory = '../combos/'
-
+PATH_TO_COMBO_INCLUDES = BASE_PATH / 'generated' / 'include_combos.dtsi'
+COMBOS_DIRECTORY = '../combos/'
 
 SAME_HAND_TIMEOUT = 30
 OPPOSITE_HAND_TIMEOUT = 35
@@ -21,8 +20,8 @@ class ComboFile(NamedTuple):
 	key_position: str | int
 	timeout_left: int
 	timeout_right: int
+	skip_keys: list[int] = []
 
-# TODO: LCTRL + other keys
 combo_files = {
 	'base_ctrl': ComboFile(
 		path=LAYERS_PATH / 'base.keymap',
@@ -31,6 +30,7 @@ combo_files = {
 			'&mt': '&mt_macro LC({}) LC({})',
 		},
 		key_position=12,
+		skip_keys=[12, 43],
 		timeout_left=SAME_HAND_TIMEOUT,
 		timeout_right=OPPOSITE_HAND_TIMEOUT,
 	),
@@ -86,7 +86,7 @@ def check_if_correct_binding(binding, match_bindings: list[str]):
 def create_combo_text(combo_file: ComboFile, bindings: list[str]):
 	combos = []
 	for i, binding in enumerate(bindings):
-		if i == combo_file.key_position: continue
+		if i in combo_file.skip_keys: continue
 
 		binding = binding.replace('\n', '')
 		bind, *param = binding.split(' ')
@@ -191,10 +191,10 @@ def main():
 		path = BASE_PATH / 'combos' / file_name
 		path.write_text(''.join(lines))
 
-		rel_path = combos_directory + file_name
+		rel_path = COMBOS_DIRECTORY + file_name
 		combo_includes += f'#include "{rel_path}"\n'
 
-	path_to_combo_includes.write_text(combo_includes)
+	PATH_TO_COMBO_INCLUDES.write_text(combo_includes)
 
 
 if __name__ == '__main__':
