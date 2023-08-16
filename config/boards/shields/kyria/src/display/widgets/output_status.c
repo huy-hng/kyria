@@ -1,10 +1,3 @@
-/*
- *
- * Copyright (c) 2021 Darryl deHaan
- * SPDX-License-Identifier: MIT
- *
- */
-
 #include <zephyr/kernel.h>
 #include <zephyr/bluetooth/services/bas.h>
 

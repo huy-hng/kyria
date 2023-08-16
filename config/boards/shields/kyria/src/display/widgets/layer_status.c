@@ -27,10 +27,10 @@ static void set_layer_symbol(lv_obj_t *label, struct layer_status_state state) {
     } else {
         char text[25] = {};
 
-        snprintf(text, sizeof(text), LV_SYMBOL_KEYBOARD " %s", state.label);
-
-        // lv_label_set_text(label, text);
-        lv_label_set_text(label, state.label);
+		strcat(text, state.label);
+		// snprintf(text, sizeof(text), LV_SYMBOL_KEYBOARD " %s", state.label);
+		// snprintf(text, sizeof(text), LV_SYMBOL_RIGHT " %s " LV_SYMBOL_LEFT, state.label);
+        lv_label_set_text(label, text);
     }
 }
 
