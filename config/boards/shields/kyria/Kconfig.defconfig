@@ -29,21 +29,23 @@ if SHIELD_KYRIA
 		select LV_USE_ANIMATION
 		select LV_USE_THEME_MONO
 
-	menuconfig WIDGET_BATTERY_STATUS
-		bool "custom battery status widget"
-
-	menuconfig WIDGET_OUTPUT_STATUS
-		bool "custom output status widget"
-
-	menuconfig WIDGET_LAYER_STATUS
-		bool "custom layer status widget"
-
-	menuconfig WIDGET_PERIPHERAL_STATUS
-		bool "custom peripheral status widget"
-
+	# menuconfig WIDGET_BONGO_CAT
 	config WIDGET_BONGO_CAT
 		bool "Widget for displaying bongo cat that reacts to typing"
 		depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
+
+	config WIDGET_BATTERY_STATUS
+		bool "custom battery status widget"
+
+	config WIDGET_OUTPUT_STATUS
+		bool "custom output status widget"
+
+	config WIDGET_LAYER_STATUS
+		bool "custom layer status widget"
+
+	config WIDGET_PERIPHERAL_STATUS
+		bool "custom peripheral status widget"
+
 
 	if LVGL
 		config LV_Z_VDB_SIZE

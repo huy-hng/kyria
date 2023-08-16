@@ -10,7 +10,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/keymap.h>
 #include <zmk/behavior.h>
 #include <zmk/ble.h>
-// #include <zmk/rgb_underglow.h>
 #include <zmk/event_manager.h>
 #include <zmk/hid.h>
 #include <zmk/events/layer_state_changed.h>
@@ -47,26 +46,26 @@ struct color cyan   = {.h = 142,         .b = 0.8f};
 struct color blue   = {.h = 192,         .b = 0.6f};
 struct color indigo = {.h = 256,                  };
 struct color pink   = {.h = 300,                  };
-struct layer_color layers[20];
+struct layer_color layer_colors[20];
 int layer_color_init() {
 
-    layers[0] = (struct layer_color){.label = "Colemak", .effect = 3};
-    layers[1] = (struct layer_color){.label = "Navipad",  indigo};
-    layers[2] = (struct layer_color){.label = "Vim",      indigo};
-    layers[3] = (struct layer_color){.label = "Symbols",  cyan};
+    layer_colors[0] = (struct layer_color){.label = "Colemak", .effect = 3};
+    layer_colors[1] = (struct layer_color){.label = "Navipad",  indigo};
+    layer_colors[2] = (struct layer_color){.label = "Vim",      indigo};
+    layer_colors[3] = (struct layer_color){.label = "Symbols",  cyan};
     // layers[4] = (struct layer_color){.label = "Media FN", orange};
-    layers[5] = (struct layer_color){.label = "Layers",   white};
-    layers[6] = (struct layer_color){.label = "Media FN", green};
-    layers[7] = (struct layer_color){.label = "OS",       blue};
-    layers[8] = (struct layer_color){.label = "Enc LR",   orange};
+    layer_colors[5] = (struct layer_color){.label = "Layers",   white};
+    layer_colors[6] = (struct layer_color){.label = "Media FN", green};
+    layer_colors[7] = (struct layer_color){.label = "OS",       blue};
+    layer_colors[8] = (struct layer_color){.label = "Enc LR",   orange};
     // clang-format on
     return 0;
 }
 
 struct layer_color *get_layer_color(const char *layer_label) {
-    for (int i = 0; i < sizeof(layers) / sizeof(layers[0]); i++) {
-        if (strcmp(layer_label, layers[i].label) == 0) {
-            return &layers[i];
+    for (int i = 0; i < sizeof(layer_colors) / sizeof(layer_colors[0]); i++) {
+        if (strcmp(layer_label, layer_colors[i].label) == 0) {
+            return &layer_colors[i];
         }
     }
     return NULL;
