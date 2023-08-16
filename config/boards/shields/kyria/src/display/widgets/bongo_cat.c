@@ -7,12 +7,12 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include "headers/bongo_cat.h"
 
 #include <zmk/event_manager.h>
-#include <zmk/events/keycode_state_changed.h>
-
-// #include "bongo_cat_images.c"
+#include <zmk/events/position_state_changed.h>
 
 // TODO: consider using zephyrs stack api
 // https://docs.zephyrproject.org/latest/doxygen/html/group__stack__apis.html
+
+#define USE_ABSOLUTE_PAW 0
 
 #define DOUBLE_TAP_DELAY 50
 #define IDLE_TAP_DELAY 100
@@ -39,7 +39,6 @@ LV_IMG_DECLARE(left_paw_img);
 K_SEM_DEFINE(sem, 1, 1);
 
 K_TIMER_DEFINE(idle_timer, start_idle_animation, NULL);
-// K_TIMER_DEFINE(state_paws_up_timer, change_state_paws_up, change_state_paws_up);
 K_TIMER_DEFINE(paws_up_timer, lift_paws, NULL);
 K_TIMER_DEFINE(tapping_timer, hit_table, NULL);
 
@@ -151,7 +150,7 @@ void key_press(uint32_t keycode) {
 		hit_table();
 }
 
-void set_bongo_cat_img(const struct zmk_keycode_state_changed *ev) {
+void set_bongo_cat_img(const struct zmk_position_state_changed *ev) {
 	lv_anim_del(cat->obj, set_img_src);
 	k_timer_stop(&idle_timer);
 	k_timer_stop(&paws_up_timer);
@@ -161,17 +160,18 @@ void set_bongo_cat_img(const struct zmk_keycode_state_changed *ev) {
 		set_img(&paws_up_img);
 
 	if (ev->state)
-		key_press(ev->keycode);
+		key_press(ev->position);
 	else
 		key_release();
 
-	last_keycode = ev->keycode;
+	last_keycode = ev->position;
 }
 
 //------------------------------------------ZMK Functions-------------------------------------------
 
 int bongo_cat_update_cb(const zmk_event_t *eh) {
-	const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
+	const struct zmk_position_state_changed *ev = as_zmk_position_state_changed(eh);
+
 	struct zmk_widget_bongo_cat *widget;
 	SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) {
 		cat = widget;
@@ -197,8 +197,6 @@ int zmk_widget_bongo_cat_init(struct zmk_widget_bongo_cat *widget, lv_obj_t *par
 
 	lv_img_cache_set_size(8);
 
-	// k_timer_start(&sem_timer, K_SECONDS(1), K_SECONDS(1));
-
 	sys_slist_append(&widgets, &widget->node);
 	return 0;
 }
@@ -206,4 +204,4 @@ int zmk_widget_bongo_cat_init(struct zmk_widget_bongo_cat *widget, lv_obj_t *par
 lv_obj_t *zmk_widget_bongo_cat_obj(struct zmk_widget_bongo_cat *widget) { return widget->obj; }
 
 ZMK_LISTENER(zmk_widget_bongo_cat, bongo_cat_update_cb)
-ZMK_SUBSCRIPTION(zmk_widget_bongo_cat, zmk_keycode_state_changed);
+ZMK_SUBSCRIPTION(zmk_widget_bongo_cat, zmk_position_state_changed);
