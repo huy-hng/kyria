@@ -4,8 +4,7 @@
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <zmk/display.h>
-#include "bongo_cat.h"
-// #include <zmk/display/widgets/bongo_cat.h>
+#include "headers/bongo_cat.h"
 
 #include <zmk/event_manager.h>
 #include <zmk/events/keycode_state_changed.h>
