@@ -50,7 +50,7 @@ enum rgb_underglow_effect {
 	UNDERGLOW_EFFECT_BREATHE,
 	UNDERGLOW_EFFECT_SPECTRUM,
 	UNDERGLOW_EFFECT_SWIRL,
-	UNDERGLOW_EFFECT_NUMBER = 5 // Used to track number of underglow effects
+	UNDERGLOW_EFFECT_NUMBER = 6 // Used to track number of underglow effects
 };
 
 struct rgb_underglow_state {
