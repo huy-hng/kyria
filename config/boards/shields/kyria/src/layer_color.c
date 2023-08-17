@@ -47,6 +47,7 @@ struct color blue   = {.h = 192,         .b = 0.6f};
 struct color indigo = {.h = 256,                  };
 struct color pink   = {.h = 300,                  };
 struct layer_color layer_colors[20];
+
 int layer_color_init() {
 
     layer_colors[0] = (struct layer_color){.label = "Colemak", .effect = 3};
@@ -105,10 +106,6 @@ void set_color(struct color color) {
         color.b = (uint8_t)base_state.color.b * color.b;
     }
 
-    LOG_DBG("after hue %d", color.h);
-    LOG_DBG("after sat %d", color.s);
-    LOG_DBG("after bri %d", color.s);
-
     invoke_behavior(RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
 }
 
@@ -118,7 +115,7 @@ void update_layer_color() {
     const char *prev_layer_label = zmk_keymap_layer_label(prev_layer_index);
 
     if (prev_layer_index == 0 || strcmp(prev_layer_label, "Settings") == 0)
-        base_state = zmk_rgb_underglow_return_state();
+        base_state = *zmk_rgb_underglow_return_state();
 
     prev_layer_index = index;
 
@@ -140,6 +137,7 @@ int layer_color_event_listener(const zmk_event_t *eh) {
     // return 0;
     if (strcmp(eh->event->name, "zmk_layer_state_changed") == 0) {
         update_layer_color();
+        rgb_extra_start_transition_animation();
         return 0;
     }
 
@@ -150,7 +148,7 @@ int layer_color_event_listener(const zmk_event_t *eh) {
     const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
     if (ev) {
         uint8_t mods = zmk_hid_get_explicit_mods();
-        // struct rgb_underglow_state state = zmk_rgb_underglow_return_state();
+        // struct rgb_underglow_state state = *zmk_rgb_underglow_return_state();
         if (ev->state && mods > 0) {
             invoke_behavior(RGB_SET_SAT, 60);
             // invoke_behavior(RGB_SET_BRT, state.color.b * 0.8);

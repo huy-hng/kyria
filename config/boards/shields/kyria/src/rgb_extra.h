@@ -14,10 +14,11 @@ struct rgb_underglow_state_extra {
 	bool on;
 };
 
+void rgb_extra_start_transition_animation();
 void zmk_rgb_underglow_tick_extra(struct k_work *work);
 int zmk_rgb_underglow_set_hsb(struct zmk_led_hsb color);
 int zmk_rgb_underglow_set_hue(int value);
 int zmk_rgb_underglow_set_sat(int value);
 int zmk_rgb_underglow_set_brt(int value);
 int zmk_rgb_underglow_set_spd(int value);
-struct rgb_underglow_state_extra zmk_rgb_underglow_return_state();
+struct rgb_underglow_state_extra *zmk_rgb_underglow_return_state();
