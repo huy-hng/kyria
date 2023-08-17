@@ -19,9 +19,9 @@ lv_obj_t *zmk_display_status_screen() {
 	lv_obj_align(zmk_widget_peripheral_status_obj(&peripheral_status_widget), LV_ALIGN_TOP_LEFT, 0,
 				 0);
 
-	lv_obj_t *zenlogo_icon;
-	zenlogo_icon = lv_img_create(screen);
-	lv_img_set_src(zenlogo_icon, &zenlogo);
-	lv_obj_align(zenlogo_icon, LV_ALIGN_CENTER, 0, 0);
+	// lv_obj_t *zenlogo_icon;
+	// zenlogo_icon = lv_img_create(screen);
+	// lv_img_set_src(zenlogo_icon, &zenlogo);
+	// lv_obj_align(zenlogo_icon, LV_ALIGN_CENTER, 0, 0);
 	return screen;
 }
