@@ -1,4 +1,5 @@
 target_sources_ifdef(CONFIG_WIDGET_BONGO_CAT app PRIVATE bongo_cat_images.c)
+target_sources(app PRIVATE kyria_logo.c)
 
 if(CONFIG_ZMK_DISPLAY)
 	if(CONFIG_WIDGET_BATTERY_STATUS)
