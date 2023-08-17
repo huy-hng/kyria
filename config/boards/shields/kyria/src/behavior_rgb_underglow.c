@@ -12,7 +12,7 @@
 
 #include <dt-bindings/zmk/rgb.h>
 #include <zmk/keymap.h>
-#include "rgb_underglow.h"
+#include "rgb_extra.h"
 
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
@@ -89,7 +89,7 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
         break;
     }
     case RGB_SET_HUE: {
-        struct rgb_underglow_state state = zmk_rgb_underglow_return_state();
+        struct rgb_underglow_state_extra state = zmk_rgb_underglow_return_state();
         struct zmk_led_hsb color = state.color;
 
         binding->param1 = RGB_COLOR_HSB_CMD;
@@ -97,7 +97,7 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
         break;
     }
     case RGB_SET_SAT: {
-        struct rgb_underglow_state state = zmk_rgb_underglow_return_state();
+        struct rgb_underglow_state_extra state = zmk_rgb_underglow_return_state();
         struct zmk_led_hsb color = state.color;
 
         binding->param1 = RGB_COLOR_HSB_CMD;
@@ -105,7 +105,7 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
         break;
     }
     case RGB_SET_BRT: {
-        struct rgb_underglow_state state = zmk_rgb_underglow_return_state();
+        struct rgb_underglow_state_extra state = zmk_rgb_underglow_return_state();
         struct zmk_led_hsb color = state.color;
 
         binding->param1 = RGB_COLOR_HSB_CMD;

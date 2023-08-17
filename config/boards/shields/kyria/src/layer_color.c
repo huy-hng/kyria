@@ -16,7 +16,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/keycode_state_changed.h>
 #include <zmk/split/bluetooth/central.h>
 
-#include "rgb_underglow.h"
+#include "rgb_extra.h"
 
 #define DEFAULT_BRIGHTNESS 30
 #define DEFAULT_EFFECT 3
@@ -34,7 +34,7 @@ struct layer_color {
     int effect;
 };
 
-static struct rgb_underglow_state base_state;
+static struct rgb_underglow_state_extra base_state;
 static int prev_layer_index;
 
 // clang-format off

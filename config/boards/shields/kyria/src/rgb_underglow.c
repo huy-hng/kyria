@@ -18,6 +18,7 @@
 #include <drivers/ext_power.h>
 
 #include <zmk/rgb_underglow.h>
+#include "rgb_extra.h"
 
 #include <zmk/activity.h>
 #include <zmk/usb.h>
@@ -49,7 +50,7 @@ enum rgb_underglow_effect {
 	UNDERGLOW_EFFECT_BREATHE,
 	UNDERGLOW_EFFECT_SPECTRUM,
 	UNDERGLOW_EFFECT_SWIRL,
-	UNDERGLOW_EFFECT_NUMBER // Used to track number of underglow effects
+	UNDERGLOW_EFFECT_NUMBER = 5 // Used to track number of underglow effects
 };
 
 struct rgb_underglow_state {
@@ -197,7 +198,7 @@ static void zmk_rgb_underglow_tick(struct k_work *work) {
 	}
 }
 
-K_WORK_DEFINE(underglow_tick_work, zmk_rgb_underglow_tick);
+K_WORK_DEFINE(underglow_tick_work, zmk_rgb_underglow_tick_extra);
 
 static void zmk_rgb_underglow_tick_handler(struct k_timer *timer) {
 	if (!state.on) {
@@ -367,7 +368,7 @@ int zmk_rgb_underglow_select_effect(int effect) {
 	}
 
 	state.current_effect = effect;
-	state.animation_step = 0;
+	// state.animation_step = 0;
 
 	return zmk_rgb_underglow_save_state();
 }
