@@ -17,13 +17,14 @@
 #include <zephyr/drivers/led_strip.h>
 #include <drivers/ext_power.h>
 
+#include <zmk/rgb_underglow.h>
+
 #include <zmk/activity.h>
 #include <zmk/usb.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/activity_state_changed.h>
 #include <zmk/events/usb_conn_state_changed.h>
-
-#include "rgb_underglow.h"
+#include <zmk/workqueue.h>
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
@@ -47,9 +48,16 @@ enum rgb_underglow_effect {
 	UNDERGLOW_EFFECT_SOLID,
 	UNDERGLOW_EFFECT_BREATHE,
 	UNDERGLOW_EFFECT_SPECTRUM,
-	// UNDERGLOW_EFFECT_SWIRL,
-	UNDERGLOW_EFFECT_SPARKLE,
+	UNDERGLOW_EFFECT_SWIRL,
 	UNDERGLOW_EFFECT_NUMBER // Used to track number of underglow effects
+};
+
+struct rgb_underglow_state {
+	struct zmk_led_hsb color;
+	uint8_t animation_speed;
+	uint8_t current_effect;
+	uint16_t animation_step;
+	bool on;
 };
 
 static const struct device *led_strip;
@@ -167,20 +175,6 @@ static void zmk_rgb_underglow_effect_swirl() {
 	state.animation_step = state.animation_step % HUE_MAX;
 }
 
-static void zmk_rgb_underglow_effect_sparkle() {
-	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
-		struct zmk_led_hsb hsb = state.color;
-
-		int hue_offset = i * 69691;
-		hsb.h = (hue_offset + state.animation_step) % HUE_MAX;
-
-		pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
-	}
-
-	state.animation_step += state.animation_speed;
-	state.animation_step = state.animation_step % HUE_MAX;
-}
-
 static void zmk_rgb_underglow_tick(struct k_work *work) {
 	switch (state.current_effect) {
 	case UNDERGLOW_EFFECT_SOLID:
@@ -192,11 +186,8 @@ static void zmk_rgb_underglow_tick(struct k_work *work) {
 	case UNDERGLOW_EFFECT_SPECTRUM:
 		zmk_rgb_underglow_effect_spectrum();
 		break;
-	// case UNDERGLOW_EFFECT_SWIRL:
-	//     zmk_rgb_underglow_effect_swirl();
-	//     break;
-	case UNDERGLOW_EFFECT_SPARKLE:
-		zmk_rgb_underglow_effect_sparkle();
+	case UNDERGLOW_EFFECT_SWIRL:
+		zmk_rgb_underglow_effect_swirl();
 		break;
 	}
 
@@ -206,14 +197,14 @@ static void zmk_rgb_underglow_tick(struct k_work *work) {
 	}
 }
 
-K_WORK_DEFINE(underglow_work, zmk_rgb_underglow_tick);
+K_WORK_DEFINE(underglow_tick_work, zmk_rgb_underglow_tick);
 
 static void zmk_rgb_underglow_tick_handler(struct k_timer *timer) {
 	if (!state.on) {
 		return;
 	}
 
-	k_work_submit(&underglow_work);
+	k_work_submit_to_queue(zmk_workqueue_lowprio_work_q(), &underglow_tick_work);
 }
 
 K_TIMER_DEFINE(underglow_tick, zmk_rgb_underglow_tick_handler, NULL);
@@ -332,6 +323,16 @@ int zmk_rgb_underglow_on() {
 	return zmk_rgb_underglow_save_state();
 }
 
+static void zmk_rgb_underglow_off_handler(struct k_work *work) {
+	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
+		pixels[i] = (struct led_rgb){r : 0, g : 0, b : 0};
+	}
+
+	led_strip_update_rgb(led_strip, pixels, STRIP_NUM_PIXELS);
+}
+
+K_WORK_DEFINE(underglow_off_work, zmk_rgb_underglow_off_handler);
+
 int zmk_rgb_underglow_off() {
 	if (!led_strip)
 		return -ENODEV;
@@ -345,11 +346,7 @@ int zmk_rgb_underglow_off() {
 	}
 #endif
 
-	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
-		pixels[i] = (struct led_rgb){r : 0, g : 0, b : 0};
-	}
-
-	led_strip_update_rgb(led_strip, pixels, STRIP_NUM_PIXELS);
+	k_work_submit_to_queue(zmk_workqueue_lowprio_work_q(), &underglow_off_work);
 
 	k_timer_stop(&underglow_tick);
 	state.on = false;
@@ -370,7 +367,7 @@ int zmk_rgb_underglow_select_effect(int effect) {
 	}
 
 	state.current_effect = effect;
-	// state.animation_step = 0;
+	state.animation_step = 0;
 
 	return zmk_rgb_underglow_save_state();
 }
@@ -468,43 +465,6 @@ int zmk_rgb_underglow_change_spd(int direction) {
 
 	return zmk_rgb_underglow_save_state();
 }
-
-int zmk_rgb_underglow_set_hue(int value) {
-	if (!led_strip)
-		return -ENODEV;
-
-	state.color.h = value % HUE_MAX;
-
-	return zmk_rgb_underglow_save_state();
-}
-
-int zmk_rgb_underglow_set_sat(int value) {
-	if (!led_strip)
-		return -ENODEV;
-	LOG_DBG("set sat %d", value);
-	state.color.s = CLAMP(value, 0, SAT_MAX);
-
-	return zmk_rgb_underglow_save_state();
-}
-
-int zmk_rgb_underglow_set_brt(int value) {
-	if (!led_strip)
-		return -ENODEV;
-
-	state.color.b = CLAMP(value, 0, BRT_MAX);
-
-	return zmk_rgb_underglow_save_state();
-}
-
-int zmk_rgb_underglow_set_spd(int value) {
-	if (!led_strip)
-		return -ENODEV;
-
-	state.animation_speed = CLAMP(value, 1, 5);
-	return zmk_rgb_underglow_save_state();
-}
-
-struct rgb_underglow_state zmk_rgb_underglow_return_state() { return state; }
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE) ||                                          \
 	IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)
