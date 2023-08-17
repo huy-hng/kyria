@@ -1,4 +1,4 @@
-# if (CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+if (CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	target_sources_ifdef(CONFIG_WIDGET_BATTERY_STATUS app PRIVATE widgets/battery_status.c)
 	target_sources_ifdef(CONFIG_WIDGET_BONGO_CAT app PRIVATE widgets/bongo_cat.c)
 
