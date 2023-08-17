@@ -23,15 +23,15 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define DEFAULT_COLOR CYAN
 
 struct color {
-    uint16_t h;
-    uint8_t s;
-    float b;
+	uint16_t h;
+	uint8_t s;
+	float b;
 };
 
 struct layer_color {
-    char *label;
-    struct color color;
-    int effect;
+	char *label;
+	struct color color;
+	int effect;
 };
 
 static struct rgb_underglow_state_extra base_state;
@@ -59,107 +59,107 @@ int layer_color_init() {
     layer_colors[6] = (struct layer_color){.label = "Media FN", green};
     layer_colors[7] = (struct layer_color){.label = "OS",       blue};
     layer_colors[8] = (struct layer_color){.label = "Enc LR",   orange};
-    // clang-format on
-    return 0;
+	// clang-format on
+	return 0;
 }
 
 struct layer_color *get_layer_color(const char *layer_label) {
-    for (int i = 0; i < sizeof(layer_colors) / sizeof(layer_colors[0]); i++) {
-        if (strcmp(layer_label, layer_colors[i].label) == 0) {
-            return &layer_colors[i];
-        }
-    }
-    return NULL;
+	for (int i = 0; i < sizeof(layer_colors) / sizeof(layer_colors[0]); i++) {
+		if (strcmp(layer_label, layer_colors[i].label) == 0) {
+			return &layer_colors[i];
+		}
+	}
+	return NULL;
 }
 
 void invoke_behavior(int param1, int param2) {
-    struct zmk_behavior_binding binding = {
-        .behavior_dev = "RGB_UG", .param1 = param1, .param2 = param2};
+	struct zmk_behavior_binding binding = {
+		.behavior_dev = "RGB_UG", .param1 = param1, .param2 = param2};
 
-    struct zmk_behavior_binding_event event = {
-        .layer = 0,
-        .position = 0,
-        .timestamp = 0,
-    };
+	struct zmk_behavior_binding_event event = {
+		.layer = 0,
+		.position = 0,
+		.timestamp = 0,
+	};
 
-    for (int i = 0; i < ZMK_SPLIT_BLE_PERIPHERAL_COUNT; i++) {
-        zmk_split_bt_invoke_behavior(i, &binding, event, true);
-    }
-    behavior_keymap_binding_pressed(&binding, event);
+	for (int i = 0; i < ZMK_SPLIT_BLE_PERIPHERAL_COUNT; i++) {
+		zmk_split_bt_invoke_behavior(i, &binding, event, true);
+	}
+	behavior_keymap_binding_pressed(&binding, event);
 }
 
 void set_effect(int effect) { invoke_behavior(RGB_EFS_CMD, effect); }
 
 void set_color(struct color color) {
-    LOG_DBG(" ");
-    LOG_DBG("hue %d", color.h);
-    LOG_DBG("sat %d", color.s);
-    LOG_DBG("bri %d", color.s);
+	LOG_DBG(" ");
+	LOG_DBG("hue %d", color.h);
+	LOG_DBG("sat %d", color.s);
+	LOG_DBG("bri %d", color.s);
 
-    if (!color.h)
-        color.h = base_state.color.h;
-    if (!color.s)
-        color.s = base_state.color.s;
-    if (!color.b) {
-        color.b = base_state.color.b;
-    } else if (color.b > 0 && color.b < 1) {
-        color.b = (uint8_t)base_state.color.b * color.b;
-    }
+	if (!color.h)
+		color.h = base_state.color.h;
+	if (!color.s)
+		color.s = base_state.color.s;
+	if (!color.b) {
+		color.b = base_state.color.b;
+	} else if (color.b > 0 && color.b < 1) {
+		color.b = (uint8_t)base_state.color.b * color.b;
+	}
 
-    invoke_behavior(RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
+	invoke_behavior(RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
 }
 
 void update_layer_color() {
-    uint8_t index = zmk_keymap_highest_layer_active();
-    const char *label = zmk_keymap_layer_label(index);
-    const char *prev_layer_label = zmk_keymap_layer_label(prev_layer_index);
+	uint8_t index = zmk_keymap_highest_layer_active();
+	const char *label = zmk_keymap_layer_label(index);
+	const char *prev_layer_label = zmk_keymap_layer_label(prev_layer_index);
 
-    if (prev_layer_index == 0 || strcmp(prev_layer_label, "Settings") == 0)
-        base_state = *zmk_rgb_underglow_return_state();
+	if (prev_layer_index == 0 || strcmp(prev_layer_label, "Settings") == 0)
+		base_state = *zmk_rgb_underglow_return_state();
 
-    prev_layer_index = index;
+	prev_layer_index = index;
 
-    struct layer_color *layer = get_layer_color(label);
-    if (!layer)
-        return;
+	struct layer_color *layer = get_layer_color(label);
+	if (!layer)
+		return;
 
-    if (index == 0) {
-        set_effect(base_state.current_effect);
-        set_color((struct color){});
-        return;
-    }
+	if (index == 0) {
+		set_effect(base_state.current_effect);
+		set_color((struct color){});
+		return;
+	}
 
-    set_color(layer->color);
-    set_effect(0);
+	set_color(layer->color);
+	set_effect(0);
 }
 
 int layer_color_event_listener(const zmk_event_t *eh) {
-    // return 0;
-    if (strcmp(eh->event->name, "zmk_layer_state_changed") == 0) {
-        update_layer_color();
-        rgb_extra_start_transition_animation();
-        return 0;
-    }
+	// return 0;
+	if (strcmp(eh->event->name, "zmk_layer_state_changed") == 0) {
+		update_layer_color();
+		rgb_extra_start_transition_animation();
+		return 0;
+	}
 
-    // NOTE: theres no distinction between modifier color change and layer color change
-    // they will therefore mix and behave unexpectedly
-    // also key release has to be handled more gracefully
+	// NOTE: theres no distinction between modifier color change and layer color change
+	// they will therefore mix and behave unexpectedly
+	// also key release has to be handled more gracefully
 
-    const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
-    if (ev) {
-        uint8_t mods = zmk_hid_get_explicit_mods();
-        // struct rgb_underglow_state state = *zmk_rgb_underglow_return_state();
-        if (ev->state && mods > 0) {
-            invoke_behavior(RGB_SET_SAT, 60);
-            // invoke_behavior(RGB_SET_BRT, state.color.b * 0.8);
-        } else if (!ev->state && mods == 0) {
-            invoke_behavior(RGB_SET_SAT, 100);
-            // invoke_behavior(RGB_SET_SAT, base_state.color.s);
-            // invoke_behavior(RGB_SET_BRT, base_state.color.b);
-        }
-    }
+	const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
+	if (ev) {
+		uint8_t mods = zmk_hid_get_explicit_mods();
+		// struct rgb_underglow_state state = *zmk_rgb_underglow_return_state();
+		if (ev->state && mods > 0) {
+			invoke_behavior(RGB_SET_SAT, 60);
+			// invoke_behavior(RGB_SET_BRT, state.color.b * 0.8);
+		} else if (!ev->state && mods == 0) {
+			invoke_behavior(RGB_SET_SAT, 100);
+			// invoke_behavior(RGB_SET_SAT, base_state.color.s);
+			// invoke_behavior(RGB_SET_BRT, base_state.color.b);
+		}
+	}
 
-    return 0;
+	return 0;
 }
 
 ZMK_LISTENER(color, layer_color_event_listener);
