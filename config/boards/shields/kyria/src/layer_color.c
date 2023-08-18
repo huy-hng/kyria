@@ -18,10 +18,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include "rgb_extra.h"
 
-#define DEFAULT_BRIGHTNESS 30
-#define DEFAULT_EFFECT 3
-#define DEFAULT_COLOR CYAN
-
 struct color {
 	uint16_t h;
 	uint8_t s;
@@ -134,10 +130,8 @@ void update_layer_color() {
 }
 
 int layer_color_event_listener(const zmk_event_t *eh) {
-	// return 0;
 	if (strcmp(eh->event->name, "zmk_layer_state_changed") == 0) {
 		update_layer_color();
-		rgb_extra_start_transition_animation();
 		return 0;
 	}
 
