@@ -18,7 +18,7 @@
 #include <drivers/ext_power.h>
 
 #include <zmk/rgb_underglow.h>
-// #include "rgb_extra.h"
+#include "rgb_extra.h"
 
 #include <zmk/activity.h>
 #include <zmk/usb.h>
@@ -45,6 +45,14 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 BUILD_ASSERT(CONFIG_ZMK_RGB_UNDERGLOW_BRT_MIN <= CONFIG_ZMK_RGB_UNDERGLOW_BRT_MAX,
 			 "ERROR: RGB underglow maximum brightness is less than minimum brightness");
 
+enum rgb_underglow_effect {
+	UNDERGLOW_EFFECT_SOLID,
+	UNDERGLOW_EFFECT_BREATHE,
+	UNDERGLOW_EFFECT_SPECTRUM,
+	UNDERGLOW_EFFECT_SWIRL,
+
+	UNDERGLOW_EFFECT_NUMBER = 6 // Used to track number of underglow effects
+};
 
 struct rgb_underglow_state {
 	struct zmk_led_hsb color;

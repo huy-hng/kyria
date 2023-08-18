@@ -1,6 +1,5 @@
 #pragma once
 
-#include <zephyr/init.h>
 #include <zmk/rgb_underglow.h>
 
 #define RGB_SET_HUE 15
@@ -18,7 +17,6 @@ struct rgb_underglow_state_extra {
 	bool on;
 };
 
-void rgb_set_effect();
 void rgb_extra_start_transition_animation();
 void zmk_rgb_underglow_tick_extra(struct k_work *work);
 int zmk_rgb_underglow_set_hsb(struct zmk_led_hsb color);
