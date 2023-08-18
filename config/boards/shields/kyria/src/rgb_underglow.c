@@ -51,7 +51,7 @@ enum rgb_underglow_effect {
 	UNDERGLOW_EFFECT_SPECTRUM,
 	UNDERGLOW_EFFECT_SWIRL,
 
-	UNDERGLOW_EFFECT_NUMBER = 7 // Used to track number of underglow effects
+	UNDERGLOW_EFFECT_NUMBER = 6 // Used to track number of underglow effects
 };
 
 struct rgb_underglow_state {
@@ -282,7 +282,7 @@ static int zmk_rgb_underglow_init(const struct device *_arg) {
 #endif
 
 	if (state.on) {
-		k_timer_start(&underglow_tick, K_NO_WAIT, K_MSEC(25));
+		k_timer_start(&underglow_tick, K_NO_WAIT, K_MSEC(ANIMATION_REFRESH));
 	}
 
 	return 0;
@@ -320,7 +320,7 @@ int zmk_rgb_underglow_on() {
 
 	state.on = true;
 	state.animation_step = 0;
-	k_timer_start(&underglow_tick, K_NO_WAIT, K_MSEC(50));
+	k_timer_start(&underglow_tick, K_NO_WAIT, K_MSEC(ANIMATION_REFRESH));
 
 	return zmk_rgb_underglow_save_state();
 }

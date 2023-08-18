@@ -6,6 +6,9 @@
 #define RGB_SET_SAT 16
 #define RGB_SET_BRT 17
 
+#define ANIMATION_REFRESH 25
+#define ANIMATION_DURATION 500
+
 struct rgb_underglow_state_extra {
 	struct zmk_led_hsb color;
 	uint8_t animation_speed;

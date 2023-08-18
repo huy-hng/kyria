@@ -1,21 +1,27 @@
 #include "rgb_underglow.c"
 #include "rgb_extra.h"
-#include "zephyr/kernel.h"
+#include "display/widgets/headers/debug_output.h"
+#include <stdio.h>
 
 enum rgb_underglow_effect_extra {
 	UNDERGLOW_EFFECT_SPARKLE = 4,
 	UNDERGLOW_EFFECT_TEST,
-	UNDERGLOW_EFFECT_NONE,
 };
 
-#define ANIMATION_REFRESH 25
+struct rgb_value {
+	int r;
+	int g;
+	int b;
+};
 
 struct rgb_animation_state {
 	struct zmk_led_hsb target_color;
 	struct led_rgb initial_pixels[STRIP_NUM_PIXELS];
-	struct led_rgb pixel_step[STRIP_NUM_PIXELS];
+	struct led_rgb pixels[STRIP_NUM_PIXELS];
+	struct rgb_value pixel_step[STRIP_NUM_PIXELS];
 	int steps_left;
 	int animation_time;
+	int total_steps;
 	bool transitioning;
 } anim_state;
 
@@ -41,7 +47,8 @@ int left_underglow[6] = {
 	3, 4, 5
 };
 // clang-format on
-void rgb_extra_effect_none() {}
+
+//---------------------------------------------Effects----------------------------------------------
 
 static void rgb_extra_effect_sparkle() {
 	struct zmk_led_hsb hsb = state.color;
@@ -57,7 +64,7 @@ static void rgb_extra_effect_sparkle() {
 	state.animation_step = state.animation_step % HUE_MAX;
 }
 
-static void rgb_extra_effect_rainbow_solid() {
+static void rgb_extra_effect_solid_rainbow() {
 	int leds = 31;
 	// underglow: 0 - 5
 	// per key: 6 - 30
@@ -95,37 +102,23 @@ static void rgb_extra_effect_rainbow_solid() {
 	}
 }
 
-void rgb_extra_effect_test() {
-	// rgb_extra_effect_transition_to_solid();
-	for (int i = 6; i < STRIP_NUM_PIXELS; i++) {
-		struct zmk_led_hsb hsb = state.color;
-		hsb.h = ((360 / 25) * (i - 6)) % 360;
-		pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
-	}
+void rgb_extra_effect_test() { rgb_extra_effect_solid_rainbow(); }
+
+//---------------------------------------
+
+void set_pixels(struct led_rgb *next_frame) {
+	int err = led_strip_update_rgb(led_strip, next_frame, STRIP_NUM_PIXELS);
+	if (err < 0)
+		LOG_ERR("Failed to update the RGB strip (%d)", err);
 }
 
-void (*get_function(void))() {
-	switch (state.current_effect) {
-	case UNDERGLOW_EFFECT_SOLID:
-		return &zmk_rgb_underglow_effect_solid;
-	case UNDERGLOW_EFFECT_SPECTRUM:
-		return &zmk_rgb_underglow_effect_spectrum;
-	case UNDERGLOW_EFFECT_SWIRL:
-		return &zmk_rgb_underglow_effect_swirl;
-	case UNDERGLOW_EFFECT_SPARKLE:
-		return &rgb_extra_effect_sparkle;
-	case UNDERGLOW_EFFECT_TEST:
-		return &rgb_extra_effect_test;
-		// case UNDERGLOW_EFFECT_BREATHE:
-		// return zmk_rgb_underglow_effect_breathe();
-	}
-	return NULL;
-}
-
-void update_pixels() {
+void set_frame() {
 	switch (state.current_effect) {
 	case UNDERGLOW_EFFECT_SOLID:
 		zmk_rgb_underglow_effect_solid();
+		break;
+	case UNDERGLOW_EFFECT_BREATHE:
+		zmk_rgb_underglow_effect_breathe();
 		break;
 	case UNDERGLOW_EFFECT_SPECTRUM:
 		zmk_rgb_underglow_effect_spectrum();
@@ -138,9 +131,6 @@ void update_pixels() {
 		break;
 	case UNDERGLOW_EFFECT_TEST:
 		rgb_extra_effect_test();
-		break;
-	case UNDERGLOW_EFFECT_BREATHE:
-		// zmk_rgb_underglow_effect_breathe();
 		break;
 	}
 }
@@ -170,18 +160,6 @@ void rgb_extra_effect_transition() {
 	}
 }
 
-void copy_pixels() {
-	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
-		struct led_rgb *pixel = &pixels[i];
-
-		anim_state.initial_pixels[i] = (struct led_rgb){
-			.r = pixel->r,
-			.g = pixel->g,
-			.b = pixel->b,
-		};
-	}
-}
-
 void copy_array(struct led_rgb *arr1, struct led_rgb *arr2) {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
 		struct led_rgb *pixel = &arr1[i];
@@ -194,60 +172,97 @@ void copy_array(struct led_rgb *arr1, struct led_rgb *arr2) {
 	}
 }
 
+int interpolate(int start, int end, float ratio) { //
+	return start + ((end - start) * ratio);
+}
+
 void rgb_extra_create_transition_array() {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
 		struct led_rgb *target_pixel = &pixels[i];
 		struct led_rgb *initial_pixel = &anim_state.initial_pixels[i];
 
-		anim_state.pixel_step[i] = (struct led_rgb){
+		anim_state.pixel_step[i] = (struct rgb_value){
 			.r = (target_pixel->r - initial_pixel->r) / anim_state.steps_left,
 			.g = (target_pixel->g - initial_pixel->g) / anim_state.steps_left,
 			.b = (target_pixel->b - initial_pixel->b) / anim_state.steps_left,
 		};
 	}
+
+	struct led_rgb target = pixels[11];
+	struct led_rgb initial = anim_state.initial_pixels[11];
+	struct rgb_value step = anim_state.pixel_step[11];
+	// debug_set_text_fmt("%d %d %d", target.r, target.g, target.b);
+	// debug_add_text_fmt("%d %d %d", initial.r, initial.g, initial.b);
+	// debug_add_text_fmt("%d %d %d", step.r, step.g, step.b);
+
+	// LOG_DBG("steps %d", anim_state.steps_left);
 }
 
 void rgb_extra_start_transition_animation() {
 	copy_array(pixels, anim_state.initial_pixels);
+	anim_state.total_steps = ANIMATION_DURATION / ANIMATION_REFRESH;
+	anim_state.steps_left = anim_state.total_steps;
 
-	// state.color.h += 180;
-	// state.color.h += 180;
-	// state.current_effect = UNDERGLOW_EFFECT_SOLID;
 	// set next frame to calc pixel step
-	update_pixels();
+	set_frame();
 
-	anim_state.animation_time = 100;
-	// anim_state.transitioning = true;
-	anim_state.steps_left = anim_state.animation_time / ANIMATION_REFRESH;
-
-	rgb_extra_create_transition_array();
-
-	copy_array(anim_state.initial_pixels, pixels);
+	struct led_rgb start = anim_state.initial_pixels[11];
+	// struct led_rgb current = anim_state.pixels[11];
+	struct led_rgb end = pixels[11];
+	int r = interpolate(start.r, end.r, 0.5);
+	int g = interpolate(start.g, end.g, 0.5);
+	int b = interpolate(start.b, end.b, 0.5);
+	// debug_set_text_fmt("%d %d %d", start.r, start.g, start.b);
+	// // debug_add_text_fmt("%d %d %d", current.r, current.g, current.b);
+	// debug_add_text_fmt("%d %d %d", end.r, end.g, end.b);
+	// debug_add_text_fmt("%d %d %d", r, g, b);
 }
 
 void rgb_extra_transition_step() {
-	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
-		struct led_rgb *pixel = &pixels[i];
-		struct led_rgb *step = &anim_state.pixel_step[i];
+	double transition_progress =
+		(double)(anim_state.total_steps - anim_state.steps_left) / anim_state.total_steps;
 
-		pixel->r += step->r;
-		pixel->g += step->g;
-		pixel->b += step->b;
+	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
+		struct led_rgb start = anim_state.initial_pixels[i];
+		struct led_rgb end = pixels[i];
+
+		int r = interpolate(start.r, end.r, transition_progress);
+		int g = interpolate(start.g, end.g, transition_progress);
+		int b = interpolate(start.b, end.b, transition_progress);
+
+		anim_state.pixels[i].r = r;
+		anim_state.pixels[i].g = g;
+		anim_state.pixels[i].b = b;
 	}
-	anim_state.steps_left--;
+
+	// debug_add_text_fmt("%d %d %d", current.r, current.g, current.b);
 }
 
 void zmk_rgb_underglow_tick_extra(struct k_work *work) {
-	if (anim_state.steps_left > 0) {
-		LOG_DBG("steps left: %d", anim_state.steps_left);
-		rgb_extra_transition_step();
-	} else
-		update_pixels();
+	struct led_rgb *next_frame = pixels;
 
-	int err = led_strip_update_rgb(led_strip, pixels, STRIP_NUM_PIXELS);
-	if (err < 0)
-		LOG_ERR("Failed to update the RGB strip (%d)", err);
+	set_frame();
+
+	if (anim_state.steps_left >= 0) {
+		rgb_extra_transition_step();
+		anim_state.steps_left--;
+		state.animation_step--;
+		next_frame = anim_state.pixels;
+	}
+
+	// if (anim_state.steps_left == 18) {
+	// 	struct led_rgb start = anim_state.initial_pixels[11];
+	// 	struct led_rgb end = pixels[11];
+	// 	struct led_rgb current = anim_state.pixels[11];
+	// 	debug_set_text_fmt("%d %d %d", start.r, start.g, start.b);
+	// 	debug_add_text_fmt("%d %d %d", current.r, current.g, current.b);
+	// 	debug_add_text_fmt("%d %d %d", end.r, end.g, end.b);
+	// }
+
+	set_pixels(next_frame);
 }
+
+//-------------------------------------------------------
 
 int zmk_rgb_underglow_set_hue(int value) {
 	if (!led_strip)
@@ -285,23 +300,4 @@ int zmk_rgb_underglow_set_spd(int value) {
 
 struct rgb_underglow_state_extra *zmk_rgb_underglow_return_state() {
 	return (struct rgb_underglow_state_extra *)&state;
-}
-
-K_TIMER_DEFINE(rgb_transition, rgb_extra_effect_transition, NULL);
-void rgb_extra_transition_to(struct led_rgb target_pixels) {
-	state.current_effect = UNDERGLOW_EFFECT_NONE;
-	anim_state.animation_time = 100;
-	// anim_state.initial_color = (struct zmk_led_hsb){
-	// 	.h = state.color.h,
-	// 	.s = state.color.s,
-	// 	.b = state.color.b,
-	// };
-	// anim_state.target_color = (struct zmk_led_hsb){
-	// 	.h = (state.color.h + 180) % 360,
-	// 	.s = state.color.s,
-	// 	.b = state.color.b,
-	// };
-	// int animation_steps = anim_state.animation_time / ANIMATION_REFRESH;
-
-	// k_timer_start(&rgb_transition, K_NO_WAIT, K_MSEC(ANIMATION_REFRESH));
 }
