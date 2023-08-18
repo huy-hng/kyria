@@ -146,7 +146,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 	case RGB_SPD_CMD:
 		return zmk_rgb_underglow_change_spd(-1);
 	case RGB_EFS_CMD:
-		return zmk_rgb_underglow_select_effect(binding->param2);
+		zmk_rgb_underglow_select_effect(binding->param2);
+		rgb_extra_start_transition_animation();
+		return 0;
 	case RGB_EFF_CMD:
 		return zmk_rgb_underglow_cycle_effect(1);
 	case RGB_EFR_CMD:
