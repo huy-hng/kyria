@@ -11,12 +11,17 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static struct widget_debug_output *WIDGET;
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+bool initialized =false;
 
 static char *debug_text;
 
 void debug_set_text(char *text) { //
+
+	if (!initialized)
+		return;
 	char new_text[100];
 	sprintf(new_text, "%s\n", text);
+
 	lv_label_set_text(WIDGET->obj, new_text);
 }
 
@@ -32,6 +37,8 @@ void debug_set_text_fmt(char *fmt, ...) {
 }
 
 void debug_add_text(char *text) {
+	if (!initialized)
+		return;
 	char *current_text = lv_label_get_text(WIDGET->obj);
 	char new_text[100];
 
@@ -53,6 +60,8 @@ void debug_add_text_fmt(char *fmt, ...) {
 int widget_debug_output_init(struct widget_debug_output *widget, lv_obj_t *parent) {
 	widget->obj = lv_label_create(parent);
 	WIDGET = widget;
+	initialized = true;
+
 	debug_set_text("debug me");
 
 	// char text[100] = "";
