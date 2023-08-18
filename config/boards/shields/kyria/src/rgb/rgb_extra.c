@@ -1,7 +1,6 @@
 #include "rgb_underglow.c"
 #include "rgb_extra.h"
-#include "display/widgets/headers/debug_output.h"
-#include <stdio.h>
+#include "../display/widgets/headers/debug_output.h"
 
 enum rgb_underglow_effect_extra {
 	UNDERGLOW_EFFECT_SPARKLE = 4,
