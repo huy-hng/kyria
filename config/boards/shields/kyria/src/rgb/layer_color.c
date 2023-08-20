@@ -110,7 +110,8 @@ void update_layer_color() {
 	const char *label = zmk_keymap_layer_label(index);
 	const char *prev_layer_label = zmk_keymap_layer_label(prev_layer_index);
 
-	if (prev_layer_index == 0 || strcmp(prev_layer_label, "Settings") == 0)
+	if (prev_layer_index == 0 || strcmp(prev_layer_label, "Settings") == 0 ||
+		strcmp(prev_layer_label, "Settings Menu") == 0)
 		base_state = *zmk_rgb_underglow_return_state();
 
 	prev_layer_index = index;
