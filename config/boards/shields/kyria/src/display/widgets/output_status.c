@@ -148,8 +148,6 @@ ZMK_SUBSCRIPTION(widget_output_status, zmk_ble_active_profile_changed);
 lv_obj_t *zmk_widget_output_status_init(struct zmk_widget_output_status *widget, lv_obj_t *parent) {
 	// widget->obj = lv_img_create(parent);
 	widget->obj = lv_label_create(parent);
-
-	lv_obj_set_style_text_font(widget->obj, lv_theme_get_font_small(parent), LV_PART_MAIN);
 	sys_slist_append(&widgets, &widget->node);
 
 	widget_output_status_init();

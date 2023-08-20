@@ -16,7 +16,7 @@ lv_obj_t *zmk_display_status_screen() {
 #if IS_ENABLED(CONFIG_WIDGET_BONGO_CAT)
 	static struct zmk_widget_bongo_cat bongo_cat_widget;
 	lv_obj_t *bongo_cat = zmk_widget_bongo_cat_init(&bongo_cat_widget, screen);
-	lv_obj_center(bongo_cat);
+	lv_obj_align(bongo_cat, LV_ALIGN_CENTER, 0, -5);
 #endif
 
 #if IS_ENABLED(CONFIG_WIDGET_BATTERY_STATUS)
@@ -28,6 +28,7 @@ lv_obj_t *zmk_display_status_screen() {
 #if IS_ENABLED(CONFIG_WIDGET_OUTPUT_STATUS)
 	static struct zmk_widget_output_status output_status_widget;
 	lv_obj_t *output_status = zmk_widget_output_status_init(&output_status_widget, screen);
+	lv_obj_set_style_text_font(output_status, lv_theme_get_font_small(screen), LV_PART_MAIN);
 	lv_obj_align(output_status, LV_ALIGN_TOP_LEFT, 0, 0);
 #endif
 
@@ -40,6 +41,8 @@ lv_obj_t *zmk_display_status_screen() {
 	static struct zmk_widget_layer_status layer_status_widget;
 	lv_obj_t *layer_status = zmk_widget_layer_status_init(&layer_status_widget, screen);
 	lv_obj_align(layer_status, LV_ALIGN_BOTTOM_MID, 0, 0);
+	lv_obj_set_style_text_font(layer_status, &lv_font_montserrat_12, LV_PART_MAIN);
+	// lv_theme_get_font_small(parent),
 #endif
 
 	return screen;
