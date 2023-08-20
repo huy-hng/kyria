@@ -21,16 +21,14 @@ lv_obj_t *zmk_display_status_screen() {
 
 #if IS_ENABLED(CONFIG_WIDGET_BATTERY_STATUS)
 	static struct zmk_widget_battery_status battery_status_widget;
-	zmk_widget_battery_status_init(&battery_status_widget, screen);
-	lv_obj_align(zmk_widget_battery_status_obj(&battery_status_widget), LV_ALIGN_TOP_RIGHT, 0, 0);
+	lv_obj_t *battery_status = zmk_widget_battery_status_init(&battery_status_widget, screen);
+	lv_obj_align(battery_status, LV_ALIGN_TOP_RIGHT, 0, 0);
 #endif
 
 #if IS_ENABLED(CONFIG_WIDGET_OUTPUT_STATUS)
 	static struct zmk_widget_output_status output_status_widget;
-	zmk_widget_output_status_init(&output_status_widget, screen);
-	lv_obj_set_style_text_font(zmk_widget_output_status_obj(&output_status_widget),
-							   lv_theme_get_font_small(screen), LV_PART_MAIN);
-	lv_obj_align(zmk_widget_output_status_obj(&output_status_widget), LV_ALIGN_TOP_LEFT, 0, 0);
+	lv_obj_t *output_status = zmk_widget_output_status_init(&output_status_widget, screen);
+	lv_obj_align(output_status, LV_ALIGN_TOP_LEFT, 0, 0);
 #endif
 
 #if IS_ENABLED(CONFIG_WIDGET_LAYER_STATUS)
@@ -40,11 +38,8 @@ lv_obj_t *zmk_display_status_screen() {
 
 	LV_IMG_DECLARE(layers);
 	static struct zmk_widget_layer_status layer_status_widget;
-	zmk_widget_layer_status_init(&layer_status_widget, screen);
-	lv_obj_set_style_text_font(zmk_widget_layer_status_obj(&layer_status_widget),
-							   // lv_theme_get_font_small(screen),
-							   &lv_font_montserrat_12, LV_PART_MAIN);
-	lv_obj_align(zmk_widget_layer_status_obj(&layer_status_widget), LV_ALIGN_BOTTOM_MID, 0, 0);
+	lv_obj_t *layer_status = zmk_widget_layer_status_init(&layer_status_widget, screen);
+	lv_obj_align(layer_status, LV_ALIGN_BOTTOM_MID, 0, 0);
 #endif
 
 	return screen;

@@ -75,15 +75,13 @@ ZMK_SUBSCRIPTION(widget_battery_status, zmk_battery_state_changed);
 ZMK_SUBSCRIPTION(widget_battery_status, zmk_usb_conn_state_changed);
 #endif /* IS_ENABLED(CONFIG_USB_DEVICE_STACK) */
 
-int zmk_widget_battery_status_init(struct zmk_widget_battery_status *widget, lv_obj_t *parent) {
+lv_obj_t * zmk_widget_battery_status_init(struct zmk_widget_battery_status *widget, lv_obj_t *parent) {
     widget->obj = lv_img_create(parent);
 
     sys_slist_append(&widgets, &widget->node);
     widget_battery_status_init();
 
     return 0;
+	return widget->obj;
 }
 
-lv_obj_t *zmk_widget_battery_status_obj(struct zmk_widget_battery_status *widget) {
-    return widget->obj;
-}
