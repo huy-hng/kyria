@@ -52,9 +52,11 @@ void add_button(lv_obj_t *list, char *icon, char *text) {
 
 lv_obj_t *create_list(lv_obj_t *parent) {
 	list = lv_list_create(parent);
-	lv_obj_set_size(list, 128, 64);
+	lv_obj_set_size(list, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
+	// lv_obj_set_size(list, 128, 64);
 	lv_obj_set_style_pad_row(list, 5, 0);
 	// lv_obj_set_style_pad_ver(list, 0, 0);
+
 	// lv_obj_add_event_cb(list, event_handler, LV_EVENT_ALL, "list");
 
 	lv_group_t *group = lv_group_create();

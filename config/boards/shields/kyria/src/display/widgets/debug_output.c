@@ -11,7 +11,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static struct widget_debug_output *WIDGET;
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
-bool initialized =false;
+bool initialized = false;
 
 static char *debug_text;
 

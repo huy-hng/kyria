@@ -13,5 +13,6 @@
 #include "../layers/media.keymap"
 #include "../layers/fn_keys.keymap"
 #include "../layers/settings.keymap"
+#include "../layers/settings_menu.keymap"
 #include "../layers/mode_switcher.keymap"
 #include "../layers/encoder_layers.keymap"

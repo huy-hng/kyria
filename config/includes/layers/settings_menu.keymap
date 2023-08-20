@@ -1,0 +1,14 @@
+/ {
+	keymap {
+		settings_menu {
+			label = "Settings Menu";
+			sensor-bindings = <&rgb_rot _oo_ _oo_>;
+			bindings = <
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   &tog SETTINGS_MENU   _oo_   _oo_                 _oo_   _oo_   _oo_
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_                 _oo_   _oo_                 _oo_   _oo_   _oo_
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_                 _oo_   _oo_                 _oo_   _oo_   _oo_
+                                   _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_                 _oo_   &tog SETTINGS_MENU                     
+			>;
+		};
+	};
+};
