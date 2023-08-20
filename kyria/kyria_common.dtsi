@@ -5,6 +5,7 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include "app/dts/behaviors/menu_navigation.dtsi"
 
 / {
 	chosen {
