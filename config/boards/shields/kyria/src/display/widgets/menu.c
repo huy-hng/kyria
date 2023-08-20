@@ -14,6 +14,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include "headers/debug_output.h"
 #include "../status_screen.h"
 #include "../../rgb/rgb_extra.h"
+#include <zmk/rgb_underglow.h>
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
@@ -33,15 +34,15 @@ static void event_handler(lv_event_t *e) {
 		char buf[32];
 		lv_roller_get_selected_str(obj, buf, sizeof(buf));
 		int i = lv_roller_get_selected(obj);
-		struct rgb_underglow_state_extra *state = zmk_rgb_underglow_return_state();
-		state->current_effect = i;
+
+		zmk_rgb_underglow_select_effect(i);
 		rgb_extra_start_transition_animation();
 
 		debug_set_text_fmt("%s %d", buf, i);
 	}
 }
 
-lv_obj_t *init_menu(lv_obj_t *roller) {
+lv_obj_t *create_menu(lv_obj_t *roller, const char *menu_items) {
 	static lv_style_t style;
 	lv_style_init(&style);
 	lv_style_set_anim_time(&style, 300);
@@ -54,16 +55,7 @@ lv_obj_t *init_menu(lv_obj_t *roller) {
 	// lv_style_set_outline_pad(&style, 5);
 	lv_obj_add_style(roller, &style, 0);
 
-	lv_roller_set_options(roller,
-						  // "Hue\n"
-						  // "Sat\n"
-						  // "Brt\n"
-						  "Solid\n"
-						  "Breath\n"
-						  "Spectr\n"
-						  "Swirl\n"
-						  "Sparkl",
-						  LV_ROLLER_MODE_INFINITE);
+	lv_roller_set_options(roller, menu_items, LV_ROLLER_MODE_INFINITE);
 
 	// lv_obj_set_size(roller1, lv_disp_get_hor_res(NULL), lv_disp_get_ver_res(NULL));
 	// lv_obj_set_height(roller1, lv_disp_get_ver_res(NULL));
@@ -137,12 +129,6 @@ static void menu_update_cb_display(struct menu_state state) {
 	SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { set_menu(widget->obj, state); }
 }
 
-// ZMK_DISPLAY_WIDGET_LISTENER(menu, struct menu_state, menu_update_cb, menu_get_state)
-ZMK_LISTENER(menu, menu_update_cb)
-
-ZMK_SUBSCRIPTION(menu, zmk_sensor_event);
-ZMK_SUBSCRIPTION(menu, zmk_position_state_changed);
-
 int show_menu_cb(const zmk_event_t *eh) {
 	uint8_t index = zmk_keymap_highest_layer_active();
 	const char *label = zmk_keymap_layer_label(index);
@@ -156,27 +142,44 @@ int show_menu_cb(const zmk_event_t *eh) {
 	return 0;
 }
 
-ZMK_LISTENER(show_menu, show_menu_cb)
-ZMK_SUBSCRIPTION(show_menu, zmk_layer_state_changed);
+lv_obj_t *create_line(lv_obj_t *parent) {
+	lv_obj_t *line = lv_line_create(parent);
+
+	static lv_point_t line_points[] = {{0, 0}, {75, 0}};
+	lv_line_set_points(line, line_points, 2);
+
+	lv_obj_set_style_line_width(line, 2, 0);
+	return line;
+}
+
+lv_obj_t *create_text(lv_obj_t *parent, char *text) {
+	lv_obj_t *label = lv_label_create(parent);
+	lv_label_set_text(label, text);
+	// lv_obj_set_size(label, 120, 10);
+	// lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL_CIRCULAR);
+	lv_obj_set_style_text_letter_space(label, -1, 0);
+
+	return label;
+}
 
 int widget_menu_init(struct widget_menu *widget, lv_obj_t *parent) {
-	widget->obj = init_menu(lv_roller_create(parent));
+	char items[] = "Solid\n"
+				   "Breath\n"
+				   "Spectr\n"
+				   "Swirl\n"
+				   "Sparkl";
+
+	widget->obj = create_menu(lv_roller_create(parent), items);
 
 	lv_obj_align(widget->obj, LV_ALIGN_BOTTOM_MID, 0, 0);
 	// lv_obj_set_style_text_font(widget->obj, &lv_font_unscii_8, LV_PART_MAIN);
+	// lv_coord_t height = lv_obj_get_height(widget->obj);
 
-	lv_obj_t *label = lv_label_create(parent);
-	lv_label_set_text(label, "RGB Effect");
-	lv_obj_set_style_text_letter_space(label, -1, 0);
+	lv_obj_t *label = create_text(parent, "RGB Effect");
 	lv_obj_align_to(label, widget->obj, LV_ALIGN_OUT_TOP_MID, 0, -3);
 
-	lv_coord_t height = lv_obj_get_height(widget->obj);
-
-	lv_obj_t *line1 = lv_line_create(parent);
-	static lv_point_t line_points[] = {{0, 0}, {75, 0}};
-	lv_line_set_points(line1, line_points, 2);
-	lv_obj_set_style_line_width(line1, 2, 0);
-	lv_obj_align_to(line1, widget->obj, LV_ALIGN_OUT_TOP_MID, 2, 2);
+	lv_obj_t *line = create_line(parent);
+	lv_obj_align_to(line, widget->obj, LV_ALIGN_OUT_TOP_MID, 2, 2);
 
 	sys_slist_append(&widgets, &widget->node);
 
@@ -184,4 +187,11 @@ int widget_menu_init(struct widget_menu *widget, lv_obj_t *parent) {
 	return 0;
 }
 
-lv_obj_t *widget_menu_obj(struct widget_menu *widget) { return widget->obj; }
+// ZMK_DISPLAY_WIDGET_LISTENER(menu, struct menu_state, menu_update_cb, menu_get_state)
+ZMK_LISTENER(menu, menu_update_cb)
+
+ZMK_SUBSCRIPTION(menu, zmk_sensor_event);
+ZMK_SUBSCRIPTION(menu, zmk_position_state_changed);
+
+ZMK_LISTENER(show_menu, show_menu_cb)
+ZMK_SUBSCRIPTION(show_menu, zmk_layer_state_changed);
