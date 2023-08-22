@@ -1,3 +1,4 @@
+target_sources(app PRIVATE init.c)
 target_sources(app PRIVATE main.c)
 target_sources(app PRIVATE roller.c)
 target_sources(app PRIVATE slider.c)
