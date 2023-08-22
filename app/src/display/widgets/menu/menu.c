@@ -1,4 +1,11 @@
 #include "../headers/menu.h"
+#include "/home/huy/repositories/kyria/config/includes/generated/define_layers.dtsi"
+
+void switch_layer() {
+	lv_label_set_text(roller.label, "aaaaaaaaaa");
+	invoke_behavior_1("TO", ENC_LR);
+	// invoke_behavior(RGB_UG, 13, 2);
+}
 
 static void main_menu_event_handler(lv_event_t *e) {
 	lv_obj_t *obj = lv_event_get_target(e);
@@ -16,8 +23,9 @@ static void main_menu_event_handler(lv_event_t *e) {
 			return show_menu_rgb_saturation();
 		case 3:
 			return show_menu_rgb_effects();
-			// case 4:
-			// 	return show_menu_settings();
+		case 4:
+			return switch_layer();
+			// return show_menu_settings();
 		};
 	}
 }
@@ -27,6 +35,7 @@ void show_menu_main() {
 				   "Hue\n"
 				   "Sat\n"
 				   "Eff"
+				   // "Exit"
 		// "Set"
 		;
 
