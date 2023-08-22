@@ -16,7 +16,7 @@
 #define SETTINGS 15
 #define SETTINGS_HUE 16
 #define SETTINGS_SAT 17
-#define SETTINGS_MENU 18
+#define DISPLAY_MENU 18
 #define LAYERS 19
 #define ENC_LR 20
 #define ENC_TAB 21

@@ -1,0 +1,23 @@
+/ {
+	keymap {
+		display_menu {
+			label = "Display Menu";
+			sensor-bindings = <&enc_display_nav RIGHT LEFT>;
+			bindings = <
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                                 &tog DISPLAY_MENU   _oo_                _oo_              _oo_                 _oo_   _oo_
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                                 &display_nav LEFT    &display_nav DOWN   &display_nav UP   &display_nav RIGHT   _oo_   _oo_
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav ENTER   _oo_   _oo_                 _oo_                _oo_              _oo_                 _oo_   _oo_
+                                   _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav ENTER   _oo_   _oo_                 _oo_                _oo_                                              
+			>;
+		};
+	};
+
+	behaviors {
+		enc_display_nav: enc_display_nav {
+			compatible = "zmk,behavior-sensor-rotate-var";
+			label = "ENC_DISPLAY_NAV";
+			#sensor-binding-cells = <2>;
+			bindings = <&display_nav>, <&display_nav>;
+		};
+	};
+};

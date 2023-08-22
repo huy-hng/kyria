@@ -18,7 +18,7 @@
   "fn_keys": "FN_KEYS",
 
   "settings": ["SETTINGS", "SETTINGS_HUE", "SETTINGS_SAT"],
-  "settings_menu": "SETTINGS_MENU",
+  "display_menu": "DISPLAY_MENU",
   "mode_switcher": "LAYERS",
 
   "encoder_layers": ["ENC_LR", "ENC_TAB", "ENC_SEL", "ENC_LR_SEL", "ENC_TAB_SEL"]

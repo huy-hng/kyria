@@ -1,0 +1,6 @@
+description: Display Navigation Behavior
+
+compatible: "zmk,behavior-display-navigation"
+
+include: one_param.yaml
+

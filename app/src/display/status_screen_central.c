@@ -4,6 +4,8 @@
 #include "widgets/headers/layer_status.h"
 #include "widgets/headers/battery_status.h"
 #include "widgets/headers/menu.h"
+
+#include "widgets/headers/debug_output.h"
 #include "status_screen.h"
 
 #include <zephyr/logging/log.h>
@@ -47,6 +49,10 @@ lv_obj_t *zmk_display_status_screen() {
 	static struct widget_menu menu_widget;
 	widget_menu_init(&menu_widget, screens.menu);
 #endif
+
+	// static struct widget_debug_output debug_output_widget;
+	// lv_obj_t *debug_output_obj = widget_debug_output_init(&debug_output_widget, screens.menu);
+	// lv_obj_align(debug_output_obj, LV_ALIGN_TOP_LEFT, 0, 0);
 
 	return screens.main;
 }

@@ -17,6 +17,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/split/bluetooth/central.h>
 
 #include "rgb_extra.h"
+#include "../utils.h"
 
 struct color {
 	uint16_t h;
@@ -61,7 +62,7 @@ int layer_color_init() {
 
 struct layer_color *get_layer_color(const char *layer_label) {
 	for (int i = 0; i < sizeof(layer_colors) / sizeof(layer_colors[0]); i++) {
-		if (strcmp(layer_label, layer_colors[i].label) == 0) {
+		if (same_str(layer_label, layer_colors[i].label)) {
 			return &layer_colors[i];
 		}
 	}
@@ -110,8 +111,8 @@ void update_layer_color() {
 	const char *label = zmk_keymap_layer_label(index);
 	const char *prev_layer_label = zmk_keymap_layer_label(prev_layer_index);
 
-	if (prev_layer_index == 0 || strcmp(prev_layer_label, "Settings") == 0 ||
-		strcmp(prev_layer_label, "Settings Menu") == 0)
+	if (prev_layer_index == 0 || same_str(prev_layer_label, "Settings") ||
+		same_str(prev_layer_label, "Display Menu"))
 		base_state = *zmk_rgb_underglow_return_state();
 
 	prev_layer_index = index;
@@ -131,7 +132,7 @@ void update_layer_color() {
 }
 
 int layer_color_event_listener(const zmk_event_t *eh) {
-	if (strcmp(eh->event->name, "zmk_layer_state_changed") == 0) {
+	if (same_str(eh->event->name, "zmk_layer_state_changed")) {
 		update_layer_color();
 		return 0;
 	}

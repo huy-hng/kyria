@@ -12,11 +12,12 @@
 
 #include <dt-bindings/zmk/rgb.h>
 #include <zmk/keymap.h>
-#include "rgb_extra.h"
 
 #include <zmk/behavior.h>
 #include <zmk/ble.h>
 #include <zmk/split/bluetooth/central.h>
+
+#include "../rgb/rgb_extra.h"
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 

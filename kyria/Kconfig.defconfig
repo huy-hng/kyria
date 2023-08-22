@@ -31,4 +31,4 @@ if SHIELD_KYRIA
 	endif # LVGL
 endif
 
-rsource "app/src/display/widgets/Kconfig"
+rsource "app/Kconfig"

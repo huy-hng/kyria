@@ -1,0 +1,9 @@
+/ {
+	behaviors {
+		display_nav: behavior_display_navigation {
+			compatible = "zmk,behavior-display-navigation";
+			label = "DISPLAY_NAV";
+			#binding-cells = <1>;
+		};
+	};
+};

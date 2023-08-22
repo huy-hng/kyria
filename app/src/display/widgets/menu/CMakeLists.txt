@@ -1,0 +1,6 @@
+target_sources(app PRIVATE main.c)
+target_sources(app PRIVATE roller.c)
+target_sources(app PRIVATE slider.c)
+target_sources(app PRIVATE arc.c)
+target_sources(app PRIVATE rgb.c)
+target_sources(app PRIVATE components.c)
