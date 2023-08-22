@@ -35,12 +35,14 @@ static struct rgb_underglow_state_extra base_state;
 static int prev_layer_index;
 
 // clang-format off
-struct color desat  = {          .s = 60,.b = 0.8f};
 struct color white  = {          .s = 1, .b = 0.6f};
-struct color orange = {.h =   8,         .b = 0.8f};
-struct color green  = {.h = 118,         .b = 0.8f};
+struct color desat  = {          .s = 60,.b = 0.8f};
+struct color red    = {.h =   1,         .b = 0.8f};
+struct color orange = {.h =  18,         .b = 0.8f};
+struct color yellow = {.h =  48,                  };
+struct color green  = {.h = 120,         .b = 0.8f};
 struct color cyan   = {.h = 142,         .b = 0.8f};
-struct color blue   = {.h = 192,         .b = 0.6f};
+struct color blue   = {.h = 210,         .b = 0.6f};
 struct color indigo = {.h = 256,                  };
 struct color pink   = {.h = 300,                  };
 struct layer_color layer_colors[20];
@@ -69,23 +71,7 @@ struct layer_color *get_layer_color(const char *layer_label) {
 	return NULL;
 }
 
-void invoke_behavior(int param1, int param2) {
-	struct zmk_behavior_binding binding = {
-		.behavior_dev = "RGB_UG", .param1 = param1, .param2 = param2};
-
-	struct zmk_behavior_binding_event event = {
-		.layer = 0,
-		.position = 0,
-		.timestamp = 0,
-	};
-
-	for (int i = 0; i < ZMK_SPLIT_BLE_PERIPHERAL_COUNT; i++) {
-		zmk_split_bt_invoke_behavior(i, &binding, event, true);
-	}
-	behavior_keymap_binding_pressed(&binding, event);
-}
-
-void set_effect(int effect) { invoke_behavior(RGB_EFS_CMD, effect); }
+void set_effect(int effect) { invoke_behavior_global("RGB_UG", RGB_EFS_CMD, effect); }
 
 void set_color(struct color color) {
 	LOG_DBG(" ");
@@ -103,7 +89,7 @@ void set_color(struct color color) {
 		color.b = (uint8_t)base_state.color.b * color.b;
 	}
 
-	invoke_behavior(RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
+	invoke_behavior_global(RGB_UG, RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
 }
 
 void update_layer_color() {
@@ -146,12 +132,12 @@ int layer_color_event_listener(const zmk_event_t *eh) {
 		uint8_t mods = zmk_hid_get_explicit_mods();
 		// struct rgb_underglow_state state = *zmk_rgb_underglow_return_state();
 		if (ev->state && mods > 0) {
-			invoke_behavior(RGB_SET_SAT, 60);
-			// invoke_behavior(RGB_SET_BRT, state.color.b * 0.8);
+			invoke_behavior_global(RGB_UG, RGB_SET_SAT, 60);
+			// invoke_behavior_global(RGB_SET_BRT, state.color.b * 0.8);
 		} else if (!ev->state && mods == 0) {
-			invoke_behavior(RGB_SET_SAT, 100);
-			// invoke_behavior(RGB_SET_SAT, base_state.color.s);
-			// invoke_behavior(RGB_SET_BRT, base_state.color.b);
+			invoke_behavior_global(RGB_UG, RGB_SET_SAT, 100);
+			// invoke_behavior_global(RGB_SET_SAT, base_state.color.s);
+			// invoke_behavior_global(RGB_SET_BRT, base_state.color.b);
 		}
 	}
 

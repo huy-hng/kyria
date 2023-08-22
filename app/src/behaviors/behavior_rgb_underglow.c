@@ -23,22 +23,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
 
-void send_to_peripheral(int param1, int param2) {
-	struct zmk_behavior_binding binding = {
-		.behavior_dev = "RGB_UG", .param1 = param1, .param2 = param2};
-
-	struct zmk_behavior_binding_event event = {
-		.layer = 0,
-		.position = 0,
-		.timestamp = 0,
-	};
-
-	for (int i = 0; i < ZMK_SPLIT_BLE_PERIPHERAL_COUNT; i++) {
-		zmk_split_bt_invoke_behavior(i, &binding, event, true);
-	}
-	// behavior_keymap_binding_pressed(&binding, event);
-}
-
 // send_to_peripheral(RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
 
 static int behavior_rgb_underglow_init(const struct device *dev) { return 0; }
