@@ -42,9 +42,8 @@ int get_slider_val() {
 }
 
 void set_slider_val(int value, bool animate) {
-	value /= STEP_SIZE;
-	lv_slider_set_value(slider.obj, value, animate);
 	lv_label_set_text_fmt(slider.value_label, "%d%%", value);
+	lv_slider_set_value(slider.obj, value/STEP_SIZE, animate);
 }
 
 void menu_slider_event_handler(lv_event_t *e) {

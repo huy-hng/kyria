@@ -6,7 +6,6 @@
 
 #include <lvgl.h>
 #include <zmk/behavior.h>
-#include "../../include/dt-bindings/zmk/display_navigation.h"
 #include "../rgb/rgb_extra.h"
 #include "../display/widgets/headers/bongo_cat.h"
 

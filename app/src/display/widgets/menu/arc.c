@@ -1,5 +1,8 @@
 #include "../headers/menu.h"
 
+// TODO: maybe use meter components?
+// colorwheel also makes sense and potentially allows to wrap around 360
+
 #define STEP_SIZE 6
 #define ARC_WIDTH 5
 #define ARC_BORDER_WIDTH 1
@@ -46,31 +49,21 @@ void create_arc(lv_obj_t *parent) {
 	lv_obj_remove_style(arc.obj, NULL, LV_PART_KNOB);
 	lv_arc_set_range(arc.obj, 0, 360.0 / STEP_SIZE);
 
-	// lv_obj_t *arc2 = lv_arc_create(parent);
-	// lv_arc_set_bg_angles(arc2, 0, 180);
-	// lv_arc_set_rotation(arc2, 180);
-	// lv_obj_add_style(arc2, &style, LV_PART_MAIN);
-	// lv_obj_remove_style(arc2, NULL, LV_PART_KNOB);
-	// lv_obj_align(arc.obj, LV_ALIGN_LEFT_MID, 0, 0);
-
 	arc.label = create_text(parent, "");
 	arc.value_label = lv_label_create(parent);
 	lv_obj_set_style_text_font(arc.value_label, &lv_font_montserrat_16, LV_PART_MAIN);
 	lv_obj_set_style_text_letter_space(arc.value_label, 1, 0);
 
 	lv_obj_center(arc.obj);
-	// lv_obj_align(arc.obj, LV_ALIGN_RIGHT_MID, 0, 0);
-	// lv_obj_align(arc.obj, LV_ALIGN_CENTER, 0, 5);
-	lv_obj_align(arc.label, LV_ALIGN_TOP_MID, 0, 4);
-	lv_obj_align(arc.value_label, LV_ALIGN_CENTER, 0, 0);
+	lv_obj_align(arc.label, LV_ALIGN_TOP_MID, 0, 10);
+	lv_obj_align(arc.value_label, LV_ALIGN_CENTER, 3, 3);
 
 	arc.group = lv_group_create();
 	lv_group_add_obj(arc.group, arc.obj);
 }
 
 void set_arc_val(int value) {
-	value /= STEP_SIZE;
-	lv_arc_set_value(arc.obj, value);
+	lv_arc_set_value(arc.obj, value / STEP_SIZE);
 	lv_label_set_text_fmt(arc.value_label, "%d°", value);
 }
 
