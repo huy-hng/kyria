@@ -30,12 +30,13 @@ extern struct component_obj settings;
 
 // main
 int widget_menu_init(struct widget_menu *widget, lv_obj_t *parent);
-void set_menu_main();
+void show_menu_main();
 
 // components
 lv_obj_t *create_container(lv_obj_t *parent);
 lv_obj_t *create_line(lv_obj_t *parent);
 lv_obj_t *create_text(lv_obj_t *parent, char *text);
+void initialize_group(struct component_obj *component, bool set_default);
 
 void show_component(struct component_obj obj);
 void hide_component(struct component_obj obj);
@@ -44,16 +45,16 @@ bool should_exit_component(lv_event_t *e, struct component_obj obj);
 bool has_value_updated(lv_event_t *e);
 
 // roller
-void create_roller(lv_obj_t *parent);
+void create_roller(struct component_obj *roller);
 
 // slider
-void create_slider(lv_obj_t *parent);
+void create_slider(struct component_obj *slider);
 int get_slider_val();
 void set_slider_val(int value, bool animate);
 void menu_slider_event_handler(lv_event_t *e);
 
 // arc
-void create_arc(lv_obj_t *parent);
+void create_arc(struct component_obj *arc);
 int get_arc_val();
 void set_arc_val(int value);
 void menu_arc_event_handler(lv_event_t *e);
@@ -63,3 +64,7 @@ void show_menu_rgb_effects();
 void show_menu_rgb_brightness();
 void show_menu_rgb_saturation();
 void show_menu_rgb_hue();
+
+// settings
+void create_settings(struct component_obj *settings);
+void show_menu_settings();

@@ -1,3 +1,4 @@
+#include "core/lv_group.h"
 #define DT_DRV_COMPAT zmk_behavior_display_navigation
 
 #include <zephyr/device.h>
@@ -20,27 +21,36 @@ static int behavior_none_init(const struct device *dev) { return 0; };
 static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 									 struct zmk_behavior_binding_event event) {
 
+	lv_group_t *group = lv_group_get_default();
 	switch (binding->param1) {
 	case UP: {
-		lv_group_send_data(lv_group_get_default(), LV_KEY_UP);
+		lv_group_send_data(group, LV_KEY_UP);
 		break;
 	}
 	case DOWN: {
-		lv_group_send_data(lv_group_get_default(), LV_KEY_DOWN);
+		lv_group_send_data(group, LV_KEY_DOWN);
 		break;
 	}
 	case LEFT: {
-		lv_group_send_data(lv_group_get_default(), LV_KEY_LEFT);
+		lv_group_send_data(group, LV_KEY_LEFT);
 		break;
 	}
 	case RIGHT: {
-		lv_group_send_data(lv_group_get_default(), LV_KEY_RIGHT);
+		lv_group_send_data(group, LV_KEY_RIGHT);
 		break;
 	}
 	case ENTER: {
-		// lv_obj_t *obj = lv_group_get_focused(lv_group_get_default());
-		// lv_event_send(obj, LV_EVENT_VALUE_CHANGED, NULL);
-		lv_group_send_data(lv_group_get_default(), LV_KEY_ENTER);
+		lv_group_send_data(group, LV_KEY_ENTER);
+		break;
+	}
+	case F1: {
+		lv_obj_t *obj = lv_group_get_focused(group);
+		lv_event_send(obj, LV_EVENT_CLICKED, NULL);
+		break;
+	}
+	case F2: {
+		bool is_editing = lv_group_get_editing(group);
+		lv_group_set_editing(group, !is_editing);
 		break;
 	}
 	}

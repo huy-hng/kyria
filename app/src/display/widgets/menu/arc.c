@@ -29,37 +29,35 @@ void arc_style_fg(lv_style_t *style) {
 	lv_style_set_border_width(style, 4);
 }
 
-void create_arc(lv_obj_t *parent) {
-	arc.obj = lv_arc_create(parent);
-	lv_arc_set_mode(arc.obj, LV_ARC_MODE_REVERSE);
+void create_arc(struct component_obj *arc) {
+	arc->obj = lv_arc_create(arc->container);
+	lv_arc_set_mode(arc->obj, LV_ARC_MODE_REVERSE);
 
-	lv_arc_set_bg_angles(arc.obj, 0, 360);
-	lv_arc_set_angles(arc.obj, 0, 360);
-	lv_arc_set_rotation(arc.obj, 270);
+	lv_arc_set_bg_angles(arc->obj, 0, 360);
+	lv_arc_set_angles(arc->obj, 0, 360);
+	lv_arc_set_rotation(arc->obj, 270);
+	lv_arc_set_range(arc->obj, 0, 360.0 / STEP_SIZE);
 
 	static lv_style_t style_bg;
-	arc_style_bg(&style_bg);
-
 	static lv_style_t style_fg;
+	arc_style_bg(&style_bg);
 	arc_style_fg(&style_fg);
+	lv_obj_add_style(arc->obj, &style_bg, LV_PART_MAIN);
+	lv_obj_add_style(arc->obj, &style_fg, LV_PART_INDICATOR);
 
-	lv_obj_add_style(arc.obj, &style_bg, LV_PART_MAIN);
-	lv_obj_add_style(arc.obj, &style_fg, LV_PART_INDICATOR);
+	lv_obj_remove_style(arc->obj, NULL, LV_PART_KNOB);
 
-	lv_obj_remove_style(arc.obj, NULL, LV_PART_KNOB);
-	lv_arc_set_range(arc.obj, 0, 360.0 / STEP_SIZE);
 
-	arc.label = create_text(parent, "");
-	arc.value_label = lv_label_create(parent);
-	lv_obj_set_style_text_font(arc.value_label, &lv_font_montserrat_16, LV_PART_MAIN);
-	lv_obj_set_style_text_letter_space(arc.value_label, 1, 0);
+	arc->label = create_text(arc->container, "");
+	arc->value_label = lv_label_create(arc->container);
+	lv_obj_set_style_text_font(arc->value_label, &lv_font_montserrat_16, LV_PART_MAIN);
+	lv_obj_set_style_text_letter_space(arc->value_label, 1, 0);
 
-	lv_obj_center(arc.obj);
-	lv_obj_align(arc.label, LV_ALIGN_TOP_MID, 0, 10);
-	lv_obj_align(arc.value_label, LV_ALIGN_CENTER, 3, 3);
+	lv_obj_center(arc->obj);
+	lv_obj_align(arc->label, LV_ALIGN_TOP_MID, 0, 10);
+	lv_obj_align(arc->value_label, LV_ALIGN_CENTER, 3, 3);
 
-	arc.group = lv_group_create();
-	lv_group_add_obj(arc.group, arc.obj);
+	initialize_group(arc, false);
 }
 
 void set_arc_val(int value) {

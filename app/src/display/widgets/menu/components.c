@@ -16,6 +16,13 @@ void set_new_event_cb(struct component_obj *obj, void (*event_handler_cb)(), voi
 	obj->last_event_cb = lv_obj_add_event_cb(obj->obj, event_handler_cb, LV_EVENT_ALL, user_data);
 }
 
+void initialize_group(struct component_obj *component, bool set_default) {
+	component->group = lv_group_create();
+	lv_group_add_obj(component->group, component->obj);
+	if (set_default)
+		lv_group_set_default(component->group);
+}
+
 bool has_value_updated(lv_event_t *e) { return lv_event_get_code(e) == LV_EVENT_VALUE_CHANGED; }
 
 bool should_exit_component(lv_event_t *e, struct component_obj obj) {

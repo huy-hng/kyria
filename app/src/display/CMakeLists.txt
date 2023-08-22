@@ -7,7 +7,6 @@ if (CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	target_sources_ifdef(CONFIG_WIDGET_LAYER_STATUS app PRIVATE widgets/layer_status.c)
 	target_sources_ifdef(CONFIG_WIDGET_OUTPUT_STATUS app PRIVATE widgets/output_status.c)
 
-	target_sources_ifdef(CONFIG_WIDGET_MENU app PRIVATE widgets/menu/init.c)
 	add_subdirectory_ifdef(CONFIG_WIDGET_MENU widgets/menu/)
 
 	# target_sources(app PRIVATE status_screen_test.c)

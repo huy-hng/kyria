@@ -1,8 +1,6 @@
 #pragma once
 
 #include <lvgl.h>
-static lv_obj_t *main_screen;
-static lv_obj_t *menu_screen;
 lv_obj_t *zmk_display_status_screen();
 
 struct display_screens {

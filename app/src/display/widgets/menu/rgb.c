@@ -5,7 +5,7 @@ int zmk_rgb_underglow_select_effect(int);
 
 static void menu_rgb_effects_event_handler(lv_event_t *e) {
 	if (lv_event_get_key(e) == LV_KEY_ENTER)
-		return set_menu_main();
+		return show_menu_main();
 
 	if (lv_event_get_code(e) == LV_EVENT_KEY) {
 		lv_obj_t *obj = lv_event_get_target(e);
