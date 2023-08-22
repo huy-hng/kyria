@@ -3,259 +3,259 @@
 		combo_TAB_43_0 {
 			bindings = <&combo_modifier LSHIFT TAB>;
 			key-positions = <43 0>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_Q_43_1 {
 			bindings = <&combo_modifier LSHIFT Q>;
 			key-positions = <43 1>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_W_43_2 {
 			bindings = <&combo_modifier LSHIFT W>;
 			key-positions = <43 2>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_F_43_3 {
 			bindings = <&combo_modifier LSHIFT F>;
 			key-positions = <43 3>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_P_43_4 {
 			bindings = <&combo_modifier LSHIFT P>;
 			key-positions = <43 4>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo__43_5 {
 			bindings = <&combo_modifier LSHIFT LA(PIPE)>;
 			key-positions = <43 5>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_H_43_7 {
 			bindings = <&combo_modifier LSHIFT H>;
 			key-positions = <43 7>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_U_43_8 {
 			bindings = <&combo_modifier LSHIFT U>;
 			key-positions = <43 8>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_Y_43_9 {
 			bindings = <&combo_modifier LSHIFT Y>;
 			key-positions = <43 9>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_J_43_10 {
 			bindings = <&combo_modifier LSHIFT J>;
 			key-positions = <43 10>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_LCTRLESC_43_12 {
 			bindings = <&kp LS(LCTRL)>;
 			key-positions = <43 12>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_A_43_13 {
 			bindings = <&combo_modifier LSHIFT A>;
 			key-positions = <43 13>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_R_43_14 {
 			bindings = <&combo_modifier LSHIFT R>;
 			key-positions = <43 14>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_S_43_15 {
 			bindings = <&combo_modifier LSHIFT S>;
 			key-positions = <43 15>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_T_43_16 {
 			bindings = <&combo_modifier LSHIFT T>;
 			key-positions = <43 16>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_G_43_17 {
 			bindings = <&combo_modifier LSHIFT G>;
 			key-positions = <43 17>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_M_43_18 {
 			bindings = <&combo_modifier LSHIFT M>;
 			key-positions = <43 18>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_N_43_19 {
 			bindings = <&combo_modifier LSHIFT N>;
 			key-positions = <43 19>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_E_43_20 {
 			bindings = <&combo_modifier LSHIFT E>;
 			key-positions = <43 20>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_I_43_21 {
 			bindings = <&combo_modifier LSHIFT I>;
 			key-positions = <43 21>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_O_43_22 {
 			bindings = <&combo_modifier LSHIFT O>;
 			key-positions = <43 22>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_LCTRLSQT_43_23 {
 			bindings = <&combo_modifier LSHIFT SQT>;
 			key-positions = <43 23>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_LALTRET_43_24 {
 			bindings = <&mt_macro LS(LALT) LS(RET)>;
 			key-positions = <43 24>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_Z_43_25 {
 			bindings = <&combo_modifier LSHIFT Z>;
 			key-positions = <43 25>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_X_43_26 {
 			bindings = <&combo_modifier LSHIFT X>;
 			key-positions = <43 26>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_C_43_27 {
 			bindings = <&combo_modifier LSHIFT C>;
 			key-positions = <43 27>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_D_43_28 {
 			bindings = <&combo_modifier LSHIFT D>;
 			key-positions = <43 28>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_LCTRL_43_34 {
 			bindings = <&combo_modifier LSHIFT LCTRL>;
 			key-positions = <43 34>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_L_43_35 {
 			bindings = <&combo_modifier LSHIFT L>;
 			key-positions = <43 35>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_K_43_36 {
 			bindings = <&combo_modifier LSHIFT K>;
 			key-positions = <43 36>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_B_43_37 {
 			bindings = <&combo_modifier LSHIFT B>;
 			key-positions = <43 37>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_V_43_38 {
 			bindings = <&combo_modifier LSHIFT V>;
 			key-positions = <43 38>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_LALT_43_39 {
 			bindings = <&combo_modifier LSHIFT LALT>;
 			key-positions = <43 39>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
 		combo_DEL_43_40 {
 			bindings = <&combo_modifier LSHIFT DEL>;
 			key-positions = <43 40>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_LMETA_43_41 {
 			bindings = <&combo_modifier LSHIFT LMETA>;
 			key-positions = <43 41>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_SPACE_43_43 {
 			bindings = <&combo_modifier LSHIFT SPACE>;
 			key-positions = <43 43>;
-			timeout-ms = <30>;
+			timeout-ms = <40>;
 			slow-release;
 		};
 
 		combo_BSPC_43_46 {
 			bindings = <&combo_modifier LSHIFT BSPC>;
 			key-positions = <43 46>;
-			timeout-ms = <35>;
+			timeout-ms = <45>;
 			slow-release;
 		};
 
