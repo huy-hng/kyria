@@ -39,13 +39,11 @@ config WIDGET_BONGO_CAT
 config WIDGET_MENU
 	bool "Widget for displaying a menu which displays selectable items"
 	select LV_USE_ROLLER
+	select LV_USE_IMG
 	select LV_USE_SLIDER
 	select LV_USE_LINE
-	select LV_USE_IMG
-	select LV_USE_ANIMATION
-	select LV_USE_BTN
+	select LV_USE_MENU
 	select LV_USE_ARC
-	select LV_USE_FLEX
 
 
 config WIDGET_BATTERY_STATUS

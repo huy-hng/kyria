@@ -21,6 +21,7 @@ static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 struct component_obj roller;
 struct component_obj slider;
 struct component_obj arc;
+struct component_obj settings;
 
 struct menu_state {
 	int layer_index;

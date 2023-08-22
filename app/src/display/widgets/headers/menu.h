@@ -26,6 +26,7 @@ struct component_obj {
 extern struct component_obj roller;
 extern struct component_obj slider;
 extern struct component_obj arc;
+extern struct component_obj settings;
 
 // main
 int widget_menu_init(struct widget_menu *widget, lv_obj_t *parent);
