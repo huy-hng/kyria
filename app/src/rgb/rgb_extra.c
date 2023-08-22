@@ -1,6 +1,7 @@
 #include "rgb_underglow.c"
 #include "rgb_extra.h"
 #include "../display/widgets/headers/debug_output.h"
+#include "../utils.h"
 
 enum rgb_underglow_effect_extra {
 	UNDERGLOW_EFFECT_SPARKLE = 4,
@@ -175,7 +176,6 @@ void rgb_extra_transition_step() {
 		anim_state.pixels[i].g = g;
 		anim_state.pixels[i].b = b;
 	}
-
 }
 
 void zmk_rgb_underglow_tick_extra(struct k_work *work) {
@@ -196,11 +196,16 @@ void zmk_rgb_underglow_tick_extra(struct k_work *work) {
 
 //-------------------------------------------------------
 
+void rgb_extra_set_peripheral_hsb(struct zmk_led_hsb color) {
+	// send_to_peripheral(RGB_UG, RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
+}
+
 int zmk_rgb_underglow_set_hue(int value) {
 	if (!led_strip)
 		return -ENODEV;
 
 	state.color.h = value % HUE_MAX;
+	rgb_extra_set_peripheral_hsb(state.color);
 
 	return zmk_rgb_underglow_save_state();
 }
@@ -209,6 +214,7 @@ int zmk_rgb_underglow_set_sat(int value) {
 	if (!led_strip)
 		return -ENODEV;
 	state.color.s = CLAMP(value, 0, SAT_MAX);
+	rgb_extra_set_peripheral_hsb(state.color);
 
 	return zmk_rgb_underglow_save_state();
 }
@@ -218,6 +224,7 @@ int zmk_rgb_underglow_set_brt(int value) {
 		return -ENODEV;
 
 	state.color.b = CLAMP(value, 0, BRT_MAX);
+	rgb_extra_set_peripheral_hsb(state.color);
 
 	return zmk_rgb_underglow_save_state();
 }

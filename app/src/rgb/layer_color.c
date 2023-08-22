@@ -71,8 +71,6 @@ struct layer_color *get_layer_color(const char *layer_label) {
 	return NULL;
 }
 
-void set_effect(int effect) { invoke_behavior_global("RGB_UG", RGB_EFS_CMD, effect); }
-
 void set_color(struct color color) {
 	LOG_DBG(" ");
 	LOG_DBG("hue %d", color.h);
@@ -108,13 +106,13 @@ void update_layer_color() {
 		return;
 
 	if (index == 0) {
-		set_effect(base_state.current_effect);
+		invoke_behavior_global("RGB_UG", RGB_EFS_CMD, base_state.current_effect);
 		set_color((struct color){});
 		return;
 	}
 
 	set_color(layer->color);
-	set_effect(0);
+	invoke_behavior_global("RGB_UG", RGB_EFS_CMD, 0);
 }
 
 int layer_color_event_listener(const zmk_event_t *eh) {

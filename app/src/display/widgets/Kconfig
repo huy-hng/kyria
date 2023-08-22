@@ -45,7 +45,7 @@ config WIDGET_MENU
 	select LV_USE_MENU
 	select LV_USE_ARC
 	select LV_USE_BTN
-	# select LV_USE_FLEX
+	select LV_USE_FLEX
 
 
 config WIDGET_BATTERY_STATUS

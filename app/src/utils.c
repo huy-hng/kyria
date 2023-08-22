@@ -1,6 +1,3 @@
-#include <drivers/behavior.h>
-#include <zmk/ble.h>
-#include <zmk/split/bluetooth/central.h>
 #include "utils.h"
 
 bool same_str(const char *str1, const char *str2) { //
@@ -9,30 +6,46 @@ bool same_str(const char *str1, const char *str2) { //
 
 struct zmk_behavior_binding_event event = {.layer = 0, .position = 0, .timestamp = 0};
 
-void send_to_peripheral(char *behavior, int param1, int param2) {
-	struct zmk_behavior_binding binding = {
-		.behavior_dev = behavior,
-		.param1 = param1,
-		.param2 = param2,
-	};
-
+int _send_to_peripheral(struct zmk_behavior_binding *binding,
+						struct zmk_behavior_binding_event event) {
+	int err;
 	for (int i = 0; i < ZMK_SPLIT_BLE_PERIPHERAL_COUNT; i++) {
-		zmk_split_bt_invoke_behavior(i, &binding, event, true);
+		err = zmk_split_bt_invoke_behavior(i, binding, event, true);
 	}
+	return err;
 }
 
-void invoke_behavior(char *behavior, int param1, int param2) {
+int send_to_peripheral(char *behavior, int param1, int param2) {
 	struct zmk_behavior_binding binding = {
 		.behavior_dev = behavior,
 		.param1 = param1,
 		.param2 = param2,
 	};
 
-	behavior_keymap_binding_pressed(&binding, event);
+	return _send_to_peripheral(&binding, event);
 }
 
-void invoke_behavior_global(char *behavior, int param1, int param2) {
+int invoke_behavior_1(char *behavior, int param1) {
+	struct zmk_behavior_binding binding = {
+		.behavior_dev = behavior,
+		.param1 = param1,
+	};
+
+	struct zmk_behavior_binding_event event = {.layer = param1, .position = 0, .timestamp = 0};
+	return behavior_keymap_binding_pressed(&binding, event);
+}
+
+int invoke_behavior(char *behavior, int param1, int param2) {
+	struct zmk_behavior_binding binding = {
+		.behavior_dev = behavior,
+		.param1 = param1,
+		.param2 = param2,
+	};
+
+	return behavior_keymap_binding_pressed(&binding, event);
+}
+
+int invoke_behavior_global(char *behavior, int param1, int param2) {
 	send_to_peripheral(behavior, param1, param2);
-	invoke_behavior(behavior, param1, param2);
-	
+	return invoke_behavior(behavior, param1, param2);
 }

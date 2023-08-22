@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2020 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
-
 #define DT_DRV_COMPAT zmk_behavior_rgb_underglow
 
 #include <zephyr/device.h>
@@ -18,12 +12,10 @@
 #include <zmk/split/bluetooth/central.h>
 
 #include "../rgb/rgb_extra.h"
+#include "../utils.h"
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
-
 #if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
-
-// send_to_peripheral(RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
 
 static int behavior_rgb_underglow_init(const struct device *dev) { return 0; }
 
@@ -129,6 +121,8 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
 
 static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 									 struct zmk_behavior_binding_event event) {
+
+	// _send_to_peripheral(binding, event);
 	switch (binding->param1) {
 	case RGB_TOG_CMD:
 		return zmk_rgb_underglow_toggle();
@@ -152,10 +146,11 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		return zmk_rgb_underglow_change_spd(1);
 	case RGB_SPD_CMD:
 		return zmk_rgb_underglow_change_spd(-1);
-	case RGB_EFS_CMD:
-		zmk_rgb_underglow_select_effect(binding->param2);
+	case RGB_EFS_CMD: {
+		int res = zmk_rgb_underglow_select_effect(binding->param2);
 		rgb_extra_start_transition_animation();
-		return 0;
+		return res;
+	}
 	case RGB_EFF_CMD:
 		return zmk_rgb_underglow_cycle_effect(1);
 	case RGB_EFR_CMD:

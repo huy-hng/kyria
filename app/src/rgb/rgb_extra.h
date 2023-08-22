@@ -2,6 +2,7 @@
 
 #include <zephyr/init.h>
 #include <zmk/rgb_underglow.h>
+#include <dt-bindings/zmk/rgb.h>
 
 #define RGB_SET_HUE 15
 #define RGB_SET_SAT 16
