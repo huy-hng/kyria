@@ -1,10 +1,10 @@
+#include <zmk/keymap.h>
 #include "../headers/menu.h"
+
 #include "/home/huy/repositories/kyria/config/includes/generated/define_layers.dtsi"
 
-void switch_layer() {
-	lv_label_set_text(roller.label, "aaaaaaaaaa");
-	invoke_behavior_1("TO", ENC_LR);
-	// invoke_behavior(RGB_UG, 13, 2);
+void menu_testing() {
+	zmk_keymap_layer_toggle(DISPLAY_MENU);
 }
 
 static void main_menu_event_handler(lv_event_t *e) {
@@ -24,7 +24,10 @@ static void main_menu_event_handler(lv_event_t *e) {
 		case 3:
 			return show_menu_rgb_effects();
 		case 4:
-			return switch_layer();
+			return menu_testing();
+		case 5: // exit menu
+			zmk_keymap_layer_toggle(DISPLAY_MENU);
+			return;
 			// return show_menu_settings();
 		};
 	}
@@ -34,8 +37,9 @@ void show_menu_main() {
 	char items[] = "Brt\n"
 				   "Hue\n"
 				   "Sat\n"
-				   "Eff"
-				   // "Exit"
+				   "Eff\n"
+				   "Test\n"
+				   "Exit"
 		// "Set"
 		;
 
