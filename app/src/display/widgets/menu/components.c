@@ -1,5 +1,3 @@
-#pragma once
-
 #include "../headers/menu.h"
 
 void show_component(struct component_obj obj) {

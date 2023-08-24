@@ -1,79 +1,15 @@
-#define ENC_ROT(name, next_layer, next_sel, prev_layer, prev_sel) \
-name: name {                                                      \
-    compatible = "zmk,behavior-sensor-rotate";                    \
-    label = #name;                                                \
-    #sensor-binding-cells = <0>;                                  \
-    bindings = <&enc_switcher next_layer next_sel>,               \
-               <&enc_switcher prev_layer prev_sel>;               \
-}                                                                 \
-
 / {
     keymap {
         encoder_lr {
             label = "Enc LR";
             sensor-bindings = <&enc_kp RIGHT LEFT>;
-            bindings = ENCODER_BUTTON(&enc_selector ENC_LR_SEL BASE);
+			bindings = TRANS_LAYER;
         };
         encoder_tab {
             label = "Enc Tab";
             // &enc_kp doesnt work here for some reason
             sensor-bindings = <&inc_dec_kp LC(TAB) LC(LS(TAB))>;
-            bindings = ENCODER_BUTTON(&enc_selector ENC_TAB_SEL BASE);
+			bindings = TRANS_LAYER;
         };
-
-        encoder_base_sel {
-            label = ">Colemak";
-            sensor-bindings = <&enc_base>;
-            bindings = TRANS_LAYER;
-        };
-        encoder_lr_sel {
-            label = ">Enc LR";
-            sensor-bindings = <&enc_lr>;
-            bindings = TRANS_LAYER;
-        };
-        encoder_tab_sel {
-            label = ">Enc Tab";
-            sensor-bindings = <&enc_tab>;
-            bindings = TRANS_LAYER;
-        };
-    };
-    behaviors {
-        ENC_ROT(enc_base, ENC_LR, ENC_LR_SEL, ENC_TAB, ENC_TAB_SEL);
-        ENC_ROT(enc_lr,  ENC_TAB, ENC_TAB_SEL, BASE, ENC_SEL);
-        ENC_ROT(enc_tab, BASE, ENC_SEL, ENC_LR, ENC_LR_SEL);
-
-        enc_selector: enc_selector {
-			compatible = "zmk,behavior-hold-tap";
-			label = "enc_selector";
-			#binding-cells = <2>;
-			tapping-term-ms = <100>;
-			bindings = <&enc_selection_mode>, <&to>;
-		};
-        // enc_base: enc_base {
-        //     compatible = "zmk,behavior-sensor-rotate";
-        //     label = "enc_base";
-        //     #sensor-binding-cells = <0>;
-        //     bindings = <&enc_switcher ENC_LR ENC_LR_SEL>, <&enc_switcher ENC_TAB ENC_TAB_SEL>;
-        // };
-    };
-    macros {
-        ZMK_MACRO1(enc_selection_mode, bindings =
-            <&macro_param_1to1>
-            ,<&macro_press &mo 0>
-
-            ,<&macro_pause_for_release>
-
-            ,<&macro_param_1to1>
-            ,<&macro_release &mo 0>
-            ,<&macro_tap &mo ENC_SEL &mo ENC_LR_SEL &mo ENC_TAB_SEL>
-        ;)
-
-        ZMK_MACRO2(enc_switcher, bindings =
-            <&macro_param_1to1>
-            ,<&macro_tap &to 0>
-
-            ,<&macro_param_2to1>
-            ,<&macro_press &tog 0>
-        ;)
     };
 };

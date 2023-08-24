@@ -2,31 +2,38 @@
 	keymap {
 		display_menu {
 			label = "Display Menu";
-			sensor-bindings = <&enc_display_nav RIGHT LEFT>;
+			sensor-bindings = <&enc_display_menu>;
 			bindings = <
-//                ╭─────────────────┬─────┬─────┬─────┬─────┬─────╮                                                       ╭───────────────────┬───────────────────┬─────────────────┬────────────────────┬─────┬─────╮
-//                │ &display_nav F1 │ --- │ --- │ --- │ --- │ --- │                                                       │   DISPLAY_MENU   │        ---        │       ---       │        ---         │ --- │ --- │
-//                ├─────────────────┼─────┼─────┼─────┼─────┼─────┤                                                       ├───────────────────┼───────────────────┼─────────────────┼────────────────────┼─────┼─────┤
-//                │  DISPLAY_MENU  │ --- │ --- │ --- │ --- │ --- │                                                       │ &display_nav LEFT │ &display_nav DOWN │ &display_nav UP │ &display_nav RIGHT │ --- │ --- │
-//                ├─────────────────┼─────┼─────┼─────┼─────┼─────┼─────┬─────╮   ╭────────────────────┬──────────────────┼───────────────────┼───────────────────┼─────────────────┼────────────────────┼─────┼─────┤
-//                │       ---       │ --- │ --- │ --- │ --- │ --- │ --- │ --- │   │ &display_nav ENTER │       ---        │        ---        │        ---        │       ---       │        ---         │ --- │ --- │
-//                ╰─────────────────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤   ├────────────────────┼──────────────────┼───────────────────┼───────────────────┼─────────────────┼────────────────────┴─────┴─────╯
-//                                              │ --- │ --- │ --- │ --- │ --- │   │ &display_nav ENTER │ &display_nav  ⌫  │        ---        │        ---        │       ---       │                                 
-//                                              ╰─────┴─────┴─────┴─────┴─────╯   ╰────────────────────┴──────────────────┴───────────────────┴───────────────────┴─────────────────╯                                 
               &display_nav F2     _oo_   _oo_   _oo_   _oo_   _oo_                                                              &tog DISPLAY_MENU   _oo_                _oo_              _oo_                 _oo_   _oo_
               &tog DISPLAY_MENU   _oo_   _oo_   _oo_   _oo_   _oo_                                                              &display_nav LEFT   &display_nav DOWN   &display_nav UP   &display_nav RIGHT   _oo_   _oo_
               _oo_                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav ENTER   _oo_                _oo_                _oo_                _oo_              _oo_                 _oo_   _oo_
-                                                _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav F1   &display_nav BSPC   _oo_                _oo_                _oo_                                              
+                                                _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav F1      &display_nav BSPC   _oo_                _oo_                _oo_                                              
+			>;
+		};
+		enc_menu {
+			label = "Enc Menu";
+			// sensor-bindings = <&enc_display_nav RIGHT LEFT>;
+			// bindings = TRANS_LAYER;
+			bindings = <
+              &display_nav F2     _oo_   _oo_   _oo_   _oo_   _oo_                                                              &tog DISPLAY_MENU   _oo_                _oo_              _oo_                 _oo_   _oo_
+              &tog DISPLAY_MENU   _oo_   _oo_   _oo_   _oo_   _oo_                                                              &display_nav LEFT   &display_nav DOWN   &display_nav UP   &display_nav RIGHT   _oo_   _oo_
+              _oo_                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav ENTER   _oo_                _oo_                _oo_                _oo_              _oo_                 _oo_   _oo_
+                                                _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav F1      &display_nav BSPC   _oo_                _oo_                _oo_                                              
 			>;
 		};
 	};
-
 	behaviors {
 		enc_display_nav: enc_display_nav {
 			compatible = "zmk,behavior-sensor-rotate-var";
 			label = "ENC_DISPLAY_NAV";
 			#sensor-binding-cells = <2>;
 			bindings = <&display_nav>, <&display_nav>;
+		};
+		enc_display_menu: enc_display_menu {
+			compatible = "zmk,behavior-sensor-rotate";
+			label = "ENC_DISPLAY_NAV";
+			#sensor-binding-cells = <0>;
+			bindings = <&display_nav RIGHT>, <&display_nav LEFT>;
 		};
 	};
 };

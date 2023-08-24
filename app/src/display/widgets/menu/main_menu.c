@@ -1,11 +1,6 @@
-#include <zmk/keymap.h>
 #include "../headers/menu.h"
 
-#include "/home/huy/repositories/kyria/config/includes/generated/define_layers.dtsi"
-
-void menu_testing() {
-	zmk_keymap_layer_toggle(DISPLAY_MENU);
-}
+void menu_testing() { zmk_keymap_layer_toggle(DISPLAY_MENU); }
 
 static void main_menu_event_handler(lv_event_t *e) {
 	lv_obj_t *obj = lv_event_get_target(e);
@@ -23,11 +18,11 @@ static void main_menu_event_handler(lv_event_t *e) {
 			return show_menu_rgb_saturation();
 		case 3:
 			return show_menu_rgb_effects();
-		case 4:
-			return menu_testing();
-		case 5: // exit menu
-			zmk_keymap_layer_toggle(DISPLAY_MENU);
+		case 4: // exit menu
+			zmk_keymap_layer_deactivate(DISPLAY_MENU);
 			return;
+		case 5:
+			return menu_testing();
 			// return show_menu_settings();
 		};
 	}
@@ -38,8 +33,8 @@ void show_menu_main() {
 				   "Hue\n"
 				   "Sat\n"
 				   "Eff\n"
-				   "Test\n"
 				   "Exit"
+				   // "Test\n"
 		// "Set"
 		;
 

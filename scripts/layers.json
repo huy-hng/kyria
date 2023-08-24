@@ -1,25 +1,25 @@
 {
-  "base": "BASE",
+	"base": "BASE",
 
-  "modes/caps": "BASE_CAPS",
-  "modes/experimental": "EXPERIMENTAL",
-  "modes/qwerty": "QWERTY",
+	"modes/caps": "BASE_CAPS",
+	"modes/experimental": "EXPERIMENTAL",
+	"modes/qwerty": "QWERTY",
 
-  "modes/fidget": "FIDGET",
-  "modes/gaming": "GAMING",
-  "modes/sudoku": "SUDOKU",
-  "modes/no_hold": "NO_HOLD",
+	"modes/fidget": "FIDGET",
+	"modes/gaming": "GAMING",
+	"modes/sudoku": "SUDOKU",
+	"modes/no_hold": "NO_HOLD",
 
-  "navipad": ["NAVIPAD", "NUMPAD"],
-  "vim": "VIM",
-  "symbols": "SYMBOLS",
-  "os_layer": "OS",
-  "media": "MEDIA_FN",
-  "fn_keys": "FN_KEYS",
+	"navipad": ["NAVIPAD", "NUMPAD"],
+	"vim": "VIM",
+	"symbols": "SYMBOLS",
+	"os_layer": "OS",
+	"media": "MEDIA_FN",
+	"fn_keys": "FN_KEYS",
 
-  "settings": ["SETTINGS", "SETTINGS_HUE", "SETTINGS_SAT"],
-  "display_menu": "DISPLAY_MENU",
-  "mode_switcher": "LAYERS",
+	"settings": ["SETTINGS", "SETTINGS_HUE", "SETTINGS_SAT"],
+	"mode_switcher": "LAYERS",
 
-  "encoder_layers": ["ENC_LR", "ENC_TAB", "ENC_SEL", "ENC_LR_SEL", "ENC_TAB_SEL"]
+	"encoder_layers": ["ENC_LR", "ENC_TAB"],
+	"display_menu": ["DISPLAY_MENU", "ENC_MENU"]
 }

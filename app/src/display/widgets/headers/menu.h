@@ -2,7 +2,10 @@
 
 #include <lvgl.h>
 #include <zephyr/kernel.h>
+#include <zmk/keymap.h>
 #include "../../../utils.h"
+#include "/home/huy/repositories/kyria/config/includes/generated/define_layers.dtsi"
+
 
 typedef struct _lv_event_dsc_t event_cb;
 
@@ -69,3 +72,5 @@ void show_menu_rgb_hue();
 // settings
 void create_settings(struct component_obj *settings);
 void show_menu_settings();
+
+void show_menu_encoder_modes(int layer_index);
