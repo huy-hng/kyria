@@ -1,4 +1,5 @@
 #include "../combos/base_ctrl.combo"
 #include "../combos/base_shift.combo"
+#include "../combos/navipad.combo"
 #include "../combos/symbols.combo"
 #include "../combos/os_layer.combo"

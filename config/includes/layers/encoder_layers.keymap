@@ -1,12 +1,17 @@
 / {
     keymap {
         encoder_lr {
-            label = "Enc LR";
+            label = "L / R";
             sensor-bindings = <&enc_kp RIGHT LEFT>;
 			bindings = TRANS_LAYER;
         };
+        encoder_ud {
+            label = "U / D";
+            sensor-bindings = <&enc_kp DOWN UP>;
+			bindings = TRANS_LAYER;
+        };
         encoder_tab {
-            label = "Enc Tab";
+            label = "Tab";
             // &enc_kp doesnt work here for some reason
             sensor-bindings = <&inc_dec_kp LC(TAB) LC(LS(TAB))>;
 			bindings = TRANS_LAYER;

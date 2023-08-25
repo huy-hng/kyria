@@ -21,8 +21,6 @@ static void main_menu_event_handler(lv_event_t *e) {
 		case 4: // exit menu
 			zmk_keymap_layer_deactivate(DISPLAY_MENU);
 			return;
-		case 5:
-			return menu_testing();
 			// return show_menu_settings();
 		};
 	}

@@ -11,16 +11,24 @@
 			>;
 		};
 		enc_menu {
-			label = "Enc Menu";
-			// sensor-bindings = <&enc_display_nav RIGHT LEFT>;
-			// bindings = TRANS_LAYER;
-			bindings = <
-              &display_nav F2     _oo_   _oo_   _oo_   _oo_   _oo_                                                              &tog DISPLAY_MENU   _oo_                _oo_              _oo_                 _oo_   _oo_
-              &tog DISPLAY_MENU   _oo_   _oo_   _oo_   _oo_   _oo_                                                              &display_nav LEFT   &display_nav DOWN   &display_nav UP   &display_nav RIGHT   _oo_   _oo_
-              _oo_                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav ENTER   _oo_                _oo_                _oo_                _oo_              _oo_                 _oo_   _oo_
-                                                _oo_   _oo_   _oo_   _oo_   _oo_       &display_nav F1      &display_nav BSPC   _oo_                _oo_                _oo_                                              
-			>;
+			label = "Encoder Menu";
+			bindings = TRANS_LAYER;
 		};
+		layer_menu {
+			label = "Layer Menu";
+			bindings = TRANS_LAYER;
+		};
+	};
+	macros {
+		ZMK_MACRO1(mo_menu_macro, bindings =
+			<&macro_param_1to1>
+			,<&macro_press &mo 0>
+			,<&macro_press &mo DISPLAY_MENU>
+			,<&macro_pause_for_release>
+			,<&macro_param_1to1>
+			,<&macro_release &mo 0>
+			,<&macro_release &mo DISPLAY_MENU>
+		;)
 	};
 	behaviors {
 		enc_display_nav: enc_display_nav {
