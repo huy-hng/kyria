@@ -49,6 +49,13 @@ combo_files = {
 		timeout_left=SAME_HAND_TIMEOUT,
 		timeout_right=OPPOSITE_HAND_TIMEOUT,
 	),
+	'navipad': ComboFile(
+		path=LAYERS_PATH / 'navipad.keymap',
+		bindings={'&kp': '&combo_layer NAVIPAD {}'},
+		key_position='t_lt',
+		timeout_left=SAME_HAND_TIMEOUT,
+		timeout_right=OPPOSITE_HAND_TIMEOUT,
+	),
 	'symbols': ComboFile(
 		path=LAYERS_PATH / 'symbols.keymap',
 		bindings={'&kp': '&combo_layer SYMBOLS {}'},
@@ -64,12 +71,6 @@ combo_files = {
 		timeout_right=OPPOSITE_HAND_TIMEOUT
 	),
 }
-
-
-def write(path, lines):
-	with open(BASE_PATH + path, 'w') as f:
-		f.writelines(lines)
-
 
 def create_combo(name, binding, key1, key2, timeout):
 	return [
