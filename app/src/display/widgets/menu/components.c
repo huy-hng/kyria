@@ -23,8 +23,20 @@ void initialize_group(struct component_obj *component, bool set_default) {
 
 bool has_value_updated(lv_event_t *e) { return lv_event_get_code(e) == LV_EVENT_VALUE_CHANGED; }
 
+bool enter_pressed(lv_event_t *e) {
+	if (lv_event_get_key(e) == LV_KEY_ENTER)
+		return true;
+	return false;
+}
+
+bool any_key_pressed(lv_event_t *e) {
+	if (lv_event_get_code(e) == LV_EVENT_KEY)
+		return true;
+	return false;
+}
+
 bool should_exit_component(lv_event_t *e, struct component_obj obj) {
-	if (lv_event_get_key(e) == LV_KEY_ENTER) {
+	if (enter_pressed(e)) {
 		hide_component(obj);
 		show_component(roller);
 		return true;

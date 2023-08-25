@@ -46,12 +46,14 @@ static void menu_update_cb(struct menu_state state) {
 		show_screen(screens.menu);
 
 	} else if (state.layer_index == ENC_MENU) {
-		// zmk_keymap_layer_activate(DISPLAY_MENU);
 		show_menu_encoder_modes(state.layer_index);
 		show_screen(screens.menu);
 
+	} else if (state.layer_index == LAYER_MENU) {
+		show_menu_layers(state.layer_index);
+		show_screen(screens.menu);
+
 	} else {
-		// zmk_keymap_layer_deactivate(DISPLAY_MENU);
 		show_screen(screens.main);
 	}
 	last_layer_index = state.layer_index;
