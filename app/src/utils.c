@@ -4,6 +4,20 @@ bool same_str(const char *str1, const char *str2) { //
 	return strcmp(str1, str2) == 0;
 }
 
+int get_array_index(int *arr[], void *elem) {
+	int index = -1;
+	int arrLen = sizeof(*arr) / sizeof(arr[0]);
+
+	for (int i = 0; i < arrLen; i++) {
+		if (arr[i] == elem) {
+			index = i;
+			break;
+		}
+	}
+
+	return index;
+}
+
 struct zmk_behavior_binding_event event = {.layer = 0, .position = 0, .timestamp = 0};
 
 int _send_to_peripheral(struct zmk_behavior_binding *binding,
