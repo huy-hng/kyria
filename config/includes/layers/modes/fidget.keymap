@@ -3,10 +3,10 @@
         fidget {
 			label = "Fidget";
 			bindings = <
-                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
-                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
-                _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_
-                                     _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_   _oo_   _oo_
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_   _oo_                        _oo_   _oo_   _oo_   _oo_
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_                                   _oo_   _oo_                        _oo_   _oo_   _oo_   _oo_
+              _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_   _oo_                        _oo_   _oo_   _oo_   _oo_
+                                   _oo_   _oo_   _oo_   _oo_   _oo_       _oo_   _oo_   _oo_   &mo_menu_macro LAYER_MENU   _oo_                     
             >;
         };
     };

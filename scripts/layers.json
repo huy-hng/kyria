@@ -2,7 +2,7 @@
 	"base": "BASE",
 
 	"modes/caps": "BASE_CAPS",
-	"modes/experimental": "EXPERIMENTAL",
+	"modes/testing": "TESTING",
 	"modes/qwerty": "QWERTY",
 
 	"modes/fidget": "FIDGET",
@@ -17,8 +17,7 @@
 	"media": "MEDIA_FN",
 	"fn_keys": "FN_KEYS",
 
-	"settings": ["SETTINGS", "SETTINGS_HUE", "SETTINGS_SAT"],
-
+	"settings": "SETTINGS",
 	"encoder_layers": ["ENC_LR", "ENC_UD", "ENC_TAB"],
 	"display_menu": ["DISPLAY_MENU", "ENC_MENU", "LAYER_MENU"]
 }

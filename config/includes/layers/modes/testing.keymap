@@ -2,7 +2,7 @@
     keymap {
         compatible = "zmk,keymap";
         experimental {
-            label = "Experimental";
+            label = "Test";
             bindings = <
 //                ╭─────────┬─────┬─────┬─────┬─────┬─────╮                                     ╭─────┬─────┬─────┬─────┬─────┬─────╮
 //                │         │     │     │     │     │     │                                     │  ⌫  │     │     │     │     │     │

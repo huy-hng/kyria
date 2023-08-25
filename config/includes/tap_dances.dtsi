@@ -48,7 +48,6 @@ name: name {                              \
 	behaviors {
 		TAP_DANCE(capsword, &kp_sat LSHIFT, &caps_word);
 		TAP_DANCE(td_navipad, &sl_NAVIPAD, &tog_NAVIPAD);
-		TAP_DANCE(tap_settings, &settings, &tog SETTINGS);
 
 		// mtp: mod tap preferred
 		// TODO: rename mtp to just mt for mod tap and mt to mh for mod hold (ommit the preferred)

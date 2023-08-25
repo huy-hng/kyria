@@ -1,6 +1,6 @@
 #include "../layers/base.keymap"
 #include "../layers/modes/caps.keymap"
-#include "../layers/modes/experimental.keymap"
+#include "../layers/modes/testing.keymap"
 #include "../layers/modes/qwerty.keymap"
 #include "../layers/modes/fidget.keymap"
 #include "../layers/modes/gaming.keymap"

@@ -1,6 +1,6 @@
 #define BASE 0
 #define BASE_CAPS 1
-#define EXPERIMENTAL 2
+#define TESTING 2
 #define QWERTY 3
 #define FIDGET 4
 #define GAMING 5
@@ -14,11 +14,9 @@
 #define MEDIA_FN 13
 #define FN_KEYS 14
 #define SETTINGS 15
-#define SETTINGS_HUE 16
-#define SETTINGS_SAT 17
-#define ENC_LR 18
-#define ENC_UD 19
-#define ENC_TAB 20
-#define DISPLAY_MENU 21
-#define ENC_MENU 22
-#define LAYER_MENU 23
+#define ENC_LR 16
+#define ENC_UD 17
+#define ENC_TAB 18
+#define DISPLAY_MENU 19
+#define ENC_MENU 20
+#define LAYER_MENU 21
