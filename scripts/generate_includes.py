@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-BASE_PATH = Path('/home/huy/repositories/kyria')
+BASE_PATH = Path.cwd()
 INCLUDES_PATH = BASE_PATH / 'config' / 'includes'
 
 path_to_json = BASE_PATH / 'scripts' / 'layers.json'

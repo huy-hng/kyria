@@ -5,6 +5,7 @@ python ./scripts/create_combos.py
 
 # west_flags='-p'
 config_folder="/home/huy/repositories/kyria"
+config_folder=$(pwd)
 zmk_path="/home/huy/repositories/zmk/app"
 
 # use flag below with west to not have to cd do the folder
@@ -62,7 +63,7 @@ build() {
 	cd $zmk_path
 
 	board_info="nice_nano_v2 -- -DSHIELD=kyria_rev3_$1 -DZMK_CONFIG=$config_folder/config"
-	west build $west_flags -d build/$1 -b $board_info 
+	west build $west_flags -d build/$1 -b $board_info
 
 	if [ $? -eq 1 ]; then
 		notify_long 'Build failed.'

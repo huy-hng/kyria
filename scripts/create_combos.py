@@ -2,8 +2,8 @@ import re
 from typing import NamedTuple
 from pathlib import Path
 
-
-BASE_PATH = Path('/home/huy/repositories/kyria/config/includes')
+PROJECT_PATH = Path.cwd()
+BASE_PATH = PROJECT_PATH / 'config' / 'includes'
 LAYERS_PATH = BASE_PATH / 'layers'
 PATH_TO_COMBO_INCLUDES = BASE_PATH / 'generated' / 'include_combos.dtsi'
 COMBOS_DIRECTORY = '../combos/'
