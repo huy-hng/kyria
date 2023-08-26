@@ -4,7 +4,7 @@ python ./scripts/generate_includes.py
 python ./scripts/create_combos.py
 
 # west_flags='-p'
-config_folder="/home/huy/repositories/kyria"
+# config_folder="/home/huy/repositories/kyria"
 config_folder=$(pwd)
 zmk_path="/home/huy/repositories/zmk/app"
 
