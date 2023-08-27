@@ -42,7 +42,7 @@ struct color orange = {.h =  18,         .b = 0.8f};
 struct color yellow = {.h =  48,                  };
 struct color green  = {.h = 120,         .b = 0.8f};
 struct color cyan   = {.h = 142,         .b = 0.8f};
-struct color blue   = {.h = 210,         .b = 0.6f};
+struct color blue   = {.h = 210,         .b = 0.8f};
 struct color indigo = {.h = 256,                  };
 struct color pink   = {.h = 300,                  };
 struct layer_color layer_colors[20];
