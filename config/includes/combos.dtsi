@@ -97,11 +97,12 @@ combo##name##key1##key2 {                            \
 			timeout-ms = <10>;
 		};
 
-		left_inner_thumbs {
-			bindings = <&to BASE>;
-			key-positions = <t_li i_lbo>;
-			timeout-ms = <10>;
-		};
+		// left_inner_thumbs {
+		// 	// bindings = <&to BASE>;
+		// 	bindings = <____>;
+		// 	key-positions = <t_li i_lbo>;
+		// 	timeout-ms = <10>;
+		// };
 
 		right_inner_thumbs {
 			bindings = <____>;

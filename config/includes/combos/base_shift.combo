@@ -189,6 +189,13 @@
 			slow-release;
 		};
 
+		combo__43_29 {
+			bindings = <&combo_modifier LSHIFT LC(LS(LALT))>;
+			key-positions = <43 29>;
+			timeout-ms = <40>;
+			slow-release;
+		};
+
 		combo_LCTRL_43_34 {
 			bindings = <&combo_modifier LSHIFT LCTRL>;
 			key-positions = <43 34>;
@@ -238,9 +245,9 @@
 			slow-release;
 		};
 
-		combo_LMETA_43_41 {
+		combo_LMETA_43_42 {
 			bindings = <&combo_modifier LSHIFT LMETA>;
-			key-positions = <43 41>;
+			key-positions = <43 42>;
 			timeout-ms = <40>;
 			slow-release;
 		};
