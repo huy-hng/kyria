@@ -1,10 +1,10 @@
 menu "Extra RGB config"
 
-menuconfig RGB_LIGHTING
+menuconfig RGB_BACKLIGHT
     bool "RGB Adressable LED"
     select LED_STRIP
 
-if RGB_LIGHTING
+if RGB_BACKLIGHT
 
 config RGB_REFRESH_MS
 	int "refresh rate"

@@ -16,7 +16,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/keycode_state_changed.h>
 #include <zmk/split/bluetooth/central.h>
 
-#include "rgb_extra.h"
+#include "rgb_backlight.h"
 #include "../utils.h"
 
 struct color {
@@ -31,7 +31,7 @@ struct layer_color {
 	int effect;
 };
 
-static struct rgb_underglow_state_extra base_state;
+struct rgb_backlight_state base_state;
 static int prev_layer_index;
 
 // clang-format off
@@ -97,7 +97,7 @@ void update_layer_color() {
 
 	if (prev_layer_index == 0 || same_str(prev_layer_label, "Settings") ||
 		same_str(prev_layer_label, "Display Menu"))
-		base_state = *zmk_rgb_underglow_return_state();
+		base_state = *rgb_backlight_get_state();
 
 	prev_layer_index = index;
 
@@ -128,7 +128,7 @@ int layer_color_event_listener(const zmk_event_t *eh) {
 	const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
 	if (ev) {
 		uint8_t mods = zmk_hid_get_explicit_mods();
-		// struct rgb_underglow_state state = *zmk_rgb_underglow_return_state();
+		// struct rgb_underglow_state state = *rgb_backlight_return_state();
 		if (ev->state && mods > 0) {
 			invoke_behavior_global(RGB_UG, RGB_SET_SAT, 60);
 			// invoke_behavior_global(RGB_SET_BRT, state.color.b * 0.8);

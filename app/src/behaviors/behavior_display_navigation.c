@@ -7,7 +7,6 @@
 
 #include <lvgl.h>
 #include <zmk/behavior.h>
-#include "../rgb/rgb_extra.h"
 #include "../display/widgets/headers/bongo_cat.h"
 
 #include <zmk/events/position_state_changed.h>
