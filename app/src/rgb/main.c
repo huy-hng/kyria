@@ -163,6 +163,10 @@ static int rgb_backlight_init(const struct device *_arg) {
 		.on = IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_ON_START),
 	};
 
+#if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS)
+	layer_color_init();
+#endif
+
 #if IS_ENABLED(CONFIG_SETTINGS)
 	settings_subsys_init();
 
@@ -207,6 +211,12 @@ static int rgb_backlight_auto_state(bool *prev_state, bool new_state) {
 
 static int rgb_backlight_event_listener(const zmk_event_t *eh) {
 
+#if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS)
+	if (as_zmk_layer_state_changed(eh)) {
+		return layer_color_event_listener(eh);
+	}
+#endif
+
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE)
 	if (as_zmk_activity_state_changed(eh)) {
 		static bool prev_state = false;
@@ -231,6 +241,10 @@ ZMK_LISTENER(rgb_backlight, rgb_backlight_event_listener);
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE)
 ZMK_SUBSCRIPTION(rgb_backlight, zmk_activity_state_changed);
+#endif
+
+#if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS)
+ZMK_SUBSCRIPTION(rgb_backlight, zmk_layer_state_changed);
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)

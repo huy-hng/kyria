@@ -18,6 +18,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include "rgb_backlight.h"
 #include "../utils.h"
+#include "../display/widgets/headers/debug_output.h"
 
 struct color {
 	uint16_t h;
@@ -141,9 +142,3 @@ int layer_color_event_listener(const zmk_event_t *eh) {
 
 	return 0;
 }
-
-ZMK_LISTENER(color, layer_color_event_listener);
-ZMK_SUBSCRIPTION(color, zmk_layer_state_changed);
-// ZMK_SUBSCRIPTION(color, zmk_keycode_state_changed);
-
-SYS_INIT(layer_color_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
