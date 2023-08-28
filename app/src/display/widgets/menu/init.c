@@ -53,6 +53,8 @@ static void menu_update_cb(struct menu_state state) {
 		show_menu_layers(state.layer_index);
 		show_screen(screens.menu);
 
+	} else if (lv_scr_act() == screens.debug) {
+		// just do nothing
 	} else {
 		show_screen(screens.main);
 	}

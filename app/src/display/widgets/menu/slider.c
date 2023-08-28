@@ -54,4 +54,3 @@ void menu_slider_event_handler(lv_event_t *e) {
 	// int value = get_arc_val();
 	event_handler_cb(value);
 }
-

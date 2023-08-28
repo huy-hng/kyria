@@ -1,5 +1,7 @@
 menu "Display Widgets"
 
+# menuconfig WIDGET_BONGO_CAT
+
 config ZMK_DISPLAY
 	select LV_USE_CONT
 	select LV_USE_THEME_MONO
@@ -28,12 +30,16 @@ config WIDGET_OUTPUT_STATUS
 
 
 config WIDGET_BONGO_CAT
-# menuconfig WIDGET_BONGO_CAT
 	bool "Widget for displaying bongo cat that reacts to typing"
 	depends on (!ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL) # !ZMK_DISPLAY_WORK_QUEUE_DEDICATED
 	select LV_USE_IMG
 	select LV_USE_LABEL
 	select LV_USE_ANIMATION
+
+
+config WIDGET_DEBUG_SCREEN
+	bool "Widget for displaying debug statements from code"
+	select LV_USE_LABEL
 
 
 config WIDGET_MENU

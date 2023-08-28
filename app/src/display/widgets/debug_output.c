@@ -18,11 +18,7 @@ static char *debug_text;
 void debug_set_text(char *text) { //
 	if (!initialized)
 		return;
-
-	char new_text[500];
-	sprintf(new_text, "%s\n", text);
-
-	lv_label_set_text(DEBUG_WIDGET->obj, new_text);
+	lv_label_set_text(DEBUG_WIDGET->obj, text);
 }
 
 void debug_set_text_fmt(char *fmt, ...) {
@@ -32,12 +28,11 @@ void debug_set_text_fmt(char *fmt, ...) {
 	va_start(args, fmt);
 	vsprintf(new_text, fmt, args);
 
-	// debug_set_text(new_text);
-	lv_label_set_text(DEBUG_WIDGET->obj, new_text);
+	debug_set_text(new_text);
 	va_end(args);
 }
 
-void debug_add_text(char *text) {
+void debug_append_text(char *text) {
 	if (!initialized)
 		return;
 
@@ -48,15 +43,42 @@ void debug_add_text(char *text) {
 	debug_set_text(new_text);
 }
 
-void debug_add_text_fmt(char *fmt, ...) {
+void debug_append_text_fmt(char *fmt, ...) {
 	char new_text[500];
 
 	va_list args;
 	va_start(args, fmt);
+
 	vsprintf(new_text, fmt, args);
 
-	lv_label_set_text(DEBUG_WIDGET->obj, new_text);
-	// debug_add_text(new_text);
+	// char *current_text = lv_label_get_text(DEBUG_WIDGET->obj);
+	// sprintf(new_text, "%s%s", current_text, new_text);
+	// lv_label_set_text(DEBUG_WIDGET->obj, new_text);
+
+	debug_append_text(new_text);
+	va_end(args);
+}
+
+void debug_newline_text(char *text) {
+	if (!initialized)
+		return;
+
+	char *current_text = lv_label_get_text(DEBUG_WIDGET->obj);
+	char new_text[500];
+
+	sprintf(new_text, "%s\n%s", current_text, text);
+	debug_set_text(new_text);
+}
+
+void debug_newline_text_fmt(char *fmt, ...) {
+	char new_text[500];
+
+	va_list args;
+	va_start(args, fmt);
+
+	vsprintf(new_text, fmt, args);
+
+	debug_newline_text(new_text);
 	va_end(args);
 }
 
@@ -65,7 +87,7 @@ lv_obj_t *widget_debug_output_init(struct widget_debug_output *widget, lv_obj_t 
 	DEBUG_WIDGET = widget;
 	initialized = true;
 
-	debug_set_text("debug me");
+	debug_set_text("");
 
 	sys_slist_append(&widgets, &widget->node);
 

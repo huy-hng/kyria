@@ -16,7 +16,7 @@ struct display_screens screens;
 lv_obj_t *zmk_display_status_screen() {
 	screens.main = lv_obj_create(NULL);
 	screens.menu = lv_obj_create(NULL);
-	// lv_obj_set_scrollbar_mode(screen, LV_SCROLLBAR_MODE_ACTIVE);
+	screens.debug = lv_obj_create(NULL);
 
 #if IS_ENABLED(CONFIG_WIDGET_BONGO_CAT)
 	static struct zmk_widget_bongo_cat bongo_cat_widget;
@@ -50,9 +50,11 @@ lv_obj_t *zmk_display_status_screen() {
 	widget_menu_init(&menu_widget, screens.menu);
 #endif
 
-	// static struct widget_debug_output debug_output_widget;
-	// lv_obj_t *debug_output_obj = widget_debug_output_init(&debug_output_widget, screens.menu);
-	// lv_obj_align(debug_output_obj, LV_ALIGN_TOP_LEFT, 0, 0);
+#if IS_ENABLED(CONFIG_WIDGET_DEBUG_SCREEN)
+	static struct widget_debug_output debug_output_widget;
+	lv_obj_t *debug_output_obj = widget_debug_output_init(&debug_output_widget, screens.debug);
+	lv_obj_align(debug_output_obj, LV_ALIGN_LEFT_MID, 0, 0);
+#endif
 
 	return screens.main;
 }

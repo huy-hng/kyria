@@ -1,4 +1,5 @@
 #include "../headers/menu.h"
+#include "../../status_screen.h"
 
 void menu_testing() { zmk_keymap_layer_toggle(DISPLAY_MENU); }
 
@@ -21,7 +22,10 @@ static void main_menu_event_handler(lv_event_t *e) {
 		case 4: // exit menu
 			zmk_keymap_layer_deactivate(DISPLAY_MENU);
 			return;
-			// return show_menu_settings();
+		case 5:
+			show_screen(screens.debug);
+			zmk_keymap_layer_deactivate(DISPLAY_MENU);
+			return;
 		};
 	}
 }
@@ -31,10 +35,8 @@ void show_menu_main() {
 				   "Hue\n"
 				   "Sat\n"
 				   "Eff\n"
-				   "Exit"
-				   // "Test\n"
-		// "Set"
-		;
+				   "Exit\n"
+				   "Bug";
 
 	lv_label_set_text(roller.label, "Menu");
 	set_new_event_cb(&roller, main_menu_event_handler, NULL);
