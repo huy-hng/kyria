@@ -125,47 +125,65 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 	// _send_to_peripheral(binding, event);
 	switch (binding->param1) {
 	case RGB_TOG_CMD:
-		return rgb_backlight_toggle();
+		rgb_backlight_toggle();
+		break;
 	case RGB_ON_CMD:
-		return rgb_backlight_on();
+		rgb_backlight_on();
+		break;
 	case RGB_OFF_CMD:
-		return rgb_backlight_off();
+		rgb_backlight_off();
+		break;
 	case RGB_HUI_CMD:
-		return rgb_backlight_change_hue(1);
+		rgb_backlight_change_hue(1);
+		break;
 	case RGB_HUD_CMD:
-		return rgb_backlight_change_hue(-1);
+		rgb_backlight_change_hue(-1);
+		break;
 	case RGB_SAI_CMD:
-		return rgb_backlight_change_sat(1);
+		rgb_backlight_change_sat(1);
+		break;
 	case RGB_SAD_CMD:
-		return rgb_backlight_change_sat(-1);
+		rgb_backlight_change_sat(-1);
+		break;
 	case RGB_BRI_CMD:
-		return rgb_backlight_change_brt(1);
+		rgb_backlight_change_brt(1);
+		break;
 	case RGB_BRD_CMD:
-		return rgb_backlight_change_brt(-1);
+		rgb_backlight_change_brt(-1);
+		break;
 	case RGB_SPI_CMD:
-		return rgb_backlight_change_spd(1);
+		rgb_backlight_change_spd(1);
+		break;
 	case RGB_SPD_CMD:
-		return rgb_backlight_change_spd(-1);
-	case RGB_EFS_CMD: {
-		int res = rgb_backlight_select_effect(binding->param2);
-		rgb_backlight_start_transition_animation();
-		return res;
-	}
+		rgb_backlight_change_spd(-1);
+		break;
+	case RGB_EFS_CMD:
+		rgb_backlight_select_effect(binding->param2);
+		break;
 	case RGB_EFF_CMD:
-		return rgb_backlight_cycle_effect(1);
+		rgb_backlight_cycle_effect(1);
+		break;
 	case RGB_EFR_CMD:
-		return rgb_backlight_cycle_effect(-1);
+		rgb_backlight_cycle_effect(-1);
+		break;
 	case RGB_COLOR_HSB_CMD:
-		return rgb_backlight_set_hsb((struct zmk_led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
-															  .s = (binding->param2 >> 8) & 0xFF,
-															  .b = binding->param2 & 0xFF});
+		rgb_backlight_set_hsb((struct zmk_led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
+												   .s = (binding->param2 >> 8) & 0xFF,
+												   .b = binding->param2 & 0xFF});
+		break;
 	case RGB_SET_HUE:
-		return rgb_backlight_set_hue(binding->param2);
+		rgb_backlight_set_hue(binding->param2);
+		break;
 	case RGB_SET_SAT:
-		return rgb_backlight_set_sat(binding->param2);
+		rgb_backlight_set_sat(binding->param2);
+		break;
 	case RGB_SET_BRT:
-		return rgb_backlight_set_brt(binding->param2);
+		rgb_backlight_set_brt(binding->param2);
+		break;
 	}
+
+	rgb_backlight_start_transition_effect();
+	return 0; // HACK: remove this hack
 
 	return -ENOTSUP;
 }
