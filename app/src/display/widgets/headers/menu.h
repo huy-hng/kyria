@@ -3,9 +3,7 @@
 #include <lvgl.h>
 #include <zephyr/kernel.h>
 #include <zmk/keymap.h>
-#include "../../../utils.h"
-#include "../../../../../config/includes/generated/define_layers.dtsi"
-
+#include "../../../imports.h"
 
 typedef struct _lv_event_dsc_t event_cb;
 
