@@ -1,4 +1,5 @@
 #include "widgets/lv_label.h"
+#include <stdio.h>
 #include <string.h>
 #include <zephyr/kernel.h>
 
@@ -13,8 +14,6 @@ static struct widget_debug_output *DEBUG_WIDGET;
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 bool initialized = false;
 
-static char *debug_text;
-
 void debug_set_text(char *text) { //
 	if (!initialized)
 		return;
@@ -22,10 +21,10 @@ void debug_set_text(char *text) { //
 }
 
 void debug_set_text_fmt(char *fmt, ...) {
-	char new_text[500];
-
 	va_list args;
 	va_start(args, fmt);
+
+	static char new_text[100];
 	vsprintf(new_text, fmt, args);
 
 	debug_set_text(new_text);
@@ -37,14 +36,14 @@ void debug_append_text(char *text) {
 		return;
 
 	char *current_text = lv_label_get_text(DEBUG_WIDGET->obj);
-	char new_text[500];
+	static char new_text[100];
 
 	sprintf(new_text, "%s%s", current_text, text);
 	debug_set_text(new_text);
 }
 
 void debug_append_text_fmt(char *fmt, ...) {
-	char new_text[500];
+	static char new_text[100];
 
 	va_list args;
 	va_start(args, fmt);
@@ -63,15 +62,15 @@ void debug_newline_text(char *text) {
 	if (!initialized)
 		return;
 
-	char *current_text = lv_label_get_text(DEBUG_WIDGET->obj);
-	char new_text[500];
+	static char new_text[100];
 
+	char *current_text = lv_label_get_text(DEBUG_WIDGET->obj);
 	sprintf(new_text, "%s\n%s", current_text, text);
 	debug_set_text(new_text);
 }
 
 void debug_newline_text_fmt(char *fmt, ...) {
-	char new_text[500];
+	static char new_text[100];
 
 	va_list args;
 	va_start(args, fmt);
