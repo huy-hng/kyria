@@ -6,18 +6,17 @@ menuconfig RGB_BACKLIGHT
 
 if RGB_BACKLIGHT
 
+config RGB_BACKLIGHT_LAYERS
+	bool "Show different colors per layer"
+	default y
+
 config RGB_REFRESH_MS
 	int "refresh rate"
 	default 25
 
-config RGB_TRANSITION_DURATION_START
+config RGB_TRANSITION_DURATION
 	int "duration of transition between colors or effects"
-	default 100
-
-config RGB_TRANSITION_DURATION_STEP
-	int "duration of transition between colors or effects"
-	default 50
-
+	default 200
 
 # This default value cuts down on tons of excess .conf files, if you're using GPIO, manually disable this
 config SPI

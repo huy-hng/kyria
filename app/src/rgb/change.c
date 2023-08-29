@@ -1,5 +1,28 @@
+#include <zmk/workqueue.h>
 #include "rgb_backlight.h"
-#include "../utils.h"
+#include "../imports.h"
+
+int rgb_backlight_on() {
+	if (!led_strip)
+		return -ENODEV;
+
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+	send_to_peripheral(RGB_UG, RGB_ON_CMD, 0);
+#endif
+	return rgb_backlight_start();
+}
+
+int rgb_backlight_off() {
+	if (!led_strip)
+		return -ENODEV;
+
+	rgb_state.on = false;
+
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+	send_to_peripheral(RGB_UG, RGB_OFF_CMD, 0);
+#endif
+	return rgb_backlight_save_state();
+}
 
 //---------------------------------------------Getters----------------------------------------------
 
@@ -18,19 +41,18 @@ int rgb_backlight_get_on_state(bool *on_off) {
 //---------------------------------------------Effects----------------------------------------------
 
 int rgb_backlight_calc_effect(int direction) {
-	return (rgb_state.current_effect + RGB_BACKLIGHT_EFFECT_NUMBER + direction) % RGB_BACKLIGHT_EFFECT_NUMBER;
+	return (rgb_state.current_effect + RGB_BACKLIGHT_EFFECT_NUMBER + direction) %
+		   RGB_BACKLIGHT_EFFECT_NUMBER;
 }
 
 int rgb_backlight_select_effect(int effect) {
 	if (!led_strip)
 		return -ENODEV;
 
-	if (effect < 0 || effect >= RGB_BACKLIGHT_EFFECT_NUMBER) {
+	if (effect < 0 || effect >= RGB_BACKLIGHT_EFFECT_NUMBER)
 		return -EINVAL;
-	}
 
 	rgb_state.current_effect = effect;
-	// rgb_state.animation_step = 0;
 
 	return rgb_backlight_save_state();
 }
@@ -41,9 +63,7 @@ int rgb_backlight_cycle_effect(int direction) {
 
 //----------------------------------------------Change----------------------------------------------
 
-int rgb_backlight_toggle() {
-	return rgb_state.on ? rgb_backlight_off() : rgb_backlight_on();
-}
+int rgb_backlight_toggle() { return rgb_state.on ? rgb_backlight_off() : rgb_backlight_on(); }
 
 int rgb_backlight_change_hue(int direction) {
 	if (!led_strip)
@@ -92,7 +112,9 @@ int rgb_backlight_change_spd(int direction) {
 //-----------------------------------------------Set------------------------------------------------
 
 void rgb_backlight_set_peripheral_hsb(struct zmk_led_hsb color) {
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	send_to_peripheral(RGB_UG, RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
+#endif
 }
 
 int rgb_backlight_set_hue(int value) {
@@ -175,4 +197,3 @@ struct zmk_led_hsb rgb_backlight_calc_brt(int direction) {
 
 	return color;
 }
-
