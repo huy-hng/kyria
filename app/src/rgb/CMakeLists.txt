@@ -1,0 +1,13 @@
+if(CONFIG_RGB_BACKLIGHT)
+	target_sources(app PRIVATE init.c)
+	target_sources(app PRIVATE animations.c)
+	target_sources(app PRIVATE change.c)
+	target_sources(app PRIVATE effects.c)
+	target_sources(app PRIVATE underglow.c)
+	target_sources(app PRIVATE tick_handler.c)
+	target_sources(app PRIVATE event_handler.c)
+
+	if(CONFIG_ZMK_SPLIT_ROLE_CENTRAL OR (NOT CONFIG_ZMK_SPLIT))
+		target_sources_ifdef(CONFIG_RGB_BACKLIGHT_LAYERS app PRIVATE layer_color.c)
+	endif()
+endif()
