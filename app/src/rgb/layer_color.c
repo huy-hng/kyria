@@ -108,7 +108,6 @@ int layer_color_event_listener(const zmk_event_t *eh) {
 	const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
 	if (ev) {
 		uint8_t mods = zmk_hid_get_explicit_mods();
-		// struct rgb_underglow_state state = *rgb_backlight_return_state();
 		if (ev->state && mods > 0) {
 			invoke_behavior_global(RGB_UG, RGB_SET_SAT, 60);
 			// invoke_behavior_global(RGB_SET_BRT, state.color.b * 0.8);

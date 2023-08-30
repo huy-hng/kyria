@@ -1,4 +1,15 @@
 #include "utils.h"
+#include "imports.h"
+
+char *format_text(char *fmt, ...) {
+	static char new_text[100];
+
+	va_list args;
+	va_start(args, fmt);
+
+	vsprintf(new_text, fmt, args);
+	return new_text;
+}
 
 bool same_str(const char *str1, const char *str2) { //
 	return strcmp(str1, str2) == 0;

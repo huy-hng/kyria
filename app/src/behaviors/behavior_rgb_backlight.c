@@ -34,42 +34,42 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
 		break;
 	}
 	case RGB_BRI_CMD: {
-		struct zmk_led_hsb color = rgb_backlight_calc_brt(1);
+		struct led_hsb color = rgb_backlight_calc_brt(1);
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, color.b);
 		break;
 	}
 	case RGB_BRD_CMD: {
-		struct zmk_led_hsb color = rgb_backlight_calc_brt(-1);
+		struct led_hsb color = rgb_backlight_calc_brt(-1);
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, color.b);
 		break;
 	}
 	case RGB_HUI_CMD: {
-		struct zmk_led_hsb color = rgb_backlight_calc_hue(1);
+		struct led_hsb color = rgb_backlight_calc_hue(1);
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, color.b);
 		break;
 	}
 	case RGB_HUD_CMD: {
-		struct zmk_led_hsb color = rgb_backlight_calc_hue(-1);
+		struct led_hsb color = rgb_backlight_calc_hue(-1);
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, color.b);
 		break;
 	}
 	case RGB_SAI_CMD: {
-		struct zmk_led_hsb color = rgb_backlight_calc_sat(1);
+		struct led_hsb color = rgb_backlight_calc_sat(1);
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, color.b);
 		break;
 	}
 	case RGB_SAD_CMD: {
-		struct zmk_led_hsb color = rgb_backlight_calc_sat(-1);
+		struct led_hsb color = rgb_backlight_calc_sat(-1);
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, color.b);
@@ -87,7 +87,7 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
 	}
 	case RGB_SET_HUE: {
 		struct rgb_backlight_state state = *rgb_backlight_get_state();
-		struct zmk_led_hsb color = state.color;
+		struct led_hsb color = state.color;
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(binding->param2, color.s, color.b);
@@ -95,7 +95,7 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
 	}
 	case RGB_SET_SAT: {
 		struct rgb_backlight_state state = *rgb_backlight_get_state();
-		struct zmk_led_hsb color = state.color;
+		struct led_hsb color = state.color;
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, binding->param2, color.b);
@@ -103,7 +103,7 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
 	}
 	case RGB_SET_BRT: {
 		struct rgb_backlight_state state = *rgb_backlight_get_state();
-		struct zmk_led_hsb color = state.color;
+		struct led_hsb color = state.color;
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, binding->param2);
@@ -157,7 +157,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		rgb_backlight_change_spd(-1);
 		break;
 	case RGB_EFS_CMD:
-		rgb_backlight_select_effect(binding->param2, &rgb_state);
+		rgb_backlight_select_effect(binding->param2, &rgb_states.base);
 		break;
 	case RGB_EFF_CMD:
 		rgb_backlight_cycle_effect(1);
@@ -166,16 +166,16 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		rgb_backlight_cycle_effect(-1);
 		break;
 	case RGB_COLOR_HSB_CMD:
-		rgb_backlight_set_hsb((struct zmk_led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
-												   .s = (binding->param2 >> 8) & 0xFF,
-												   .b = binding->param2 & 0xFF},
-							  &rgb_state);
+		rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
+											   .s = (binding->param2 >> 8) & 0xFF,
+											   .b = binding->param2 & 0xFF},
+							  &rgb_states.base);
 		break;
 	case RGB_COLOR_HSB_LAYER_CMD:
-		rgb_backlight_set_hsb((struct zmk_led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
-												   .s = (binding->param2 >> 8) & 0xFF,
-												   .b = binding->param2 & 0xFF},
-							  &layer_color_state);
+		rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
+											   .s = (binding->param2 >> 8) & 0xFF,
+											   .b = binding->param2 & 0xFF},
+							  &rgb_states.layer_color);
 		break;
 	case RGB_SET_HUE:
 		rgb_backlight_set_hue(binding->param2);

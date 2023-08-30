@@ -1,21 +1,22 @@
 #include <zmk/events/activity_state_changed.h>
 #include <zmk/events/usb_conn_state_changed.h>
 #include <zmk/events/layer_state_changed.h>
+#include <zmk/events/position_state_changed.h>
 
 #include "rgb_backlight.h"
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE) ||                                          \
 	IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)
 static int rgb_backlight_auto_state(bool *prev_state, bool new_state) {
-	if (rgb_state.on == new_state) {
+	if (rgb_states.base.on == new_state) {
 		return 0;
 	}
 	if (new_state) {
-		rgb_state.on = *prev_state;
+		rgb_states.base.on = *prev_state;
 		*prev_state = false;
 		return rgb_backlight_on();
 	} else {
-		rgb_state.on = false;
+		rgb_states.base.on = false;
 		*prev_state = true;
 		return rgb_backlight_off();
 	}
@@ -28,6 +29,11 @@ static int rgb_backlight_auto_state(bool *prev_state, bool new_state) {
 static int rgb_backlight_event_listener(const zmk_event_t *eh) {
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+	if (as_zmk_position_state_changed(eh)) {
+		rgb_backlight_keypress_lightup_event_handler(eh);
+		return 0;
+	}
+
 	if (as_zmk_layer_state_changed(eh)) {
 		rgb_backlight_update_layer_color();
 		return 0;
@@ -55,6 +61,8 @@ static int rgb_backlight_event_listener(const zmk_event_t *eh) {
 ZMK_LISTENER(rgb_backlight, rgb_backlight_event_listener);
 
 //------------------------------------------Subscriptions-------------------------------------------
+
+ZMK_SUBSCRIPTION(rgb_backlight, zmk_position_state_changed);
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE)
 ZMK_SUBSCRIPTION(rgb_backlight, zmk_activity_state_changed);

@@ -14,11 +14,8 @@ BUILD_ASSERT(CONFIG_ZMK_RGB_UNDERGLOW_BRT_MIN <= CONFIG_ZMK_RGB_UNDERGLOW_BRT_MA
 			 "ERROR: RGB underglow maximum brightness is less than minimum brightness");
 
 const struct device *led_strip;
-struct led_rgb pixels[STRIP_NUM_PIXELS];
-struct rgb_backlight_state rgb_state;
-struct rgb_backlight_state *active_rgb_state;
-struct rgb_backlight_state underglow_state;
-struct rgb_backlight_state layer_color_state;
+struct rgb_backlight_pixels rgb_pixels;
+struct rgb_backlight_states rgb_states;
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER)
 static const struct device *ext_power;
@@ -30,11 +27,11 @@ static int rgb_settings_set(const char *name, size_t len, settings_read_cb read_
 	int rc;
 
 	if (settings_name_steq(name, "state", &next) && !next) {
-		if (len != sizeof(rgb_state)) {
+		if (len != sizeof(rgb_states.base)) {
 			return -EINVAL;
 		}
 
-		rc = read_cb(cb_arg, &rgb_state, sizeof(rgb_state));
+		rc = read_cb(cb_arg, &rgb_states.base, sizeof(rgb_states.base));
 		if (rc >= 0) {
 			return 0;
 		}
@@ -48,7 +45,7 @@ static int rgb_settings_set(const char *name, size_t len, settings_read_cb read_
 struct settings_handler rgb_conf = {.name = "rgb/underglow", .h_set = rgb_settings_set};
 
 static void rgb_backlight_save_state_work() {
-	settings_save_one("rgb/underglow/state", &rgb_state, sizeof(rgb_state));
+	settings_save_one("rgb/underglow/state", &rgb_states.base, sizeof(rgb_states.base));
 }
 
 static struct k_work_delayable underglow_save_work;
@@ -77,8 +74,8 @@ int rgb_backlight_start() {
 	}
 #endif
 
-	rgb_state.on = true;
-	rgb_state.animation_step = 0;
+	rgb_states.base.on = true;
+	rgb_states.base.animation_step = 0;
 	k_timer_start(&backlight_tick, K_NO_WAIT, K_MSEC(CONFIG_RGB_REFRESH_MS));
 
 	return rgb_backlight_save_state();
@@ -98,7 +95,7 @@ int rgb_backlight_stop() {
 #endif
 
 	k_timer_stop(&backlight_tick);
-	rgb_state.on = false;
+	rgb_states.base.on = false;
 
 	return rgb_backlight_save_state();
 }
@@ -114,7 +111,7 @@ static int rgb_backlight_init(const struct device *_arg) {
 #endif
 
 	// clang-format off
-	rgb_state = (struct rgb_backlight_state){
+	rgb_states.base = (struct rgb_backlight_state){
 		.color = {
 			.h = CONFIG_ZMK_RGB_UNDERGLOW_HUE_START,
 			.s = CONFIG_ZMK_RGB_UNDERGLOW_SAT_START,
@@ -125,14 +122,14 @@ static int rgb_backlight_init(const struct device *_arg) {
 		.animation_step = 0,
 		.on = IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_ON_START),
 	};
-	active_rgb_state = &rgb_state;
-
-	underglow_state = rgb_state;
-	underglow_state.current_effect = RGB_UNDERGLOW_ANIMATION_COPY;
-
-	layer_color_state = rgb_state;
-	layer_color_state.current_effect = RGB_BACKLIGHT_ANIMATION_SOLID;
 	// clang-format on
+
+	rgb_states.active = &rgb_states.base;
+	rgb_states.underglow = rgb_states.base;
+	rgb_states.layer_color = rgb_states.base;
+
+	rgb_states.underglow.current_effect = RGB_UNDERGLOW_ANIMATION_COPY;
+	rgb_states.layer_color.current_effect = RGB_BACKLIGHT_ANIMATION_SOLID;
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	layer_color_init();
@@ -153,10 +150,10 @@ static int rgb_backlight_init(const struct device *_arg) {
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)
-	rgb_state.on = zmk_usb_is_powered();
+	rgb_states.base.on = zmk_usb_is_powered();
 #endif
 
-	if (rgb_state.on) {
+	if (rgb_states.base.on) {
 		rgb_backlight_on();
 	}
 
