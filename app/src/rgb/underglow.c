@@ -64,9 +64,18 @@ void copy_overglow(struct led_rgb *pixels) {
 
 void rgb_underglow_animation_set_pixels(int effect, rgb_strip pixels) {
 	switch (effect) {
-	case RGB_UNDERGLOW_EFFECT_COPY:
-		return copy_overglow(pixels);
-	case RGB_UNDERGLOW_EFFECT_SOLID:
-		return rgb_backlight_animation_solid(pixels, UNDERGLOW_INDEX_START, UNDERGLOW_NUM_PIXELS);
+	case RGB_UNDERGLOW_ANIMATION_OFF:
+		rgb_backlight_effect_off(pixels, UNDERGLOW_INDEX_START, UNDERGLOW_NUM_PIXELS);
+		break;
+	case RGB_UNDERGLOW_ANIMATION_COPY:
+		copy_overglow(pixels);
+		break;
+	case RGB_UNDERGLOW_ANIMATION_SOLID: {
+		int before = rgb_state.color.b;
+		rgb_state.color.b = before * 1.3;
+		rgb_backlight_animation_solid(pixels, UNDERGLOW_INDEX_START, UNDERGLOW_NUM_PIXELS);
+		rgb_state.color.b = before;
+		break;
+	}
 	}
 }
