@@ -53,7 +53,7 @@ lv_obj_t *zmk_display_status_screen() {
 #if IS_ENABLED(CONFIG_WIDGET_DEBUG_SCREEN)
 	static struct widget_debug_output debug_output_widget;
 	lv_obj_t *debug_output_obj = widget_debug_output_init(&debug_output_widget, screens.debug);
-	lv_obj_align(debug_output_obj, LV_ALIGN_LEFT_MID, 0, 0);
+	lv_obj_align(debug_output_obj, LV_ALIGN_TOP_LEFT, 0, 0);
 #endif
 
 	return screens.main;

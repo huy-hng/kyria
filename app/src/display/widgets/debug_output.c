@@ -14,7 +14,9 @@ static struct widget_debug_output *DEBUG_WIDGET;
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 bool initialized = false;
 
-void debug_set_text(char *text) { //
+// display can display 7 lines and 16 columns
+
+void debug_set_text(char *text) {
 	if (!initialized)
 		return;
 	lv_label_set_text(DEBUG_WIDGET->obj, text);
@@ -24,8 +26,8 @@ void debug_set_text_fmt(char *fmt, ...) {
 	va_list args;
 	va_start(args, fmt);
 
-	static char new_text[100];
-	vsprintf(new_text, fmt, args);
+	static char new_text[112];
+	vsnprintf(new_text, sizeof(new_text), fmt, args);
 
 	debug_set_text(new_text);
 	va_end(args);
@@ -36,19 +38,19 @@ void debug_append_text(char *text) {
 		return;
 
 	char *current_text = lv_label_get_text(DEBUG_WIDGET->obj);
-	static char new_text[100];
+	static char new_text[112];
 
-	sprintf(new_text, "%s%s", current_text, text);
+	snprintf(new_text, sizeof(new_text), "%s%s", current_text, text);
 	debug_set_text(new_text);
 }
 
 void debug_append_text_fmt(char *fmt, ...) {
-	static char new_text[100];
+	static char new_text[112];
 
 	va_list args;
 	va_start(args, fmt);
 
-	vsprintf(new_text, fmt, args);
+	vsnprintf(new_text, sizeof(new_text), fmt, args);
 
 	// char *current_text = lv_label_get_text(DEBUG_WIDGET->obj);
 	// sprintf(new_text, "%s%s", current_text, new_text);
@@ -62,20 +64,20 @@ void debug_newline_text(char *text) {
 	if (!initialized)
 		return;
 
-	static char new_text[100];
+	static char new_text[112];
 
 	char *current_text = lv_label_get_text(DEBUG_WIDGET->obj);
-	sprintf(new_text, "%s\n%s", current_text, text);
+	snprintf(new_text, sizeof(new_text), "%s\n%s", current_text, text);
 	debug_set_text(new_text);
 }
 
 void debug_newline_text_fmt(char *fmt, ...) {
-	static char new_text[100];
+	static char new_text[112];
 
 	va_list args;
 	va_start(args, fmt);
 
-	vsprintf(new_text, fmt, args);
+	vsnprintf(new_text, sizeof(new_text), fmt, args);
 
 	debug_newline_text(new_text);
 	va_end(args);
