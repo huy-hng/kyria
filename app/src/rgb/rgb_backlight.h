@@ -59,6 +59,7 @@ struct rgb_backlight_state {
 	uint16_t transition_steps_left;
 };
 
+typedef struct zmk_led_hsb hsb_strip[STRIP_NUM_PIXELS];
 typedef struct led_rgb rgb_strip[STRIP_NUM_PIXELS];
 
 extern const struct device *led_strip;
@@ -121,3 +122,9 @@ void (*rgb_backlight_get_effect_fn(int effect))(rgb_strip pixels); // deprecated
 
 int layer_color_init();
 void rgb_backlight_update_layer_color();
+
+//----------------------------------------------Utils-----------------------------------------------
+
+struct zmk_led_hsb hsb_scale_min_max(struct zmk_led_hsb hsb);
+struct zmk_led_hsb hsb_scale_zero_max(struct zmk_led_hsb hsb);
+struct led_rgb hsb_to_rgb(struct zmk_led_hsb hsb);
