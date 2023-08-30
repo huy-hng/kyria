@@ -5,12 +5,9 @@
 #include <zephyr/settings/settings.h>
 #include <zephyr/drivers/led_strip.h>
 #include <zmk/event_manager.h>
-#include <dt-bindings/zmk/rgb.h>
-#include "../imports.h"
 
-#define RGB_SET_HUE 15
-#define RGB_SET_SAT 16
-#define RGB_SET_BRT 17
+#include "behavior_defines.h"
+#include "../imports.h"
 
 #define HUE_MAX 360
 #define SAT_MAX 100
@@ -28,6 +25,7 @@
 // TODO: rename to animation?
 // then use effect for transitional animations that have an end
 enum rgb_backlight_effects {
+	// RGB_BACKLIGHT_ANIMATION_OFF,
 	RGB_BACKLIGHT_ANIMATION_SOLID,
 	RGB_BACKLIGHT_ANIMATION_BREATHE,
 	RGB_BACKLIGHT_ANIMATION_SPECTRUM,
@@ -39,10 +37,10 @@ enum rgb_backlight_effects {
 };
 
 enum rgb_underglow_effects {
-	// RGB_UNDERGLOW_EFFECT_OFF,
-	RGB_UNDERGLOW_EFFECT_COPY,
-	RGB_UNDERGLOW_EFFECT_SOLID,
-	RGB_UNDERGLOW_EFFECT_NUMBER // Used to track number of effects
+	RGB_UNDERGLOW_ANIMATION_OFF,
+	RGB_UNDERGLOW_ANIMATION_COPY,
+	RGB_UNDERGLOW_ANIMATION_SOLID,
+	RGB_UNDERGLOW_ANIMATION_NUMBER // Used to track number of effects
 };
 
 struct zmk_led_hsb {
@@ -55,7 +53,6 @@ struct rgb_backlight_state {
 	struct zmk_led_hsb color;
 	uint8_t animation_speed;
 	uint8_t current_effect;
-	uint8_t underglow_effect;
 	uint16_t animation_step;
 	bool on;
 
@@ -69,6 +66,9 @@ extern rgb_strip pixels_start;
 extern rgb_strip pixels;
 extern rgb_strip pixels_end;
 extern struct rgb_backlight_state rgb_state;
+extern struct rgb_backlight_state *active_rgb_state;
+extern struct rgb_backlight_state underglow_state;
+extern struct rgb_backlight_state layer_color_state;
 extern struct k_timer backlight_tick;
 
 int rgb_backlight_save_state();
@@ -77,7 +77,7 @@ struct rgb_backlight_state *rgb_backlight_get_state();
 
 void rgb_backlight_start_transition_effect();
 void rgb_backlight_tick(struct k_work *work);
-int rgb_backlight_set_hsb(struct zmk_led_hsb color);
+int rgb_backlight_set_hsb(struct zmk_led_hsb color, struct rgb_backlight_state *state);
 int rgb_backlight_set_hue(int value);
 int rgb_backlight_set_sat(int value);
 int rgb_backlight_set_brt(int value);
@@ -94,7 +94,8 @@ int rgb_backlight_on();
 int rgb_backlight_off();
 int rgb_backlight_cycle_effect(int direction);
 int rgb_backlight_calc_effect(int direction);
-int rgb_backlight_select_effect(int effect);
+int rgb_backlight_select_effect(int effect, struct rgb_backlight_state *state);
+int rgb_underglow_select_effect(int effect);
 struct zmk_led_hsb rgb_backlight_calc_hue(int direction);
 struct zmk_led_hsb rgb_backlight_calc_sat(int direction);
 struct zmk_led_hsb rgb_backlight_calc_brt(int direction);
@@ -104,6 +105,7 @@ struct zmk_led_hsb rgb_backlight_calc_brt(int direction);
 // clang-format off
 void rgb_underglow_animation_set_pixels(int effect, rgb_strip pixels);
 void rgb_backlight_animation_set_pixels(int effect, rgb_strip pixels);
+void rgb_backlight_effect_off             (rgb_strip pixels, int start, int end);
 void rgb_backlight_animation_solid        (rgb_strip pixels, int start, int end);
 void rgb_backlight_animation_breathe      (rgb_strip pixels, int start, int end);
 void rgb_backlight_animation_spectrum     (rgb_strip pixels, int start, int end);
@@ -118,4 +120,4 @@ void rgb_backlight_transition_step();
 void (*rgb_backlight_get_effect_fn(int effect))(rgb_strip pixels); // deprecated
 
 int layer_color_init();
-int layer_color_event_listener(const zmk_event_t *eh);
+void rgb_backlight_update_layer_color();

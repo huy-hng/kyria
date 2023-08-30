@@ -4,7 +4,6 @@
 #include <drivers/behavior.h>
 #include <zephyr/logging/log.h>
 
-#include <dt-bindings/zmk/rgb.h>
 #include <zmk/keymap.h>
 
 #include <zmk/behavior.h>
@@ -158,7 +157,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		rgb_backlight_change_spd(-1);
 		break;
 	case RGB_EFS_CMD:
-		rgb_backlight_select_effect(binding->param2);
+		rgb_backlight_select_effect(binding->param2, &rgb_state);
 		break;
 	case RGB_EFF_CMD:
 		rgb_backlight_cycle_effect(1);
@@ -169,7 +168,14 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 	case RGB_COLOR_HSB_CMD:
 		rgb_backlight_set_hsb((struct zmk_led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
 												   .s = (binding->param2 >> 8) & 0xFF,
-												   .b = binding->param2 & 0xFF});
+												   .b = binding->param2 & 0xFF},
+							  &rgb_state);
+		break;
+	case RGB_COLOR_HSB_LAYER_CMD:
+		rgb_backlight_set_hsb((struct zmk_led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
+												   .s = (binding->param2 >> 8) & 0xFF,
+												   .b = binding->param2 & 0xFF},
+							  &layer_color_state);
 		break;
 	case RGB_SET_HUE:
 		rgb_backlight_set_hue(binding->param2);
@@ -179,6 +185,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		break;
 	case RGB_SET_BRT:
 		rgb_backlight_set_brt(binding->param2);
+		break;
+	case RGB_EFS_UDG:
+		rgb_underglow_select_effect(binding->param2);
 		break;
 	}
 

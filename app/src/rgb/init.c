@@ -4,7 +4,6 @@
 
 #include "rgb_backlight.h"
 
-
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #if !DT_HAS_CHOSEN(zmk_underglow)
@@ -17,6 +16,9 @@ BUILD_ASSERT(CONFIG_ZMK_RGB_UNDERGLOW_BRT_MIN <= CONFIG_ZMK_RGB_UNDERGLOW_BRT_MA
 const struct device *led_strip;
 struct led_rgb pixels[STRIP_NUM_PIXELS];
 struct rgb_backlight_state rgb_state;
+struct rgb_backlight_state *active_rgb_state;
+struct rgb_backlight_state underglow_state;
+struct rgb_backlight_state layer_color_state;
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER)
 static const struct device *ext_power;
@@ -120,10 +122,16 @@ static int rgb_backlight_init(const struct device *_arg) {
 		},
 		.animation_speed = CONFIG_ZMK_RGB_UNDERGLOW_SPD_START,
 		.current_effect = CONFIG_ZMK_RGB_UNDERGLOW_EFF_START,
-		.underglow_effect = RGB_UNDERGLOW_EFFECT_COPY,
 		.animation_step = 0,
 		.on = IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_ON_START),
 	};
+	active_rgb_state = &rgb_state;
+
+	underglow_state = rgb_state;
+	underglow_state.current_effect = RGB_UNDERGLOW_ANIMATION_COPY;
+
+	layer_color_state = rgb_state;
+	layer_color_state.current_effect = RGB_BACKLIGHT_ANIMATION_SOLID;
 	// clang-format on
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)

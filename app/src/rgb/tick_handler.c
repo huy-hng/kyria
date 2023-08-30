@@ -2,15 +2,6 @@
 
 #include "rgb_backlight.h"
 
-// REFACTOR:
-void rgb_backlight_effect_off(rgb_strip pixels, int start, int end) {
-	for (int i = start; i < end; i++) {
-		pixels[i].r = 0;
-		pixels[i].g = 0;
-		pixels[i].b = 0;
-	}
-}
-
 void set_pixels(struct led_rgb *pixels) {
 	if (!rgb_state.on) {
 		rgb_backlight_effect_off(pixels, 0, STRIP_NUM_PIXELS);
@@ -18,7 +9,7 @@ void set_pixels(struct led_rgb *pixels) {
 	}
 
 	rgb_backlight_animation_set_pixels(rgb_state.current_effect, pixels);
-	rgb_underglow_animation_set_pixels(rgb_state.underglow_effect, pixels);
+	rgb_underglow_animation_set_pixels(underglow_state.current_effect, pixels);
 }
 
 void apply_pixels(struct led_rgb *pixels) {
