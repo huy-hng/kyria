@@ -1,8 +1,6 @@
 #include "../../../rgb/rgb_backlight.h"
 #include "../headers/menu.h"
 
-int rgb_backlight_select_effect(int);
-
 static void menu_rgb_effects_event_handler(lv_event_t *e) {
 	if (lv_event_get_key(e) == LV_KEY_ENTER)
 		return show_menu_main();
@@ -16,7 +14,7 @@ static void menu_rgb_effects_event_handler(lv_event_t *e) {
 		int index = lv_roller_get_selected(obj);
 
 		send_to_peripheral(RGB_UG, RGB_EFS_CMD, index);
-		rgb_backlight_select_effect(index);
+		rgb_backlight_select_effect(index, &rgb_state);
 	}
 }
 

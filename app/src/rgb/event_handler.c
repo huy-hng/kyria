@@ -29,7 +29,8 @@ static int rgb_backlight_event_listener(const zmk_event_t *eh) {
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	if (as_zmk_layer_state_changed(eh)) {
-		return layer_color_event_listener(eh);
+		rgb_backlight_update_layer_color();
+		return 0;
 	}
 #endif
 

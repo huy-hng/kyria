@@ -45,20 +45,32 @@ int rgb_backlight_calc_effect(int direction) {
 		   RGB_BACKLIGHT_EFFECT_NUMBER;
 }
 
-int rgb_backlight_select_effect(int effect) {
+int rgb_backlight_select_effect(int effect, struct rgb_backlight_state *state) {
 	if (!led_strip)
 		return -ENODEV;
 
 	if (effect < 0 || effect >= RGB_BACKLIGHT_EFFECT_NUMBER)
 		return -EINVAL;
 
-	rgb_state.current_effect = effect;
+	state->current_effect = effect;
+
+	return rgb_backlight_save_state();
+}
+
+int rgb_underglow_select_effect(int effect) {
+	if (!led_strip)
+		return -ENODEV;
+
+	if (effect < 0 || effect >= RGB_UNDERGLOW_ANIMATION_NUMBER)
+		return -EINVAL;
+
+	underglow_state.current_effect = effect;
 
 	return rgb_backlight_save_state();
 }
 
 int rgb_backlight_cycle_effect(int direction) {
-	return rgb_backlight_select_effect(rgb_backlight_calc_effect(direction));
+	return rgb_backlight_select_effect(rgb_backlight_calc_effect(direction), &rgb_state);
 }
 
 //----------------------------------------------Change----------------------------------------------
@@ -154,11 +166,12 @@ int rgb_backlight_set_spd(int value) {
 	return rgb_backlight_save_state();
 }
 
-int rgb_backlight_set_hsb(struct zmk_led_hsb color) {
+int rgb_backlight_set_hsb(struct zmk_led_hsb color, struct rgb_backlight_state *state) {
 	if (color.h > HUE_MAX || color.s > SAT_MAX || color.b > BRT_MAX) {
 		return -ENOTSUP;
 	}
 
+	// state->color = color;
 	rgb_state.color = color;
 
 	return 0;

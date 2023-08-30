@@ -42,7 +42,7 @@ int layer_color_init() {
     layer_colors[4] = (struct layer_color){.label = "Layers",   white};
     layer_colors[5] = (struct layer_color){.label = "Media FN", green};
     layer_colors[6] = (struct layer_color){.label = "OS",       blue};
-    layer_colors[7] = (struct layer_color){.label = "Enc LR",   orange};
+    layer_colors[7] = (struct layer_color){.label = "L / R",    orange};
 	// clang-format on
 	return 0;
 }
@@ -66,11 +66,11 @@ void set_color(struct color color) {
 	} else if (color.b > 0 && color.b < 1) {
 		color.b = (uint8_t)base_state.color.b * color.b;
 	}
-
-	invoke_behavior_global(RGB_UG, RGB_COLOR_HSB_CMD, RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
+	invoke_behavior_global(RGB_UG, RGB_COLOR_HSB_LAYER_CMD,
+						   RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
 }
 
-void update_layer_color() {
+void rgb_backlight_update_layer_color() {
 	uint8_t index = zmk_keymap_highest_layer_active();
 	const char *label = zmk_keymap_layer_label(index);
 	if (prev_index == BASE || prev_index == SETTINGS || prev_index == DISPLAY_MENU)
@@ -82,29 +82,29 @@ void update_layer_color() {
 	if (!layer)
 		return;
 
+	// int behavior_cmd = RGB_EFS_CMD;
+	int behavior_cmd = RGB_EFS_UDG;
 	struct rgb_backlight_state *state = rgb_backlight_get_state();
 	if (index == BASE) {
-		// state->underglow_effect = RGB_UNDERGLOW_EFFECT_COPY;
-		invoke_behavior_global("RGB_UG", RGB_EFS_CMD, base_state.current_effect);
+		// invoke_behavior_global("RGB_UG", behavior_cmd, base_state.current_effect);
+		invoke_behavior_global("RGB_UG", behavior_cmd, RGB_UNDERGLOW_ANIMATION_COPY);
 		set_color((struct color){});
 		return;
 	}
 
 	set_color(layer->color);
-	// state->underglow_effect = RGB_UNDERGLOW_EFFECT_SOLID;
-	invoke_behavior_global("RGB_UG", RGB_EFS_CMD, 0);
+	invoke_behavior_global("RGB_UG", behavior_cmd, RGB_UNDERGLOW_ANIMATION_SOLID);
 }
 
 int layer_color_event_listener(const zmk_event_t *eh) {
 	if (same_str(eh->event->name, "zmk_layer_state_changed")) {
-		update_layer_color();
+		rgb_backlight_update_layer_color();
 		return 0;
 	}
 
 	// NOTE: theres no distinction between modifier color change and layer color change
 	// they will therefore mix and behave unexpectedly
 	// also key release has to be handled more gracefully
-
 	const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
 	if (ev) {
 		uint8_t mods = zmk_hid_get_explicit_mods();

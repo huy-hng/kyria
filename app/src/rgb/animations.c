@@ -6,62 +6,70 @@ struct led_rgb hsb_to_rgb(struct zmk_led_hsb hsb);
 
 //---------------------------------------------Effects----------------------------------------------
 
+void rgb_backlight_effect_off(rgb_strip pixels, int start, int end) {
+	for (int i = start; i < end; i++) {
+		pixels[i].r = 0;
+		pixels[i].g = 0;
+		pixels[i].b = 0;
+	}
+}
+
 void rgb_backlight_animation_solid(rgb_strip pixels, int start, int end) {
 	for (int i = start; i < end; i++) {
-		pixels[i] = hsb_to_rgb(hsb_scale_min_max(rgb_state.color));
+		pixels[i] = hsb_to_rgb(hsb_scale_min_max(active_rgb_state->color));
 	}
 }
 
 void rgb_backlight_animation_breathe(rgb_strip pixels, int start, int end) {
 	for (int i = start; i < end; i++) {
-		struct zmk_led_hsb hsb = rgb_state.color;
-		hsb.b = abs(rgb_state.animation_step - 1200) / 12;
+		struct zmk_led_hsb hsb = active_rgb_state->color;
+		hsb.b = abs(active_rgb_state->animation_step - 1200) / 12;
 
-		pixels[i] = hsb_to_rgb(hsb_scale_zero_max(hsb));
+		pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
 	}
 
-	rgb_state.animation_step += rgb_state.animation_speed * 5;
+	active_rgb_state->animation_step += active_rgb_state->animation_speed * 5;
 
-	if (rgb_state.animation_step > 2400) {
-		rgb_state.animation_step = 0;
+	if (active_rgb_state->animation_step > 2400) {
+		active_rgb_state->animation_step = 0;
 	}
 }
 
 void rgb_backlight_animation_spectrum(rgb_strip pixels, int start, int end) {
 	for (int i = start; i < end; i++) {
-		struct zmk_led_hsb hsb = rgb_state.color;
-		hsb.h = rgb_state.animation_step;
+		struct zmk_led_hsb hsb = active_rgb_state->color;
+		hsb.h = active_rgb_state->animation_step;
 
 		pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
 	}
 
-	rgb_state.animation_step += rgb_state.animation_speed;
-	rgb_state.animation_step = rgb_state.animation_step % HUE_MAX;
+	active_rgb_state->animation_step += active_rgb_state->animation_speed;
+	active_rgb_state->animation_step = active_rgb_state->animation_step % HUE_MAX;
 }
 
 void rgb_backlight_animation_swirl(rgb_strip pixels, int start, int end) {
 	for (int i = start; i < end; i++) {
-		struct zmk_led_hsb hsb = rgb_state.color;
-		hsb.h = (HUE_MAX / (end - start) * i + rgb_state.animation_step) % HUE_MAX;
+		struct zmk_led_hsb hsb = active_rgb_state->color;
+		hsb.h = (HUE_MAX / (end - start) * i + active_rgb_state->animation_step) % HUE_MAX;
 
 		pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
 	}
 
-	rgb_state.animation_step += rgb_state.animation_speed * 2;
-	rgb_state.animation_step = rgb_state.animation_step % HUE_MAX;
+	active_rgb_state->animation_step += active_rgb_state->animation_speed;
+	active_rgb_state->animation_step = active_rgb_state->animation_step % HUE_MAX;
 }
 
 void rgb_backlight_animation_sparkle(rgb_strip pixels, int start, int end) {
-	struct zmk_led_hsb hsb = rgb_state.color;
+	struct zmk_led_hsb hsb = active_rgb_state->color;
 	for (int i = start; i < end; i++) {
 		int hue_offset = i * 69691;
-		hsb.h = (hue_offset + rgb_state.animation_step) % HUE_MAX;
+		hsb.h = (hue_offset + active_rgb_state->animation_step) % HUE_MAX;
 
 		pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
 	}
 
-	rgb_state.animation_step += rgb_state.animation_speed;
-	rgb_state.animation_step = rgb_state.animation_step % HUE_MAX;
+	active_rgb_state->animation_step += active_rgb_state->animation_speed;
+	active_rgb_state->animation_step = active_rgb_state->animation_step % HUE_MAX;
 }
 
 void rgb_backlight_animation_solid_rainbow(rgb_strip pixels, int start, int end) {
@@ -69,7 +77,7 @@ void rgb_backlight_animation_solid_rainbow(rgb_strip pixels, int start, int end)
 	// underglow: 0 - 5
 	// per key: 6 - 30
 
-	struct zmk_led_hsb hsb = rgb_state.color;
+	struct zmk_led_hsb hsb = active_rgb_state->color;
 	for (int i = 0; i < 6; i++) {
 		hsb.h = (i * 60) % HUE_MAX;
 		pixels[i] = hsb_to_rgb(hsb_scale_min_max(hsb));
