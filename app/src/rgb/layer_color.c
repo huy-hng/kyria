@@ -6,57 +6,58 @@
 #include "../imports.h"
 #include "../display/widgets/headers/debug_output.h"
 
-struct color {
-	uint16_t h;
-	uint8_t s;
-	float b;
-};
-
-struct layer_color {
-	char *label;
-	struct color color;
+typedef struct {
+	int index;
+	led_hsbf color;
 	int effect;
-};
+} LayerColor;
 
-struct rgb_backlight_state base_state;
+static struct rgb_backlight_state base_state;
 static int prev_index;
 
 // clang-format off
-struct color white  = {          .s = 1, /* .b = 0.6f */};
-struct color desat  = {          .s = 60,/* .b = 0.8f */};
-struct color red    = {.h =   1,         /* .b = 0.8f */};
-struct color orange = {.h =  18,         /* .b = 0.8f */};
-struct color yellow = {.h =  48,                  };
-struct color green  = {.h = 120,         /* .b = 0.8f */};
-struct color cyan   = {.h = 142,         /* .b = 0.8f */};
-struct color blue   = {.h = 210,         /* .b = 0.8f */};
-struct color indigo = {.h = 256,                  };
-struct color pink   = {.h = 300,                  };
-struct layer_color layer_colors[20];
+led_hsbf white  = {          .s = 1, /* .b = 0.6f */};
+led_hsbf desat  = {          .s = 60,/* .b = 0.8f */};
+led_hsbf red    = {.h =   1,         /* .b = 0.8f */};
+led_hsbf orange = {.h =  18,         /* .b = 0.8f */};
+led_hsbf yellow = {.h =  48,                  };
+led_hsbf green  = {.h = 120,         /* .b = 0.8f */};
+led_hsbf cyan   = {.h = 142,         /* .b = 0.8f */};
+led_hsbf blue   = {.h = 210,         /* .b = 0.8f */};
+led_hsbf indigo = {.h = 256,                  };
+led_hsbf pink   = {.h = 300,                  };
+
+static LayerColor layer_colors[15];
 
 int layer_color_init() {
-    layer_colors[0] = (struct layer_color){.label = "Colemak", .effect = 3};
-    layer_colors[1] = (struct layer_color){.label = "Navipad",  indigo};
-    layer_colors[2] = (struct layer_color){.label = "Vim",      indigo};
-    layer_colors[3] = (struct layer_color){.label = "Symbols",  cyan};
-    layer_colors[4] = (struct layer_color){.label = "Layers",   white};
-    layer_colors[5] = (struct layer_color){.label = "Media FN", green};
-    layer_colors[6] = (struct layer_color){.label = "OS",       blue};
-    layer_colors[7] = (struct layer_color){.label = "L / R",    orange};
+	LayerColor layers[] = {
+		{ .index = BASE, .effect = 3 },
+		{ .index = NAVIPAD,    indigo },
+		{ .index = VIM,        indigo },
+		{ .index = SYMBOLS,    cyan },
+		{ .index = MEDIA_FN,   green },
+		{ .index = OS,         blue },
+		{ .index = ENC_LR,     orange },
+		// { .index = LAYER_MENU, white },
+	};
 	// clang-format on
+
+	for (int i = 0; i < sizeof(layers) / sizeof(layers[0]); i++) {
+		layer_colors[i] = layers[i];
+	}
 	return 0;
 }
 
-struct layer_color *get_layer_color(const char *layer_label) {
+LayerColor *get_layer_color(int layer_index) {
 	for (int i = 0; i < sizeof(layer_colors) / sizeof(layer_colors[0]); i++) {
-		if (same_str(layer_label, layer_colors[i].label)) {
+		if (layer_index == layer_colors[i].index) {
 			return &layer_colors[i];
 		}
 	}
 	return NULL;
 }
 
-void set_color(struct color color) {
+void set_color(led_hsbf color) {
 	if (!color.h)
 		color.h = base_state.color.h;
 	if (!color.s)
@@ -67,28 +68,26 @@ void set_color(struct color color) {
 		color.b = (uint8_t)base_state.color.b * color.b;
 	}
 	invoke_behavior_global(RGB_UG, RGB_COLOR_HSB_LAYER_CMD,
-						   RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
+						   RGB_COLOR_HSB_VAL((int)color.h, (int)color.s, (int)color.b));
 }
 
 void rgb_backlight_update_layer_color() {
 	uint8_t index = zmk_keymap_highest_layer_active();
-	const char *label = zmk_keymap_layer_label(index);
 	if (prev_index == BASE || prev_index == SETTINGS || prev_index == DISPLAY_MENU)
-		base_state = *rgb_backlight_get_state();
+		base_state = rgb_states.base;
 
 	prev_index = index;
 
-	struct layer_color *layer = get_layer_color(label);
+	LayerColor *layer = get_layer_color(index);
 	if (!layer)
 		return;
 
 	// int behavior_cmd = RGB_EFS_CMD;
 	int behavior_cmd = RGB_EFS_UDG;
-	struct rgb_backlight_state *state = rgb_backlight_get_state();
 	if (index == BASE) {
 		// invoke_behavior_global("RGB_UG", behavior_cmd, base_state.current_effect);
 		invoke_behavior_global("RGB_UG", behavior_cmd, RGB_UNDERGLOW_ANIMATION_COPY);
-		set_color((struct color){});
+		set_color((led_hsbf){});
 		return;
 	}
 
