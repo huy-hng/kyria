@@ -8,6 +8,8 @@ struct widget_debug_output {
 	lv_obj_t *obj;
 };
 
+void debug_update_text();
+
 void debug_set_text(char *text);
 void debug_set_text_fmt(char *fmt, ...);
 

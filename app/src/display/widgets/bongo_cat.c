@@ -4,7 +4,7 @@
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <zmk/display.h>
-#include "headers/bongo_cat.h"
+#include "display/widgets/bongo_cat.h"
 
 #include <zmk/event_manager.h>
 #include <zmk/events/position_state_changed.h>

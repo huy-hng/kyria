@@ -1,5 +1,10 @@
+#include <zmk/workqueue.h>
 #include "utils.h"
 #include "imports.h"
+
+void queue_lowprio_work(struct k_timer *timer) {
+	k_work_submit_to_queue(zmk_workqueue_lowprio_work_q(), k_timer_user_data_get(timer));
+}
 
 char *format_text(char *fmt, ...) {
 	static char new_text[100];

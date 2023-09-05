@@ -1,4 +1,4 @@
-#include "../headers/menu.h"
+#include "display/widgets/menu.h"
 
 // TODO: maybe use meter components?
 // colorwheel also makes sense and potentially allows to wrap around 360

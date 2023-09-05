@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2020 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
-
 #define RGB_TOG_CMD 0
 #define RGB_ON_CMD 1
 #define RGB_OFF_CMD 2
@@ -24,6 +18,7 @@
 #define RGB_SET_BRT 17
 #define RGB_COLOR_HSB_CMD 18
 #define RGB_COLOR_HSB_LAYER_CMD 19
+#define RGB_SET_UDG_HSB_CMD 20
 
 #define RGB_TOG RGB_TOG_CMD 0
 #define RGB_ON RGB_ON_CMD 0

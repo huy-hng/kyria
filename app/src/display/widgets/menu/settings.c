@@ -1,4 +1,4 @@
-#include "../headers/menu.h"
+#include "display/widgets/menu.h"
 
 static void back_event_handler(lv_event_t *e) {
 	lv_obj_t *obj = lv_event_get_target(e);

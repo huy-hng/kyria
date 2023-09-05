@@ -8,13 +8,13 @@
 #include <zmk/events/sensor_event.h>
 #include <zmk/events/layer_state_changed.h>
 
-#include "../../../utils.h"
-#include "../../status_screen.h"
+#include "utils.h"
+#include "display/status_screen.h"
 
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#include "../headers/menu.h"
+#include "display/widgets/menu.h"
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 static int last_layer_index = 0;
@@ -53,8 +53,9 @@ static void menu_update_cb(struct menu_state state) {
 		show_menu_layers(state.layer_index);
 		show_screen(screens.menu);
 
-	} else if (lv_scr_act() == screens.debug) {
-		// just do nothing
+	} else if (state.layer_index == DEBUG_SCREEN) {
+		show_menu_layers(state.layer_index);
+		show_screen(screens.debug);
 	} else {
 		show_screen(screens.main);
 	}

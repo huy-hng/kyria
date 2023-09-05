@@ -1,10 +1,6 @@
 #pragma once
 
-#include <zephyr/device.h>
-#include <zephyr/kernel.h>
-#include <zephyr/settings/settings.h>
 #include <zephyr/drivers/led_strip.h>
-#include <zmk/event_manager.h>
 
 #define STRIP_CHOSEN DT_CHOSEN(zmk_underglow)
 #define STRIP_NUM_PIXELS DT_PROP(STRIP_CHOSEN, chain_length)
@@ -25,7 +21,9 @@ typedef struct {
 	float h;
 	float s;
 	float b;
-} led_hsbf;
+	float a;
+} led_hsba;
+// } led_hsbf;
 
 struct led_hsb {
 	uint16_t h;
@@ -33,24 +31,25 @@ struct led_hsb {
 	uint8_t b;
 };
 
-struct led_rgb_float {
+struct led_rgba {
 	float r;
 	float g;
 	float b;
+	float a;
 };
 
 typedef struct led_hsb hsb_strip[STRIP_NUM_PIXELS];
 typedef struct led_rgb rgb_strip[STRIP_NUM_PIXELS];
-typedef struct led_rgb_float rgb_strip_float[STRIP_NUM_PIXELS];
+typedef struct led_rgba rgba_strip[STRIP_NUM_PIXELS];
 
 struct rgb_backlight_pixels {
-	rgb_strip_float active;
-	rgb_strip_float base;
-	rgb_strip_float underglow;
-	rgb_strip_float transition_start;
-	rgb_strip_float transition_end;
-	rgb_strip_float layer_color;
-	rgb_strip_float keypress;
+	rgba_strip active;
+	rgba_strip base;
+	rgba_strip underglow;
+	rgba_strip transition_start;
+	rgba_strip transition_end;
+	rgba_strip layer_color;
+	rgba_strip keypress;
 };
 
 struct rgb_backlight_state {
@@ -67,5 +66,4 @@ struct rgb_backlight_states {
 	struct rgb_backlight_state *active;
 	struct rgb_backlight_state base;
 	struct rgb_backlight_state underglow;
-	struct rgb_backlight_state layer_color;
 };

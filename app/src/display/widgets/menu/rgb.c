@@ -1,5 +1,5 @@
-#include "../../../rgb/rgb_backlight.h"
-#include "../headers/menu.h"
+#include "rgb/rgb_backlight.h"
+#include "display/widgets/menu.h"
 
 static void menu_rgb_effects_event_handler(lv_event_t *e) {
 	if (lv_event_get_key(e) == LV_KEY_ENTER)
@@ -19,7 +19,8 @@ static void menu_rgb_effects_event_handler(lv_event_t *e) {
 }
 
 void show_menu_rgb_effects() {
-	char items[] = "Solid\n"
+	char items[] = "Off\n"
+				   "Solid\n"
 				   "Breath\n"
 				   "Spectr\n"
 				   "Swirl\n"

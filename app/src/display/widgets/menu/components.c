@@ -1,4 +1,4 @@
-#include "../headers/menu.h"
+#include "display/widgets/menu.h"
 
 void show_component(struct component_obj obj) {
 	lv_group_set_default(obj.group);

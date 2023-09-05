@@ -8,6 +8,8 @@
 
 #define RGB_UG "RGB_UG"
 
+void queue_lowprio_work(struct k_timer *timer);
+
 char *format_text(char *fmt, ...);
 bool same_str(const char *str1, const char *str2);
 

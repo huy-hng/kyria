@@ -1,10 +1,10 @@
-#include "../headers/menu.h"
+#include "display/widgets/menu.h"
 
 int layer_items[] = {
 	BASE,
+	FIDGET,
 	GAMING,
 	SUDOKU,
-	FIDGET,
 	QWERTY,
 	TESTING,
 	BASE_CAPS,

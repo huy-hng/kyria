@@ -1,4 +1,4 @@
-#include "../headers/menu.h"
+#include "display/widgets/menu.h"
 
 int enc_layers[] = {BASE, ENC_LR, ENC_TAB};
 

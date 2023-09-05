@@ -1,7 +1,7 @@
-#include "widgets/headers/layer_menu.h"
-#include "widgets/headers/menu.h"
-#include "widgets/headers/debug_output.h"
-#include "status_screen.h"
+#include "display/widgets/layer_menu.h"
+#include "display/widgets/menu.h"
+#include "display/widgets/debug_output.h"
+#include "display/status_screen.h"
 
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);

@@ -4,7 +4,7 @@
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <zmk/display.h>
-#include "headers/peripheral_status.h"
+#include "display/widgets/peripheral_status.h"
 #include <zmk/event_manager.h>
 #include <zmk/split/bluetooth/peripheral.h>
 #include <zmk/events/split_peripheral_status_changed.h>
@@ -42,8 +42,8 @@ ZMK_DISPLAY_WIDGET_LISTENER(widget_peripheral_status, struct peripheral_status_s
 							output_status_update_cb, get_state)
 ZMK_SUBSCRIPTION(widget_peripheral_status, zmk_split_peripheral_status_changed);
 
-int zmk_widget_peripheral_status_init(struct zmk_widget_peripheral_status *widget,
-									  lv_obj_t *parent) {
+lv_obj_t *zmk_widget_peripheral_status_init(struct zmk_widget_peripheral_status *widget,
+											lv_obj_t *parent) {
 	// widget->obj = lv_img_create(parent);
 	widget->obj = lv_label_create(parent);
 
@@ -51,8 +51,4 @@ int zmk_widget_peripheral_status_init(struct zmk_widget_peripheral_status *widge
 
 	widget_peripheral_status_init();
 	return 0;
-}
-
-lv_obj_t *zmk_widget_peripheral_status_obj(struct zmk_widget_peripheral_status *widget) {
-	return widget->obj;
 }

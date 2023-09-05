@@ -1,12 +1,12 @@
-#include "widgets/headers/bongo_cat.h"
-#include "widgets/headers/output_status.h"
-#include "widgets/headers/peripheral_status.h"
-#include "widgets/headers/layer_status.h"
-#include "widgets/headers/battery_status.h"
-#include "widgets/headers/menu.h"
+#include "display/widgets/bongo_cat.h"
+#include "display/widgets/output_status.h"
+#include "display/widgets/peripheral_status.h"
+#include "display/widgets/layer_status.h"
+#include "display/widgets/battery_status.h"
+#include "display/widgets/menu.h"
 
-#include "widgets/headers/debug_output.h"
-#include "status_screen.h"
+#include "display/widgets/debug_output.h"
+#include "display/status_screen.h"
 
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);

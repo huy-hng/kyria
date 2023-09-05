@@ -1,4 +1,4 @@
-#include "../headers/menu.h"
+#include "display/widgets/menu.h"
 
 #define STEP_SIZE 2
 

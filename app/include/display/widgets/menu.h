@@ -3,7 +3,7 @@
 #include <lvgl.h>
 #include <zephyr/kernel.h>
 #include <zmk/keymap.h>
-#include "../../../imports.h"
+#include "imports.h"
 
 typedef struct _lv_event_dsc_t event_cb;
 
