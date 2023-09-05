@@ -18,6 +18,10 @@
 			label = "Layer Menu";
 			bindings = TRANS_LAYER;
 		};
+		debug_screen {
+			label = "Debug";
+			bindings = TRANS_LAYER;
+		};
 	};
 	macros {
 		ZMK_MACRO1(mo_menu_macro, bindings =

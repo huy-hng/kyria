@@ -20,3 +20,4 @@
 #define DISPLAY_MENU 19
 #define ENC_MENU 20
 #define LAYER_MENU 21
+#define DEBUG_SCREEN 22
