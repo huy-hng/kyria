@@ -17,13 +17,12 @@
 // #define CONFIG_RGB_REFRESH_MS 10
 // #define CONFIG_RGB_TRANSITION_DURATION 200
 
-typedef struct {
+struct led_hsba {
 	float h;
 	float s;
 	float b;
 	float a;
-} led_hsba;
-// } led_hsbf;
+};
 
 struct led_hsb {
 	uint16_t h;

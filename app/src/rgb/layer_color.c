@@ -7,7 +7,7 @@
 
 typedef struct {
 	int index;
-	led_hsbf color;
+	struct led_hsb color;
 	int effect;
 } LayerColor;
 
@@ -15,16 +15,16 @@ static struct rgb_backlight_state base_state;
 static int prev_index;
 
 // clang-format off
-led_hsbf white  = {          .s = 1, /* .b = 0.6f */};
-led_hsbf desat  = {          .s = 60,/* .b = 0.8f */};
-led_hsbf red    = {.h =   1,         /* .b = 0.8f */};
-led_hsbf orange = {.h =  18,         /* .b = 0.8f */};
-led_hsbf yellow = {.h =  48,                  };
-led_hsbf green  = {.h = 120,         /* .b = 0.8f */};
-led_hsbf cyan   = {.h = 142,         /* .b = 0.8f */};
-led_hsbf blue   = {.h = 210,         /* .b = 0.8f */};
-led_hsbf indigo = {.h = 256,                  };
-led_hsbf pink   = {.h = 300,                  };
+struct led_hsb white  = {          .s = 1, /* .b = 0.6f */};
+struct led_hsb desat  = {          .s = 60,/* .b = 0.8f */};
+struct led_hsb red    = {.h =   1,         /* .b = 0.8f */};
+struct led_hsb orange = {.h =  18,         /* .b = 0.8f */};
+struct led_hsb yellow = {.h =  48,                  };
+struct led_hsb green  = {.h = 120,         /* .b = 0.8f */};
+struct led_hsb cyan   = {.h = 142,         /* .b = 0.8f */};
+struct led_hsb blue   = {.h = 210,         /* .b = 0.8f */};
+struct led_hsb indigo = {.h = 256,                  };
+struct led_hsb pink   = {.h = 300,                  };
 
 static LayerColor layer_colors[15];
 
@@ -56,7 +56,7 @@ LayerColor *get_layer_color(int layer_index) {
 	return NULL;
 }
 
-void set_color(led_hsbf color) {
+void set_color(struct led_hsb color) {
 	if (!color.h)
 		color.h = base_state.color.h;
 	if (!color.s)
@@ -85,7 +85,7 @@ void rgb_backlight_update_layer_color() {
 	int behavior_cmd = RGB_EFS_UDG;
 	if (index == BASE) {
 		invoke_behavior_global("RGB_UG", behavior_cmd, RGB_UNDERGLOW_ANIMATION_COPY);
-		set_color((led_hsbf){});
+		set_color((struct led_hsb){});
 		return;
 	}
 
