@@ -1,6 +1,5 @@
 #include <zmk/workqueue.h>
-#include "rgb_backlight.h"
-#include "../imports.h"
+#include "rgb/rgb_backlight.h"
 
 int rgb_backlight_on() {
 	if (!led_strip)
@@ -19,15 +18,9 @@ int rgb_backlight_off() {
 	rgb_states.base.on = false;
 
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
-	send_to_peripheral(RGB_UG, RGB_OFF_CMD, 0);
+	// send_to_peripheral(RGB_UG, RGB_OFF_CMD, 0);
 #endif
-	return rgb_backlight_save_state();
-}
-
-//---------------------------------------------Getters----------------------------------------------
-
-struct rgb_backlight_state *rgb_backlight_get_state() {
-	return (struct rgb_backlight_state *)&rgb_states.base;
+	return rgb_backlight_save_state(-1);
 }
 
 int rgb_backlight_get_on_state(bool *on_off) {
@@ -54,19 +47,7 @@ int rgb_backlight_select_effect(int effect, struct rgb_backlight_state *state) {
 
 	state->current_effect = effect;
 
-	return rgb_backlight_save_state();
-}
-
-int rgb_underglow_select_effect(int effect) {
-	if (!led_strip)
-		return -ENODEV;
-
-	if (effect < 0 || effect >= RGB_UNDERGLOW_ANIMATION_NUMBER)
-		return -EINVAL;
-
-	rgb_states.underglow.current_effect = effect;
-
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(-1);
 }
 
 int rgb_backlight_cycle_effect(int direction) {
@@ -83,7 +64,7 @@ int rgb_backlight_change_hue(int direction) {
 
 	rgb_states.base.color = rgb_backlight_calc_hue(direction);
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(-1);
 }
 
 int rgb_backlight_change_sat(int direction) {
@@ -92,7 +73,7 @@ int rgb_backlight_change_sat(int direction) {
 
 	rgb_states.base.color = rgb_backlight_calc_sat(direction);
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(-1);
 }
 
 int rgb_backlight_change_brt(int direction) {
@@ -101,7 +82,7 @@ int rgb_backlight_change_brt(int direction) {
 
 	rgb_states.base.color = rgb_backlight_calc_brt(direction);
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(-1);
 }
 
 int rgb_backlight_change_spd(int direction) {
@@ -118,7 +99,7 @@ int rgb_backlight_change_spd(int direction) {
 		rgb_states.base.animation_speed = 5;
 	}
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(0);
 }
 
 //-----------------------------------------------Set------------------------------------------------
@@ -136,7 +117,7 @@ int rgb_backlight_set_hue(int value) {
 	rgb_states.base.color.h = value % HUE_MAX;
 	rgb_backlight_set_peripheral_hsb(rgb_states.base.color);
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(-1);
 }
 
 int rgb_backlight_set_sat(int value) {
@@ -145,7 +126,7 @@ int rgb_backlight_set_sat(int value) {
 	rgb_states.base.color.s = CLAMP(value, 0, SAT_MAX);
 	rgb_backlight_set_peripheral_hsb(rgb_states.base.color);
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(-1);
 }
 
 int rgb_backlight_set_brt(int value) {
@@ -155,7 +136,7 @@ int rgb_backlight_set_brt(int value) {
 	rgb_states.base.color.b = CLAMP(value, 0, BRT_MAX);
 	rgb_backlight_set_peripheral_hsb(rgb_states.base.color);
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(-1);
 }
 
 int rgb_backlight_set_spd(int value) {
@@ -163,7 +144,7 @@ int rgb_backlight_set_spd(int value) {
 		return -ENODEV;
 
 	rgb_states.base.animation_speed = CLAMP(value, 1, 5);
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(0);
 }
 
 int rgb_backlight_set_hsb(struct led_hsb color, struct rgb_backlight_state *state) {
@@ -171,10 +152,10 @@ int rgb_backlight_set_hsb(struct led_hsb color, struct rgb_backlight_state *stat
 		return -ENOTSUP;
 	}
 
-	// state->color = color;
-	rgb_states.base.color = color;
+	state->color = color;
+	// rgb_states.base.color = color;
 
-	return 0;
+	return rgb_backlight_save_state(-1);
 }
 
 //----------------------------------------------Utils-----------------------------------------------

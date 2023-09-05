@@ -2,7 +2,7 @@
 #include <zmk/usb.h>
 #include <drivers/ext_power.h>
 
-#include "rgb_backlight.h"
+#include "rgb/rgb_backlight.h"
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
@@ -11,7 +11,10 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #endif
 
 BUILD_ASSERT(CONFIG_ZMK_RGB_UNDERGLOW_BRT_MIN <= CONFIG_ZMK_RGB_UNDERGLOW_BRT_MAX,
-			 "ERROR: RGB underglow maximum brightness is less than minimum brightness");
+			 "ERROR: RGB backlight maximum brightness is less than minimum brightness");
+
+struct k_timer backlight_tick;
+struct k_work backlight_tick_work;
 
 const struct device *led_strip;
 struct rgb_backlight_pixels rgb_pixels;
@@ -42,19 +45,20 @@ static int rgb_settings_set(const char *name, size_t len, settings_read_cb read_
 	return -ENOENT;
 }
 
-struct settings_handler rgb_conf = {.name = "rgb/underglow", .h_set = rgb_settings_set};
+struct settings_handler rgb_conf = {.name = "rgb/backlight", .h_set = rgb_settings_set};
 
 static void rgb_backlight_save_state_work() {
-	settings_save_one("rgb/underglow/state", &rgb_states.base, sizeof(rgb_states.base));
+	settings_save_one("rgb/backlight/state", &rgb_states.base, sizeof(rgb_states.base));
 }
 
-static struct k_work_delayable underglow_save_work;
+static struct k_work_delayable backlight_save_work;
 #endif
 
-int rgb_backlight_save_state() {
-	rgb_backlight_start_transition_effect();
+int rgb_backlight_save_state(int transition_ms) {
+
+	rgb_backlight_start_transition_effect(transition_ms);
 #if IS_ENABLED(CONFIG_SETTINGS)
-	int ret = k_work_reschedule(&underglow_save_work, K_MSEC(CONFIG_ZMK_SETTINGS_SAVE_DEBOUNCE));
+	int ret = k_work_reschedule(&backlight_save_work, K_MSEC(CONFIG_ZMK_SETTINGS_SAVE_DEBOUNCE));
 	return MIN(ret, 0);
 #else
 	return 0;
@@ -78,7 +82,7 @@ int rgb_backlight_start() {
 	rgb_states.base.animation_step = 0;
 	k_timer_start(&backlight_tick, K_NO_WAIT, K_MSEC(CONFIG_RGB_REFRESH_MS));
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(500);
 }
 
 int rgb_backlight_stop() {
@@ -97,19 +101,10 @@ int rgb_backlight_stop() {
 	k_timer_stop(&backlight_tick);
 	rgb_states.base.on = false;
 
-	return rgb_backlight_save_state();
+	return rgb_backlight_save_state(1000);
 }
 
-static int rgb_backlight_init(const struct device *_arg) {
-	led_strip = DEVICE_DT_GET(STRIP_CHOSEN);
-
-#if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER)
-	ext_power = device_get_binding("EXT_POWER");
-	if (ext_power == NULL) {
-		LOG_ERR("Unable to retrieve ext_power device: EXT_POWER");
-	}
-#endif
-
+void init_rgb_states() {
 	// clang-format off
 	rgb_states.base = (struct rgb_backlight_state){
 		.color = {
@@ -126,10 +121,23 @@ static int rgb_backlight_init(const struct device *_arg) {
 
 	rgb_states.active = &rgb_states.base;
 	rgb_states.underglow = rgb_states.base;
-	rgb_states.layer_color = rgb_states.base;
 
 	rgb_states.underglow.current_effect = RGB_UNDERGLOW_ANIMATION_COPY;
-	rgb_states.layer_color.current_effect = RGB_BACKLIGHT_ANIMATION_SOLID;
+}
+
+static int rgb_backlight_init(const struct device *_arg) {
+	led_strip = DEVICE_DT_GET(STRIP_CHOSEN);
+
+#if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER)
+	ext_power = device_get_binding("EXT_POWER");
+	if (ext_power == NULL) {
+		LOG_ERR("Unable to retrieve ext_power device: EXT_POWER");
+	}
+#endif
+	init_rgb_states();
+	k_work_init(&backlight_tick_work, rgb_backlight_tick);
+	k_timer_init(&backlight_tick, queue_lowprio_work, NULL);
+	k_timer_user_data_set(&backlight_tick, &backlight_tick_work);
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	layer_color_init();
@@ -144,18 +152,17 @@ static int rgb_backlight_init(const struct device *_arg) {
 		return err;
 	}
 
-	k_work_init_delayable(&underglow_save_work, rgb_backlight_save_state_work);
+	k_work_init_delayable(&backlight_save_work, rgb_backlight_save_state_work);
 
-	settings_load_subtree("rgb/underglow");
+	settings_load_subtree("rgb/backlight");
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)
 	rgb_states.base.on = zmk_usb_is_powered();
 #endif
 
-	if (rgb_states.base.on) {
+	if (rgb_states.base.on)
 		rgb_backlight_on();
-	}
 
 	return 0;
 }

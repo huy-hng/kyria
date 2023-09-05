@@ -1,24 +1,26 @@
-#include "rgb_backlight.h"
+#include "rgb/rgb_backlight.h"
 
-void copy_pixel_array(rgb_strip_float arr1, rgb_strip_float arr2) {
+void copy_pixel_array(rgba_strip arr1, rgba_strip arr2) {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++)
 		arr2[i] = arr1[i];
 }
 
-void set_pixel(struct led_rgb_float *pixel, float r, float g, float b, bool absolute) {
+void set_pixel(struct led_rgba *pixel, float r, float g, float b, bool absolute) {
 	if (absolute) {
 		pixel->r = CLAMP(r, 0, 1);
 		pixel->g = CLAMP(g, 0, 1);
 		pixel->b = CLAMP(b, 0, 1);
+		pixel->a = 1;
 		return;
 	}
 
 	pixel->r = CLAMP(pixel->r + r, 0, 1);
 	pixel->g = CLAMP(pixel->g + g, 0, 1);
 	pixel->b = CLAMP(pixel->b + b, 0, 1);
+	pixel->a = 1;
 }
 
-void set_pixel_white(struct led_rgb_float *pixel, float value, bool absolute) {
+void set_pixel_white(struct led_rgba *pixel, float value, bool absolute) {
 	set_pixel(pixel, value, value, value, absolute);
 }
 
@@ -33,12 +35,12 @@ struct led_hsb hsb_scale_zero_max(struct led_hsb hsb) {
 	return hsb;
 }
 
-struct led_rgb_float create_rgb(float red, float green, float blue) {
+struct led_rgba create_rgb(float red, float green, float blue) {
 	static float r, g, b;
-	return (struct led_rgb_float){.r = r, .g = g, .b = b};
+	return (struct led_rgba){.r = r, .g = g, .b = b};
 }
 
-struct led_rgb_float hsb_to_rgb(struct led_hsb hsb) {
+struct led_rgba hsb_to_rgb(struct led_hsb hsb) {
 	static float r, g, b;
 
 	uint8_t i = hsb.h / 60;
@@ -82,16 +84,16 @@ struct led_rgb_float hsb_to_rgb(struct led_hsb hsb) {
 		break;
 	}
 
-	return (struct led_rgb_float){.r = r, .g = g, .b = b};
+	return (struct led_rgba){.r = r, .g = g, .b = b, .a = 1};
 }
 
-void convert_hsb_to_rgb(hsb_strip pixels, rgb_strip_float converted) {
+void convert_hsb_to_rgb(hsb_strip pixels, rgba_strip converted) {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
 		converted[i] = hsb_to_rgb(hsb_scale_min_max(pixels[i]));
 	}
 }
 
-void rgb_strip_float_2_rgb_strip(rgb_strip_float rgb_float, rgb_strip rgb) {
+void rgb_strip_float_2_rgb_strip(rgba_strip rgb_float, rgb_strip rgb) {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
 		rgb[i].r = CLAMP(rgb_float[i].r * 255, 0, 255);
 		rgb[i].g = CLAMP(rgb_float[i].g * 255, 0, 255);

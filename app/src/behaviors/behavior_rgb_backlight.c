@@ -10,8 +10,8 @@
 #include <zmk/ble.h>
 #include <zmk/split/bluetooth/central.h>
 
-#include "../rgb/rgb_backlight.h"
-#include "../utils.h"
+#include "rgb/rgb_backlight.h"
+#include "utils.h"
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
@@ -86,24 +86,20 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
 		break;
 	}
 	case RGB_SET_HUE: {
-		struct rgb_backlight_state state = *rgb_backlight_get_state();
-		struct led_hsb color = state.color;
-
+		struct led_hsb color = rgb_states.base.color;
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(binding->param2, color.s, color.b);
 		break;
 	}
 	case RGB_SET_SAT: {
-		struct rgb_backlight_state state = *rgb_backlight_get_state();
-		struct led_hsb color = state.color;
+		struct led_hsb color = rgb_states.base.color;
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, binding->param2, color.b);
 		break;
 	}
 	case RGB_SET_BRT: {
-		struct rgb_backlight_state state = *rgb_backlight_get_state();
-		struct led_hsb color = state.color;
+		struct led_hsb color = rgb_states.base.color;
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, binding->param2);
@@ -125,73 +121,51 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 	switch (binding->param1) {
 	case RGB_TOG_CMD:
 		rgb_backlight_toggle();
-		break;
 	case RGB_ON_CMD:
-		rgb_backlight_on();
-		break;
+		return rgb_backlight_on();
 	case RGB_OFF_CMD:
-		rgb_backlight_off();
-		break;
+		return rgb_backlight_off();
 	case RGB_HUI_CMD:
-		rgb_backlight_change_hue(1);
-		break;
+		return rgb_backlight_change_hue(1);
 	case RGB_HUD_CMD:
-		rgb_backlight_change_hue(-1);
-		break;
+		return rgb_backlight_change_hue(-1);
 	case RGB_SAI_CMD:
-		rgb_backlight_change_sat(1);
-		break;
+		return rgb_backlight_change_sat(1);
 	case RGB_SAD_CMD:
-		rgb_backlight_change_sat(-1);
-		break;
+		return rgb_backlight_change_sat(-1);
 	case RGB_BRI_CMD:
-		rgb_backlight_change_brt(1);
-		break;
+		return rgb_backlight_change_brt(1);
 	case RGB_BRD_CMD:
-		rgb_backlight_change_brt(-1);
-		break;
+		return rgb_backlight_change_brt(-1);
 	case RGB_SPI_CMD:
-		rgb_backlight_change_spd(1);
-		break;
+		return rgb_backlight_change_spd(1);
 	case RGB_SPD_CMD:
-		rgb_backlight_change_spd(-1);
-		break;
+		return rgb_backlight_change_spd(-1);
 	case RGB_EFS_CMD:
-		rgb_backlight_select_effect(binding->param2, &rgb_states.base);
-		break;
+		return rgb_backlight_select_effect(binding->param2, &rgb_states.base);
 	case RGB_EFF_CMD:
-		rgb_backlight_cycle_effect(1);
-		break;
+		return rgb_backlight_cycle_effect(1);
 	case RGB_EFR_CMD:
-		rgb_backlight_cycle_effect(-1);
-		break;
-	case RGB_COLOR_HSB_CMD:
-		rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
-											   .s = (binding->param2 >> 8) & 0xFF,
-											   .b = binding->param2 & 0xFF},
-							  &rgb_states.base);
-		break;
-	case RGB_COLOR_HSB_LAYER_CMD:
-		rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
-											   .s = (binding->param2 >> 8) & 0xFF,
-											   .b = binding->param2 & 0xFF},
-							  &rgb_states.layer_color);
-		break;
+		return rgb_backlight_cycle_effect(-1);
 	case RGB_SET_HUE:
-		rgb_backlight_set_hue(binding->param2);
-		break;
+		return rgb_backlight_set_hue(binding->param2);
 	case RGB_SET_SAT:
-		rgb_backlight_set_sat(binding->param2);
-		break;
+		return rgb_backlight_set_sat(binding->param2);
 	case RGB_SET_BRT:
-		rgb_backlight_set_brt(binding->param2);
-		break;
+		return rgb_backlight_set_brt(binding->param2);
 	case RGB_EFS_UDG:
-		rgb_underglow_select_effect(binding->param2);
-		break;
+		return rgb_backlight_select_effect(binding->param2, &rgb_states.underglow);
+	case RGB_SET_UDG_HSB_CMD:
+		return rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
+													  .s = (binding->param2 >> 8) & 0xFF,
+													  .b = binding->param2 & 0xFF},
+									 &rgb_states.underglow);
+	case RGB_COLOR_HSB_CMD:
+		return rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
+													  .s = (binding->param2 >> 8) & 0xFF,
+													  .b = binding->param2 & 0xFF},
+									 &rgb_states.base);
 	}
-
-	rgb_backlight_start_transition_effect();
 	return 0; // HACK: remove this hack
 
 	return -ENOTSUP;

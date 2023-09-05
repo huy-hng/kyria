@@ -2,9 +2,8 @@
 #include <zmk/hid.h>
 #include <zmk/events/keycode_state_changed.h>
 
-#include "rgb_backlight.h"
-#include "../imports.h"
-#include "../display/widgets/headers/debug_output.h"
+#include "rgb/rgb_backlight.h"
+#include "display/widgets/debug_output.h"
 
 typedef struct {
 	int index;
@@ -31,12 +30,12 @@ static LayerColor layer_colors[15];
 
 int layer_color_init() {
 	LayerColor layers[] = {
-		{ .index = BASE, .effect = 3 },
+		{ .index = BASE, .effect = 3  },
 		{ .index = NAVIPAD,    indigo },
 		{ .index = VIM,        indigo },
-		{ .index = SYMBOLS,    cyan },
-		{ .index = MEDIA_FN,   green },
-		{ .index = OS,         blue },
+		{ .index = SYMBOLS,    cyan   },
+		{ .index = MEDIA_FN,   green  },
+		{ .index = OS,         blue   },
 		{ .index = ENC_LR,     orange },
 		// { .index = LAYER_MENU, white },
 	};
@@ -67,7 +66,7 @@ void set_color(led_hsbf color) {
 	} else if (color.b > 0 && color.b < 1) {
 		color.b = (uint8_t)base_state.color.b * color.b;
 	}
-	invoke_behavior_global(RGB_UG, RGB_COLOR_HSB_LAYER_CMD,
+	invoke_behavior_global(RGB_UG, RGB_SET_UDG_HSB_CMD,
 						   RGB_COLOR_HSB_VAL((int)color.h, (int)color.s, (int)color.b));
 }
 
@@ -85,7 +84,6 @@ void rgb_backlight_update_layer_color() {
 	// int behavior_cmd = RGB_EFS_CMD;
 	int behavior_cmd = RGB_EFS_UDG;
 	if (index == BASE) {
-		// invoke_behavior_global("RGB_UG", behavior_cmd, base_state.current_effect);
 		invoke_behavior_global("RGB_UG", behavior_cmd, RGB_UNDERGLOW_ANIMATION_COPY);
 		set_color((led_hsbf){});
 		return;
