@@ -4,12 +4,11 @@ python ./scripts/generate_includes.py
 python ./scripts/create_combos.py
 
 # west_flags='-p'
-# config_folder="/home/huy/repositories/kyria"
 config_folder=$(pwd)
 zmk_path="/home/huy/repositories/zmk/app"
-
-# use flag below with west to not have to cd do the folder
-# -s /path/to/zmk/app
+branch=$(basename $config_folder)
+build_path="$zmk_path/build/$branch"
+backups_to_keep=100
 
 SILENT=0
 BUILD=0
@@ -22,7 +21,6 @@ while getopts :sb option; do
 done
 shift $((OPTIND -1))
 
-# echoerr() { printf "%s\n" "$*" >&2; }
 echoerr() { echo "$@" 1>&2; }
 
 notify() {
@@ -59,11 +57,18 @@ wait_copy() {
 	notify_short 'Done' 'Keyboard should boot any moment.'
 }
 
-build() {
-	cd $zmk_path
+remove_old_backups() {
+	if [ -n "$1" ]; then
+		(cd $1; rm `ls -t | awk "NR>$backups_to_keep"`)
+	fi
+}
 
+build() {
 	board_info="nice_nano_v2 -- -DSHIELD=kyria_rev3_$1 -DZMK_CONFIG=$config_folder/config"
-	west build $west_flags -d build/$1 -b $board_info
+	(
+		cd "$zmk_path";
+		west build $west_flags -d $build_path/$1 -b $board_info
+	)
 
 	if [ $? -eq 1 ]; then
 		notify_long 'Build failed.'
@@ -73,8 +78,15 @@ build() {
 	notify_short 'Completed' 'Build has completed.'
 
 	if [[ $BUILD -eq 0 ]]; then
-		cp ./build/$1/zephyr/zmk.uf2  "$config_folder/backups/last_builds/$1_$(date +'%FT%X').uf2"
-		wait_copy ./build/$1/zephyr/zmk.uf2 $2
+		backup_dir="$config_folder/backups/$1"
+		mkdir -p $backup_dir
+
+		path_to_uf2="$build_path/$1/zephyr/zmk.uf2"
+		cp $path_to_uf2 "$backup_dir/$(date +'%FT%X').uf2"
+		wait_copy $path_to_uf2 $path_to_target
+
+		path_to_target=$2
+		remove_old_backups $backup_dir
 	fi
 }
 
