@@ -9,7 +9,7 @@ if (CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 
 	add_subdirectory_ifdef(CONFIG_WIDGET_MENU widgets/menu/)
 
-	# target_sources(app PRIVATE status_screen_test.c)
+	# target_sources(app PRIVATE status_screen_debug.c)
 	target_sources(app PRIVATE status_screen_central.c)
 else()
 	target_sources_ifdef(CONFIG_WIDGET_PERIPHERAL_STATUS app PRIVATE widgets/peripheral_status.c)

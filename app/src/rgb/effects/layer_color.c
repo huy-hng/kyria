@@ -66,8 +66,10 @@ void set_color(struct led_hsb color) {
 	} else if (color.b > 0 && color.b < 1) {
 		color.b = (uint8_t)base_state.color.b * color.b;
 	}
+	// FIX: add alpha channel to behavior defines (requires bitshifting)
+
 	invoke_behavior_global(RGB_UG, RGB_SET_UDG_HSB_CMD,
-						   RGB_COLOR_HSB_VAL((int)color.h, (int)color.s, (int)color.b));
+						   RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
 }
 
 void rgb_backlight_update_layer_color() {
@@ -84,13 +86,13 @@ void rgb_backlight_update_layer_color() {
 	// int behavior_cmd = RGB_EFS_CMD;
 	int behavior_cmd = RGB_EFS_UDG;
 	if (index == BASE) {
-		invoke_behavior_global("RGB_UG", behavior_cmd, RGB_UNDERGLOW_ANIMATION_COPY);
+		invoke_behavior_global(RGB_UG, behavior_cmd, RGB_UNDERGLOW_ANIMATION_COPY);
 		set_color((struct led_hsb){});
 		return;
 	}
 
 	set_color(layer->color);
-	invoke_behavior_global("RGB_UG", behavior_cmd, RGB_UNDERGLOW_ANIMATION_SOLID);
+	invoke_behavior_global(RGB_UG, behavior_cmd, RGB_BACKLIGHT_ANIMATION_SOLID);
 }
 
 int layer_color_event_listener(const zmk_event_t *eh) {

@@ -15,8 +15,9 @@
 #include "imports.h"
 
 extern const struct device *led_strip;
-extern struct rgb_backlight_pixels rgb_pixels;
+// extern struct rgb_backlight_pixels rgb_pixels;
 extern struct rgb_backlight_states rgb_states;
+extern struct rgb_backlight_pixel_range pixel_range;
 
 int rgb_backlight_save_state(int transition_ms);
 int rgb_backlight_get_on_state(bool *state);

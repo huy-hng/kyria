@@ -41,7 +41,7 @@ struct led_rgba create_rgb(float red, float green, float blue) {
 }
 
 struct led_rgba hsb_to_rgb(struct led_hsb hsb) {
-	static float r, g, b;
+	static struct led_rgba output;
 
 	uint8_t i = hsb.h / 60;
 	float v = hsb.b / ((float)BRT_MAX);
@@ -53,38 +53,37 @@ struct led_rgba hsb_to_rgb(struct led_hsb hsb) {
 
 	switch (i % 6) {
 	case 0:
-		r = v;
-		g = t;
-		b = p;
+		output.r = v;
+		output.g = t;
+		output.b = p;
 		break;
 	case 1:
-		r = q;
-		g = v;
-		b = p;
+		output.r = q;
+		output.g = v;
+		output.b = p;
 		break;
 	case 2:
-		r = p;
-		g = v;
-		b = t;
+		output.r = p;
+		output.g = v;
+		output.b = t;
 		break;
 	case 3:
-		r = p;
-		g = q;
-		b = v;
+		output.r = p;
+		output.g = q;
+		output.b = v;
 		break;
 	case 4:
-		r = t;
-		g = p;
-		b = v;
+		output.r = t;
+		output.g = p;
+		output.b = v;
 		break;
 	case 5:
-		r = v;
-		g = p;
-		b = q;
+		output.r = v;
+		output.g = p;
+		output.b = q;
 		break;
 	}
-
-	return (struct led_rgba){.r = r, .g = g, .b = b, .a = 1};
+	return output;
 }
 
 void convert_hsb_to_rgb(hsb_strip pixels, rgba_strip converted) {
@@ -93,10 +92,10 @@ void convert_hsb_to_rgb(hsb_strip pixels, rgba_strip converted) {
 	}
 }
 
-void rgb_strip_float_2_rgb_strip(rgba_strip rgb_float, rgb_strip rgb) {
+void rgb_strip_float_2_rgb_strip(rgba_strip rgba, rgb_strip rgb) {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
-		rgb[i].r = CLAMP(rgb_float[i].r * 255, 0, 255);
-		rgb[i].g = CLAMP(rgb_float[i].g * 255, 0, 255);
-		rgb[i].b = CLAMP(rgb_float[i].b * 255, 0, 255);
+		rgb[i].r = CLAMP(rgba[i].r * 255, 0, 255);
+		rgb[i].g = CLAMP(rgba[i].g * 255, 0, 255);
+		rgb[i].b = CLAMP(rgba[i].b * 255, 0, 255);
 	}
 }

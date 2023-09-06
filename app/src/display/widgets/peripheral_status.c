@@ -50,5 +50,5 @@ lv_obj_t *zmk_widget_peripheral_status_init(struct zmk_widget_peripheral_status 
 	sys_slist_append(&widgets, &widget->node);
 
 	widget_peripheral_status_init();
-	return 0;
+	return widget->obj;
 }

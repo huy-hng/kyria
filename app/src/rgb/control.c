@@ -1,4 +1,3 @@
-#include <zmk/workqueue.h>
 #include "rgb/rgb_backlight.h"
 
 int rgb_backlight_on() {
@@ -34,7 +33,7 @@ int rgb_backlight_get_on_state(bool *on_off) {
 //---------------------------------------------Effects----------------------------------------------
 
 int rgb_backlight_calc_effect(int direction) {
-	return (rgb_states.base.current_effect + RGB_BACKLIGHT_EFFECT_NUMBER + direction) %
+	return (rgb_states.base.active_animation + RGB_BACKLIGHT_EFFECT_NUMBER + direction) %
 		   RGB_BACKLIGHT_EFFECT_NUMBER;
 }
 
@@ -42,10 +41,10 @@ int rgb_backlight_select_effect(int effect, struct rgb_backlight_state *state) {
 	if (!led_strip)
 		return -ENODEV;
 
-	if (effect < 0 || effect >= RGB_BACKLIGHT_EFFECT_NUMBER)
-		return -EINVAL;
+	// if (effect < 0 || effect >= RGB_BACKLIGHT_EFFECT_NUMBER)
+	// 	return -EINVAL;
 
-	state->current_effect = effect;
+	state->active_animation = effect;
 
 	return rgb_backlight_save_state(-1);
 }
@@ -110,12 +109,18 @@ void rgb_backlight_set_peripheral_hsb(struct led_hsb color) {
 #endif
 }
 
+void rgb_backlight_set_peripheral_behavior(int param1, int param2) {
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+	send_to_peripheral(RGB_UG, param1, param2);
+#endif
+}
+
 int rgb_backlight_set_hue(int value) {
 	if (!led_strip)
 		return -ENODEV;
 
 	rgb_states.base.color.h = value % HUE_MAX;
-	rgb_backlight_set_peripheral_hsb(rgb_states.base.color);
+	rgb_backlight_set_peripheral_behavior(RGB_SET_HUE, rgb_states.base.color.h);
 
 	return rgb_backlight_save_state(-1);
 }
@@ -124,7 +129,7 @@ int rgb_backlight_set_sat(int value) {
 	if (!led_strip)
 		return -ENODEV;
 	rgb_states.base.color.s = CLAMP(value, 0, SAT_MAX);
-	rgb_backlight_set_peripheral_hsb(rgb_states.base.color);
+	rgb_backlight_set_peripheral_behavior(RGB_SET_SAT, rgb_states.base.color.s);
 
 	return rgb_backlight_save_state(-1);
 }
@@ -134,7 +139,7 @@ int rgb_backlight_set_brt(int value) {
 		return -ENODEV;
 
 	rgb_states.base.color.b = CLAMP(value, 0, BRT_MAX);
-	rgb_backlight_set_peripheral_hsb(rgb_states.base.color);
+	rgb_backlight_set_peripheral_behavior(RGB_SET_BRT, rgb_states.base.color.b);
 
 	return rgb_backlight_save_state(-1);
 }

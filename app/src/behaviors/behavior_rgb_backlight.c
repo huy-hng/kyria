@@ -120,7 +120,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 	// _send_to_peripheral(binding, event);
 	switch (binding->param1) {
 	case RGB_TOG_CMD:
-		rgb_backlight_toggle();
+		return rgb_backlight_toggle();
 	case RGB_ON_CMD:
 		return rgb_backlight_on();
 	case RGB_OFF_CMD:
@@ -143,6 +143,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		return rgb_backlight_change_spd(-1);
 	case RGB_EFS_CMD:
 		return rgb_backlight_select_effect(binding->param2, &rgb_states.base);
+	case RGB_EFS_UDG:
+		return rgb_backlight_select_effect(binding->param2, &rgb_states.underglow);
 	case RGB_EFF_CMD:
 		return rgb_backlight_cycle_effect(1);
 	case RGB_EFR_CMD:
@@ -153,8 +155,6 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		return rgb_backlight_set_sat(binding->param2);
 	case RGB_SET_BRT:
 		return rgb_backlight_set_brt(binding->param2);
-	case RGB_EFS_UDG:
-		return rgb_backlight_select_effect(binding->param2, &rgb_states.underglow);
 	case RGB_SET_UDG_HSB_CMD:
 		return rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
 													  .s = (binding->param2 >> 8) & 0xFF,
@@ -166,7 +166,6 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 													  .b = binding->param2 & 0xFF},
 									 &rgb_states.base);
 	}
-	return 0; // HACK: remove this hack
 
 	return -ENOTSUP;
 }

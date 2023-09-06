@@ -13,7 +13,9 @@ static void menu_rgb_effects_event_handler(lv_event_t *e) {
 
 		int index = lv_roller_get_selected(obj);
 
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 		send_to_peripheral(RGB_UG, RGB_EFS_CMD, index);
+#endif
 		rgb_backlight_select_effect(index, &rgb_states.base);
 	}
 }
@@ -29,13 +31,13 @@ void show_menu_rgb_effects() {
 	lv_label_set_text(roller.label, "RGB Effects");
 	lv_roller_set_options(roller.obj, items, LV_ROLLER_MODE_INFINITE);
 
-	lv_roller_set_selected(roller.obj, rgb_states.base.current_effect, LV_ANIM_OFF);
+	lv_roller_set_selected(roller.obj, rgb_states.base.active_animation, LV_ANIM_OFF);
 
 	set_new_event_cb(&roller, menu_rgb_effects_event_handler, NULL);
 }
 
 void show_menu_rgb_brightness() {
-	set_slider_val(rgb_states.base.color.b, 0);
+	set_slider_val(rgb_states.base.color.b, false);
 
 	lv_label_set_text(slider.label, "Brightness");
 	hide_component(roller);
@@ -43,8 +45,9 @@ void show_menu_rgb_brightness() {
 
 	set_new_event_cb(&slider, menu_slider_event_handler, rgb_backlight_set_brt);
 }
+
 void show_menu_rgb_saturation() {
-	set_slider_val(rgb_states.base.color.s, 0);
+	set_slider_val(rgb_states.base.color.s, false);
 
 	lv_label_set_text(slider.label, "Saturation");
 	hide_component(roller);

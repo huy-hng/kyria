@@ -17,8 +17,14 @@ struct k_timer backlight_tick;
 struct k_work backlight_tick_work;
 
 const struct device *led_strip;
-struct rgb_backlight_pixels rgb_pixels;
 struct rgb_backlight_states rgb_states;
+
+struct rgb_backlight_pixel_range pixel_range = {
+	.underglow = {.start = 0, .end = 6},
+	.overglow = {.start = 6, .end = STRIP_NUM_PIXELS},
+	.strip = {.start = 0, .end = STRIP_NUM_PIXELS},
+
+};
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER)
 static const struct device *ext_power;
@@ -56,7 +62,7 @@ static struct k_work_delayable backlight_save_work;
 
 int rgb_backlight_save_state(int transition_ms) {
 
-	rgb_backlight_start_transition_effect(transition_ms);
+	// rgb_backlight_start_transition_effect(transition_ms);
 #if IS_ENABLED(CONFIG_SETTINGS)
 	int ret = k_work_reschedule(&backlight_save_work, K_MSEC(CONFIG_ZMK_SETTINGS_SAVE_DEBOUNCE));
 	return MIN(ret, 0);
@@ -104,7 +110,7 @@ int rgb_backlight_stop() {
 	return rgb_backlight_save_state(1000);
 }
 
-void init_rgb_states() {
+void rgb_backlight_initialize_base() {
 	// clang-format off
 	rgb_states.base = (struct rgb_backlight_state){
 		.color = {
@@ -112,17 +118,34 @@ void init_rgb_states() {
 			.s = CONFIG_ZMK_RGB_UNDERGLOW_SAT_START,
 			.b = CONFIG_ZMK_RGB_UNDERGLOW_BRT_START,
 		},
+		.active_animation = CONFIG_ZMK_RGB_UNDERGLOW_EFF_START,
 		.animation_speed = CONFIG_ZMK_RGB_UNDERGLOW_SPD_START,
-		.current_effect = CONFIG_ZMK_RGB_UNDERGLOW_EFF_START,
 		.animation_step = 0,
+		.alpha = 1,
 		.on = IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_ON_START),
+		.range = pixel_range.overglow
 	};
 	// clang-format on
+}
 
-	rgb_states.active = &rgb_states.base;
+
+void rgb_backlight_initialize_modes() {
 	rgb_states.underglow = rgb_states.base;
+	rgb_states.underglow.active_animation = RGB_UNDERGLOW_ANIMATION_COPY;
+	rgb_states.underglow.range = pixel_range.underglow;
+	rgb_states.underglow.alpha = 1;
 
-	rgb_states.underglow.current_effect = RGB_UNDERGLOW_ANIMATION_COPY;
+	rgb_states.layer_color = rgb_states.base;
+	rgb_states.layer_color.active_animation = RGB_BACKLIGHT_ANIMATION_SOLID;
+	rgb_states.layer_color.alpha = 0;
+	rgb_states.layer_color.range = pixel_range.underglow;
+
+	rgb_states.key_react = rgb_states.base;
+	rgb_states.key_react.active_animation = RGB_BACKLIGHT_ANIMATION_OFF;
+	rgb_states.key_react.alpha = 0;
+
+	// rgb_states.transition = rgb_states.base;
+	// rgb_states.transition.alpha = 0;
 }
 
 static int rgb_backlight_init(const struct device *_arg) {
@@ -134,10 +157,13 @@ static int rgb_backlight_init(const struct device *_arg) {
 		LOG_ERR("Unable to retrieve ext_power device: EXT_POWER");
 	}
 #endif
-	init_rgb_states();
+	rgb_backlight_initialize_base();
+
 	k_work_init(&backlight_tick_work, rgb_backlight_tick);
 	k_timer_init(&backlight_tick, queue_lowprio_work, NULL);
 	k_timer_user_data_set(&backlight_tick, &backlight_tick_work);
+
+	rgb_backlight_initialize_modes();
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	layer_color_init();
