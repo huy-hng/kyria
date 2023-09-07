@@ -1,4 +1,5 @@
 #include "../layers/base.keymap"
+#include "../layers/modes/debug.keymap"
 #include "../layers/modes/caps.keymap"
 #include "../layers/modes/testing.keymap"
 #include "../layers/modes/qwerty.keymap"

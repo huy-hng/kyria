@@ -53,9 +53,10 @@ static void menu_update_cb(struct menu_state state) {
 		show_menu_layers(state.layer_index);
 		show_screen(screens.menu);
 
-	} else if (state.layer_index == DEBUG_SCREEN) {
+	} else if (zmk_keymap_layer_active(DEBUG_SCREEN)) {
 		show_menu_layers(state.layer_index);
 		show_screen(screens.debug);
+
 	} else {
 		show_screen(screens.main);
 	}

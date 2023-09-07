@@ -1,6 +1,7 @@
 {
 	"base": "BASE",
 
+	"modes/debug": "DEBUG_SCREEN",
 	"modes/caps": "BASE_CAPS",
 	"modes/testing": "TESTING",
 	"modes/qwerty": "QWERTY",
@@ -19,5 +20,5 @@
 
 	"settings": "SETTINGS",
 	"encoder_layers": ["ENC_LR", "ENC_UD", "ENC_TAB"],
-	"display_menu": ["DISPLAY_MENU", "ENC_MENU", "LAYER_MENU", "DEBUG_SCREEN"]
+	"display_menu": ["DISPLAY_MENU", "ENC_MENU", "LAYER_MENU"]
 }

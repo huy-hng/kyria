@@ -1,0 +1,8 @@
+/ {
+    keymap {
+		debug_screen {
+			label = "Debug";
+			bindings = TRANS_LAYER;
+        };
+    };
+};
