@@ -11,7 +11,7 @@ typedef struct {
 	int effect;
 } LayerColor;
 
-static struct rgb_backlight_state base_state;
+static struct rgb_backlight_mode base_state;
 static int prev_index;
 
 // clang-format off
@@ -31,6 +31,7 @@ static LayerColor layer_colors[15];
 int layer_color_init() {
 	LayerColor layers[] = {
 		{ .index = BASE, .effect = 3  },
+		{ .index = DEBUG_SCREEN, .effect = 3  },
 		{ .index = NAVIPAD,    indigo },
 		{ .index = VIM,        indigo },
 		{ .index = SYMBOLS,    cyan   },
@@ -66,16 +67,19 @@ void set_color(struct led_hsb color) {
 	} else if (color.b > 0 && color.b < 1) {
 		color.b = (uint8_t)base_state.color.b * color.b;
 	}
-	// FIX: add alpha channel to behavior defines (requires bitshifting)
 
-	invoke_behavior_global(RGB_UG, RGB_SET_UDG_HSB_CMD,
-						   RGB_COLOR_HSB_VAL(color.h, color.s, color.b));
+	// invoke_behavior_global(RGB_UG, ENCODE_BEHAVIOR(RGB_SET_HSB, RGB_MODE_LAYER_COLOR),
+	invoke_behavior_global(RGB_UG, ENCODE_BEHAVIOR(RGB_SET_HSB, rgb_mode_underglow),
+						   RGB_ENCODE_HSBA(color.h, color.s, color.b, 100));
 }
 
-void rgb_backlight_update_layer_color() {
-	uint8_t index = zmk_keymap_highest_layer_active();
-	if (prev_index == BASE || prev_index == SETTINGS || prev_index == DISPLAY_MENU)
-		base_state = rgb_states.base;
+void rgb_backlight_set_layer_color(uint8_t index) {
+}
+
+void rgb_backlight_layer_color_event_handler(uint8_t index) {
+	if (prev_index == BASE || prev_index == DEBUG_SCREEN || prev_index == SETTINGS ||
+		prev_index == DISPLAY_MENU)
+		base_state = rgb_modes[rgb_mode_base];
 
 	prev_index = index;
 
@@ -84,8 +88,9 @@ void rgb_backlight_update_layer_color() {
 		return;
 
 	// int behavior_cmd = RGB_EFS_CMD;
-	int behavior_cmd = RGB_EFS_UDG;
-	if (index == BASE) {
+	// int behavior_cmd = ENCODE_BEHAVIOR(RGB_SET_EFFECT, RGB_MODE_LAYER_COLOR);
+	int behavior_cmd = ENCODE_BEHAVIOR(RGB_SET_EFFECT, rgb_mode_underglow);
+	if (index == BASE || prev_index == DEBUG_SCREEN) {
 		invoke_behavior_global(RGB_UG, behavior_cmd, RGB_UNDERGLOW_ANIMATION_COPY);
 		set_color((struct led_hsb){});
 		return;
@@ -93,11 +98,15 @@ void rgb_backlight_update_layer_color() {
 
 	set_color(layer->color);
 	invoke_behavior_global(RGB_UG, behavior_cmd, RGB_BACKLIGHT_ANIMATION_SOLID);
+
+	// invoke_behavior_global(RGB_UG, ENCODE_BEHAVIOR(RGB_SET_HSBA, RGB_MODE_LAYER_COLOR),
+	// 					   RGB_ENCODE_HSBA(355, 15, 20, 100));
 }
+
 
 int layer_color_event_listener(const zmk_event_t *eh) {
 	if (same_str(eh->event->name, "zmk_layer_state_changed")) {
-		rgb_backlight_update_layer_color();
+		// rgb_backlight_layer_color_event_handler();
 		return 0;
 	}
 

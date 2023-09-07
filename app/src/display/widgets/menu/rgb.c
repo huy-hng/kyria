@@ -8,7 +8,7 @@ static void menu_rgb_effects_event_handler(lv_event_t *e) {
 	if (lv_event_get_code(e) == LV_EVENT_KEY) {
 		lv_obj_t *obj = lv_event_get_target(e);
 
-		if (!rgb_states.base.on)
+		if (!rgb_modes[rgb_mode_base].on)
 			rgb_backlight_on();
 
 		int index = lv_roller_get_selected(obj);
@@ -16,7 +16,7 @@ static void menu_rgb_effects_event_handler(lv_event_t *e) {
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 		send_to_peripheral(RGB_UG, RGB_EFS_CMD, index);
 #endif
-		rgb_backlight_select_effect(index, &rgb_states.base);
+		rgb_backlight_select_effect(index, &rgb_modes[rgb_mode_base]);
 	}
 }
 
@@ -31,13 +31,13 @@ void show_menu_rgb_effects() {
 	lv_label_set_text(roller.label, "RGB Effects");
 	lv_roller_set_options(roller.obj, items, LV_ROLLER_MODE_INFINITE);
 
-	lv_roller_set_selected(roller.obj, rgb_states.base.active_animation, LV_ANIM_OFF);
+	lv_roller_set_selected(roller.obj, rgb_modes[rgb_mode_base].active_animation, LV_ANIM_OFF);
 
 	set_new_event_cb(&roller, menu_rgb_effects_event_handler, NULL);
 }
 
 void show_menu_rgb_brightness() {
-	set_slider_val(rgb_states.base.color.b, false);
+	set_slider_val(rgb_modes[rgb_mode_base].color.b, false);
 
 	lv_label_set_text(slider.label, "Brightness");
 	hide_component(roller);
@@ -47,7 +47,7 @@ void show_menu_rgb_brightness() {
 }
 
 void show_menu_rgb_saturation() {
-	set_slider_val(rgb_states.base.color.s, false);
+	set_slider_val(rgb_modes[rgb_mode_base].color.s, false);
 
 	lv_label_set_text(slider.label, "Saturation");
 	hide_component(roller);
@@ -57,7 +57,7 @@ void show_menu_rgb_saturation() {
 }
 
 void show_menu_rgb_hue() {
-	set_arc_val(rgb_states.base.color.h);
+	set_arc_val(rgb_modes[rgb_mode_base].color.h);
 
 	lv_label_set_text(arc.label, "Hue");
 	hide_component(roller);

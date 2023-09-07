@@ -8,5 +8,3 @@
 #include "../../config/includes/generated/define_layers.dtsi"
 #include "display/widgets/debug_output.h"
 #include "utils.h"
-
-#define SQUARE(x) ((x) * (x))

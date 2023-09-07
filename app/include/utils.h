@@ -7,6 +7,9 @@
 #include <zmk/split/bluetooth/central.h>
 
 #define RGB_UG "RGB_UG"
+#define SQUARE(x) ((x) * (x))
+#define ENCODE_BEHAVIOR(behavior, data) ((behavior) + ((data) << 8))
+// #define RGB_DECODE_BEHAVIOR(behavior, mode) ((behavior) + ((mode) << 8))
 
 typedef unsigned int uint;
 typedef unsigned long ulong;

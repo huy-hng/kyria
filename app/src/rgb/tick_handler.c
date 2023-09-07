@@ -1,7 +1,7 @@
 #include "rgb/rgb_backlight.h"
 static bool off_on_next_tick = false;
 
-void add_to_pixels(rgba_strip pixels, rgba_strip addition) {
+static void add_to_pixels(rgba_strip pixels, rgba_strip addition) {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
 		pixels[i].r = pixels[i].r + addition[i].r;
 		pixels[i].g = pixels[i].g + addition[i].g;
@@ -9,7 +9,7 @@ void add_to_pixels(rgba_strip pixels, rgba_strip addition) {
 	}
 }
 
-void merge_pixels(rgba_strip pixels, struct rgb_backlight_state *state) {
+static void replace_pixels(rgba_strip pixels, struct rgb_backlight_mode *state) {
 	for (int i = state->range.start; i < state->range.end; i++) {
 		pixels[i].r = state->pixels[i].r;
 		pixels[i].g = state->pixels[i].g;
@@ -17,18 +17,22 @@ void merge_pixels(rgba_strip pixels, struct rgb_backlight_state *state) {
 	}
 }
 
+static void blend_pixels(rgba_strip pixels) {
+
+}
+
 void set_pixels(rgba_strip pixels) {
-	if (rgb_states.base.on) {
-		rgb_backlight_set_animation_pixels(&rgb_states.base);
-		rgb_backlight_set_animation_pixels(&rgb_states.underglow);
+	if (rgb_modes[rgb_mode_base].on) {
+		rgb_backlight_set_animation_pixels(&rgb_modes[rgb_mode_base]);
+		rgb_backlight_set_animation_pixels(&rgb_modes[rgb_mode_underglow]);
 	} else {
 		off_on_next_tick = true;
-		rgb_backlight_effect_off(&rgb_states.base);
-		rgb_backlight_effect_off(&rgb_states.underglow);
+		rgb_backlight_effect_off(&rgb_modes[rgb_mode_base]);
+		rgb_backlight_effect_off(&rgb_modes[rgb_mode_underglow]);
 	}
 
-	merge_pixels(pixels, &rgb_states.base);
-	merge_pixels(pixels, &rgb_states.underglow);
+	replace_pixels(pixels, &rgb_modes[rgb_mode_base]);
+	replace_pixels(pixels, &rgb_modes[rgb_mode_underglow]);
 
 	// rgb_backlight_update_keypress_effect_pixels();
 	// rgb_backlight_update_ripple_effect_pixels();
@@ -64,4 +68,5 @@ void rgb_backlight_tick(struct k_work *work) {
 	static rgba_strip strip;
 	set_pixels(strip);
 	apply_pixels(strip);
+	// apply_pixels(rgb_states.base.pixels);
 }

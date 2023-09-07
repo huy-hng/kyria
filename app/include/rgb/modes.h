@@ -1,19 +1,13 @@
+#pragma once
+
 #include "rgb/types.h"
 
-enum RGB_MODE_INDEX {
-	RGB_MODE_BASE,
-	RGB_MODE_UNDERGLOW,
-	RGB_MODE_LAYER_COLOR,
-	RGB_MODE_KEY_REACT,
+enum rgb_mode_index {
+	rgb_mode_base,
+	rgb_mode_underglow,
+	rgb_mode_layer_color,
+	rgb_mode_key_react,
+	rgb_mode_number, // keep track of number of modes
 };
 
-struct rgb_backlight_states {
-	struct rgb_backlight_state base;
-	struct rgb_backlight_state underglow;
-	struct rgb_backlight_state layer_color;
-	struct rgb_backlight_state key_react;
-	// struct rgb_backlight_state transition;
-};
-
-void rgb_backlight_initialize_states();
-struct rgb_backlight_state *rgb_backlight_get_state_by_index(enum RGB_MODE_INDEX index);
+void rgb_backlight_initialize_modes();

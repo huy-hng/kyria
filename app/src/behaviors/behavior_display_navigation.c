@@ -52,7 +52,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		break;
 	}
 	}
-	return ZMK_BEHAVIOR_OPAQUE;
+	return -ENOTSUP;
 }
 
 static int on_keymap_binding_released(struct zmk_behavior_binding *binding,

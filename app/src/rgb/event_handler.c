@@ -1,3 +1,4 @@
+#include <zmk/keymap.h>
 #include <zmk/events/activity_state_changed.h>
 #include <zmk/events/usb_conn_state_changed.h>
 #include <zmk/events/layer_state_changed.h>
@@ -9,15 +10,15 @@
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE) || IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)
 // clang-format on
 static int rgb_backlight_auto_state(bool *prev_state, bool new_state) {
-	if (rgb_states.base.on == new_state) {
+	if (rgb_modes[rgb_mode_base].on == new_state) {
 		return 0;
 	}
 	if (new_state) {
-		rgb_states.base.on = *prev_state;
+		rgb_modes[rgb_mode_base].on = *prev_state;
 		*prev_state = false;
 		return rgb_backlight_on();
 	} else {
-		rgb_states.base.on = false;
+		rgb_modes[rgb_mode_base].on = false;
 		*prev_state = true;
 		return rgb_backlight_off();
 	}
@@ -35,7 +36,8 @@ static int rgb_backlight_event_listener(const zmk_event_t *eh) {
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	if (as_zmk_layer_state_changed(eh)) {
-		rgb_backlight_update_layer_color();
+		uint8_t index = zmk_keymap_highest_layer_active();
+		rgb_backlight_layer_color_event_handler(index);
 		return 0;
 	}
 #endif

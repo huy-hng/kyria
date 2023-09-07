@@ -11,11 +11,11 @@
 #include "utils.h"
 #include "animations.h"
 #include "modes.h"
-#include "behavior_defines.h"
+#include "behavior_rgb_backlight.h"
 #include "imports.h"
 
 extern const struct device *led_strip;
-extern struct rgb_backlight_states rgb_states;
+extern struct rgb_backlight_mode rgb_modes[];
 extern struct rgb_backlight_pixel_range pixel_range;
 
 int rgb_backlight_save_state(int transition_ms);

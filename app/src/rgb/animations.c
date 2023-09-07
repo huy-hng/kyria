@@ -1,18 +1,18 @@
 #include "rgb/rgb_backlight.h"
 
-void rgb_backlight_effect_off(struct rgb_backlight_state *state) {
+void rgb_backlight_effect_off(struct rgb_backlight_mode *state) {
 	for (int i = state->range.start; i < state->range.end; i++) {
 		set_pixel_white(&state->pixels[i], 0, true);
 	}
 }
 
-void rgb_backlight_animation_solid(struct rgb_backlight_state *state) {
+void rgb_backlight_animation_solid(struct rgb_backlight_mode *state) {
 	for (int i = state->range.start; i < state->range.end; i++) {
 		state->pixels[i] = hsb_to_rgb(hsb_scale_min_max(state->color));
 	}
 }
 
-void rgb_backlight_animation_breathe(struct rgb_backlight_state *state) {
+void rgb_backlight_animation_breathe(struct rgb_backlight_mode *state) {
 	for (int i = state->range.start; i < state->range.end; i++) {
 		struct led_hsb hsb = state->color;
 		hsb.b = abs(state->animation_step - 1200) / 12;
@@ -27,7 +27,7 @@ void rgb_backlight_animation_breathe(struct rgb_backlight_state *state) {
 	}
 }
 
-void rgb_backlight_animation_spectrum(struct rgb_backlight_state *state) {
+void rgb_backlight_animation_spectrum(struct rgb_backlight_mode *state) {
 	for (int i = state->range.start; i < state->range.end; i++) {
 		struct led_hsb hsb = state->color;
 		hsb.h = state->animation_step;
@@ -39,7 +39,7 @@ void rgb_backlight_animation_spectrum(struct rgb_backlight_state *state) {
 	state->animation_step = state->animation_step % HUE_MAX;
 }
 
-void rgb_backlight_animation_swirl(struct rgb_backlight_state *state) {
+void rgb_backlight_animation_swirl(struct rgb_backlight_mode *state) {
 	for (int i = state->range.start; i < state->range.end; i++) {
 		struct led_hsb hsb = state->color;
 		int diff = state->range.end - state->range.start;
@@ -52,7 +52,7 @@ void rgb_backlight_animation_swirl(struct rgb_backlight_state *state) {
 	state->animation_step = state->animation_step % HUE_MAX;
 }
 
-void rgb_backlight_animation_sparkle(struct rgb_backlight_state *state) {
+void rgb_backlight_animation_sparkle(struct rgb_backlight_mode *state) {
 	struct led_hsb hsb = state->color;
 	for (int i = state->range.start; i < state->range.end; i++) {
 		int hue_offset = i * 69691;
@@ -65,8 +65,8 @@ void rgb_backlight_animation_sparkle(struct rgb_backlight_state *state) {
 	state->animation_step = state->animation_step % HUE_MAX;
 }
 
-void rgb_backlight_animation_solid_rainbow(struct rgb_backlight_state *state) {
-	int leds = 31;
+void rgb_backlight_animation_solid_rainbow(struct rgb_backlight_mode *state) {
+	// int leds = 31;
 	// underglow: 0 - 5
 	// per key: 6 - 30
 
@@ -97,7 +97,7 @@ void rgb_backlight_animation_solid_rainbow(struct rgb_backlight_state *state) {
 	}
 }
 
-void rgb_backlight_animation_test(struct rgb_backlight_state *state) { //
+void rgb_backlight_animation_test(struct rgb_backlight_mode *state) { //
 	rgb_backlight_animation_solid_rainbow(state);
 }
 
@@ -161,13 +161,13 @@ static struct led_rgba average_pixels(rgba_strip pixels, int underglow_index) {
 	};
 }
 
-static void copy_overglow(struct rgb_backlight_state *state) {
+static void copy_overglow(struct rgb_backlight_mode *state) {
 	for (int i = 0; i < 6; i++) {
-		state->pixels[i] = average_pixels(rgb_states.base.pixels, i);
+		state->pixels[i] = average_pixels(rgb_modes[rgb_mode_base].pixels, i);
 	}
 }
 
-void rgb_backlight_set_animation_pixels(struct rgb_backlight_state *state) {
+void rgb_backlight_set_animation_pixels(struct rgb_backlight_mode *state) {
 	switch (state->active_animation) {
 	case RGB_BACKLIGHT_ANIMATION_OFF:
 		return rgb_backlight_effect_off(state);

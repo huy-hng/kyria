@@ -18,12 +18,11 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static int behavior_rgb_underglow_init(const struct device *dev) { return 0; }
 
-static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
+static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
+									 struct zmk_behavior_binding_event event) {
 
 	uint8_t behavior = binding->param1 & 0xFF;
 	uint32_t param1_data = binding->param1 >> 8;
-
-	debug_set_text_fmt("%d %d %d", behavior, param1_data, binding->param2);
 
 	switch (behavior) {
 	case RGB_TOG_CMD:
@@ -48,14 +47,14 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding, struc
 		return rgb_backlight_change_spd(1);
 	case RGB_SPD_CMD:
 		return rgb_backlight_change_spd(-1);
-	case RGB_EFS_CMD:
-		return rgb_backlight_select_effect(binding->param2, &rgb_states.base);
 	case RGB_EFF_CMD:
 		return rgb_backlight_cycle_effect(1);
 	case RGB_EFR_CMD:
 		return rgb_backlight_cycle_effect(-1);
+	case RGB_EFS_CMD:
+		return rgb_backlight_select_effect(binding->param2, NULL);
 	case RGB_COLOR_HSB_CMD:
-		return rgb_backlight_set_hsb(RGB_DECODE_HSB(binding->param2), &rgb_states.base);
+		return rgb_backlight_set_hsb(RGB_DECODE_HSB(binding->param2), NULL);
 
 	case RGB_SET_HUE:
 		return rgb_backlight_set_hue(binding->param2);
@@ -63,10 +62,10 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding, struc
 		return rgb_backlight_set_sat(binding->param2);
 	case RGB_SET_BRT:
 		return rgb_backlight_set_brt(binding->param2);
-	case RGB_EFS_UDG:
-		return rgb_backlight_select_effect(binding->param2, &rgb_states.underglow);
-	case RGB_SET_UDG_HSB_CMD:
-		return rgb_backlight_set_hsb(RGB_DECODE_HSB(binding->param2), &rgb_states.underglow);
+	case RGB_SET_HSB:
+		return rgb_backlight_set_hsb(RGB_DECODE_HSBA(binding->param2), &rgb_modes[param1_data]);
+	case RGB_SET_EFFECT:
+		return rgb_backlight_select_effect(binding->param2, &rgb_modes[param1_data]);
 	}
 
 	return -ENOTSUP;
@@ -145,20 +144,20 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
 		break;
 	}
 	case RGB_SET_HUE: {
-		struct led_hsb color = rgb_states.base.color;
+		struct led_hsb color = rgb_modes[rgb_mode_base].color;
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(binding->param2, color.s, color.b);
 		break;
 	}
 	case RGB_SET_SAT: {
-		struct led_hsb color = rgb_states.base.color;
+		struct led_hsb color = rgb_modes[rgb_mode_base].color;
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, binding->param2, color.b);
 		break;
 	}
 	case RGB_SET_BRT: {
-		struct led_hsb color = rgb_states.base.color;
+		struct led_hsb color = rgb_modes[rgb_mode_base].color;
 
 		binding->param1 = RGB_COLOR_HSB_CMD;
 		binding->param2 = RGB_COLOR_HSB_VAL(color.h, color.s, binding->param2);

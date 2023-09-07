@@ -17,7 +17,7 @@ struct k_timer backlight_tick;
 struct k_work backlight_tick_work;
 
 const struct device *led_strip;
-struct rgb_backlight_states rgb_states;
+struct rgb_backlight_mode rgb_modes[rgb_mode_number];
 
 struct rgb_backlight_pixel_range pixel_range = {
 	.underglow = {.start = 0, .end = 6},
@@ -36,11 +36,11 @@ static int rgb_settings_set(const char *name, size_t len, settings_read_cb read_
 	int rc;
 
 	if (settings_name_steq(name, "state", &next) && !next) {
-		if (len != sizeof(rgb_states.base)) {
+		if (len != sizeof(rgb_modes[rgb_mode_base])) {
 			return -EINVAL;
 		}
 
-		rc = read_cb(cb_arg, &rgb_states.base, sizeof(rgb_states.base));
+		rc = read_cb(cb_arg, &rgb_modes[rgb_mode_base], sizeof(rgb_modes[rgb_mode_base]));
 		if (rc >= 0) {
 			return 0;
 		}
@@ -54,7 +54,8 @@ static int rgb_settings_set(const char *name, size_t len, settings_read_cb read_
 struct settings_handler rgb_conf = {.name = "rgb/backlight", .h_set = rgb_settings_set};
 
 static void rgb_backlight_save_state_work() {
-	settings_save_one("rgb/backlight/state", &rgb_states.base, sizeof(rgb_states.base));
+	settings_save_one("rgb/backlight/state", &rgb_modes[rgb_mode_base],
+					  sizeof(rgb_modes[rgb_mode_base]));
 }
 
 static struct k_work_delayable backlight_save_work;
@@ -84,8 +85,8 @@ int rgb_backlight_start() {
 	}
 #endif
 
-	rgb_states.base.on = true;
-	rgb_states.base.animation_step = 0;
+	rgb_modes[rgb_mode_base].on = true;
+	rgb_modes[rgb_mode_base].animation_step = 0;
 	k_timer_start(&backlight_tick, K_NO_WAIT, K_MSEC(CONFIG_RGB_REFRESH_MS));
 
 	return rgb_backlight_save_state(500);
@@ -105,7 +106,7 @@ int rgb_backlight_stop() {
 #endif
 
 	k_timer_stop(&backlight_tick);
-	rgb_states.base.on = false;
+	rgb_modes[rgb_mode_base].on = false;
 
 	return rgb_backlight_save_state(1000);
 }
@@ -119,12 +120,11 @@ static int rgb_backlight_init(const struct device *_arg) {
 		LOG_ERR("Unable to retrieve ext_power device: EXT_POWER");
 	}
 #endif
-	rgb_backlight_initialize_states();
+	rgb_backlight_initialize_modes();
 
 	k_work_init(&backlight_tick_work, rgb_backlight_tick);
 	k_timer_init(&backlight_tick, queue_lowprio_work, NULL);
 	k_timer_user_data_set(&backlight_tick, &backlight_tick_work);
-
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	layer_color_init();
@@ -145,10 +145,10 @@ static int rgb_backlight_init(const struct device *_arg) {
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)
-	rgb_states.base.on = zmk_usb_is_powered();
+	rgb_states[0].on = zmk_usb_is_powered();
 #endif
 
-	if (rgb_states.base.on)
+	if (rgb_modes[rgb_mode_base].on)
 		rgb_backlight_on();
 
 	return 0;

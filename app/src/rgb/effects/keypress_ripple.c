@@ -96,7 +96,7 @@ void update_surrounding_pixels(int center) {
 			continue;
 		// float value = mask[i] <= states[center].radius_active ? activation : decay;
 
-		change_keypress_pixel(&rgb_states.key_react.pixels[pixel_indices[i]], activation);
+		change_keypress_pixel(&rgb_modes[rgb_mode_key_react].pixels[pixel_indices[i]], activation);
 	}
 }
 
@@ -106,7 +106,7 @@ void rgb_backlight_update_ripple_effect_pixels() {
 	for (int i = 0; i < 25; i++) {
 		if (!states[i].pressed) {
 			states[i].radius_active = 0;
-			change_keypress_pixel(&rgb_states.key_react.pixels[pixel_indices[i]], decay);
+			change_keypress_pixel(&rgb_modes[rgb_mode_key_react].pixels[pixel_indices[i]], decay);
 			continue;
 		}
 		update_surrounding_pixels(i);

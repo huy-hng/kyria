@@ -33,23 +33,20 @@
 // #define RGB_COLOR_HSB(h, s, v) RGB_COLOR_HSB_CMD##(RGB_COLOR_HSB_VAL(h, s, v))
 // #define RGB_COLOR_HSV RGB_COLOR_HSB
 
-#define RGB_SET_HUE 15
-#define RGB_SET_SAT 16
-#define RGB_SET_BRT 17
+enum RGB_BEHAVIOR {
+	RGB_SET_HUE = 15,
+	RGB_SET_SAT,
+	RGB_SET_BRT,
+	RGB_SET_EFFECT,
+	RGB_SET_HSB,
+	RGB_SET_HSBA,
+};
 
-#define RGB_SET_EFFECT_MODE 18
-#define RGB_SET_HSBA_CMD 19
-// #define RGB_SET_HSBA_LAYERS_CMD 19
-
-#define RGB_EFS_UDG 20
-#define RGB_SET_UDG_HSB_CMD 21
-
-#define RGB_ENCODE_BEHAVIOR(behavior, data) ((behavior) + ((data) << 8))
-// #define RGB_DECODE_BEHAVIOR(behavior, mode) ((behavior) + ((mode) << 8))
-
+#define RGB_ENCODE_HSB( h, s, v)    (((h) << 16) + ((s) << 8) + (v))
 #define RGB_ENCODE_HSBA(h, s, v, a) (((h) << 21) + ((s) << 14) + ((v) << 7) + (a))
-#define RGB_DECODE_HSBA(ENCODED)       \
-	(struct led_hsba){                 \
+
+#define RGB_DECODE_HSBA(ENCODED)        \
+	(struct led_hsb){                  \
 		.h = (ENCODED >> 21) & 0xFFFF, \
 		.s = (ENCODED >> 14) & 0x7F,   \
 		.b = (ENCODED >> 7) & 0x7F,    \
