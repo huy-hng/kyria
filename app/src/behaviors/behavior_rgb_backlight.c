@@ -11,12 +11,71 @@
 #include <zmk/split/bluetooth/central.h>
 
 #include "rgb/rgb_backlight.h"
-#include "utils.h"
+#include "imports.h"
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
 
 static int behavior_rgb_underglow_init(const struct device *dev) { return 0; }
+
+static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
+
+	uint8_t behavior = binding->param1 & 0xFF;
+	uint32_t param1_data = binding->param1 >> 8;
+
+	debug_set_text_fmt("%d %d %d", behavior, param1_data, binding->param2);
+
+	switch (behavior) {
+	case RGB_TOG_CMD:
+		return rgb_backlight_toggle();
+	case RGB_ON_CMD:
+		return rgb_backlight_on();
+	case RGB_OFF_CMD:
+		return rgb_backlight_off();
+	case RGB_HUI_CMD:
+		return rgb_backlight_change_hue(1);
+	case RGB_HUD_CMD:
+		return rgb_backlight_change_hue(-1);
+	case RGB_SAI_CMD:
+		return rgb_backlight_change_sat(1);
+	case RGB_SAD_CMD:
+		return rgb_backlight_change_sat(-1);
+	case RGB_BRI_CMD:
+		return rgb_backlight_change_brt(1);
+	case RGB_BRD_CMD:
+		return rgb_backlight_change_brt(-1);
+	case RGB_SPI_CMD:
+		return rgb_backlight_change_spd(1);
+	case RGB_SPD_CMD:
+		return rgb_backlight_change_spd(-1);
+	case RGB_EFS_CMD:
+		return rgb_backlight_select_effect(binding->param2, &rgb_states.base);
+	case RGB_EFF_CMD:
+		return rgb_backlight_cycle_effect(1);
+	case RGB_EFR_CMD:
+		return rgb_backlight_cycle_effect(-1);
+	case RGB_COLOR_HSB_CMD:
+		return rgb_backlight_set_hsb(RGB_DECODE_HSB(binding->param2), &rgb_states.base);
+
+	case RGB_SET_HUE:
+		return rgb_backlight_set_hue(binding->param2);
+	case RGB_SET_SAT:
+		return rgb_backlight_set_sat(binding->param2);
+	case RGB_SET_BRT:
+		return rgb_backlight_set_brt(binding->param2);
+	case RGB_EFS_UDG:
+		return rgb_backlight_select_effect(binding->param2, &rgb_states.underglow);
+	case RGB_SET_UDG_HSB_CMD:
+		return rgb_backlight_set_hsb(RGB_DECODE_HSB(binding->param2), &rgb_states.underglow);
+	}
+
+	return -ENOTSUP;
+}
+
+static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
+									  struct zmk_behavior_binding_event event) {
+	return ZMK_BEHAVIOR_OPAQUE;
+}
 
 static int
 on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_binding *binding,
@@ -113,67 +172,6 @@ on_keymap_binding_convert_central_state_dependent_params(struct zmk_behavior_bin
 
 	return 0;
 };
-
-static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
-									 struct zmk_behavior_binding_event event) {
-
-	// _send_to_peripheral(binding, event);
-	switch (binding->param1) {
-	case RGB_TOG_CMD:
-		return rgb_backlight_toggle();
-	case RGB_ON_CMD:
-		return rgb_backlight_on();
-	case RGB_OFF_CMD:
-		return rgb_backlight_off();
-	case RGB_HUI_CMD:
-		return rgb_backlight_change_hue(1);
-	case RGB_HUD_CMD:
-		return rgb_backlight_change_hue(-1);
-	case RGB_SAI_CMD:
-		return rgb_backlight_change_sat(1);
-	case RGB_SAD_CMD:
-		return rgb_backlight_change_sat(-1);
-	case RGB_BRI_CMD:
-		return rgb_backlight_change_brt(1);
-	case RGB_BRD_CMD:
-		return rgb_backlight_change_brt(-1);
-	case RGB_SPI_CMD:
-		return rgb_backlight_change_spd(1);
-	case RGB_SPD_CMD:
-		return rgb_backlight_change_spd(-1);
-	case RGB_EFS_CMD:
-		return rgb_backlight_select_effect(binding->param2, &rgb_states.base);
-	case RGB_EFS_UDG:
-		return rgb_backlight_select_effect(binding->param2, &rgb_states.underglow);
-	case RGB_EFF_CMD:
-		return rgb_backlight_cycle_effect(1);
-	case RGB_EFR_CMD:
-		return rgb_backlight_cycle_effect(-1);
-	case RGB_SET_HUE:
-		return rgb_backlight_set_hue(binding->param2);
-	case RGB_SET_SAT:
-		return rgb_backlight_set_sat(binding->param2);
-	case RGB_SET_BRT:
-		return rgb_backlight_set_brt(binding->param2);
-	case RGB_SET_UDG_HSB_CMD:
-		return rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
-													  .s = (binding->param2 >> 8) & 0xFF,
-													  .b = binding->param2 & 0xFF},
-									 &rgb_states.underglow);
-	case RGB_COLOR_HSB_CMD:
-		return rgb_backlight_set_hsb((struct led_hsb){.h = (binding->param2 >> 16) & 0xFFFF,
-													  .s = (binding->param2 >> 8) & 0xFF,
-													  .b = binding->param2 & 0xFF},
-									 &rgb_states.base);
-	}
-
-	return -ENOTSUP;
-}
-
-static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
-									  struct zmk_behavior_binding_event event) {
-	return ZMK_BEHAVIOR_OPAQUE;
-}
 
 static const struct behavior_driver_api behavior_rgb_underglow_driver_api = {
 	.binding_convert_central_state_dependent_params =
