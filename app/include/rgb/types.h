@@ -26,10 +26,10 @@ struct rgb_backlight_pixel_range {
 };
 
 struct led_hsba {
-	float h;
-	float s;
-	float b;
-	float a;
+	uint16_t h;
+	uint8_t s;
+	uint8_t b;
+	uint8_t a;
 };
 // } led_hsbf;
 
@@ -76,21 +76,10 @@ struct Pixels {
 	rgba_strip pixels_rgba;
 };
 
-struct rgb_backlight_pixels {
-	rgba_strip active;
-	rgba_strip base;
-	rgba_strip underglow;
-	rgba_strip transition_start;
-	rgba_strip transition_end;
-	rgba_strip layer_color;
-	rgba_strip keypress;
-};
-
 struct rgb_backlight_state {
 	bool on;
 	struct start_end range;
 	struct led_hsb color;
-	float alpha;
 
 	uint8_t active_animation;
 	uint8_t animation_speed;
@@ -98,13 +87,4 @@ struct rgb_backlight_state {
 
 	// uint16_t transition_steps_left;
 	rgba_strip pixels;
-
-};
-
-struct rgb_backlight_states {
-	struct rgb_backlight_state base;
-	struct rgb_backlight_state underglow;
-	struct rgb_backlight_state layer_color;
-	struct rgb_backlight_state key_react;
-	// struct rgb_backlight_state transition;
 };

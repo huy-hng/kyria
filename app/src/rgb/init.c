@@ -110,44 +110,6 @@ int rgb_backlight_stop() {
 	return rgb_backlight_save_state(1000);
 }
 
-void rgb_backlight_initialize_base() {
-	// clang-format off
-	rgb_states.base = (struct rgb_backlight_state){
-		.color = {
-			.h = CONFIG_ZMK_RGB_UNDERGLOW_HUE_START,
-			.s = CONFIG_ZMK_RGB_UNDERGLOW_SAT_START,
-			.b = CONFIG_ZMK_RGB_UNDERGLOW_BRT_START,
-		},
-		.active_animation = CONFIG_ZMK_RGB_UNDERGLOW_EFF_START,
-		.animation_speed = CONFIG_ZMK_RGB_UNDERGLOW_SPD_START,
-		.animation_step = 0,
-		.alpha = 1,
-		.on = IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_ON_START),
-		.range = pixel_range.overglow
-	};
-	// clang-format on
-}
-
-
-void rgb_backlight_initialize_modes() {
-	rgb_states.underglow = rgb_states.base;
-	rgb_states.underglow.active_animation = RGB_UNDERGLOW_ANIMATION_COPY;
-	rgb_states.underglow.range = pixel_range.underglow;
-	rgb_states.underglow.alpha = 1;
-
-	rgb_states.layer_color = rgb_states.base;
-	rgb_states.layer_color.active_animation = RGB_BACKLIGHT_ANIMATION_SOLID;
-	rgb_states.layer_color.alpha = 0;
-	rgb_states.layer_color.range = pixel_range.underglow;
-
-	rgb_states.key_react = rgb_states.base;
-	rgb_states.key_react.active_animation = RGB_BACKLIGHT_ANIMATION_OFF;
-	rgb_states.key_react.alpha = 0;
-
-	// rgb_states.transition = rgb_states.base;
-	// rgb_states.transition.alpha = 0;
-}
-
 static int rgb_backlight_init(const struct device *_arg) {
 	led_strip = DEVICE_DT_GET(STRIP_CHOSEN);
 
@@ -157,13 +119,12 @@ static int rgb_backlight_init(const struct device *_arg) {
 		LOG_ERR("Unable to retrieve ext_power device: EXT_POWER");
 	}
 #endif
-	rgb_backlight_initialize_base();
+	rgb_backlight_initialize_states();
 
 	k_work_init(&backlight_tick_work, rgb_backlight_tick);
 	k_timer_init(&backlight_tick, queue_lowprio_work, NULL);
 	k_timer_user_data_set(&backlight_tick, &backlight_tick_work);
 
-	rgb_backlight_initialize_modes();
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	layer_color_init();

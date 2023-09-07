@@ -8,7 +8,7 @@ if(CONFIG_RGB_BACKLIGHT)
 	# target_sources(app PRIVATE effects/transition.c)
 	target_sources(app PRIVATE effects/keypress_lightup.c)
 	target_sources(app PRIVATE effects/keypress_ripple.c)
-	# target_sources(app PRIVATE modes.c)
+	target_sources(app PRIVATE modes.c)
 
 	if(CONFIG_ZMK_SPLIT_ROLE_CENTRAL OR (NOT CONFIG_ZMK_SPLIT))
 		target_sources_ifdef(CONFIG_RGB_BACKLIGHT_LAYERS app PRIVATE effects/layer_color.c)

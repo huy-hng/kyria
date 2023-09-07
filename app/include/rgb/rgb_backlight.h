@@ -10,12 +10,11 @@
 #include "control.h"
 #include "utils.h"
 #include "animations.h"
+#include "modes.h"
 #include "behavior_defines.h"
-// #include "../../imports.h"
 #include "imports.h"
 
 extern const struct device *led_strip;
-// extern struct rgb_backlight_pixels rgb_pixels;
 extern struct rgb_backlight_states rgb_states;
 extern struct rgb_backlight_pixel_range pixel_range;
 
