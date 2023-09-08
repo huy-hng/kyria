@@ -66,6 +66,10 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 		return rgb_backlight_set_hsb(RGB_DECODE_HSBA(binding->param2), &rgb_modes[param1_data]);
 	case RGB_SET_EFFECT:
 		return rgb_backlight_select_effect(binding->param2, &rgb_modes[param1_data]);
+
+	case RGB_SET_ACTIVE_LAYER:
+		active_layer_index = binding->param2;
+		return 0;
 	}
 
 	return -ENOTSUP;

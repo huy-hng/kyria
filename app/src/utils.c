@@ -1,4 +1,5 @@
 #include <zmk/workqueue.h>
+#include "utils.h"
 #include "imports.h"
 
 void queue_lowprio_work(struct k_timer *timer) {

@@ -5,126 +5,93 @@
 #include "rgb/rgb_backlight.h"
 #include "display/widgets/debug_output.h"
 
+#define MAX_OPACITY 50.0f
+
 typedef struct {
-	int index;
-	struct led_hsb color;
-	int effect;
+	float h;
+	float s;
+	float b;
+	// float a;
+} relative_hsb;
+
+// clang-format off
+#define WHITE  (relative_hsb) {  -1,  0, -1 } // 0.6
+#define DESAT  (relative_hsb) {  -1, 60, -1 } // 0.8
+#define RED    (relative_hsb) {   1, -1, -1 } // 0.8
+#define ORANGE (relative_hsb) {  18, -1, -1 } // 0.8
+#define YELLOW (relative_hsb) {  48, -1, -1 } //  -1
+#define GREEN  (relative_hsb) { 120, -1, -1 } // 0.8
+#define CYAN   (relative_hsb) { 142, -1, -1 } // 0.8
+#define BLUE   (relative_hsb) { 210, -1, -1 } // 0.8
+#define INDIGO (relative_hsb) { 256, -1, -1 } //  -1
+#define PINK   (relative_hsb) { 300, -1, -1 } //  -1
+
+typedef struct {
+	uint8_t index;
+	relative_hsb color;
+	uint8_t effect;
 } LayerColor;
 
 static struct rgb_backlight_mode base_state;
 static int prev_index;
 
-// clang-format off
-struct led_hsb white  = {          .s = 1, /* .b = 0.6f */};
-struct led_hsb desat  = {          .s = 60,/* .b = 0.8f */};
-struct led_hsb red    = {.h =   1,         /* .b = 0.8f */};
-struct led_hsb orange = {.h =  18,         /* .b = 0.8f */};
-struct led_hsb yellow = {.h =  48,                  };
-struct led_hsb green  = {.h = 120,         /* .b = 0.8f */};
-struct led_hsb cyan   = {.h = 142,         /* .b = 0.8f */};
-struct led_hsb blue   = {.h = 210,         /* .b = 0.8f */};
-struct led_hsb indigo = {.h = 256,                  };
-struct led_hsb pink   = {.h = 300,                  };
+// static LayerColor layer_colors[15];
 
-static LayerColor layer_colors[15];
+static LayerColor layer_colors[] = {
+	{ .index = BASE,              },
+	{ .index = DEBUG_SCREEN,      },
+	{ .index = NAVIPAD,    INDIGO },
+	{ .index = VIM,        INDIGO },
+	{ .index = SYMBOLS,    CYAN   },
+	{ .index = MEDIA_FN,   GREEN  },
+	{ .index = OS,         BLUE   },
+	{ .index = ENC_LR,     ORANGE },
+	{ .index = LAYER_MENU, WHITE },
+};
+// clang-format on
 
-int layer_color_init() {
-	LayerColor layers[] = {
-		{ .index = BASE, .effect = 3  },
-		{ .index = DEBUG_SCREEN, .effect = 3  },
-		{ .index = NAVIPAD,    indigo },
-		{ .index = VIM,        indigo },
-		{ .index = SYMBOLS,    cyan   },
-		{ .index = MEDIA_FN,   green  },
-		{ .index = OS,         blue   },
-		{ .index = ENC_LR,     orange },
-		// { .index = LAYER_MENU, white },
-	};
-	// clang-format on
-
-	for (int i = 0; i < sizeof(layers) / sizeof(layers[0]); i++) {
-		layer_colors[i] = layers[i];
-	}
-	return 0;
-}
-
-LayerColor *get_layer_color(int layer_index) {
+relative_hsb *get_layer_color(uint8_t layer_index) {
 	for (int i = 0; i < sizeof(layer_colors) / sizeof(layer_colors[0]); i++) {
 		if (layer_index == layer_colors[i].index) {
-			return &layer_colors[i];
+			return &layer_colors[i].color;
 		}
 	}
 	return NULL;
 }
 
-void set_color(struct led_hsb color) {
-	if (!color.h)
-		color.h = base_state.color.h;
-	if (!color.s)
-		color.s = base_state.color.s;
-	if (!color.b) {
-		color.b = base_state.color.b;
-	} else if (color.b > 0 && color.b < 1) {
-		color.b = (uint8_t)base_state.color.b * color.b;
-	}
-
-	// invoke_behavior_global(RGB_UG, ENCODE_BEHAVIOR(RGB_SET_HSB, RGB_MODE_LAYER_COLOR),
-	invoke_behavior_global(RGB_UG, ENCODE_BEHAVIOR(RGB_SET_HSB, rgb_mode_underglow),
-						   RGB_ENCODE_HSBA(color.h, color.s, color.b, 100));
-}
-
-void rgb_backlight_set_layer_color(uint8_t index) {
-}
-
-void rgb_backlight_layer_color_event_handler(uint8_t index) {
-	if (prev_index == BASE || prev_index == DEBUG_SCREEN || prev_index == SETTINGS ||
-		prev_index == DISPLAY_MENU)
-		base_state = rgb_modes[rgb_mode_base];
-
-	prev_index = index;
-
-	LayerColor *layer = get_layer_color(index);
-	if (!layer)
+void rgb_backlight_set_layer_color(uint8_t active_layer_index) {
+	relative_hsb *layer_color = get_layer_color(active_layer_index);
+	if (!layer_color)
 		return;
 
-	// int behavior_cmd = RGB_EFS_CMD;
-	// int behavior_cmd = ENCODE_BEHAVIOR(RGB_SET_EFFECT, RGB_MODE_LAYER_COLOR);
-	int behavior_cmd = ENCODE_BEHAVIOR(RGB_SET_EFFECT, rgb_mode_underglow);
-	if (index == BASE || prev_index == DEBUG_SCREEN) {
-		invoke_behavior_global(RGB_UG, behavior_cmd, RGB_UNDERGLOW_ANIMATION_COPY);
-		set_color((struct led_hsb){});
+	struct led_hsb *color = &rgb_modes[rgb_mode_layer_color].color;
+	float step_size = MAX_OPACITY / ((float)CONFIG_RGB_TRANSITION_DURATION / CONFIG_RGB_REFRESH_MS);
+
+	if (active_layer_index == BASE || active_layer_index == DEBUG_SCREEN) {
+		color->a = MAX(color->a - step_size, 0);
 		return;
 	}
 
-	set_color(layer->color);
-	invoke_behavior_global(RGB_UG, behavior_cmd, RGB_BACKLIGHT_ANIMATION_SOLID);
+	struct led_hsb base_color = rgb_modes[rgb_mode_base].color;
+	color->h = base_color.h;
+	color->s = base_color.s;
+	color->b = base_color.b;
 
-	// invoke_behavior_global(RGB_UG, ENCODE_BEHAVIOR(RGB_SET_HSBA, RGB_MODE_LAYER_COLOR),
-	// 					   RGB_ENCODE_HSBA(355, 15, 20, 100));
-}
+	if (layer_color->h >= 0)
+		color->h = layer_color->h;
+	if (layer_color->s >= 0)
+		color->s = layer_color->s;
+	if (layer_color->b >= 0)
+		color->b = layer_color->b;
+	// else if (color.b > 0 && color.b < 1)
+	// 	color.b = (uint8_t)base_state.color.b * color.b;
 
+	// color->b = base_color.b * 1.3;
 
-int layer_color_event_listener(const zmk_event_t *eh) {
-	if (same_str(eh->event->name, "zmk_layer_state_changed")) {
-		// rgb_backlight_layer_color_event_handler();
-		return 0;
-	}
+	float alpha = MIN(color->a + step_size, MAX_OPACITY);
+	color->a = alpha;
 
-	// NOTE: theres no distinction between modifier color change and layer color change
-	// they will therefore mix and behave unexpectedly
-	// also key release has to be handled more gracefully
-	const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
-	if (ev) {
-		uint8_t mods = zmk_hid_get_explicit_mods();
-		if (ev->state && mods > 0) {
-			invoke_behavior_global(RGB_UG, RGB_SET_SAT, 60);
-			// invoke_behavior_global(RGB_SET_BRT, state.color.b * 0.8);
-		} else if (!ev->state && mods == 0) {
-			invoke_behavior_global(RGB_UG, RGB_SET_SAT, 100);
-			// invoke_behavior_global(RGB_SET_SAT, base_state.color.s);
-			// invoke_behavior_global(RGB_SET_BRT, base_state.color.b);
-		}
-	}
-
-	return 0;
+	// rgb_modes[rgb_mode_layer_color].range = pixel_range.overglow;
+	// rgb_backlight_animation_solid(&rgb_modes[rgb_mode_layer_color]);
+	rgb_backlight_animation_solid(&rgb_modes[rgb_mode_layer_color]);
 }

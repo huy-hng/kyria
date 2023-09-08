@@ -17,6 +17,7 @@
 extern const struct device *led_strip;
 extern struct rgb_backlight_mode rgb_modes[];
 extern struct rgb_backlight_pixel_range pixel_range;
+extern uint8_t active_layer_index;
 
 int rgb_backlight_save_state(int transition_ms);
 int rgb_backlight_get_on_state(bool *state);

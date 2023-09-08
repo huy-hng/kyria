@@ -5,6 +5,8 @@
 
 int layer_color_init();
 void rgb_backlight_layer_color_event_handler(uint8_t index);
+void rgb_backlight_set_layer_color(uint8_t active_layer_index);
+
 
 void rgb_backlight_keypress_lightup_event_handler(const zmk_event_t *eh);
 void rgb_backlight_keypress_ripple_event_handler(const zmk_event_t *eh);

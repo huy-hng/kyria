@@ -7,6 +7,7 @@ void rgb_backlight_initialize_modes() {
 			.h = CONFIG_ZMK_RGB_UNDERGLOW_HUE_START,
 			.s = CONFIG_ZMK_RGB_UNDERGLOW_SAT_START,
 			.b = CONFIG_ZMK_RGB_UNDERGLOW_BRT_START,
+			.a = 100,
 		},
 		.active_animation = CONFIG_ZMK_RGB_UNDERGLOW_EFF_START,
 		.animation_speed = CONFIG_ZMK_RGB_UNDERGLOW_SPD_START,
@@ -27,7 +28,9 @@ void rgb_backlight_initialize_modes() {
 
 	rgb_modes[rgb_mode_layer_color] = (struct rgb_backlight_mode){
 		.active_animation = RGB_BACKLIGHT_ANIMATION_SOLID,
-		.range = pixel_range.underglow,
+		// .range = pixel_range.underglow,
+		.range = pixel_range.strip,
+		.color.b = 20,
 		.color.a = 0,
 		.blend_mode = pixel_blend_mode_average,
 	};

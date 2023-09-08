@@ -29,7 +29,7 @@ struct led_hsb {
 	uint16_t h;
 	uint8_t s;
 	uint8_t b;
-	uint8_t a;
+	float a;
 };
 
 struct led_rgba {

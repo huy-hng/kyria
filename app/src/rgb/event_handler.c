@@ -36,8 +36,8 @@ static int rgb_backlight_event_listener(const zmk_event_t *eh) {
 
 #if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	if (as_zmk_layer_state_changed(eh)) {
-		uint8_t index = zmk_keymap_highest_layer_active();
-		rgb_backlight_layer_color_event_handler(index);
+		active_layer_index = zmk_keymap_highest_layer_active();
+		send_to_peripheral(RGB_UG, RGB_SET_ACTIVE_LAYER, active_layer_index);
 		return 0;
 	}
 #endif

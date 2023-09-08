@@ -150,9 +150,6 @@ static struct led_rgba average_pixels(rgba_strip pixels, int underglow_index) {
 		b += pixel.b * pixel.b;
 	}
 
-	// sqrt(R1 ^ 2 * w + R2 ^ 2 * [1 - w]);
-	// sqrt(G1 ^ 2 * w + G2 ^ 2 * [1 - w]);
-	// sqrt(B1 ^ 2 * w + B2 ^ 2 * [1 - w]);
 	return (struct led_rgba){
 		.r = sqrtf(r / arr_len),
 		.g = sqrtf(g / arr_len),

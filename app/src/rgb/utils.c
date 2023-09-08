@@ -83,13 +83,8 @@ struct led_rgba hsb_to_rgb(struct led_hsb hsb) {
 		output.b = q;
 		break;
 	}
+	output.a = hsb.a / 100.0;
 	return output;
-}
-
-void convert_hsb_to_rgb(hsb_strip pixels, rgba_strip converted) {
-	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
-		converted[i] = hsb_to_rgb(hsb_scale_min_max(pixels[i]));
-	}
 }
 
 void rgb_strip_float_2_rgb_strip(rgba_strip rgba, rgb_strip rgb) {

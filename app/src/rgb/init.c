@@ -18,12 +18,12 @@ struct k_work backlight_tick_work;
 
 const struct device *led_strip;
 struct rgb_backlight_mode rgb_modes[rgb_mode_number];
+uint8_t active_layer_index = 0;
 
 struct rgb_backlight_pixel_range pixel_range = {
 	.underglow = {.start = 0, .end = 6},
 	.overglow = {.start = 6, .end = STRIP_NUM_PIXELS},
 	.strip = {.start = 0, .end = STRIP_NUM_PIXELS},
-
 };
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER)
@@ -125,10 +125,6 @@ static int rgb_backlight_init(const struct device *_arg) {
 	k_work_init(&backlight_tick_work, rgb_backlight_tick);
 	k_timer_init(&backlight_tick, queue_lowprio_work, NULL);
 	k_timer_user_data_set(&backlight_tick, &backlight_tick_work);
-
-#if IS_ENABLED(CONFIG_RGB_BACKLIGHT_LAYERS) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
-	layer_color_init();
-#endif
 
 #if IS_ENABLED(CONFIG_SETTINGS)
 	settings_subsys_init();

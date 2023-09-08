@@ -39,7 +39,7 @@ enum RGB_BEHAVIOR {
 	RGB_SET_BRT,
 	RGB_SET_EFFECT,
 	RGB_SET_HSB,
-	RGB_SET_HSBA,
+	RGB_SET_ACTIVE_LAYER,
 };
 
 #define RGB_ENCODE_HSB( h, s, v)    (((h) << 16) + ((s) << 8) + (v))
