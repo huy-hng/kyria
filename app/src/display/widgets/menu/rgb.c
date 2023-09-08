@@ -1,6 +1,7 @@
 #include "rgb/rgb_backlight.h"
 #include "display/widgets/menu.h"
 
+
 static void menu_rgb_effects_event_handler(lv_event_t *e) {
 	if (lv_event_get_key(e) == LV_KEY_ENTER)
 		return show_menu_main();
@@ -43,7 +44,8 @@ void show_menu_rgb_brightness() {
 	hide_component(roller);
 	show_component(slider);
 
-	set_new_event_cb(&slider, menu_slider_event_handler, rgb_backlight_set_brt);
+	menu_rgb_work.function = rgb_backlight_set_brt;
+	set_new_event_cb(&slider, menu_slider_event_handler, NULL);
 }
 
 void show_menu_rgb_saturation() {
@@ -53,7 +55,8 @@ void show_menu_rgb_saturation() {
 	hide_component(roller);
 	show_component(slider);
 
-	set_new_event_cb(&slider, menu_slider_event_handler, rgb_backlight_set_sat);
+	menu_rgb_work.function = rgb_backlight_set_sat;
+	set_new_event_cb(&slider, menu_slider_event_handler, NULL);
 }
 
 void show_menu_rgb_hue() {
@@ -63,5 +66,6 @@ void show_menu_rgb_hue() {
 	hide_component(roller);
 	show_component(arc);
 
-	set_new_event_cb(&arc, menu_arc_event_handler, rgb_backlight_set_hue);
+	menu_rgb_work.function = rgb_backlight_set_hue;
+	set_new_event_cb(&arc, menu_arc_event_handler, NULL);
 }

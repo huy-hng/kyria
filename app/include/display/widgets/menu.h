@@ -4,6 +4,7 @@
 #include <zephyr/kernel.h>
 #include <zmk/keymap.h>
 #include "imports.h"
+#define MENU_SLIDER_DEBOUNCE 25
 
 typedef struct _lv_event_dsc_t event_cb;
 
@@ -24,11 +25,19 @@ struct component_obj {
 	event_cb *last_event_cb;
 };
 
+struct menu_work_container {
+	struct k_work_delayable delayable_work;
+	struct k_work *work;
+	int value;
+	int (*function)(int val);
+};
+
 // globals (seems super hacky, is this how to c? :o)
 extern struct component_obj roller;
 extern struct component_obj slider;
 extern struct component_obj arc;
 extern struct component_obj settings;
+extern struct menu_work_container menu_rgb_work;
 
 int widget_menu_init(struct widget_menu *widget, lv_obj_t *parent);
 
@@ -72,4 +81,3 @@ void show_menu_encoder_modes(int layer_index);
 
 // settings
 void create_settings(struct component_obj *settings);
-

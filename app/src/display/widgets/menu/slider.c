@@ -11,7 +11,6 @@ void slider_style(lv_style_t *style) {
 	lv_style_set_height(style, 10);
 }
 
-
 void create_slider(struct component_obj *slider) {
 	slider->obj = lv_slider_create(slider->container);
 
@@ -42,15 +41,15 @@ int get_slider_val() {
 
 void set_slider_val(int value, bool animate) {
 	lv_label_set_text_fmt(slider.value_label, "%d%%", value);
-	lv_slider_set_value(slider.obj, value/STEP_SIZE, animate);
+	lv_slider_set_value(slider.obj, value / STEP_SIZE, animate);
 }
 
 void menu_slider_event_handler(lv_event_t *e) {
-	void (*event_handler_cb)(int) = lv_event_get_user_data(e);
+	// struct menu_work_container *menu_work = (struct menu_work_container *)lv_event_get_user_data(e);
+	// void (*event_handler_cb)(int) = lv_event_get_user_data(e);
 	if (should_exit_component(e, slider) || !has_value_updated(e))
 		return;
 
-	int value = get_slider_val();
-	// int value = get_arc_val();
-	event_handler_cb(value);
+	menu_rgb_work.value = get_slider_val();
+	k_work_reschedule(&menu_rgb_work.delayable_work, K_MSEC(MENU_SLIDER_DEBOUNCE));
 }

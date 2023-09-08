@@ -76,11 +76,9 @@ int get_arc_val() {
 }
 
 void menu_arc_event_handler(lv_event_t *e) {
-	void (*event_handler_cb)(int) = lv_event_get_user_data(e);
-	// lv_label_set_text(arc.label, "o");
 	if (should_exit_component(e, arc) || !has_value_updated(e))
 		return;
 
-	int value = get_arc_val();
-	event_handler_cb(value);
+	menu_rgb_work.value = get_arc_val();
+	k_work_reschedule(&menu_rgb_work.delayable_work, K_MSEC(MENU_SLIDER_DEBOUNCE));
 }
