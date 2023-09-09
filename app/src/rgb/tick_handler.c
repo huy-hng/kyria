@@ -1,35 +1,20 @@
 #include "rgb/rgb_backlight.h"
+typedef float blending_fn(float, float, float);
+
 static bool off_on_next_tick = false;
 
-static void add_to_pixels(rgba_strip pixels, rgba_strip addition) {
-	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
-		pixels[i].r = pixels[i].r + addition[i].r;
-		pixels[i].g = pixels[i].g + addition[i].g;
-		pixels[i].b = pixels[i].b + addition[i].b;
-	}
+static float     add(float val1, float val2, float ratio) { return val1 + val2; }
+static float replace(float val1, float val2, float ratio) { return val2; }
+
+static float weighted_interp(float val1, float val2, float ratio) {
+	return sqrtf(SQUARE(val1) * (1 - ratio) + SQUARE(val2) * ratio);
 }
 
-static void replace_pixels(rgba_strip pixels, struct rgb_backlight_mode *state) {
-	if (state->color.a == 0)
-		return;
-	for (int i = state->range.start; i < state->range.end; i++) {
-		if (state->pixels[i].a == 0)
-			continue;
-		pixels[i].r = state->pixels[i].r;
-		pixels[i].g = state->pixels[i].g;
-		pixels[i].b = state->pixels[i].b;
-	}
-}
-
-static float weighted_interp(float val1, float val2, float weight) {
-	return sqrtf(SQUARE(val1) * (1 - weight) + SQUARE(val2) * weight);
-}
-
-float linear_interp(float start, float end, float ratio) { //
+static float linear_interp(float start, float end, float ratio) { //
 	return start + ((end - start) * ratio);
 }
 
-static void average_pixels(rgba_strip pixels, struct rgb_backlight_mode *state) {
+static void blend_pixels(rgba_strip pixels, struct rgb_backlight_mode *state, blending_fn fn) {
 	if (state->color.a == 0)
 		return;
 
@@ -37,22 +22,11 @@ static void average_pixels(rgba_strip pixels, struct rgb_backlight_mode *state) 
 	for (int i = state->range.start; i < state->range.end; i++) {
 		if (state->pixels[i].a == 0)
 			continue;
-
-		// sqrt(R1 ^ 2 * w + R2 ^ 2 * [1 - w]);
-		// sqrt(G1 ^ 2 * w + G2 ^ 2 * [1 - w]);
-		// sqrt(B1 ^ 2 * w + B2 ^ 2 * [1 - w]);
-
-		pixels[i].r = linear_interp(pixels[i].r, state->pixels[i].r, alpha);
-		pixels[i].g = linear_interp(pixels[i].g, state->pixels[i].g, alpha);
-		pixels[i].b = linear_interp(pixels[i].b, state->pixels[i].b, alpha);
-
-		// pixels[i].r = weighted_interp(pixels[i].r, state->pixels[i].r, alpha);
-		// pixels[i].g = weighted_interp(pixels[i].g, state->pixels[i].g, alpha);
-		// pixels[i].b = weighted_interp(pixels[i].b, state->pixels[i].b, alpha);
+		pixels[i].r = fn(pixels[i].r, state->pixels[i].r, alpha);
+		pixels[i].g = fn(pixels[i].g, state->pixels[i].g, alpha);
+		pixels[i].b = fn(pixels[i].b, state->pixels[i].b, alpha);
 	}
 }
-
-static void blend_pixels(rgba_strip pixels) {}
 
 void set_pixels(rgba_strip pixels) {
 	debug_set_text_fmt("%d", (int)rgb_modes[rgb_mode_layer_color].color.a);
@@ -66,9 +40,9 @@ void set_pixels(rgba_strip pixels) {
 		rgb_backlight_effect_off(&rgb_modes[rgb_mode_underglow]);
 	}
 
-	replace_pixels(pixels, &rgb_modes[rgb_mode_base]);
-	replace_pixels(pixels, &rgb_modes[rgb_mode_underglow]);
-	average_pixels(pixels, &rgb_modes[rgb_mode_layer_color]);
+	blend_pixels(pixels, &rgb_modes[rgb_mode_base], &replace);
+	blend_pixels(pixels, &rgb_modes[rgb_mode_underglow], &replace);
+	blend_pixels(pixels, &rgb_modes[rgb_mode_layer_color], &linear_interp);
 
 	// rgb_backlight_update_keypress_effect_pixels();
 	// rgb_backlight_update_ripple_effect_pixels();

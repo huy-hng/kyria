@@ -4,6 +4,7 @@
 
 #include "rgb/rgb_backlight.h"
 #include "display/widgets/debug_output.h"
+#include "zephyr/sys/util.h"
 
 #define MAX_OPACITY 50.0f
 
@@ -12,30 +13,28 @@ typedef struct {
 	float s;
 	float b;
 	// float a;
-} relative_hsb;
+} hsbf;
 
 // clang-format off
-#define WHITE  (relative_hsb) {  -1,  0, -1 } // 0.6
-#define DESAT  (relative_hsb) {  -1, 60, -1 } // 0.8
-#define RED    (relative_hsb) {   1, -1, -1 } // 0.8
-#define ORANGE (relative_hsb) {  18, -1, -1 } // 0.8
-#define YELLOW (relative_hsb) {  48, -1, -1 } //  -1
-#define GREEN  (relative_hsb) { 120, -1, -1 } // 0.8
-#define CYAN   (relative_hsb) { 142, -1, -1 } // 0.8
-#define BLUE   (relative_hsb) { 210, -1, -1 } // 0.8
-#define INDIGO (relative_hsb) { 256, -1, -1 } //  -1
-#define PINK   (relative_hsb) { 300, -1, -1 } //  -1
+#define WHITE  (hsbf) {  -1,  0, -1 } // 0.6
+#define DESAT  (hsbf) {  -1, 60, -1 } // 0.8
+#define RED    (hsbf) {   1, -1, -1 } // 0.8
+#define ORANGE (hsbf) {  18, -1, -1 } // 0.8
+#define YELLOW (hsbf) {  48, -1, -1 } //  -1
+#define GREEN  (hsbf) { 120, -1, -1 } // 0.8
+#define CYAN   (hsbf) { 142, -1, -1 } // 0.8
+#define BLUE   (hsbf) { 210, -1, -1 } // 0.8
+#define INDIGO (hsbf) { 256, -1, -1 } //  -1
+#define PINK   (hsbf) { 300, -1, -1 } //  -1
 
 typedef struct {
 	uint8_t index;
-	relative_hsb color;
+	hsbf color;
 	uint8_t effect;
 } LayerColor;
 
 static struct rgb_backlight_mode base_state;
 static int prev_index;
-
-// static LayerColor layer_colors[15];
 
 static LayerColor layer_colors[] = {
 	{ .index = BASE,              },
@@ -50,8 +49,8 @@ static LayerColor layer_colors[] = {
 };
 // clang-format on
 
-relative_hsb *get_layer_color(uint8_t layer_index) {
-	for (int i = 0; i < sizeof(layer_colors) / sizeof(layer_colors[0]); i++) {
+hsbf *get_layer_color(uint8_t layer_index) {
+	for (int i = 0; i < ARRAY_SIZE(layer_colors); i++) {
 		if (layer_index == layer_colors[i].index) {
 			return &layer_colors[i].color;
 		}
@@ -60,7 +59,7 @@ relative_hsb *get_layer_color(uint8_t layer_index) {
 }
 
 void rgb_backlight_set_layer_color(uint8_t active_layer_index) {
-	relative_hsb *layer_color = get_layer_color(active_layer_index);
+	hsbf *layer_color = get_layer_color(active_layer_index);
 	if (!layer_color)
 		return;
 
