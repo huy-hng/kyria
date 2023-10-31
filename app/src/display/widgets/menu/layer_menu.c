@@ -2,6 +2,7 @@
 
 int layer_items[] = {
 	BASE,
+	DEBUG_SCREEN,
 	FIDGET,
 	GAMING,
 	SUDOKU,
