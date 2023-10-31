@@ -29,7 +29,6 @@ static void blend_pixels(rgba_strip pixels, struct rgb_backlight_mode *state, bl
 }
 
 void set_pixels(rgba_strip pixels) {
-	debug_set_text_fmt("%d", (int)rgb_modes[rgb_mode_layer_color].color.a);
 	if (rgb_modes[rgb_mode_base].on) {
 		rgb_backlight_set_animation_pixels(&rgb_modes[rgb_mode_base]);
 		rgb_backlight_set_animation_pixels(&rgb_modes[rgb_mode_underglow]);
