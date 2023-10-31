@@ -62,9 +62,11 @@ static struct led_rgba average_overglow(struct rgb_backlight_mode *state, uint8_
 	float r = 0, g = 0, b = 0;
 
 	struct led_rgba pixel;
+	
+	struct rgb_backlight_mode *overglow = &rgb_modes[rgb_mode_base];
 
 	for (int i = 0; i < arr_len; i++) {
-		pixel = state->pixels[indices[i]];
+		pixel = overglow->pixels[indices[i]];
 		r += SQUARE(pixel.r);
 		g += SQUARE(pixel.g);
 		b += SQUARE(pixel.b);
