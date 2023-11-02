@@ -67,7 +67,7 @@ static void menu_update_cb(struct menu_state state) {
 ZMK_DISPLAY_WIDGET_LISTENER(menu, struct menu_state, menu_update_cb, menu_get_state)
 ZMK_SUBSCRIPTION(menu, zmk_layer_state_changed);
 
-void debounce_work() { menu_rgb_work.function(menu_rgb_work.value); }
+static void debounce_work() { menu_rgb_work.function(menu_rgb_work.value); }
 
 int widget_menu_init(struct widget_menu *widget, lv_obj_t *parent) {
 	k_work_init_delayable(&menu_rgb_work.delayable_work, debounce_work);

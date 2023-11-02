@@ -20,19 +20,20 @@ struct start_end {
 };
 
 struct rgb_backlight_pixel_range {
-	struct start_end strip;
+	struct start_end strip; // all
 	struct start_end overglow;
 	struct start_end underglow;
 };
 
 struct led_hsb {
-	uint16_t h;
-	uint8_t s;
-	uint8_t b;
-	float a;
+	uint16_t h; // 0 - 360
+	uint8_t s; // 0 - 100
+	uint8_t b; // 0 - 100
+	float a; // i think range is between 0 and 100  TODO: needs checking
 };
 
 struct led_rgba {
+	// everything is between 0 - 1 (i think)
 	float r;
 	float g;
 	float b;

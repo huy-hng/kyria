@@ -86,7 +86,6 @@ int rgb_backlight_start() {
 #endif
 
 	rgb_modes[rgb_mode_base].on = true;
-	rgb_modes[rgb_mode_base].animation_step = 0;
 	k_timer_start(&backlight_tick, K_NO_WAIT, K_MSEC(CONFIG_RGB_REFRESH_MS));
 
 	return rgb_backlight_save_state(500);
