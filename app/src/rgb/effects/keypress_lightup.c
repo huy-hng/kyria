@@ -39,7 +39,7 @@ void rgb_backlight_update_keypress_effect_pixels() {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
 		float value = keypress_lightup_state[i] ? KEYPRESS_EFFECT_ACTIVATION_SPEED
 												: KEYPRESS_EFFECT_DECAY_SPEED;
-		change_keypress_pixel(&rgb_modes[rgb_mode_key_react].pixels[i], value);
+		change_keypress_pixel(&rgb_modes[rgb_mode_typing_react].pixels[i], value);
 	}
 }
 

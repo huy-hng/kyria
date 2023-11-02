@@ -26,22 +26,18 @@ void rgb_backlight_initialize_modes() {
 		.blend_mode = pixel_blend_mode_replace,
 	};
 
-	rgb_modes[rgb_mode_layer_color] = (struct rgb_backlight_mode){
+	rgb_modes[rgb_mode_key_layer] = (struct rgb_backlight_mode){
 		.active_animation = RGB_BACKLIGHT_ANIMATION_SOLID,
-		// .range = pixel_range.underglow,
-		.range = pixel_range.strip,
+		.range = pixel_range.strip, // pixel_range.underglow
 		.color.b = 20,
 		.color.a = 0,
 		.blend_mode = pixel_blend_mode_average,
 	};
 
-	rgb_modes[rgb_mode_key_react] = (struct rgb_backlight_mode){
+	rgb_modes[rgb_mode_typing_react] = (struct rgb_backlight_mode){
 		.active_animation = RGB_BACKLIGHT_ANIMATION_OFF,
 		.range = pixel_range.overglow,
 		.color.a = 0,
 		.blend_mode = pixel_blend_mode_add,
 	};
-
-	// rgb_states.transition = rgb_states.base;
-	// rgb_states.transition.alpha = 0;
 }
