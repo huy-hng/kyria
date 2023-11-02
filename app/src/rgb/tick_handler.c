@@ -46,6 +46,14 @@ void set_pixels(rgba_strip pixels) {
 	// rgb_backlight_update_keypress_effect_pixels();
 	// rgb_backlight_update_ripple_effect_pixels();
 	// add_to_pixels(pixels, rgb_states.key_react.pixels);
+static void rgb_strip_float_2_rgb_strip(rgba_strip rgba, rgb_strip rgb) {
+	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
+		float alpha = rgba[i].a;
+
+		rgb[i].r = CLAMP(rgba[i].r * 255, 0, 255) * alpha;
+		rgb[i].g = CLAMP(rgba[i].g * 255, 0, 255) * alpha;
+		rgb[i].b = CLAMP(rgba[i].b * 255, 0, 255) * alpha;
+	}
 }
 
 void apply_pixels(rgba_strip rgba_strip) {

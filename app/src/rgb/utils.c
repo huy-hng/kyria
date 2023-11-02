@@ -86,11 +86,3 @@ struct led_rgba hsb_to_rgb(struct led_hsb hsb) {
 	output.a = hsb.a / 100.0;
 	return output;
 }
-
-void rgb_strip_float_2_rgb_strip(rgba_strip rgba, rgb_strip rgb) {
-	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
-		rgb[i].r = CLAMP(rgba[i].r * 255, 0, 255);
-		rgb[i].g = CLAMP(rgba[i].g * 255, 0, 255);
-		rgb[i].b = CLAMP(rgba[i].b * 255, 0, 255);
-	}
-}
