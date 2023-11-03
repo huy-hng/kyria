@@ -50,8 +50,8 @@ static void set_pixels(rgba_strip combined_pixels) {
 	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_key_layer], &linear_interp);
 
 	// rgb_backlight_update_keypress_effect_pixels();
-	// rgb_backlight_update_ripple_effect_pixels();
-	// add_to_pixels(pixels, rgb_states.key_react.pixels);
+	rgb_backlight_ripple_effect_update_pixels();
+	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_typing_react], &add);
 
 	handle_on_off_animation(combined_pixels);
 }

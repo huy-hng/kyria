@@ -29,8 +29,7 @@ static int rgb_backlight_auto_state(bool *prev_state, bool new_state) {
 
 static int rgb_backlight_event_listener(const zmk_event_t *eh) {
 	if (as_zmk_position_state_changed(eh)) {
-		rgb_backlight_keypress_lightup_event_handler(eh);
-		rgb_backlight_keypress_ripple_event_handler(eh);
+		rgb_backlight_ripple_effect_event_handler(eh);
 		return 0;
 	}
 

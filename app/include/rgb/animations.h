@@ -7,13 +7,8 @@ int layer_color_init();
 void rgb_backlight_layer_color_event_handler(uint8_t index);
 void rgb_backlight_set_layer_color(uint8_t active_layer_index);
 
-
-void rgb_backlight_keypress_lightup_event_handler(const zmk_event_t *eh);
-void rgb_backlight_keypress_ripple_event_handler(const zmk_event_t *eh);
-void rgb_backlight_update_keypress_effect_pixels();
-void rgb_backlight_update_ripple_effect_pixels();
-void change_keypress_pixel(struct led_rgba *pixel, float value);
-float keypress_effect_calc_max_brightness();
+void rgb_backlight_ripple_effect_event_handler(const zmk_event_t *eh);
+void rgb_backlight_ripple_effect_update_pixels();
 
 void rgb_underglow_set_animation_pixels(int effect, rgba_strip pixels);
 
