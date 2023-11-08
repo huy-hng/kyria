@@ -11,8 +11,8 @@ static float weighted_interp(float val1, float val2, float ratio) {
 	return sqrtf(SQUARE(val1) * (1 - ratio) + SQUARE(val2) * ratio);
 }
 // clang-format on
-static float linear_interp(float start, float end, float ratio) {
-	return start + ((end - start) * ratio);
+static float linear_interp(float val1, float val2, float ratio) {
+	return val1 + ((val2 - val1) * ratio);
 }
 
 static void combine_pixels(rgba_strip pixels, struct rgb_backlight_mode *state, blending_fn fn) {
@@ -49,7 +49,6 @@ static void set_pixels(rgba_strip combined_pixels) {
 	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_underglow], &replace);
 	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_key_layer], &linear_interp);
 
-	// rgb_backlight_update_keypress_effect_pixels();
 	rgb_backlight_ripple_effect_update_pixels();
 	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_typing_react], &add);
 
@@ -81,9 +80,9 @@ void rgb_backlight_tick(struct k_work *work) {
 	apply_pixels(combined_pixels);
 
 	int index = 10;
-	debug_set_text_fmt("%d %d %d %d", (int)(combined_pixels[index].r * 255),
-					   (int)(combined_pixels[index].g * 255), (int)(combined_pixels[index].b * 255),
-					   (int)(combined_pixels[index].a * 100));
+	// debug_set_text_fmt("%d %d %d %d", (int)(combined_pixels[index].r * 255),
+	// 				   (int)(combined_pixels[index].g * 255), (int)(combined_pixels[index].b * 255),
+	// 				   (int)(combined_pixels[index].a * 100));
 	// FIX: hard coded index
 	if (combined_pixels[index].a == 0.0) {
 		debug_newline_text("backlight off");

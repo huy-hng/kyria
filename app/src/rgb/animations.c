@@ -34,7 +34,7 @@ struct led_rgba get_sparkle_pixel(struct rgb_backlight_mode *state, uint8_t i) {
 
 void rgb_backlight_effect_off(struct rgb_backlight_mode *state) {
 	for (int i = state->range.start; i < state->range.end; i++) {
-		set_pixel_white(&state->pixels[i], 0, true);
+		set_pixel_white(&state->pixels[i], 0, 1);
 	}
 }
 

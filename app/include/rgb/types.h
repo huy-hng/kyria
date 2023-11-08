@@ -10,7 +10,7 @@
 #define BRT_MAX 100
 
 // TODO: put turn off duration somewhere else
-#define TURN_OFF_DURATION 1000
+#define TURN_OFF_DURATION 500
 // #define CONFIG_RGB_REFRESH_MS 500
 // #define CONFIG_RGB_TRANSITION_DURATION 200
 

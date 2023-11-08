@@ -5,23 +5,25 @@ void copy_pixel_array(rgba_strip arr1, rgba_strip arr2) {
 		arr2[i] = arr1[i];
 }
 
-void set_pixel(struct led_rgba *pixel, float r, float g, float b, bool absolute) {
-	if (absolute) {
-		pixel->r = CLAMP(r, 0, 1);
-		pixel->g = CLAMP(g, 0, 1);
-		pixel->b = CLAMP(b, 0, 1);
-		pixel->a = 1;
-		return;
-	}
-
-	pixel->r = CLAMP(pixel->r + r, 0, 1);
-	pixel->g = CLAMP(pixel->g + g, 0, 1);
-	pixel->b = CLAMP(pixel->b + b, 0, 1);
+void set_pixel(struct led_rgba *pixel, float r, float g, float b, float a) {
+	pixel->r = CLAMP(r, 0, 1);
+	pixel->g = CLAMP(g, 0, 1);
+	pixel->b = CLAMP(b, 0, 1);
 	pixel->a = 1;
+	return;
 }
 
-void set_pixel_white(struct led_rgba *pixel, float value, bool absolute) {
-	set_pixel(pixel, value, value, value, absolute);
+void set_pixel_white(struct led_rgba *pixel, float value, float alpha) { //
+	set_pixel(pixel, value, value, value, alpha);
+}
+
+// unnecessary functions?
+void change_pixel(struct led_rgba *pixel, float r, float g, float b, float a) {
+	set_pixel(pixel, pixel->r + r, pixel->g + g, pixel->b + b, a);
+}
+
+void change_pixel_white(struct led_rgba *pixel, float value, float alpha) {
+	change_pixel(pixel, value, value, value, alpha);
 }
 
 struct led_hsb hsb_scale_min_max(struct led_hsb hsb) {
