@@ -1,7 +1,3 @@
-#include <zmk/keymap.h>
-#include <zmk/hid.h>
-#include <zmk/events/keycode_state_changed.h>
-
 #include "rgb/rgb_backlight.h"
 #include "display/widgets/debug_output.h"
 #include "zephyr/sys/util.h"
@@ -33,9 +29,6 @@ typedef struct {
 	uint8_t effect;
 } LayerColor;
 
-static struct rgb_backlight_mode base_state;
-static int prev_index;
-
 static LayerColor layer_colors[] = {
 	{ .index = BASE,              },
 	{ .index = DEBUG_SCREEN,      },
@@ -63,10 +56,11 @@ void rgb_backlight_set_layer_color(uint8_t active_layer_index) {
 	if (!layer_color)
 		return;
 
-	struct led_hsb *color = &rgb_modes[rgb_mode_layer_color].color;
+	struct led_hsb *color = &rgb_modes[rgb_mode_key_layer].color;
 	float step_size = MAX_OPACITY / ((float)CONFIG_RGB_TRANSITION_DURATION / CONFIG_RGB_REFRESH_MS);
 
 	if (active_layer_index == BASE || active_layer_index == DEBUG_SCREEN) {
+		// what does this do?
 		color->a = MAX(color->a - step_size, 0);
 		return;
 	}
@@ -92,5 +86,5 @@ void rgb_backlight_set_layer_color(uint8_t active_layer_index) {
 
 	// rgb_modes[rgb_mode_layer_color].range = pixel_range.overglow;
 	// rgb_backlight_animation_solid(&rgb_modes[rgb_mode_layer_color]);
-	rgb_backlight_animation_solid(&rgb_modes[rgb_mode_layer_color]);
+	rgb_backlight_animation_solid(&rgb_modes[rgb_mode_key_layer]);
 }
