@@ -19,6 +19,7 @@ void queue_lowprio_work(struct k_timer *timer);
 
 char *format_text(char *fmt, ...);
 bool same_str(const char *str1, const char *str2);
+char *ftos(float val, int decimal_places);
 
 int invoke_behavior_global(char *behavior, int param1, int param2);
 int send_to_peripheral(char *behavior, int param1, int param2);
