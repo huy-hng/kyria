@@ -64,8 +64,15 @@ extern struct rgb_backlight_blending_fn {
 struct rgb_backlight_mode;
 typedef void set_pixels_fn(struct rgb_backlight_mode *);
 
-extern struct rgb_backlight_mode {
+extern struct rgb_state {
 	bool on;
+	struct led_hsb color;
+	uint8_t active_animation;
+	uint8_t animation_speed;
+
+} rgb_state;
+
+extern struct rgb_backlight_mode {
 	bool enabled;
 	struct start_end range;
 	struct led_hsb color;

@@ -10,15 +10,15 @@
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE) || IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)
 // clang-format on
 static int rgb_backlight_auto_state(bool *prev_state, bool new_state) {
-	if (rgb_modes[rgb_mode_base].on == new_state) {
+	if (rgb_state.on == new_state) {
 		return 0;
 	}
 	if (new_state) {
-		rgb_modes[rgb_mode_base].on = *prev_state;
+		rgb_state.on = *prev_state;
 		*prev_state = false;
 		return rgb_backlight_on();
 	} else {
-		rgb_modes[rgb_mode_base].on = false;
+		rgb_state.on = false;
 		*prev_state = true;
 		return rgb_backlight_off();
 	}

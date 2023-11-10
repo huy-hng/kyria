@@ -14,7 +14,7 @@ int rgb_backlight_off() {
 	if (!led_strip)
 		return -ENODEV;
 
-	rgb_modes[rgb_mode_base].on = false;
+	rgb_state.on = false;
 
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	// send_to_peripheral(RGB_UG, RGB_OFF_CMD, 0);
@@ -26,7 +26,7 @@ int rgb_backlight_get_on_state(bool *on_off) {
 	if (!led_strip)
 		return -ENODEV;
 
-	*on_off = rgb_modes[rgb_mode_base].on;
+	*on_off = rgb_state.on;
 	return 0;
 }
 
@@ -58,7 +58,7 @@ int rgb_backlight_cycle_effect(int direction) {
 
 //----------------------------------------------Change----------------------------------------------
 
-int rgb_backlight_toggle() { return rgb_modes[rgb_mode_base].on ? rgb_backlight_off() : rgb_backlight_on(); }
+int rgb_backlight_toggle() { return rgb_state.on ? rgb_backlight_off() : rgb_backlight_on(); }
 
 int rgb_backlight_change_hue(int direction) {
 	if (!led_strip)

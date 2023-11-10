@@ -22,6 +22,6 @@ int rgb_backlight_get_on_state(bool *state);
 
 void rgb_backlight_tick(struct k_work *work);
 
-//NOTE: initialize_blending_fns should be called before initialize_modes
+// NOTE: initialize_blending_fns should be called before initialize_modes
 void rgb_backlight_initialize_blending_fns();
 void rgb_backlight_initialize_modes();

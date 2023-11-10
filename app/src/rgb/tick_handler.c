@@ -15,7 +15,7 @@ static void combine_pixels(struct rgb_backlight_mode *mode) {
 static bool handle_on_off_animation() {
 	float step_size = ((float)CONFIG_RGB_REFRESH_MS / TURN_OFF_DURATION);
 
-	if (!rgb_modes[rgb_mode_base].on)
+	if (!rgb_state.on)
 		step_size *= -1; // invert to subtract step_size
 
 	bool is_off = true;
