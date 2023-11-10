@@ -5,7 +5,8 @@
 struct led_hsb hsb_scale_min_max(struct led_hsb hsb);
 struct led_hsb hsb_scale_zero_max(struct led_hsb hsb);
 struct led_rgba hsb_to_rgb(struct led_hsb hsb);
-void copy_pixel_array(rgba_strip arr1, rgba_strip arr2);
+
+struct led_rgba create_rgba_pixel(float r, float g, float b, float alpha);
 
 void set_pixel(struct led_rgba *pixel, float r, float g, float b, float a);
 void set_pixel_white(struct led_rgba *pixel, float value, float alpha);

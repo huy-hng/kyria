@@ -5,19 +5,18 @@
 
 int layer_color_init();
 void rgb_backlight_layer_color_event_handler(uint8_t index);
-void rgb_backlight_set_layer_color(uint8_t active_layer_index);
+void rgb_backlight_set_layer_color();
 
 void rgb_backlight_ripple_effect_event_handler(const zmk_event_t *eh);
 void rgb_backlight_ripple_effect_update_pixels();
 
 void rgb_underglow_set_animation_pixels(int effect, rgba_strip pixels);
-
 void rgb_backlight_set_animation_pixels(struct rgb_backlight_mode *state);
-void rgb_backlight_start_transition_effect(int duration_ms);
-void rgb_backlight_transition_step();
 
-void rgb_backlight_effect_off(struct rgb_backlight_mode *state);
-void rgb_backlight_animation_solid(struct rgb_backlight_mode *state);
+
+typedef struct led_rgba animation_fn(struct rgb_backlight_mode *mode, uint8_t i);
+void set_mode_pixels(struct rgb_backlight_mode *state, animation_fn fn);
+struct led_rgba get_solid_pixel(struct rgb_backlight_mode *mode, uint8_t i);
 
 enum rgb_backlight_effects {
 	RGB_BACKLIGHT_ANIMATION_OFF,

@@ -77,7 +77,7 @@ char *ftos(float n, int decimal_places) {
 	float fpart = n - (float)ipart;
 
 	// convert integer part to string
-	int i = intToStr(ipart, res, 0);
+	int i = intToStr(ipart, res, 1);
 
 	// check for display option after point
 	if (decimal_places != 0) {

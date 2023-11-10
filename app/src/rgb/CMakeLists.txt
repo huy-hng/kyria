@@ -1,12 +1,13 @@
 target_sources(app PRIVATE ../behaviors/behavior_rgb_backlight.c)
 
 target_sources(app PRIVATE init.c)
+
 target_sources(app PRIVATE modes.c)
 target_sources(app PRIVATE control.c)
 target_sources(app PRIVATE animations.c)
 target_sources(app PRIVATE tick_handler.c)
 target_sources(app PRIVATE event_handler.c)
+target_sources(app PRIVATE blending_functions.c)
 target_sources(app PRIVATE utils.c)
-# target_sources(app PRIVATE effects/keypress_lightup.c)
 target_sources(app PRIVATE effects/keypress_ripple.c)
 target_sources(app PRIVATE effects/layer_color.c)

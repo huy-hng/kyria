@@ -51,7 +51,7 @@ hsbf *get_layer_color(uint8_t layer_index) {
 	return NULL;
 }
 
-void rgb_backlight_set_layer_color(uint8_t active_layer_index) {
+void rgb_backlight_set_layer_color() {
 	hsbf *layer_color = get_layer_color(active_layer_index);
 	if (!layer_color)
 		return;
@@ -59,7 +59,8 @@ void rgb_backlight_set_layer_color(uint8_t active_layer_index) {
 	struct led_hsb *color = &rgb_modes[rgb_mode_key_layer].color;
 	float step_size = MAX_OPACITY / ((float)CONFIG_RGB_TRANSITION_DURATION / CONFIG_RGB_REFRESH_MS);
 
-	if (active_layer_index == BASE || active_layer_index == DEBUG_SCREEN) {
+	if (active_layer_index == BASE || active_layer_index == DEBUG_SCREEN ||
+		active_layer_index == FIDGET) {
 		// what does this do?
 		color->a = MAX(color->a - step_size, 0);
 		return;
@@ -85,6 +86,5 @@ void rgb_backlight_set_layer_color(uint8_t active_layer_index) {
 	color->a = alpha;
 
 	// rgb_modes[rgb_mode_layer_color].range = pixel_range.overglow;
-	// rgb_backlight_animation_solid(&rgb_modes[rgb_mode_layer_color]);
-	rgb_backlight_animation_solid(&rgb_modes[rgb_mode_key_layer]);
+	set_mode_pixels(&rgb_modes[rgb_mode_key_layer], &get_solid_pixel);
 }

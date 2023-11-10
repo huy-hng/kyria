@@ -10,16 +10,18 @@
 #include "control.h"
 #include "utils.h"
 #include "animations.h"
-#include "modes.h"
 #include "behavior_rgb_backlight.h"
 #include "imports.h"
 
 extern const struct device *led_strip;
-extern struct rgb_backlight_mode rgb_modes[];
-extern struct rgb_backlight_pixel_range pixel_range;
 extern uint8_t active_layer_index;
+extern rgba_strip combined_pixels;
 
 int rgb_backlight_save_state(int transition_ms);
 int rgb_backlight_get_on_state(bool *state);
 
 void rgb_backlight_tick(struct k_work *work);
+
+//NOTE: initialize_blending_fns should be called before initialize_modes
+void rgb_backlight_initialize_blending_fns();
+void rgb_backlight_initialize_modes();

@@ -6,12 +6,12 @@
 // brightness, this removes the necessity for pixels member in `ripple_data`, which in turns saves
 // on memory (and possibly calculation?)
 
-#define KEYPRESS_EFFECT_BRIGHTNESS_FACTOR 0.5
+#define BRIGHTNESS_FACTOR 0.2
+#define PROPAGATION_SPEED 10.0 / CONFIG_RGB_REFRESH_MS
+#define TRANSITION_SIZE 4.0
+
 #define MAX_RIPPLES 10
 #define NUM_PIXELS 25
-
-const float PROPAGATION_SPEED = 10.0 / CONFIG_RGB_REFRESH_MS;
-const float TRANSITION_SIZE = 4;
 
 struct ripple_data {
 	uint8_t index;
@@ -176,7 +176,7 @@ static void update_surrounding_pixels(struct ripple_data *ripple) {
 	if (!ripple->is_running)
 		return;
 
-	float max_brt = (rgb_modes[rgb_mode_base].color.b * KEYPRESS_EFFECT_BRIGHTNESS_FACTOR) / 100.0;
+	float max_brt = (rgb_modes[rgb_mode_base].color.b * BRIGHTNESS_FACTOR) / 100.0;
 	for (int i = 0; i < NUM_PIXELS; i++) {
 		float brightness = 0;
 

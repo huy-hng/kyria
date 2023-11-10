@@ -1,8 +1,19 @@
 #include "rgb/rgb_backlight.h"
 
+// deprecated
 void copy_pixel_array(rgba_strip arr1, rgba_strip arr2) {
 	for (int i = 0; i < STRIP_NUM_PIXELS; i++)
 		arr2[i] = arr1[i];
+}
+
+// return a led_rgba pixel with input sanitized
+struct led_rgba create_rgba_pixel(float r, float g, float b, float alpha) {
+	return (struct led_rgba){
+		.r = CLAMP(r, 0, 1),
+		.g = CLAMP(g, 0, 1),
+		.b = CLAMP(b, 0, 1),
+		.a = CLAMP(alpha, 0, 1),
+	};
 }
 
 void set_pixel(struct led_rgba *pixel, float r, float g, float b, float a) {
