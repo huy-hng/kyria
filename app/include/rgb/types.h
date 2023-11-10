@@ -19,17 +19,17 @@ struct start_end {
 	uint8_t end;
 };
 
-struct rgb_backlight_pixel_range {
+extern struct rgb_backlight_pixel_range {
 	struct start_end strip; // all
 	struct start_end overglow;
 	struct start_end underglow;
-};
+} pixel_range;
 
 struct led_hsb {
 	uint16_t h; // 0 - 360
-	uint8_t s; // 0 - 100
-	uint8_t b; // 0 - 100
-	float a; // i think range is between 0 and 100  TODO: needs checking
+	uint8_t s;	// 0 - 100
+	uint8_t b;	// 0 - 100
+	float a;	// i think range is between 0 and 100  TODO: needs checking
 };
 
 struct led_rgba {
@@ -44,16 +44,29 @@ typedef struct led_hsb hsb_strip[STRIP_NUM_PIXELS];
 typedef struct led_rgb rgb_strip[STRIP_NUM_PIXELS];
 typedef struct led_rgba rgba_strip[STRIP_NUM_PIXELS];
 
-enum pixel_blend_mode {
-	pixel_blend_mode_replace,
-	pixel_blend_mode_average,
-	pixel_blend_mode_add,
-	pixel_blend_mode_subtract,
+enum {
+	rgb_mode_base,
+	rgb_mode_underglow,
+	rgb_mode_typing_react,
+	rgb_mode_key_layer,
+	rgb_mode_number, // keep track of number of modes
 };
 
+typedef float blending_fn(float, float, float);
+extern struct rgb_backlight_blending_fn {
+	blending_fn *add;
+	blending_fn *mask;
+	blending_fn *replace;
+	blending_fn *weighted_interp;
+	blending_fn *linear_interp;
+} blending_fns;
 
-struct rgb_backlight_mode {
+struct rgb_backlight_mode;
+typedef void set_pixels_fn(struct rgb_backlight_mode *);
+
+extern struct rgb_backlight_mode {
 	bool on;
+	bool enabled;
 	struct start_end range;
 	struct led_hsb color;
 
@@ -61,34 +74,35 @@ struct rgb_backlight_mode {
 	uint8_t animation_speed;
 	uint16_t animation_step;
 
-	enum pixel_blend_mode blend_mode;
+	set_pixels_fn *set_pixels;
+
+	blending_fn *blend_fn;
 	rgba_strip pixels;
 
-	// uint16_t transition_steps_left;
-};
+} rgb_modes[];
 
-enum ColorSpace {
-	RGB,
-	RGBA,
+// enum ColorSpace {
+// 	RGB,
+// 	RGBA,
 
-	HSB,
-	HSBA,
+// 	HSB,
+// 	HSBA,
 
-	HSL,
-	HSLA
-};
+// 	HSL,
+// 	HSLA
+// };
 
-typedef struct {
-	enum ColorSpace current_type;
+// typedef struct {
+// 	enum ColorSpace current_type;
 
-	struct led_rgba rgba;
-	struct led_hsb hsb;
-	// struct led_hsba hsba;
-} Pixel;
+// 	struct led_rgba rgba;
+// 	struct led_hsb hsb;
+// 	// struct led_hsba hsba;
+// } Pixel;
 
-struct Pixels {
-	enum ColorSpace active_color_space;
-	float alpha;
-	hsb_strip pixels_hsb;
-	rgba_strip pixels_rgba;
-};
+// struct Pixels {
+// 	enum ColorSpace active_color_space;
+// 	float alpha;
+// 	hsb_strip pixels_hsb;
+// 	rgba_strip pixels_rgba;
+// };

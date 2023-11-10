@@ -1,58 +1,33 @@
 #include "rgb/rgb_backlight.h"
-typedef float blending_fn(float, float, float);
 
-static rgba_strip combined_pixels;
+rgba_strip combined_pixels;
 
-// clang-format off
-static float             add(float val1, float val2, float ratio) { return val1 + val2; }
-static float            mask(float val1, float val2, float ratio) { return val1 * ratio; }
-static float         replace(float val1, float val2, float ratio) { return val2; }
-static float weighted_interp(float val1, float val2, float ratio) {
-	return sqrtf(SQUARE(val1) * (1 - ratio) + SQUARE(val2) * ratio);
-}
-// clang-format on
-static float linear_interp(float val1, float val2, float ratio) {
-	return val1 + ((val2 - val1) * ratio);
-}
-
-static void combine_pixels(rgba_strip pixels, struct rgb_backlight_mode *state, blending_fn fn) {
-	float alpha = state->color.a / 100.0;
-	for (int i = state->range.start; i < state->range.end; i++) {
-		pixels[i].r = fn(pixels[i].r, state->pixels[i].r, alpha);
-		pixels[i].g = fn(pixels[i].g, state->pixels[i].g, alpha);
-		pixels[i].b = fn(pixels[i].b, state->pixels[i].b, alpha);
+static void combine_pixels(struct rgb_backlight_mode *mode) {
+	blending_fn *blend_fn = *mode->blend_fn;
+	float alpha = mode->color.a / 100.0;
+	for (int i = mode->range.start; i < mode->range.end; i++) {
+		combined_pixels[i].r = blend_fn(combined_pixels[i].r, mode->pixels[i].r, alpha);
+		combined_pixels[i].g = blend_fn(combined_pixels[i].g, mode->pixels[i].g, alpha);
+		combined_pixels[i].b = blend_fn(combined_pixels[i].b, mode->pixels[i].b, alpha);
 	}
 }
 
-static void handle_on_off_animation(rgba_strip combined_pixels) {
+static bool handle_on_off_animation() {
 	float step_size = ((float)CONFIG_RGB_REFRESH_MS / TURN_OFF_DURATION);
 
 	if (!rgb_modes[rgb_mode_base].on)
 		step_size *= -1; // invert to subtract step_size
 
+	bool is_off = true;
 	// FIX: unnecessary to run each tick, only on on/off state change
 	//      add an event handler or similar
-	for (int i = 0; i < STRIP_NUM_PIXELS; i++)
+	for (int i = 0; i < STRIP_NUM_PIXELS; i++) {
 		combined_pixels[i].a = CLAMP(combined_pixels[i].a + step_size, 0.0, 1.0);
-}
-
-static void set_mode_pixels(struct rgb_backlight_mode mode) {}
-
-static void set_pixels(rgba_strip combined_pixels) {
-	// TODO: everything below should be 'handled' by `struct rgb_backlight_mode`
-	//       see more in neorg /home/huy/.dotfiles/personal/personal/neorg/projects/zmk.norg
-	rgb_backlight_set_animation_pixels(&rgb_modes[rgb_mode_base]);
-	rgb_backlight_set_animation_pixels(&rgb_modes[rgb_mode_underglow]);
-	rgb_backlight_set_layer_color(active_layer_index);
-
-	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_base], &replace);
-	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_underglow], &replace);
-	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_key_layer], &linear_interp);
-
-	rgb_backlight_ripple_effect_update_pixels();
-	combine_pixels(combined_pixels, &rgb_modes[rgb_mode_typing_react], &add);
-
-	handle_on_off_animation(combined_pixels);
+		if (combined_pixels[i].a > 0) {
+			is_off = false;
+		}
+	}
+	return is_off;
 }
 
 static void rgb_strip_float_2_rgb_strip(rgba_strip rgba, rgb_strip rgb) {
@@ -65,10 +40,9 @@ static void rgb_strip_float_2_rgb_strip(rgba_strip rgba, rgb_strip rgb) {
 	}
 }
 
-static void apply_pixels(rgba_strip rgba_strip) {
+static void update_led_strip() {
 	static rgb_strip strip;
-	rgb_strip_float_2_rgb_strip(rgba_strip, strip);
-
+	rgb_strip_float_2_rgb_strip(combined_pixels, strip);
 	int err = led_strip_update_rgb(led_strip, strip, STRIP_NUM_PIXELS);
 	if (err < 0) {
 		// LOG_ERR("Failed to update the RGB strip (%d)", err);
@@ -76,16 +50,17 @@ static void apply_pixels(rgba_strip rgba_strip) {
 }
 
 void rgb_backlight_tick(struct k_work *work) {
-	set_pixels(combined_pixels);
-	apply_pixels(combined_pixels);
+	for (int i = 0; i < rgb_mode_number; i++) {
+		if (!rgb_modes[i].enabled)
+			continue;
 
-	int index = 10;
-	// debug_set_text_fmt("%d %d %d %d", (int)(combined_pixels[index].r * 255),
-	// 				   (int)(combined_pixels[index].g * 255), (int)(combined_pixels[index].b * 255),
-	// 				   (int)(combined_pixels[index].a * 100));
-	// FIX: hard coded index
-	if (combined_pixels[index].a == 0.0) {
-		debug_newline_text("backlight off");
-		rgb_backlight_stop();
+		rgb_modes[i].set_pixels(&rgb_modes[i]);
+		combine_pixels(&rgb_modes[i]);
 	}
+	bool is_off = handle_on_off_animation();
+
+	update_led_strip();
+
+	if (is_off)
+		rgb_backlight_stop();
 }

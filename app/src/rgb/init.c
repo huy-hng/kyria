@@ -17,14 +17,7 @@ struct k_timer backlight_tick;
 struct k_work backlight_tick_work;
 
 const struct device *led_strip;
-struct rgb_backlight_mode rgb_modes[rgb_mode_number];
 uint8_t active_layer_index = 0;
-
-struct rgb_backlight_pixel_range pixel_range = {
-	.underglow = {.start = 0, .end = 6},
-	.overglow = {.start = 6, .end = STRIP_NUM_PIXELS},
-	.strip = {.start = 0, .end = STRIP_NUM_PIXELS},
-};
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER)
 static const struct device *ext_power;
@@ -119,6 +112,7 @@ static int rgb_backlight_init(const struct device *_arg) {
 		LOG_ERR("Unable to retrieve ext_power device: EXT_POWER");
 	}
 #endif
+	rgb_backlight_initialize_blending_fns();
 	rgb_backlight_initialize_modes();
 
 	k_work_init(&backlight_tick_work, rgb_backlight_tick);
@@ -136,7 +130,7 @@ static int rgb_backlight_init(const struct device *_arg) {
 
 	k_work_init_delayable(&backlight_save_work, rgb_backlight_save_state_work);
 
-	settings_load_subtree("rgb/backlight");
+	// settings_load_subtree("rgb/backlight");
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB)
