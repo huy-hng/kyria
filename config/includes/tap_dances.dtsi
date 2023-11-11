@@ -46,24 +46,8 @@ name: name {                              \
 
 / {
 	behaviors {
-		TAP_DANCE(capsword, &kp_sat LSHIFT, &caps_word);
-		TAP_DANCE(td_navipad, &sl_NAVIPAD, &tog_NAVIPAD);
-
-		// mtp: mod tap preferred
-		// TODO: rename mtp to just mt for mod tap and mt to mh for mod hold (ommit the preferred)
-		TAP(mtp_sat,     &kp_sat,   &kp);
-		TAP(mtpr_sat,    &kp_sat,   &kp, retro-tap;);
-		TAP(mtp_white,   &kp_white, &kp);
-		HOLD(mt_sat,     &kp_sat,   &kp);
-		HOLD(lt_cyan,    &mo_cyan,  &kp);
-		HOLD(lt_blue,    &mo_blue,  &kp);
-		// HOLD(ltp_bspc,   &mo_cyan,  &bspc_del);
-		TAP(ltp_bspc,   &mo_cyan,  &bspc_del);
-		INTERRUPT(mti_sat,   &kp_sat,   &kp);
-		INTERRUPT(mti_white, &kp_white, &kp);
-		INTERRUPT(lti_cyan,  &mo_cyan,  &kp);
-		INTERRUPT(lti_blue,  &mo_blue,  &kp);
-		INTERRUPT(lti_bspc,  &mo_cyan,  &bspc_del);
+		// TAP_DANCE(capsword, &kp LSHIFT, &caps_word);
+		TAP_DANCE(td_navipad, &sl_NAVIPAD, &tog NAVIPAD);
 
 		sym_bsp: sym_bsp {
 			compatible = "zmk,behavior-hold-tap";
