@@ -45,7 +45,7 @@ void rgb_backlight_initialize_modes() {
 	rgb_modes[rgb_mode_key_layer] = (struct rgb_backlight_mode){
 		.enabled = true,
 
-		.set_pixels = &rgb_backlight_set_layer_color,
+		.set_pixels = &rgb_backlight_set_key_layer_pixels,
 		.range = pixel_range.strip, // pixel_range.underglow
 		.blend_fn = blending_fns.linear_interp,
 
