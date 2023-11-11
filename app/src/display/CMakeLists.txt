@@ -5,7 +5,9 @@ if (CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	target_sources_ifdef(CONFIG_WIDGET_BONGO_CAT app PRIVATE widgets/bongo_cat.c)
 
 	target_sources_ifdef(CONFIG_WIDGET_LAYER_STATUS app PRIVATE widgets/layer_status.c)
-	target_sources_ifdef(CONFIG_WIDGET_OUTPUT_STATUS app PRIVATE widgets/output_status.c)
+	# target_sources_ifdef(CONFIG_WIDGET_OUTPUT_STATUS app PRIVATE widgets/output_status.c)
+	target_sources_ifdef(CONFIG_WIDGET_OUTPUT_STATUS app PRIVATE /home/huy/repositories/zmk/app/src/display/widgets/output_status.c)
+	
 
 	add_subdirectory_ifdef(CONFIG_WIDGET_MENU widgets/menu/)
 

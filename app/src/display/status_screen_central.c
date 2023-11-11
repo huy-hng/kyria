@@ -1,5 +1,5 @@
 #include "display/widgets/bongo_cat.h"
-#include "display/widgets/output_status.h"
+#include "zmk/display/widgets/output_status.h"
 #include "display/widgets/peripheral_status.h"
 #include "display/widgets/layer_status.h"
 #include "display/widgets/battery_status.h"
@@ -32,7 +32,8 @@ lv_obj_t *zmk_display_status_screen() {
 
 #if IS_ENABLED(CONFIG_WIDGET_OUTPUT_STATUS)
 	static struct zmk_widget_output_status output_status_widget;
-	lv_obj_t *output_status = zmk_widget_output_status_init(&output_status_widget, screens.main);
+	zmk_widget_output_status_init(&output_status_widget, screens.main);
+	lv_obj_t *output_status =  zmk_widget_output_status_obj(&output_status_widget);
 	lv_obj_set_style_text_font(output_status, lv_theme_get_font_small(screens.main), LV_PART_MAIN);
 	lv_obj_align(output_status, LV_ALIGN_TOP_LEFT, 0, 0);
 #endif

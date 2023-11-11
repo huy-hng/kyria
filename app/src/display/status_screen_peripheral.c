@@ -39,5 +39,5 @@ lv_obj_t *zmk_display_status_screen() {
 	lv_obj_align(debug_output_obj, LV_ALIGN_TOP_LEFT, 0, 0);
 #endif
 
-	return screens.debug;
+	return screens.main;
 }
