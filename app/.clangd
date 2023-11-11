@@ -1,8 +1,8 @@
 CompileFlags:
   Add: -Wno-unknown-warning-option
   Remove: [-m*, -f*, -W*]
-  CompilationDatabase: /home/huy/repositories/zmk/app/build/rgb_refactor/right/
+  CompilationDatabase: /home/huy/repositories/zmk/app/build/rgb_animations/right/
 Index:
   Background: Build
   External:
-    File: /home/huy/repositories/zmk/app/build/rgb_refactor/right/.cache/clangd/index
+    File: /home/huy/repositories/zmk/app/build/rgb_animations/right/.cache/clangd/index
