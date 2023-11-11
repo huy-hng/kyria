@@ -9,6 +9,7 @@ zmk_path="/home/huy/repositories/zmk/app"
 branch=$(basename $config_folder)
 build_path="$zmk_path/build/$branch"
 backups_to_keep=100
+path_to_restore="./backups/left/restore"
 
 SILENT=0
 BUILD=0
@@ -99,11 +100,10 @@ right() {
 }
 
 restore() {
-	path_to_file="./backups/restore/right_restore"
 	if [ -n "$1" ]; then
-		path_to_file="./backups/restore/$1.uf2"
+		path_to_restore="./backups/restore/$1.uf2"
 	fi
-	wait_copy $path_to_file
+	wait_copy $path_to_restore
 }
 
 if [ $# -eq 0 ]; then
