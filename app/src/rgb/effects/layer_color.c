@@ -30,15 +30,13 @@ typedef struct {
 } LayerColor;
 
 static LayerColor layer_colors[] = {
-	{ .index = BASE,              },
-	{ .index = DEBUG_SCREEN,      },
 	{ .index = NAVIPAD,    INDIGO },
-	{ .index = VIM,        INDIGO },
+	{ .index = VIM,        GREEN  },
 	{ .index = SYMBOLS,    CYAN   },
-	{ .index = MEDIA_FN,   GREEN  },
+	{ .index = MEDIA_FN,   PINK   },
 	{ .index = OS,         BLUE   },
 	{ .index = ENC_LR,     ORANGE },
-	{ .index = LAYER_MENU, WHITE },
+	{ .index = LAYER_MENU, WHITE  },
 };
 // clang-format on
 
@@ -51,17 +49,13 @@ hsbf *get_layer_color(uint8_t layer_index) {
 	return NULL;
 }
 
-void rgb_backlight_set_layer_color() {
+void rgb_backlight_set_key_layer_pixels() {
 	hsbf *layer_color = get_layer_color(active_layer_index);
-	if (!layer_color)
-		return;
-
 	struct led_hsb *color = &rgb_modes[rgb_mode_key_layer].color;
 	float step_size = MAX_OPACITY / ((float)CONFIG_RGB_TRANSITION_DURATION / CONFIG_RGB_REFRESH_MS);
 
-	if (active_layer_index == BASE || active_layer_index == DEBUG_SCREEN ||
-		active_layer_index == FIDGET) {
-		// what does this do?
+	if (!layer_color) {
+		// creates transition to "ease out" layer color
 		color->a = MAX(color->a - step_size, 0);
 		return;
 	}

@@ -50,7 +50,6 @@ static void rgb_backlight_save_state_work() {
 	rgb_state.color = rgb_modes[rgb_mode_base].color;
 	rgb_state.animation_speed = rgb_modes[rgb_mode_base].animation_speed;
 	rgb_state.active_animation = rgb_modes[rgb_mode_base].active_animation;
-	debug_set_text("saved");
 	settings_save_one("rgb/backlight/state", &rgb_state, sizeof(rgb_state));
 }
 
