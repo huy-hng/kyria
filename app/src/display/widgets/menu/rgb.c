@@ -9,7 +9,7 @@ static void menu_rgb_effects_event_handler(lv_event_t *e) {
 	if (lv_event_get_code(e) == LV_EVENT_KEY) {
 		lv_obj_t *obj = lv_event_get_target(e);
 
-		if (!rgb_modes[rgb_mode_base].on)
+		if (!rgb_state.on)
 			rgb_backlight_on();
 
 		int index = lv_roller_get_selected(obj);

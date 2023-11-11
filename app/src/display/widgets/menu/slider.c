@@ -1,5 +1,6 @@
 #include "display/widgets/menu.h"
 
+// TODO: put this somewhere else
 #define STEP_SIZE 2
 
 void slider_style(lv_style_t *style) {
