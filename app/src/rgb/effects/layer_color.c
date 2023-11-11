@@ -23,13 +23,13 @@ typedef struct {
 #define INDIGO (hsbf) { 256, -1, -1 } //  -1
 #define PINK   (hsbf) { 300, -1, -1 } //  -1
 
-typedef struct {
+struct layer_color {
 	uint8_t index;
 	hsbf color;
 	uint8_t effect;
-} LayerColor;
+} ;
 
-static LayerColor layer_colors[] = {
+static struct layer_color layer_colors[] = {
 	{ .index = NAVIPAD,    INDIGO },
 	{ .index = VIM,        GREEN  },
 	{ .index = SYMBOLS,    CYAN   },
