@@ -28,34 +28,33 @@ struct ripple_data {
 static struct ripple_data ripples[MAX_RIPPLES];
 
 // clang-format off
+static int array_index_to_pixel_index[NUM_PIXELS] = {
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
-static int pixel_indices[NUM_PIXELS] = {
 			25, 26, 27, 28, 29, 30,
 			19, 20, 21, 22, 23, 24,
 	11, 12, 13, 14, 15, 16, 17, 18,
 	 6,  7,  8,  9, 10
+#else
+	30, 29, 28, 27, 26, 25,
+	24, 23, 22, 21, 20, 19,
+	18, 17, 16, 15, 14, 13, 12, 11,
+				10,  9,  8,  7,  6
+#endif
 };
 
 static float coordinates[NUM_PIXELS][2] = {
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
 	                         {11  , 0.4}, {12  , 0.3}, {13  , 0},   {14, 0.3}, {15, 0.9}, {16, 0.9},
 	                         {11  , 1.4}, {12  , 1.3}, {13  , 1},   {14, 1.3}, {15, 1.9}, {16, 1.9},
 	{8.6, 3.9}, { 9.9, 3  }, {11  , 2.4}, {12  , 2.3}, {13  , 2},   {14, 2.3}, {15, 2.9}, {16, 2.9},
 	{9.3, 4.6}, {10.3, 3.9}, {11.4, 3.5}, {12.6, 3.3}, {13.6, 3.3}
-};
 #else
-static int pixel_indices[NUM_PIXELS] = {
-	30, 29, 28, 27, 26, 25,
-	24, 23, 22, 21, 20, 19,
-	18, 17, 16, 15, 14, 13, 12, 11,
-				10,  9,  8,  7,  6,
-};
-static float coordinates[NUM_PIXELS][2] = {
 	{0, 0.9}, {1, 0.9}, {2, 0.3}, {3  , 0  }, {4  , 0.3}, {5  , 0.4},
 	{0, 1.9}, {1, 1.9}, {2, 1.3}, {3  , 1  }, {4  , 1.3}, {5  , 1.4},
 	{0, 2.9}, {1, 2.9}, {2, 2.3}, {3  , 2  }, {4  , 2.3}, {5  , 2.4}, {6.1, 3  }, {7.4, 3.9},
-	                              {2.4, 3.3}, {3.4, 3.3}, {4.6, 3.5}, {5.7, 3.9}, {6.7, 4.6},
-};
+	                             {2.4, 3.3}, {3.4, 3.3}, {4.6, 3.5}, {5.7, 3.9}, {6.7, 4.6},
 #endif
+};
 // clang-format on
 
 static void print_mask(float *mask) {
@@ -105,7 +104,7 @@ static void print_ripple_data() {
 		debug_newline_text_fmt("%d", counter);
 }
 
-static int convert_position_to_index(int pos) {
+static int get_position_to_array_index(int pos) {
 	// relative indices (per side)
 	//  0  1  2  3  4  5               0  1  2  3  4  5
 	//  6  7  8  9 10 11               6  7  8  9 10 11
@@ -117,7 +116,7 @@ static int convert_position_to_index(int pos) {
 	// 12 13 14 15 16 17              18 19 20 21 22 23
 	// 24 25 26 27 28 29 30 31  32 33 34 35 36 37 38 39
 	// 	        40 41 42 43 44  45 46 47 48 49
-	int offset;
+	int offset = 0;
 
 	if (pos < 6)
 		offset = 0;
@@ -209,7 +208,7 @@ void rgb_backlight_ripple_effect_update_pixels() {
 			if (ripples[j].is_running)
 				combined_brt += ripples[j].pixels[i];
 
-		set_pixel_white(&mode->pixels[pixel_indices[i]], combined_brt, 1.0);
+		set_pixel_white(&mode->pixels[array_index_to_pixel_index[i]], combined_brt, 1.0);
 	}
 }
 
@@ -218,7 +217,7 @@ void rgb_backlight_ripple_effect_event_handler(const zmk_event_t *eh) {
 	if (pos->source == 0)
 		return;
 
-	int index = convert_position_to_index(pos->position);
+	int index = get_position_to_array_index(pos->position);
 
 	// FIX: feels a little verbose to check for state,
 	//      then if not state get data and set its state to false
