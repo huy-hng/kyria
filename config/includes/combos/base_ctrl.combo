@@ -2,6 +2,7 @@
 	combos {
 		combo_TAB_12_0 {
 			bindings = <&combo_modifier LCTRL TAB>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 0>;
 			timeout-ms = <40>;
 			slow-release;
@@ -9,6 +10,7 @@
 
 		combo_Q_12_1 {
 			bindings = <&combo_modifier LCTRL Q>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 1>;
 			timeout-ms = <40>;
 			slow-release;
@@ -16,6 +18,7 @@
 
 		combo_W_12_2 {
 			bindings = <&combo_modifier LCTRL W>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 2>;
 			timeout-ms = <40>;
 			slow-release;
@@ -23,6 +26,7 @@
 
 		combo_F_12_3 {
 			bindings = <&combo_modifier LCTRL F>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 3>;
 			timeout-ms = <40>;
 			slow-release;
@@ -30,6 +34,7 @@
 
 		combo_P_12_4 {
 			bindings = <&combo_modifier LCTRL P>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 4>;
 			timeout-ms = <40>;
 			slow-release;
@@ -37,6 +42,7 @@
 
 		combo__12_5 {
 			bindings = <&combo_modifier LCTRL LA(PIPE)>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 5>;
 			timeout-ms = <40>;
 			slow-release;
@@ -44,6 +50,7 @@
 
 		combo_H_12_7 {
 			bindings = <&combo_modifier LCTRL H>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 7>;
 			timeout-ms = <45>;
 			slow-release;
@@ -51,6 +58,7 @@
 
 		combo_U_12_8 {
 			bindings = <&combo_modifier LCTRL U>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 8>;
 			timeout-ms = <45>;
 			slow-release;
@@ -58,6 +66,7 @@
 
 		combo_Y_12_9 {
 			bindings = <&combo_modifier LCTRL Y>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 9>;
 			timeout-ms = <45>;
 			slow-release;
@@ -65,6 +74,7 @@
 
 		combo_J_12_10 {
 			bindings = <&combo_modifier LCTRL J>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 10>;
 			timeout-ms = <45>;
 			slow-release;
@@ -72,6 +82,7 @@
 
 		combo_A_12_13 {
 			bindings = <&combo_modifier LCTRL A>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 13>;
 			timeout-ms = <40>;
 			slow-release;
@@ -79,6 +90,7 @@
 
 		combo_R_12_14 {
 			bindings = <&combo_modifier LCTRL R>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 14>;
 			timeout-ms = <40>;
 			slow-release;
@@ -86,6 +98,7 @@
 
 		combo_S_12_15 {
 			bindings = <&combo_modifier LCTRL S>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 15>;
 			timeout-ms = <40>;
 			slow-release;
@@ -93,6 +106,7 @@
 
 		combo_T_12_16 {
 			bindings = <&combo_modifier LCTRL T>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 16>;
 			timeout-ms = <40>;
 			slow-release;
@@ -100,6 +114,7 @@
 
 		combo_G_12_17 {
 			bindings = <&combo_modifier LCTRL G>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 17>;
 			timeout-ms = <40>;
 			slow-release;
@@ -107,6 +122,7 @@
 
 		combo_M_12_18 {
 			bindings = <&combo_modifier LCTRL M>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 18>;
 			timeout-ms = <45>;
 			slow-release;
@@ -114,6 +130,7 @@
 
 		combo_N_12_19 {
 			bindings = <&combo_modifier LCTRL N>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 19>;
 			timeout-ms = <45>;
 			slow-release;
@@ -121,6 +138,7 @@
 
 		combo_E_12_20 {
 			bindings = <&combo_modifier LCTRL E>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 20>;
 			timeout-ms = <45>;
 			slow-release;
@@ -128,6 +146,7 @@
 
 		combo_I_12_21 {
 			bindings = <&combo_modifier LCTRL I>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 21>;
 			timeout-ms = <45>;
 			slow-release;
@@ -135,6 +154,7 @@
 
 		combo_O_12_22 {
 			bindings = <&combo_modifier LCTRL O>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 22>;
 			timeout-ms = <45>;
 			slow-release;
@@ -142,6 +162,7 @@
 
 		combo_LCTRLSQT_12_23 {
 			bindings = <&mt_macro LC(LCTRL) LC(SQT)>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 23>;
 			timeout-ms = <45>;
 			slow-release;
@@ -149,6 +170,7 @@
 
 		combo_LALTRET_12_24 {
 			bindings = <&mt_macro LC(LALT) LC(RET)>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 24>;
 			timeout-ms = <40>;
 			slow-release;
@@ -156,6 +178,7 @@
 
 		combo_Z_12_25 {
 			bindings = <&combo_modifier LCTRL Z>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 25>;
 			timeout-ms = <40>;
 			slow-release;
@@ -163,6 +186,7 @@
 
 		combo_X_12_26 {
 			bindings = <&combo_modifier LCTRL X>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 26>;
 			timeout-ms = <40>;
 			slow-release;
@@ -170,6 +194,7 @@
 
 		combo_C_12_27 {
 			bindings = <&combo_modifier LCTRL C>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 27>;
 			timeout-ms = <40>;
 			slow-release;
@@ -177,6 +202,7 @@
 
 		combo_D_12_28 {
 			bindings = <&combo_modifier LCTRL D>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 28>;
 			timeout-ms = <40>;
 			slow-release;
@@ -184,6 +210,7 @@
 
 		combo__12_29 {
 			bindings = <&combo_modifier LCTRL LC(LS(LALT))>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 29>;
 			timeout-ms = <40>;
 			slow-release;
@@ -191,6 +218,7 @@
 
 		combo_LCTRL_12_34 {
 			bindings = <&combo_modifier LCTRL LCTRL>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 34>;
 			timeout-ms = <45>;
 			slow-release;
@@ -198,6 +226,7 @@
 
 		combo_L_12_35 {
 			bindings = <&combo_modifier LCTRL L>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 35>;
 			timeout-ms = <45>;
 			slow-release;
@@ -205,6 +234,7 @@
 
 		combo_K_12_36 {
 			bindings = <&combo_modifier LCTRL K>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 36>;
 			timeout-ms = <45>;
 			slow-release;
@@ -212,6 +242,7 @@
 
 		combo_B_12_37 {
 			bindings = <&combo_modifier LCTRL B>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 37>;
 			timeout-ms = <45>;
 			slow-release;
@@ -219,6 +250,7 @@
 
 		combo_V_12_38 {
 			bindings = <&combo_modifier LCTRL V>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 38>;
 			timeout-ms = <45>;
 			slow-release;
@@ -226,6 +258,7 @@
 
 		combo_LALT_12_39 {
 			bindings = <&combo_modifier LCTRL LALT>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 39>;
 			timeout-ms = <45>;
 			slow-release;
@@ -233,6 +266,7 @@
 
 		combo_DEL_12_40 {
 			bindings = <&combo_modifier LCTRL DEL>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 40>;
 			timeout-ms = <40>;
 			slow-release;
@@ -240,6 +274,7 @@
 
 		combo_LMETA_12_42 {
 			bindings = <&combo_modifier LCTRL LMETA>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 42>;
 			timeout-ms = <40>;
 			slow-release;
@@ -247,6 +282,7 @@
 
 		combo_BSPC_12_46 {
 			bindings = <&combo_modifier LCTRL BSPC>;
+			layers = <BASE DEBUG_SCREEN TESTING QWERTY>;
 			key-positions = <12 46>;
 			timeout-ms = <45>;
 			slow-release;

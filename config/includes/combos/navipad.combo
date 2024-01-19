@@ -2,6 +2,7 @@
 	combos {
 		combo_HOME_t_lt_2 {
 			bindings = <&combo_layer NAVIPAD HOME>;
+		
 			key-positions = <t_lt 2>;
 			timeout-ms = <40>;
 			slow-release;
@@ -9,6 +10,7 @@
 
 		combo_UP_t_lt_3 {
 			bindings = <&combo_layer NAVIPAD UP>;
+		
 			key-positions = <t_lt 3>;
 			timeout-ms = <40>;
 			slow-release;
@@ -16,6 +18,7 @@
 
 		combo_END_t_lt_4 {
 			bindings = <&combo_layer NAVIPAD END>;
+		
 			key-positions = <t_lt 4>;
 			timeout-ms = <40>;
 			slow-release;
@@ -23,6 +26,7 @@
 
 		combo__t_lt_5 {
 			bindings = <&combo_layer NAVIPAD PG_UP>;
+		
 			key-positions = <t_lt 5>;
 			timeout-ms = <40>;
 			slow-release;
@@ -30,6 +34,7 @@
 
 		combo_N7_t_lt_7 {
 			bindings = <&combo_layer NAVIPAD N7>;
+		
 			key-positions = <t_lt 7>;
 			timeout-ms = <45>;
 			slow-release;
@@ -37,6 +42,7 @@
 
 		combo_N8_t_lt_8 {
 			bindings = <&combo_layer NAVIPAD N8>;
+		
 			key-positions = <t_lt 8>;
 			timeout-ms = <45>;
 			slow-release;
@@ -44,6 +50,7 @@
 
 		combo_N9_t_lt_9 {
 			bindings = <&combo_layer NAVIPAD N9>;
+		
 			key-positions = <t_lt 9>;
 			timeout-ms = <45>;
 			slow-release;
@@ -51,6 +58,7 @@
 
 		combo__t_lt_13 {
 			bindings = <&combo_layer NAVIPAD K_UNDO>;
+		
 			key-positions = <t_lt 13>;
 			timeout-ms = <40>;
 			slow-release;
@@ -58,6 +66,7 @@
 
 		combo_LEFT_t_lt_14 {
 			bindings = <&combo_layer NAVIPAD LEFT>;
+		
 			key-positions = <t_lt 14>;
 			timeout-ms = <40>;
 			slow-release;
@@ -65,6 +74,7 @@
 
 		combo_DOWN_t_lt_15 {
 			bindings = <&combo_layer NAVIPAD DOWN>;
+		
 			key-positions = <t_lt 15>;
 			timeout-ms = <40>;
 			slow-release;
@@ -72,6 +82,7 @@
 
 		combo_RIGHT_t_lt_16 {
 			bindings = <&combo_layer NAVIPAD RIGHT>;
+		
 			key-positions = <t_lt 16>;
 			timeout-ms = <40>;
 			slow-release;
@@ -79,6 +90,7 @@
 
 		combo__t_lt_17 {
 			bindings = <&combo_layer NAVIPAD PG_DN>;
+		
 			key-positions = <t_lt 17>;
 			timeout-ms = <40>;
 			slow-release;
@@ -86,6 +98,7 @@
 
 		combo_N4_t_lt_19 {
 			bindings = <&combo_layer NAVIPAD N4>;
+		
 			key-positions = <t_lt 19>;
 			timeout-ms = <45>;
 			slow-release;
@@ -93,6 +106,7 @@
 
 		combo_N5_t_lt_20 {
 			bindings = <&combo_layer NAVIPAD N5>;
+		
 			key-positions = <t_lt 20>;
 			timeout-ms = <45>;
 			slow-release;
@@ -100,6 +114,7 @@
 
 		combo_N6_t_lt_21 {
 			bindings = <&combo_layer NAVIPAD N6>;
+		
 			key-positions = <t_lt 21>;
 			timeout-ms = <45>;
 			slow-release;
@@ -107,6 +122,7 @@
 
 		combo_N0_t_lt_22 {
 			bindings = <&combo_layer NAVIPAD N0>;
+		
 			key-positions = <t_lt 22>;
 			timeout-ms = <45>;
 			slow-release;
@@ -114,6 +130,7 @@
 
 		combo_LMETA_t_lt_23 {
 			bindings = <&combo_layer NAVIPAD LMETA>;
+		
 			key-positions = <t_lt 23>;
 			timeout-ms = <45>;
 			slow-release;
@@ -121,6 +138,7 @@
 
 		combo__t_lt_25 {
 			bindings = <&combo_layer NAVIPAD K_REDO>;
+		
 			key-positions = <t_lt 25>;
 			timeout-ms = <40>;
 			slow-release;
@@ -128,6 +146,7 @@
 
 		combo__t_lt_26 {
 			bindings = <&combo_layer NAVIPAD K_CUT>;
+		
 			key-positions = <t_lt 26>;
 			timeout-ms = <40>;
 			slow-release;
@@ -135,6 +154,7 @@
 
 		combo__t_lt_27 {
 			bindings = <&combo_layer NAVIPAD C_AC_COPY>;
+		
 			key-positions = <t_lt 27>;
 			timeout-ms = <40>;
 			slow-release;
@@ -142,6 +162,7 @@
 
 		combo__t_lt_28 {
 			bindings = <&combo_layer NAVIPAD C_AC_PASTE>;
+		
 			key-positions = <t_lt 28>;
 			timeout-ms = <40>;
 			slow-release;
@@ -149,6 +170,7 @@
 
 		combo_COMMA_t_lt_29 {
 			bindings = <&combo_layer NAVIPAD COMMA>;
+		
 			key-positions = <t_lt 29>;
 			timeout-ms = <40>;
 			slow-release;
@@ -156,6 +178,7 @@
 
 		combo_N1_t_lt_35 {
 			bindings = <&combo_layer NAVIPAD N1>;
+		
 			key-positions = <t_lt 35>;
 			timeout-ms = <45>;
 			slow-release;
@@ -163,6 +186,7 @@
 
 		combo_N2_t_lt_36 {
 			bindings = <&combo_layer NAVIPAD N2>;
+		
 			key-positions = <t_lt 36>;
 			timeout-ms = <45>;
 			slow-release;
@@ -170,6 +194,7 @@
 
 		combo_N3_t_lt_37 {
 			bindings = <&combo_layer NAVIPAD N3>;
+		
 			key-positions = <t_lt 37>;
 			timeout-ms = <45>;
 			slow-release;
@@ -177,6 +202,7 @@
 
 		combo_N0_t_lt_47 {
 			bindings = <&combo_layer NAVIPAD N0>;
+		
 			key-positions = <t_lt 47>;
 			timeout-ms = <45>;
 			slow-release;
