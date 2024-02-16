@@ -7,16 +7,14 @@
 	"modes/qwerty": "QWERTY",
 
 	"modes/fidget": "FIDGET",
-	"modes/gaming": "GAMING",
+	"modes/gaming": ["GAMING", "GAMING_SWAPPED"],
 	"modes/sudoku": "SUDOKU",
 	"modes/no_hold": "NO_HOLD",
 
-	"navipad": ["NAVIPAD", "NUMPAD"],
-	"vim": "VIM",
+	"navipad": ["NAVIPAD", "NUMPAD", "VIM"],
 	"symbols": "SYMBOLS",
 	"os_layer": "OS",
-	"media": "MEDIA_FN",
-	"fn_keys": "FN_KEYS",
+	"function_media": ["FN_MEDIA", "FN_KEYS"],
 
 	"settings": "SETTINGS",
 	"encoder_layers": ["ENC_LR", "ENC_UD", "ENC_TAB"],
