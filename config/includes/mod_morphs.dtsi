@@ -1,9 +1,9 @@
 / {
 	behaviors {
-		bspc_del: bspc_del {
+		del_bspc: del_bspc {
 			compatible = "zmk,behavior-mod-morph";
-			label = "BSPC_DEL";
-			bindings = <&kp BSPC>, <&kp DEL>;
+			label = "DEL_BSPC";
+			bindings = <&kp DEL>, <&kp BSPC>;
 			#binding-cells = <0>;
 			mods = <(MOD_LALT|MOD_RALT)>;
 		};
