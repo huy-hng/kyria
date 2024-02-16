@@ -47,7 +47,6 @@ name: name {                              \
 / {
 	behaviors {
 		// TAP_DANCE(capsword, &kp LSHIFT, &caps_word);
-		TAP_DANCE(td_navipad, &sl_NAVIPAD, &tog NAVIPAD);
 
 		sym_bsp: sym_bsp {
 			compatible = "zmk,behavior-hold-tap";
