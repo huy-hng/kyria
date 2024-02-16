@@ -2,14 +2,14 @@
 
 int layer_items[] = {
 	BASE,
-	FIDGET,
-	DEBUG_SCREEN,
 	GAMING,
+	FIDGET,
 	SUDOKU,
 	QWERTY,
-	TESTING,
 	BASE_CAPS,
 	NO_HOLD,
+	TESTING,
+	DEBUG_SCREEN,
 };
 
 static void menu_layers_event_handler(lv_event_t *e) {
