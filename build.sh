@@ -8,7 +8,10 @@ config_folder=$(pwd)
 zmk_path="/home/huy/repositories/zmk/app"
 branch=$(basename $config_folder)
 build_path="$zmk_path/build/$branch"
+
 backups_to_keep=100
+backup_dir="$config_folder/backups/$1"
+
 path_to_restore="./backups/left/restore"
 
 SILENT=0
@@ -79,7 +82,6 @@ build() {
 	notify_short 'Completed' 'Build has completed.'
 
 	if [[ $BUILD -eq 0 ]]; then
-		backup_dir="$config_folder/backups/$1"
 		mkdir -p $backup_dir
 
 		path_to_uf2="$build_path/$1/zephyr/zmk.uf2"
