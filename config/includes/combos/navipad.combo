@@ -57,7 +57,7 @@
 		};
 
 		combo__t_lt_13 {
-			bindings = <&combo_layer NAVIPAD K_UNDO>;
+			bindings = <&combo_layer NAVIPAD LC(Y)>;
 		
 			key-positions = <t_lt 13>;
 			timeout-ms = <40>;
@@ -120,24 +120,8 @@
 			slow-release;
 		};
 
-		combo_N0_t_lt_22 {
-			bindings = <&combo_layer NAVIPAD N0>;
-		
-			key-positions = <t_lt 22>;
-			timeout-ms = <45>;
-			slow-release;
-		};
-
-		combo_LMETA_t_lt_23 {
-			bindings = <&combo_layer NAVIPAD LMETA>;
-		
-			key-positions = <t_lt 23>;
-			timeout-ms = <45>;
-			slow-release;
-		};
-
 		combo__t_lt_25 {
-			bindings = <&combo_layer NAVIPAD K_REDO>;
+			bindings = <&combo_layer NAVIPAD LC(Z)>;
 		
 			key-positions = <t_lt 25>;
 			timeout-ms = <40>;
@@ -145,7 +129,7 @@
 		};
 
 		combo__t_lt_26 {
-			bindings = <&combo_layer NAVIPAD K_CUT>;
+			bindings = <&combo_layer NAVIPAD LC(X)>;
 		
 			key-positions = <t_lt 26>;
 			timeout-ms = <40>;
@@ -153,7 +137,7 @@
 		};
 
 		combo__t_lt_27 {
-			bindings = <&combo_layer NAVIPAD C_AC_COPY>;
+			bindings = <&combo_layer NAVIPAD LC(C)>;
 		
 			key-positions = <t_lt 27>;
 			timeout-ms = <40>;
@@ -161,17 +145,9 @@
 		};
 
 		combo__t_lt_28 {
-			bindings = <&combo_layer NAVIPAD C_AC_PASTE>;
+			bindings = <&combo_layer NAVIPAD LC(V)>;
 		
 			key-positions = <t_lt 28>;
-			timeout-ms = <40>;
-			slow-release;
-		};
-
-		combo_COMMA_t_lt_29 {
-			bindings = <&combo_layer NAVIPAD COMMA>;
-		
-			key-positions = <t_lt 29>;
 			timeout-ms = <40>;
 			slow-release;
 		};
@@ -196,6 +172,14 @@
 			bindings = <&combo_layer NAVIPAD N3>;
 		
 			key-positions = <t_lt 37>;
+			timeout-ms = <45>;
+			slow-release;
+		};
+
+		combo_LMETA_t_lt_39 {
+			bindings = <&combo_layer NAVIPAD LMETA>;
+		
+			key-positions = <t_lt 39>;
 			timeout-ms = <45>;
 			slow-release;
 		};

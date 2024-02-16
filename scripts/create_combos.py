@@ -26,11 +26,13 @@ class ComboFile(NamedTuple):
     key_position: str | int
     timeout_left: int
     timeout_right: int
-    skip_keys: list[int] = []
-    key_exception: dict[int, str] = {}
+    skip_keys: list[int | str] = []
+    key_exception: dict[int | str, str] = {}
 
+# NOTE: it might be necessary to use ints for key indices as opposed to their string name
+# unless i create the finger position lookup here and generate it as dtsi
 
-default_active_layers = ['BASE', 'DEBUG_SCREEN', 'TESTING', 'QWERTY']
+default_active_layers = ['BASE', 'DEBUG_SCREEN', 'TESTING', 'QWERTY', 'ENC_LR', 'ENC_UD', 'ENC_TAB']
 
 combo_files = {
     'base_ctrl': ComboFile(
@@ -41,7 +43,7 @@ combo_files = {
         },
         key_position=12,
         layers=default_active_layers,
-        skip_keys=[12, 43],
+        skip_keys=[12, 43, 0],
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT,
     ),
@@ -55,8 +57,9 @@ combo_files = {
         layers=default_active_layers,
         key_exception={
             12: '&kp LS(LCTRL)',
-            23: '&combo_modifier LSHIFT SQT',
+            23: '&combo_modifier LSHIFT SINGLE_QUOTE',
         },
+        skip_keys=[30], # this key (t_lt) is handled in ../config/includes/combos.dtsi
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT,
     ),
