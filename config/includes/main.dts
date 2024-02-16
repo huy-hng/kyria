@@ -18,10 +18,17 @@
 #include "generated/include_combos.dtsi"
 
 
+// mod tap (hold-tap with hold-preferred flavor)
+&mt {
+	tapping-term-ms = <150>;
+};
+
+// sticky layer
 &sl {
     release-after-ms = <200>;
 };
 
+// layer tap
 &lt {
     tapping-term-ms = <200>;
     flavor = "hold-preferred";
