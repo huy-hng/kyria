@@ -1,7 +1,7 @@
 / {
 	combos {
 		combo_LSHIFTTAB_43_0 {
-			bindings = <&mt_macro LS(LSHIFT) LS(TAB)>;
+			bindings = <&combo_modifier LSHIFT TAB>;
 			layers = <BASE DEBUG_SCREEN TESTING QWERTY ENC_LR ENC_UD ENC_TAB>;
 			key-positions = <43 0>;
 			timeout-ms = <40>;

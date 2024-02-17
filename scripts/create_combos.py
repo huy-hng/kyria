@@ -2,6 +2,8 @@ import re
 from typing import NamedTuple
 from pathlib import Path
 
+from finger_positions import *
+
 PROJECT_PATH = Path.cwd()
 BASE_PATH = PROJECT_PATH / 'config' / 'includes'
 LAYERS_PATH = BASE_PATH / 'layers'
@@ -41,9 +43,9 @@ combo_files = {
             '&kp': '&combo_modifier LCTRL {}',
             '&mt': '&mt_macro LC({}) LC({})',
         },
-        key_position=12,
+        key_position=l_po,
         layers=default_active_layers,
-        skip_keys=[12, 43, 0],
+        skip_keys=[l_po, l_t, l_pto],
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT,
     ),
@@ -53,11 +55,12 @@ combo_files = {
             '&kp': '&combo_modifier LSHIFT {}',
             '&mt': '&mt_macro LS({}) LS({})',
         },
-        key_position=43,
+        key_position=l_t,
         layers=default_active_layers,
         key_exception={
-            12: '&kp LS(LCTRL)',
-            23: '&combo_modifier LSHIFT SINGLE_QUOTE',
+            l_pto: '&combo_modifier LSHIFT TAB',
+            l_po: '&kp LS(LCTRL)',
+            r_po: '&combo_modifier LSHIFT SINGLE_QUOTE',
         },
         skip_keys=[30], # this key (t_lt) is handled in ../config/includes/combos.dtsi
         timeout_left=SAME_HAND_TIMEOUT,

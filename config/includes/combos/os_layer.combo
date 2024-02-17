@@ -72,5 +72,53 @@
 			slow-release;
 		};
 
+		combo__t_lo_34 {
+			bindings = <&combo_layer OS LG(N1)>;
+		
+			key-positions = <t_lo 34>;
+			timeout-ms = <45>;
+			slow-release;
+		};
+
+		combo__t_lo_35 {
+			bindings = <&combo_layer OS LG(N2)>;
+		
+			key-positions = <t_lo 35>;
+			timeout-ms = <45>;
+			slow-release;
+		};
+
+		combo__t_lo_36 {
+			bindings = <&combo_layer OS LG(N3)>;
+		
+			key-positions = <t_lo 36>;
+			timeout-ms = <45>;
+			slow-release;
+		};
+
+		combo__t_lo_37 {
+			bindings = <&combo_layer OS LG(N4)>;
+		
+			key-positions = <t_lo 37>;
+			timeout-ms = <45>;
+			slow-release;
+		};
+
+		combo__t_lo_38 {
+			bindings = <&combo_layer OS LG(N5)>;
+		
+			key-positions = <t_lo 38>;
+			timeout-ms = <45>;
+			slow-release;
+		};
+
+		combo__t_lo_39 {
+			bindings = <&combo_layer OS LG(N6)>;
+		
+			key-positions = <t_lo 39>;
+			timeout-ms = <45>;
+			slow-release;
+		};
+
 	};
 };
