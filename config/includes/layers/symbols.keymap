@@ -6,16 +6,16 @@
 //                ╭─────┬─────┬─────┬─────┬─────┬────────────╮                           ╭─────┬─────┬─────┬─────┬─────┬─────╮
 //                │  !  │  @  │  #  │  $  │  %  │     ^      │                           │  &  │  *  │  -  │  +  │  |  │  ~  │
 //                ├─────┼─────┼─────┼─────┼─────┼────────────┤                           ├─────┼─────┼─────┼─────┼─────┼─────┤
-//                │     │  [  │  ]  │  (  │  )  │    ---     │                           │  ?  │  .  │  _  │  :  │  /  │  `  │
+//                │     │  <  │  [  │  {  │  (  │    ---     │                           │  ?  │  .  │  _  │  :  │  /  │  `  │
 //                ├─────┼─────┼─────┼─────┼─────┼────────────┼─────┬─────╮   ╭─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-//                │     │  <  │  >  │  {  │  }  │ &caps_word │     │     │   │     │     │  ¨  │  ,  │  =  │  ;  │  \  │  ?  │
+//                │     │  >  │  ]  │  }  │  )  │ &caps_word │     │     │   │     │     │  ¨  │  ,  │  =  │  ;  │  \  │  ?  │
 //                ╰─────┴─────┴─────┼─────┼─────┼────────────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────╯
 //                                  │     │     │            │     │     │   │     │     │     │     │     │                  
 //                                  ╰─────┴─────┴────────────┴─────┴─────╯   ╰─────┴─────┴─────┴─────┴─────╯                  
-              &kp EXCL   &kp AT     &kp POUND   &kp DLLR   &kp PRCNT   &kp CARET                                    &kp AMPS                   &kp STAR    &kp MINUS   &kp PLUS    &kp PIPE   &kp TILDE
-              ____       &kp LBKT   &kp RBKT    &kp LPAR   &kp RPAR    _oo_                                         &kp QMARK                  &kp DOT     &kp UNDER   &kp COLON   &kp FSLH   &kp GRAVE
-              ____       &kp LT     &kp GT      &kp LBRC   &kp RBRC    &caps_word   ____   ____       ____   ____   &kp RA(LS(SINGLE_QUOTE))   &kp COMMA   &kp EQUAL   &kp SEMI    &kp BSLH   &kp QMARK
-                                                ____       ____        ____         ____   ____       ____   ____   ____                       ____        ____                                        
+              &kp EXCL   &kp AT   &kp POUND   &kp DLLR   &kp PRCNT   &kp CARET                                    &kp AMPS                   &kp STAR    &kp MINUS   &kp PLUS    &kp PIPE   &kp TILDE
+              ____       &kp LT   &kp LBKT    &kp LBRC   &kp LPAR    _oo_                                         &kp QMARK                  &kp DOT     &kp UNDER   &kp COLON   &kp FSLH   &kp GRAVE
+              ____       &kp GT   &kp RBKT    &kp RBRC   &kp RPAR    &caps_word   ____   ____       ____   ____   &kp RA(LS(SINGLE_QUOTE))   &kp COMMA   &kp EQUAL   &kp SEMI    &kp BSLH   &kp QMARK
+                                              ____       ____        ____         ____   ____       ____   ____   ____                       ____        ____                                        
 			>;
 		};
 

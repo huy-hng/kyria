@@ -96,32 +96,32 @@
 			slow-release;
 		};
 
-		combo_LBKT_t_r_13 {
-			bindings = <&combo_layer SYMBOLS LBKT>;
+		combo_LT_t_r_13 {
+			bindings = <&combo_layer SYMBOLS LT>;
 		
 			key-positions = <t_r 13>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_RBKT_t_r_14 {
-			bindings = <&combo_layer SYMBOLS RBKT>;
+		combo_LBKT_t_r_14 {
+			bindings = <&combo_layer SYMBOLS LBKT>;
 		
 			key-positions = <t_r 14>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_LPAR_t_r_15 {
-			bindings = <&combo_layer SYMBOLS LPAR>;
+		combo_LBRC_t_r_15 {
+			bindings = <&combo_layer SYMBOLS LBRC>;
 		
 			key-positions = <t_r 15>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_RPAR_t_r_16 {
-			bindings = <&combo_layer SYMBOLS RPAR>;
+		combo_LPAR_t_r_16 {
+			bindings = <&combo_layer SYMBOLS LPAR>;
 		
 			key-positions = <t_r 16>;
 			timeout-ms = <45>;
@@ -176,32 +176,32 @@
 			slow-release;
 		};
 
-		combo_LT_t_r_25 {
-			bindings = <&combo_layer SYMBOLS LT>;
+		combo_GT_t_r_25 {
+			bindings = <&combo_layer SYMBOLS GT>;
 		
 			key-positions = <t_r 25>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_GT_t_r_26 {
-			bindings = <&combo_layer SYMBOLS GT>;
+		combo_RBKT_t_r_26 {
+			bindings = <&combo_layer SYMBOLS RBKT>;
 		
 			key-positions = <t_r 26>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_LBRC_t_r_27 {
-			bindings = <&combo_layer SYMBOLS LBRC>;
+		combo_RBRC_t_r_27 {
+			bindings = <&combo_layer SYMBOLS RBRC>;
 		
 			key-positions = <t_r 27>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_RBRC_t_r_28 {
-			bindings = <&combo_layer SYMBOLS RBRC>;
+		combo_RPAR_t_r_28 {
+			bindings = <&combo_layer SYMBOLS RPAR>;
 		
 			key-positions = <t_r 28>;
 			timeout-ms = <45>;
