@@ -1,193 +1,193 @@
 / {
 	combos {
-		combo_HOME_30_2 {
+		combo_HOME_44_2 {
 			bindings = <&combo_layer NAVIPAD HOME>;
 		
-			key-positions = <30 2>;
+			key-positions = <44 2>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo_UP_30_3 {
+		combo_UP_44_3 {
 			bindings = <&combo_layer NAVIPAD UP>;
 		
-			key-positions = <30 3>;
+			key-positions = <44 3>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo_END_30_4 {
+		combo_END_44_4 {
 			bindings = <&combo_layer NAVIPAD END>;
 		
-			key-positions = <30 4>;
+			key-positions = <44 4>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo__30_5 {
+		combo__44_5 {
 			bindings = <&combo_layer NAVIPAD PG_UP>;
 		
-			key-positions = <30 5>;
+			key-positions = <44 5>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo_N7_30_7 {
+		combo_N7_44_7 {
 			bindings = <&combo_layer NAVIPAD N7>;
 		
-			key-positions = <30 7>;
+			key-positions = <44 7>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_N8_30_8 {
+		combo_N8_44_8 {
 			bindings = <&combo_layer NAVIPAD N8>;
 		
-			key-positions = <30 8>;
+			key-positions = <44 8>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_N9_30_9 {
+		combo_N9_44_9 {
 			bindings = <&combo_layer NAVIPAD N9>;
 		
-			key-positions = <30 9>;
+			key-positions = <44 9>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo__30_13 {
+		combo__44_13 {
 			bindings = <&combo_layer NAVIPAD LC(Y)>;
 		
-			key-positions = <30 13>;
+			key-positions = <44 13>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo_LEFT_30_14 {
+		combo_LEFT_44_14 {
 			bindings = <&combo_layer NAVIPAD LEFT>;
 		
-			key-positions = <30 14>;
+			key-positions = <44 14>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo_DOWN_30_15 {
+		combo_DOWN_44_15 {
 			bindings = <&combo_layer NAVIPAD DOWN>;
 		
-			key-positions = <30 15>;
+			key-positions = <44 15>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo_RIGHT_30_16 {
+		combo_RIGHT_44_16 {
 			bindings = <&combo_layer NAVIPAD RIGHT>;
 		
-			key-positions = <30 16>;
+			key-positions = <44 16>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo__30_17 {
+		combo__44_17 {
 			bindings = <&combo_layer NAVIPAD PG_DN>;
 		
-			key-positions = <30 17>;
+			key-positions = <44 17>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo_N4_30_19 {
+		combo_N4_44_19 {
 			bindings = <&combo_layer NAVIPAD N4>;
 		
-			key-positions = <30 19>;
+			key-positions = <44 19>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_N5_30_20 {
+		combo_N5_44_20 {
 			bindings = <&combo_layer NAVIPAD N5>;
 		
-			key-positions = <30 20>;
+			key-positions = <44 20>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_N6_30_21 {
+		combo_N6_44_21 {
 			bindings = <&combo_layer NAVIPAD N6>;
 		
-			key-positions = <30 21>;
+			key-positions = <44 21>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo__30_25 {
+		combo__44_25 {
 			bindings = <&combo_layer NAVIPAD LC(Z)>;
 		
-			key-positions = <30 25>;
+			key-positions = <44 25>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo__30_26 {
+		combo__44_26 {
 			bindings = <&combo_layer NAVIPAD LC(X)>;
 		
-			key-positions = <30 26>;
+			key-positions = <44 26>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo__30_27 {
+		combo__44_27 {
 			bindings = <&combo_layer NAVIPAD LC(C)>;
 		
-			key-positions = <30 27>;
+			key-positions = <44 27>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo__30_28 {
+		combo__44_28 {
 			bindings = <&combo_layer NAVIPAD LC(V)>;
 		
-			key-positions = <30 28>;
+			key-positions = <44 28>;
 			timeout-ms = <40>;
 			slow-release;
 		};
 
-		combo_N1_30_35 {
+		combo_N1_44_35 {
 			bindings = <&combo_layer NAVIPAD N1>;
 		
-			key-positions = <30 35>;
+			key-positions = <44 35>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_N2_30_36 {
+		combo_N2_44_36 {
 			bindings = <&combo_layer NAVIPAD N2>;
 		
-			key-positions = <30 36>;
+			key-positions = <44 36>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_N3_30_37 {
+		combo_N3_44_37 {
 			bindings = <&combo_layer NAVIPAD N3>;
 		
-			key-positions = <30 37>;
+			key-positions = <44 37>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_LMETA_30_39 {
+		combo_LMETA_44_39 {
 			bindings = <&combo_layer NAVIPAD LMETA>;
 		
-			key-positions = <30 39>;
+			key-positions = <44 39>;
 			timeout-ms = <45>;
 			slow-release;
 		};
 
-		combo_N0_30_47 {
+		combo_N0_44_47 {
 			bindings = <&combo_layer NAVIPAD N0>;
 		
-			key-positions = <30 47>;
+			key-positions = <44 47>;
 			timeout-ms = <45>;
 			slow-release;
 		};

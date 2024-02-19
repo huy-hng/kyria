@@ -43,9 +43,9 @@ combo_files = {
             '&kp': '&combo_modifier LCTRL {}',
             '&mt': '&mt_macro LC({}) LC({})',
         },
-        key_position=l_po,
+        key_position=lp_o,
         layers=default_active_layers,
-        skip_keys=[l_po, l_t, l_pto],
+        skip_keys=[lp_o, lt, lp_to],
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT,
     ),
@@ -55,21 +55,21 @@ combo_files = {
             '&kp': '&combo_modifier LSHIFT {}',
             '&mt': '&mt_macro LS({}) LS({})',
         },
-        key_position=l_t,
+        key_position=lt,
         layers=default_active_layers,
         key_exception={
-            l_pto: '&combo_modifier LSHIFT TAB',
-            l_po: '&kp LS(LCTRL)',
-            r_po: '&combo_modifier LSHIFT SINGLE_QUOTE',
+            lp_to: '&combo_modifier LSHIFT TAB',
+            lp_o: '&kp LS(LCTRL)',
+            rp_o: '&combo_modifier LSHIFT SINGLE_QUOTE',
         },
-        skip_keys=[l_tt], # this key is handled in ../config/includes/combos.dtsi
+        skip_keys=[lt_t], # this key is handled in ../config/includes/combos.dtsi
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT,
     ),
     'navipad': ComboFile(
         path=LAYERS_PATH / 'navipad.keymap',
         bindings={'&kp': '&combo_layer NAVIPAD {}'},
-        key_position=l_tt,
+        key_position=navipad_key,
         layers=[],
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT,
@@ -77,7 +77,7 @@ combo_files = {
     'symbols': ComboFile(
         path=LAYERS_PATH / 'symbols.keymap',
         bindings={'&kp': '&combo_layer SYMBOLS {}'},
-        key_position=r_t,
+        key_position=symbols_key,
         layers=[],
         timeout_left=OPPOSITE_HAND_TIMEOUT,
         timeout_right=SAME_HAND_TIMEOUT
@@ -85,7 +85,7 @@ combo_files = {
     'os_layer': ComboFile(
         path=LAYERS_PATH / 'os_layer.keymap',
         bindings={'&kp': '&combo_layer OS {}'},
-        key_position=l_to,
+        key_position=os_key,
         layers=[],
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT
