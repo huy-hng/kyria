@@ -62,7 +62,7 @@ combo_files = {
             l_po: '&kp LS(LCTRL)',
             r_po: '&combo_modifier LSHIFT SINGLE_QUOTE',
         },
-        skip_keys=[30], # this key (t_lt) is handled in ../config/includes/combos.dtsi
+        skip_keys=[l_tt], # this key is handled in ../config/includes/combos.dtsi
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT,
     ),
