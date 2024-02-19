@@ -69,7 +69,7 @@ combo_files = {
     'navipad': ComboFile(
         path=LAYERS_PATH / 'navipad.keymap',
         bindings={'&kp': '&combo_layer NAVIPAD {}'},
-        key_position='t_lt',
+        key_position=l_tt,
         layers=[],
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT,
@@ -77,7 +77,7 @@ combo_files = {
     'symbols': ComboFile(
         path=LAYERS_PATH / 'symbols.keymap',
         bindings={'&kp': '&combo_layer SYMBOLS {}'},
-        key_position='t_r',
+        key_position=r_t,
         layers=[],
         timeout_left=OPPOSITE_HAND_TIMEOUT,
         timeout_right=SAME_HAND_TIMEOUT
@@ -85,7 +85,7 @@ combo_files = {
     'os_layer': ComboFile(
         path=LAYERS_PATH / 'os_layer.keymap',
         bindings={'&kp': '&combo_layer OS {}'},
-        key_position='t_lo',
+        key_position=l_to,
         layers=[],
         timeout_left=SAME_HAND_TIMEOUT,
         timeout_right=OPPOSITE_HAND_TIMEOUT
