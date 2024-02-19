@@ -120,6 +120,14 @@
 			slow-release;
 		};
 
+		combo_RMETA_44_22 {
+			bindings = <&combo_layer NAVIPAD RMETA>;
+		
+			key-positions = <44 22>;
+			timeout-ms = <45>;
+			slow-release;
+		};
+
 		combo__44_25 {
 			bindings = <&combo_layer NAVIPAD LC(Z)>;
 		
@@ -172,14 +180,6 @@
 			bindings = <&combo_layer NAVIPAD N3>;
 		
 			key-positions = <44 37>;
-			timeout-ms = <45>;
-			slow-release;
-		};
-
-		combo_LMETA_44_39 {
-			bindings = <&combo_layer NAVIPAD LMETA>;
-		
-			key-positions = <44 39>;
 			timeout-ms = <45>;
 			slow-release;
 		};
